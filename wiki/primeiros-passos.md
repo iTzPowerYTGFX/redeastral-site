@@ -10,13 +10,16 @@ Vídeo .mp4: suba na pasta wiki/midia e escreva o caminho sozinho numa linha:  m
 
 ## 1. Aceite o pacote de texturas
 
-Quando entrar, o jogo pergunta se você quer baixar o pacote de recursos do servidor. **Aceite.** Sem ele, orbes, minérios novos, mochilas e menus aparecem como itens errados.
+Quando entrar, o jogo pergunta se você quer baixar o pacote de recursos do servidor. **Aceite.** Sem ele, todo conteudo que lhe oferecer ficará sem textura, e menus podem aparecer como itens errados ou com texturas quebradas.
 
 > Atenção: no Java, se você recusou sem querer, saia do servidor, clique em **Editar** na lista de servidores e coloque **Pacotes de recursos** em **Ativado**.
 
 ## 2. Abra o /guia
 
-Digite `/guia` no chat. O menu explica cada sistema do servidor, os comandos e onde achar cada coisa nos menus. Esta wiki explica as mesmas coisas com mais detalhes, imagens e vídeos.
+Digite `/guia` no chat. O menu explica cada sistema do servidor, os comandos e onde achar cada coisa nos menus, serve mais para uma pesquisa rapida então e possivel que você não encontre oque quer como esperado.
+Fu
+
+ Esta wiki explica as mesmas coisas com mais detalhes, imagens e vídeos.
 
 ## 3. Capture seu primeiro pet
 
