@@ -1,0 +1,123 @@
+COMO EDITAR A WIKI DA REDE ASTRAL
+=================================
+
+Você pode editar de dois jeitos:
+  A) DENTRO DO SITE (recomendado): botão "Editar esta página", com prévia ao lado.
+  B) PELO GITHUB: abrindo os arquivos no github.com (jeito antigo, sempre funciona).
+Os dois salvam no mesmo lugar. Depois de salvar, o site público atualiza em 1 a 2 minutos
+(se não aparecer, aperte Ctrl+F5 no PC ou feche e abra a página no celular).
+
+
+A) EDITAR DENTRO DO SITE
+========================
+
+PRIMEIRA VEZ: criar a chave (token) — só uma vez
+  1. Entre no GitHub e abra:  https://github.com/settings/personal-access-tokens/new
+  2. Token name: "editor do site". Expiration: escolha a validade (ex.: 1 ano).
+  3. Repository access: "Only select repositories" -> escolha o redeastral-site.
+  4. Permissions -> Repository permissions -> Contents -> "Read and write".
+  5. Generate token. Copie o código que começa com github_pat_ (ele só aparece uma vez).
+
+  IMPORTANTE: essa chave é como uma senha do site.
+  - Não mande para ninguém, nem para mim, e não coloque no config.js.
+  - Ela só consegue mexer no repositório do site, não no servidor nem na sua conta.
+  - Se vazar: no GitHub, Settings -> Developer settings -> Personal access tokens -> apague a chave.
+
+ENTRAR NO MODO EDITOR
+  1. Abra a Wiki do site e clique em "Área do editor", no rodapé.
+     (ou abra o endereço  .../wiki.html#modo-editor )
+  2. Repositório: SEU-USUARIO/redeastral-site
+     Chave: cole o github_pat_...
+  3. Entrar. Aparece a barra roxa "Modo editor" no topo da Wiki.
+  Fica salvo só neste navegador. Em outro celular ou PC, entre de novo com a mesma chave.
+  Jogadores não veem nada disso; sem a chave ninguém edita.
+
+EDITAR UMA PÁGINA
+  Abra a página -> botão "Editar esta página".
+  Escreva no quadro da esquerda; o lado direito mostra como vai ficar.
+  (no celular, use os botões "Escrever" / "Ver como fica")
+  Clique em SALVAR. Até salvar, nada muda no site.
+  Se fechar sem salvar, o texto fica guardado como rascunho neste navegador.
+
+BOTÕES DO EDITOR
+  Título      -> subtítulo de seção
+  Negrito     -> marque o texto e clique
+  Lista       -> lista com tracinhos
+  Dica        -> caixa verde
+  Atenção     -> caixa laranja
+  Tabela      -> tabela pronta para preencher
+  Link        -> escreva o texto e o endereço (https://...) OU escolha outra página da Wiki
+  Imagem      -> escolha a imagem do computador/celular; ela é enviada e já entra no texto.
+                 Troque "Escreva a legenda aqui" pela legenda.
+  Vídeo .mp4  -> igual à imagem (até 25 MB)
+  YouTube     -> cole o link do vídeo. Shorts aparecem em pé.
+  Depois de enviar imagem ou vídeo, clique em SALVAR.
+
+NOVA PÁGINA
+  Barra roxa -> "Nova página" -> título e categoria (ou "+ Nova categoria").
+  A página é criada, entra no menu e o editor abre.
+
+LINKS DO DISCORD E DA LOJA
+  Barra roxa -> "Links do site" -> cole os links -> Salvar links.
+  Vale para a página inicial e para a Wiki.
+
+SAIR
+  Barra roxa -> "Sair". Apaga a chave deste navegador.
+
+
+B) EDITAR PELO GITHUB
+=====================
+
+ONDE FICA CADA COISA
+  wiki/paginas.txt      -> a lista das páginas e categorias, na ordem do site
+  wiki/xxxxx.md         -> o texto de cada página (um arquivo por página)
+  wiki/midia/           -> as imagens e vídeos
+  config.js             -> links do Discord, da loja, IPs e portas
+
+COLOCAR IMAGEM
+  1. Renomeie o arquivo SEM espaço e SEM acento, em minúsculas (ex.: rubi-na-caverna.png).
+  2. Pasta wiki/midia -> Add file -> Upload files -> arraste -> Commit changes.
+  3. Abra a página .md -> lápis (Edit) -> numa linha sozinha:
+        ![Legenda da imagem](midia/rubi-na-caverna.png)
+  4. Commit changes.
+
+COLOCAR VÍDEO
+  YouTube: cole o link sozinho numa linha.
+  Arquivo: suba o .mp4 em wiki/midia (até 25 MB) e escreva sozinho numa linha:  midia/video.mp4
+
+COLOCAR LINK NO TEXTO
+  [texto que aparece](https://endereco.com)
+  [outra página da wiki](captura.md)
+  Um endereço https://... solto no meio da frase também vira link.
+
+FORMATAÇÃO
+  # Título da página            (um só, na primeira linha)
+  ## Subtítulo
+  **negrito**   *itálico*   `/comando`
+  - item de lista
+  1. passo numerado
+  > Dica: texto                 (caixa verde)
+  > Atenção: texto              (caixa laranja)
+  | Coluna 1 | Coluna 2 |
+  | --- | --- |
+  | valor | valor |
+  <!-- anotação que não aparece no site -->
+
+  O primeiro parágrafo depois do título vira o resumo do cartão.
+  A primeira imagem da página vira a capa do cartão.
+
+CRIAR PÁGINA PELO GITHUB
+  1. Pasta wiki -> Add file -> Create new file -> nome sem espaço/acento terminando em .md
+  2. Primeira linha:  # Título
+  3. Abra wiki/paginas.txt e coloque o nome do arquivo embaixo da categoria.
+
+
+SE ALGO DER ERRADO
+==================
+  "Chave inválida ou vencida"      -> crie uma chave nova e entre de novo.
+  "não tem permissão de escrita"   -> a chave precisa de Contents: Read and write.
+  "Imagem não encontrada"          -> o nome entre ( ) está diferente do arquivo em wiki/midia.
+  "O arquivo ... não foi encontrado" -> o nome no paginas.txt está diferente do arquivo .md.
+  Vídeo do YouTube não aparece     -> o link precisa estar SOZINHO na linha.
+  Salvei mas não mudou             -> espere 2 minutos e aperte Ctrl+F5.
+  Errou feio?                      -> no GitHub, abra o arquivo -> History -> volte uma versão.
