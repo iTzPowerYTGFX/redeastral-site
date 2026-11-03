@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wiki da Rede Astral</title>
+<title>Wiki (Como funciona) · Rede Astral</title>
 <meta name="description" content="Como cada sistema da Rede Astral funciona: pets, capturas, minérios, mochilas, fornalhas e eventos.">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -460,8 +460,8 @@ function buildToc() {
 
 /* ---------- telas ---------- */
 function showHome() {
-  document.title = "Wiki da Rede Astral";
-  let h = `<div class="home-head"><h1>Wiki da Rede Astral</h1><p>Como cada sistema do servidor funciona, com imagens e vídeos. Escolha um assunto ou pesquise acima.</p></div>`;
+  document.title = "Wiki (Como funciona) · Rede Astral";
+  let h = `<div class="home-head"><h1>Wiki (Como funciona)</h1><p>Como cada sistema do servidor funciona, com imagens e vídeos. Escolha um assunto ou pesquise acima.</p></div>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
     h += `<section class="cat"><h2>${esc(c)}</h2><div class="cards">${ps.map(p => `
@@ -471,7 +471,7 @@ function showHome() {
   view.innerHTML = h;
 }
 function showPage(p) {
-  document.title = p.title + " · Wiki da Rede Astral";
+  document.title = p.title + " · Wiki (Como funciona)";
   const idx = PAGES.indexOf(p), prev = PAGES[idx - 1], next = PAGES[idx + 1];
   const edit = GH ? `<button class="btn accent" type="button" id="edit-this">Editar esta página</button>` : "";
   const body = p.md === null
