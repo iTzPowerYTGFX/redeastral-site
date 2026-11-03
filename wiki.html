@@ -21,6 +21,14 @@
   --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
   color-scheme: dark;
 }
+:root[data-theme="light"] {
+  --sky: #f6f4fc; --sky-2: #ffffff; --sky-3: #ece8fa; --line: #d9d3ef;
+  --ink: #1a1530; --ink-dim: #565072;
+  --violet: #6d28d9; --violet-ink: #ffffff; --violet-soft: #6d28d9;
+  --teal: #0f7f74; --amber: #a35f00;
+  color-scheme: light;
+}
+:root[data-texto="grande"] { font-size: 112.5%; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { scroll-padding-top: 5rem; }
@@ -67,7 +75,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; line-height: 1
 .search svg { flex: none; color: var(--ink-dim); }
 .search input { flex: 1; min-width: 0; background: none; border: 0; color: var(--ink); font: 1.0625rem var(--f-body); padding: .625rem 0; outline: none; }
 .search input::placeholder { color: var(--ink-dim); }
-.search input::-webkit-search-cancel-button { filter: invert(1); }
+:root:not([data-theme="light"]) .search input::-webkit-search-cancel-button { filter: invert(1); }
 .search kbd { flex: none; font: 500 .75rem var(--f-mono); color: var(--ink-dim); border: 1px solid var(--line); border-radius: 4px; padding: .1rem .4rem; }
 @media (hover: none) { .search kbd { display: none; } }
 
@@ -196,11 +204,12 @@ dialog.form form { display: grid; gap: .75rem; }
 .field small { font-weight: 400; color: var(--ink-dim); }
 .form-actions { display: flex; gap: .5rem; justify-content: flex-end; flex-wrap: wrap; }
 </style>
+<script src="preferencias.js"></script>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt=""><span>Rede Astral<small>Wiki</small></span></a>
+    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small>Wiki</small></span></a>
     <nav aria-label="Site">
       <a class="hide-sm" href="index.html">Início</a>
       <a class="hide-sm" href="index.html#como-entrar">Como entrar</a>
@@ -220,6 +229,7 @@ dialog.form form { display: grid; gap: .75rem; }
   <main class="main">
     <div class="edbar" id="edbar" hidden>
       <strong>Modo editor</strong>
+      <button class="btn" type="button" id="ed-desk" data-desk-label>Modo computador</button>
       <a class="btn" href="index.html">Editar página inicial</a>
       <button class="btn" type="button" id="ed-new">Nova página</button>
       <button class="btn" type="button" id="ed-links">Links do site</button>
@@ -486,7 +496,7 @@ function showPage(p) {
     </nav>
     <p class="help">Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>`;
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches)
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada")
     view.querySelectorAll("video[loop]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
   view.querySelectorAll(".prose img").forEach(img => {
     img.addEventListener("click", () => openZoom(img));
@@ -630,6 +640,7 @@ $("#login-form").addEventListener("submit", async e => {
     $("#login").close(); syncEditorUi(); route(); toast("Modo editor ligado neste navegador");
   } catch (err) { setStatus($("#lg-status"), err.message, "err"); }
 });
+$("#ed-desk").addEventListener("click", () => { if (window.astralDesktop) window.astralDesktop.toggle(); });
 $("#ed-logout").addEventListener("click", () => {
   GH = null; EDIT = null; try { localStorage.removeItem("astralGH"); } catch (e) {}
   syncEditorUi(); route(); toast("Você saiu do modo editor");
