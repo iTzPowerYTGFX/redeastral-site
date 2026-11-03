@@ -49,7 +49,9 @@ BOTÕES DO EDITOR
   Link        -> escreva o texto e o endereço (https://...) OU escolha outra página da Wiki
   Imagem      -> escolha a imagem do computador/celular; ela é enviada e já entra no texto.
                  Troque "Escreva a legenda aqui" pela legenda.
-  Vídeo .mp4  -> igual à imagem (até 25 MB)
+  Vídeo .mp4  -> igual à imagem (até 25 MB). Fica parado com botão de play.
+  Animação    -> envie um .mp4 curto: ele toca sozinho, em LOOP, sem som e sem controles,
+                 igual a um GIF, só que bem mais leve. Ótimo para mostrar comando e menu.
   YouTube     -> cole o link do vídeo. Shorts aparecem em pé.
   Depois de enviar imagem ou vídeo, clique em SALVAR.
 
@@ -84,6 +86,7 @@ COLOCAR IMAGEM
 COLOCAR VÍDEO
   YouTube: cole o link sozinho numa linha.
   Arquivo: suba o .mp4 em wiki/midia (até 25 MB) e escreva sozinho numa linha:  midia/video.mp4
+  Em loop, como GIF: escreva sozinho numa linha:  animacao: midia/video.mp4
 
 COLOCAR LINK NO TEXTO
   [texto que aparece](https://endereco.com)
