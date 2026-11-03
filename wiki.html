@@ -114,6 +114,12 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .video iframe, .video video { display: block; width: 100%; height: 100%; border: 0; }
 .video.file video { height: auto; max-height: 75vh; }
 .video.anim { background: var(--sky-2); }
+.prose figure[style] img { width: 100%; }
+.video.vertical[style] { max-width: none; }
+.ed-prev { position: relative; }
+.ed-prev [data-line].rz-on { outline: 1px dashed var(--violet-soft); outline-offset: 3px; }
+.rz { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--violet); border: 2px solid #fff; cursor: ew-resize; z-index: 6; touch-action: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--violet) 35%, transparent); }
+.rz-label { position: absolute; z-index: 7; background: var(--sky); border: 1px solid var(--violet); color: var(--ink); font: 700 .75rem var(--f-mono); padding: .1rem .4rem; border-radius: 4px; pointer-events: none; }
 .missing { border: 1px dashed var(--amber); color: var(--amber); padding: .75rem 1rem; border-radius: 8px; font-size: .9375rem; }
 
 .pager { max-width: 46rem; display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 2.5rem; }
@@ -339,29 +345,36 @@ const RX = {
   sep: /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/
 };
 const isTable = (l, n) => l.includes("|") && n !== undefined && RX.sep.test(n);
-const isBlock = (l, n) => RX.heading.test(l) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
+const isBlock = (l, n) => (l = stripSize(l), RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
 function figure(line) {
   const m = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
   return `<figure>${inline(line.trim())}${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`;
 }
-function md(src) {
-  const lines = src.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "").split("\n");
+/* Tamanho: "{150%}" no fim da linha. Texto = zoom (50% a 300%); imagem/vídeo = largura (10% a 100%). */
+const SIZE_RX = /\s*\{\s*(\d{1,3})\s*%\s*\}\s*$/;
+const stripSize = l => l.replace(SIZE_RX, "");
+const sizeOf = l => { const m = l.match(SIZE_RX); return m ? Math.max(10, Math.min(300, +m[1])) : 0; };
+function md(src, nested) {
+  const lines = src.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, c => c.replace(/[^\n]/g, "")).split("\n");
   let i = 0, html = "";
+  const at = (k, kind, size) => nested ? "" : ` data-line="${k}" data-kind="${kind}"${size ? ` data-size="${size}"` : ""}`;
+  const zoom = sz => sz && sz !== 100 ? ` style="zoom:${Math.max(50, sz) / 100}"` : "";
+  const width = sz => sz && sz < 100 ? ` style="width:${sz}%"` : "";
   while (i < lines.length) {
-    const l = lines[i], next = lines[i + 1];
+    const raw = lines[i], size = sizeOf(raw), l = stripSize(raw), next = lines[i + 1];
     let m;
     if (!l.trim()) { i++; continue; }
-    if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}">${inline(m[2])}</h${n}>`; i++; continue; }
+    if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}"${at(i, "text", size)}${zoom(size)}>${inline(m[2])}</h${n}>`; i++; continue; }
     if (RX.hr.test(l)) { html += "<hr>"; i++; continue; }
-    const media = mediaLine(l.trim()); if (media) { html += media; i++; continue; }
-    if (RX.img.test(l)) { html += figure(l); i++; continue; }
+    const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size)}${width(size)} `); i++; continue; }
+    if (RX.img.test(l)) { html += figure(l).replace(/^<figure/, `<figure${at(i, "media", size)}${width(size)}`); i++; continue; }
     if (RX.quote.test(l)) {
       const buf = [];
       while (i < lines.length && RX.quote.test(lines[i])) { buf.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
       const k = (buf[0].match(/^\s*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:/i) || [])[1];
       if (k) buf[0] = buf[0].replace(/^\s*([^:]+):/, "**$1:**");
       const cls = !k ? "" : /dica/i.test(k) ? " tip" : " warn";
-      html += `<aside class="callout${cls}">${md(buf.join("\n"))}</aside>`; continue;
+      html += `<aside class="callout${cls}">${md(buf.join("\n"), true)}</aside>`; continue;
     }
     if (RX.item.test(l)) {
       const ordered = /^\s*\d/.test(l), start = ordered ? parseInt(l, 10) : 1, items = [];
@@ -373,20 +386,21 @@ function md(src) {
       html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}>${items.join("")}</ol>` : `<ul>${items.join("")}</ul>`; continue;
     }
     if (isTable(l, next)) {
-      const row = s => s.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const row = r => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
       const head = row(l); i += 2; const rows = [];
       while (i < lines.length && lines[i].includes("|") && lines[i].trim()) { rows.push(row(lines[i])); i++; }
       html += `<div class="table"><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       continue;
     }
-    const buf = [l]; i++;
-    while (i < lines.length && lines[i].trim() && !isBlock(lines[i], lines[i + 1])) { buf.push(lines[i]); i++; }
-    html += `<p>${inline(buf.join(" ").trim())}</p>`;
+    const buf = [raw]; let last = i; i++;
+    while (i < lines.length && lines[i].trim() && !isBlock(lines[i], lines[i + 1])) { buf.push(lines[i]); last = i; i++; }
+    const ps = sizeOf(buf[buf.length - 1]); buf[buf.length - 1] = stripSize(buf[buf.length - 1]);
+    html += `<p${at(last, "text", ps)}${zoom(ps)}>${inline(buf.join(" ").trim())}</p>`;
   }
   return html;
 }
 function plain(src) {
-  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/\s*\{\s*\d{1,3}\s*%\s*\}\s*$/gm, "").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
     .replace(/^\s*\|?\s*:?-{3,}.*$/gm, " ").replace(/[#>*`|_]/g, " ").replace(/^\s*[-+]\s+/gm, " ").replace(/https?:\/\/\S+/g, " ").replace(/\s+/g, " ").trim();
 }
 
@@ -425,7 +439,7 @@ async function load() {
 function indexPage(p) {
   const src = p.md || "";
   const t = src.match(/^#\s+(.+)$/m);
-  p.title = t ? t[1].trim() : p.id.replace(/-/g, " ");
+  p.title = t ? stripSize(t[1]).trim() : p.id.replace(/-/g, " ");
   const clean = src.replace(/<!--[\s\S]*?-->/g, "").split("\n");
   p.summary = (clean.find(l => l.trim() && !/^\s*(#|>|!\[|\||[-*+]\s|\d+[.)]\s)/.test(l) && !mediaLine(l.trim())) || "").trim();
   p.summaryText = plain(p.summary);
@@ -676,7 +690,60 @@ async function openEditor(p) {
   </div>`;
   const ta = $("#ed-text"), prev = $("#ed-prev"), st = $("#ed-status");
   ta.value = useDraft ? draft : original;
-  const renderPrev = () => { prev.innerHTML = md(ta.value); };
+  const renderPrev = () => { prev.innerHTML = md(ta.value); afterRender(); };
+
+  /* ----- bolinha: arraste para os lados para aumentar/diminuir texto, imagem e vídeo ----- */
+  const rz = document.createElement("div"); rz.className = "rz"; rz.hidden = true;
+  rz.title = "Arraste para os lados para aumentar ou diminuir. Duplo clique volta ao tamanho normal.";
+  const rzLabel = document.createElement("div"); rzLabel.className = "rz-label"; rzLabel.hidden = true;
+  let rzEl = null, rzLine = null, drag = null;
+  const clamp = (a, b, v) => Math.max(a, Math.min(b, v));
+  function afterRender() { prev.append(rz, rzLabel); pick(rzLine === null ? null : prev.querySelector(`[data-line="${rzLine}"]`)); }
+  function placeRz() {
+    if (!rzEl || !rzEl.isConnected) { rz.hidden = true; return; }
+    const pr = prev.getBoundingClientRect(), r = rzEl.getBoundingClientRect();
+    const bottom = Math.min(r.bottom, pr.bottom - 14, innerHeight - 14), right = Math.min(r.right, pr.right - 14);
+    rz.style.left = (right - pr.left + prev.scrollLeft - 10) + "px";
+    rz.style.top = (Math.max(bottom, r.top + 10) - pr.top + prev.scrollTop - 10) + "px";
+    rz.hidden = false;
+  }
+  function pick(el) {
+    prev.querySelectorAll(".rz-on").forEach(x => x.classList.remove("rz-on"));
+    rzEl = el; if (el) el.classList.add("rz-on"); placeRz();
+  }
+  function setSize(line, pct) {
+    const lines = ta.value.split("\n"); if (line >= lines.length) return;
+    let l = stripSize(lines[line]).replace(/\s+$/, "");
+    if (pct !== 100) l += ` {${pct}%}`;
+    lines[line] = l; ta.value = lines.join("\n");
+    ta.dispatchEvent(new Event("input")); renderPrev();
+    setStatus(st, pct === 100 ? "Tamanho normal." : `Tamanho ${pct}%. Clique em Salvar para gravar.`, "ok");
+  }
+  prev.addEventListener("pointerover", e => { if (drag) return; const el = e.target.closest("[data-line]"); if (el) { rzLine = el.dataset.line; pick(el); } });
+  prev.addEventListener("click", e => { const el = e.target.closest("[data-line]"); if (el) { rzLine = el.dataset.line; pick(el); } });
+  prev.addEventListener("scroll", placeRz);
+  rz.addEventListener("pointerdown", e => {
+    if (!rzEl) return; e.preventDefault(); rz.setPointerCapture(e.pointerId);
+    const cs = getComputedStyle(prev), cw = prev.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const kind = rzEl.dataset.kind, w = rzEl.getBoundingClientRect().width;
+    const start = +rzEl.dataset.size || (kind === "media" ? clamp(10, 100, Math.round(w / cw * 100)) : 100);
+    drag = { x: e.clientX, kind, start, w, cw, pct: start };
+  });
+  rz.addEventListener("pointermove", e => {
+    if (!drag || !rzEl) return;
+    const dx = e.clientX - drag.x;
+    drag.pct = drag.kind === "media"
+      ? clamp(10, 100, Math.round((drag.w + dx) / drag.cw * 20) * 5)
+      : clamp(50, 300, Math.round((drag.start + dx / 2) / 5) * 5);
+    if (drag.kind === "media") rzEl.style.width = drag.pct + "%"; else rzEl.style.zoom = drag.pct / 100;
+    placeRz();
+    rzLabel.textContent = drag.pct + "%"; rzLabel.hidden = false;
+    rzLabel.style.left = (parseFloat(rz.style.left) - 44) + "px"; rzLabel.style.top = (parseFloat(rz.style.top) - 26) + "px";
+  });
+  const endDrag = () => { if (!drag) return; const pct = drag.pct, line = +rzEl.dataset.line; drag = null; rzLabel.hidden = true; setSize(line, pct); };
+  rz.addEventListener("pointerup", endDrag);
+  rz.addEventListener("pointercancel", endDrag);
+  rz.addEventListener("dblclick", () => { if (rzEl) setSize(+rzEl.dataset.line, 100); });
   renderPrev();
   let t1;
   ta.addEventListener("input", () => {
