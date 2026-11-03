@@ -59,7 +59,7 @@
   style.textContent = `
   .ed-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #1b1438; border-top: 2px solid #7c3aed;
     padding: .625rem max(16px, env(safe-area-inset-right, 0px)) calc(.625rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
-    display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font: 600 .9375rem "Atkinson Hyperlegible", system-ui, sans-serif; color: #f1eeff; }
+    display: flex; flex-direction: column; gap: .4rem; font: 600 .9375rem "Atkinson Hyperlegible", system-ui, sans-serif; color: #f1eeff; }
   .ed-bar strong { font-family: "Chakra Petch", system-ui, sans-serif; margin-right: .25rem; }
   .ed-bar .grow { flex: 1; min-width: 8rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
   .ed-bar .grow.ok { color: #5fd8cb; } .ed-bar .grow.err { color: #ffb547; }
@@ -70,7 +70,10 @@
   .ed-st button[data-st="manutencao"][aria-pressed="true"] { background: #ffb547; border-color: #ffb547; color: #2a1800; }
   .ed-st button[data-st="offline"][aria-pressed="true"] { background: #ff7a7a; border-color: #ff7a7a; color: #2a0505; }
   .ed-bar input { min-width: 0; flex: 1 1 14rem; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font-family: inherit; font-size: 1rem; }
-  body.ed-on { padding-bottom: 7rem; }
+  .ed-line { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  body.ed-has-bar { padding-bottom: 8rem; }
+  body.ed-on { padding-bottom: 10rem; }
+  .ed-sel { outline: 2px solid #5fd8cb !important; outline-offset: 3px; }
   body.ed-on [data-ed] { outline: 1px dashed color-mix(in srgb, #b99bff 55%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
   body.ed-on [data-ed]:focus { outline: 2px solid #b99bff; background: color-mix(in srgb, #7c3aed 12%, transparent); }
   body.ed-on .ed-item { position: relative; }
@@ -88,13 +91,14 @@
   /* ---------- barra ---------- */
   const bar = document.createElement("div");
   bar.className = "ed-bar ed-ui";
-  bar.innerHTML = `<strong>Modo editor</strong><span class="grow" id="ed-msg">Página inicial</span>
-    <span class="ed-st" role="group" aria-label="Status do servidor no site">Status do Servidor:
-      <button type="button" data-st="auto">Automático</button><button type="button" data-st="online">Online</button><button type="button" data-st="offline">Offline</button><button type="button" data-st="manutencao">Manutenção</button>
-    </span>
-    <button type="button" class="acc" id="ed-start">Editar esta página</button>
-    <a href="wiki.html">Ir para a Wiki</a>`;
-  document.body.appendChild(bar);
+  bar.innerHTML = `<div class="ed-line"><strong>Modo editor</strong>
+      <span class="ed-st" role="group" aria-label="Status do servidor no site">Status do Servidor:
+        <button type="button" data-st="auto">Automático</button><button type="button" data-st="online">Online</button><button type="button" data-st="offline">Offline</button><button type="button" data-st="manutencao">Manutenção</button>
+      </span>
+      <a href="wiki.html">Ir para a Wiki</a></div>
+    <div class="ed-line" id="ed-dyn"><span class="grow" id="ed-msg">Clique em "Editar esta página" para mudar textos, tamanhos e listas.</span>
+      <button type="button" class="acc" id="ed-start">Editar esta página</button></div>`;
+  document.body.appendChild(bar); document.body.classList.add("ed-has-bar");
   const msg = (t, k) => { const m = bar.querySelector("#ed-msg"); m.textContent = t; m.className = "grow" + (k ? " " + k : ""); };
 
   let editing = false, dirty = false, savedRange = null;
@@ -142,7 +146,8 @@
       if (el.hasAttribute("data-ed")) { el.innerHTML = cleanHtml(el); el.removeAttribute("data-ed"); el.removeAttribute("data-ed-changed"); }
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
-      el.classList.remove("ed-item"); if (el.getAttribute("class") === "") el.removeAttribute("class");
+      el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
+      el.removeAttribute("data-ed-zoom");
       if (el.tagName === "DETAILS") el.removeAttribute("open");
     }
     return c;
@@ -210,7 +215,8 @@
       list.after(add);
     }));
     EDITABLE.forEach(([sel, single]) => document.querySelectorAll(sel).forEach(el => { if (!el.hasAttribute("data-ed")) makeEditable(el, single); }));
-    bar.innerHTML = `<strong>Editando</strong>
+    bar.querySelector("#ed-dyn").innerHTML = `<strong>Editando</strong>
+      <button type="button" id="ed-up" hidden title="Seleciona o bloco que está em volta (ex.: o cartão inteiro)">Selecionar o bloco de fora</button>
       <button type="button" id="ed-b" title="Negrito">Negrito</button>
       <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
       <button type="button" id="ed-ul" title="Tirar link do texto selecionado">Tirar link</button>
@@ -241,14 +247,15 @@
     });
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
     bar.querySelector("#ed-save").addEventListener("click", save);
-    msg("Clique em qualquer texto marcado para editar.");
+    bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
+    msg("Clique em qualquer texto marcado para editar, ou em qualquer coisa para mudar o tamanho com a bolinha.");
   }
 
   /* ---------- comportamento durante a edição ---------- */
   document.addEventListener("click", e => {
     if (!editing) return;
     const a = e.target.closest("a");
-    if (a && !a.closest(".ed-bar") && (a.closest("[data-ed]") || a.matches(".feat") || a.closest(".feat"))) e.preventDefault();
+    if (a && !a.closest(".ed-ui") && a.closest("main")) e.preventDefault();
     if (e.target.closest(".faq summary")) e.preventDefault();
   }, true);
   document.addEventListener("keydown", e => {
@@ -281,7 +288,19 @@
     const r = hzEl.getBoundingClientRect();
     hz.style.left = (r.right - 10) + "px"; hz.style.top = (r.bottom - 10) + "px"; hz.hidden = false;
   }
-  document.addEventListener("focusin", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el) { hzEl = el; placeHz(); } });
+  const outer = el => !el || el === document.body || el === document.documentElement || el.matches("main, header, footer, .ed-ui");
+  function selectEl(el) {
+    if (outer(el)) return;
+    if (hzEl && hzEl !== el) hzEl.classList.remove("ed-sel");
+    hzEl = el; el.classList.add("ed-sel");
+    const up = bar.querySelector("#ed-up"); if (up) up.hidden = outer(el.parentElement);
+    placeHz();
+  }
+  document.addEventListener("focusin", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el) selectEl(el); });
+  document.addEventListener("pointerdown", e => {
+    if (!editing || !e.target.closest || e.target.closest(".ed-ui")) return;
+    selectEl(e.target.closest("[data-ed]") || e.target.closest("svg") || e.target);
+  }, true);
   document.addEventListener("input", () => placeHz());
   addEventListener("scroll", placeHz, { passive: true }); addEventListener("resize", placeHz);
   hz.addEventListener("pointerdown", e => {
@@ -291,7 +310,7 @@
   });
   hz.addEventListener("pointermove", e => {
     if (!hzDrag) return;
-    hzDrag.pct = Math.max(50, Math.min(300, Math.round((hzDrag.start + (e.clientX - hzDrag.x) / 2) / 5) * 5));
+    hzDrag.pct = Math.max(20, Math.min(300, Math.round((hzDrag.start + (e.clientX - hzDrag.x) / 2) / 5) * 5));
     hzEl.style.zoom = hzDrag.pct / 100; placeHz();
     hzLabel.textContent = hzDrag.pct + "%"; hzLabel.hidden = false;
     hzLabel.style.left = (parseFloat(hz.style.left) - 44) + "px"; hzLabel.style.top = (parseFloat(hz.style.top) - 26) + "px";
@@ -299,12 +318,13 @@
   const hzEnd = () => {
     if (!hzDrag) return;
     if (hzDrag.pct === 100) hzEl.style.removeProperty("zoom");
-    hzEl.setAttribute("data-ed-changed", "1"); dirty = true; hzLabel.hidden = true;
+    hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1");
+    dirty = true; hzLabel.hidden = true;
     msg(hzDrag.pct === 100 ? "Tamanho normal." : `Tamanho ${hzDrag.pct}%. Clique em Salvar para gravar.`, "ok");
     hzDrag = null; placeHz();
   };
   hz.addEventListener("pointerup", hzEnd); hz.addEventListener("pointercancel", hzEnd);
-  hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
+  hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
 
   /* ---------- salvar ---------- */
   async function save() {
@@ -324,6 +344,15 @@
         const target = byPath(doc, pathOf(el));
         if (!target || target.tagName !== el.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
         target.innerHTML = cleanHtml(el);
+        const z = el.style.zoom;
+        if (z && z !== "1") target.style.zoom = z;
+        else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
+      }
+      // tamanhos (bolinha) de qualquer elemento fora das listas
+      for (const el of document.querySelectorAll("[data-ed-zoom]")) {
+        if (listOf(el)) continue;
+        const target = byPath(doc, pathOf(el));
+        if (!target || target.tagName.toLowerCase() !== el.tagName.toLowerCase()) continue;
         const z = el.style.zoom;
         if (z && z !== "1") target.style.zoom = z;
         else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }

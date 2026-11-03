@@ -609,7 +609,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 })();
 
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
-try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js"; s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
+try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
 
 </body>
