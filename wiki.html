@@ -233,14 +233,13 @@ dialog.form form { display: grid; gap: .75rem; }
   <h2>Entrar no modo editor</h2>
   <p>Só quem tem a chave do repositório do site consegue editar. A chave fica salva só neste navegador.</p>
   <ol>
-    <li>Abra <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
-    <li>Repository access: <b>Only select repositories</b> → o repositório do site.</li>
-    <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
-    <li>Generate token, copie e cole abaixo.</li>
+    <li>Abra <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a> (token clássico).</li>
+    <li>Em Select scopes, marque <b>só public_repo</b>. Não marque "repo" inteiro.</li>
+    <li>Generate token, copie o código <b>ghp_…</b> e cole abaixo.</li>
   </ol>
   <form id="login-form">
     <label class="field">Repositório<small>usuário/nome, como aparece no GitHub</small><input id="lg-repo" placeholder="SEU-USUARIO/redeastral-site" autocomplete="off" spellcheck="false" required></label>
-    <label class="field">Chave (token)<input id="lg-token" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false" required></label>
+    <label class="field">Chave (token)<input id="lg-token" type="password" placeholder="ghp_…" autocomplete="off" spellcheck="false" required></label>
     <p class="ed-status" id="lg-status" role="status"></p>
     <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Entrar</button></div>
   </form>

@@ -11,23 +11,23 @@ Os dois salvam no mesmo lugar. Depois de salvar, o site público atualiza em 1 a
 A) EDITAR DENTRO DO SITE
 ========================
 
-PRIMEIRA VEZ: criar a chave (token) — só uma vez
-  1. Entre no GitHub e abra:  https://github.com/settings/personal-access-tokens/new
-  2. Token name: "editor do site". Expiration: escolha a validade (ex.: 1 ano).
-  3. Repository access: "Only select repositories" -> escolha o redeastral-site.
-  4. Permissions -> Repository permissions -> Contents -> "Read and write".
-  5. Generate token. Copie o código que começa com github_pat_ (ele só aparece uma vez).
+PRIMEIRA VEZ: criar a chave (token clássico) — só uma vez
+  1. Entre no GitHub e abra:  https://github.com/settings/tokens/new
+  2. Note: "editor do site". Expiration: escolha a validade (ex.: 1 ano).
+  3. Em "Select scopes", abra o grupo "repo" e marque SOMENTE "public_repo".
+     NÃO marque a caixa "repo" inteira: ela daria acesso também ao redeastral-servidor (privado).
+  4. Generate token. Copie o código que começa com ghp_ (ele só aparece uma vez).
 
   IMPORTANTE: essa chave é como uma senha do site.
   - Não mande para ninguém, nem para mim, e não coloque no config.js.
-  - Ela só consegue mexer no repositório do site, não no servidor nem na sua conta.
-  - Se vazar: no GitHub, Settings -> Developer settings -> Personal access tokens -> apague a chave.
+  - Com public_repo ela só mexe nos seus repositórios públicos, não no redeastral-servidor.
+  - Se vazar: no GitHub, Settings -> Developer settings -> Personal access tokens -> Tokens (classic) -> apague a chave.
 
 ENTRAR NO MODO EDITOR
   1. Abra a Wiki do site e clique em "Área do editor", no rodapé.
      (ou abra o endereço  .../wiki.html#modo-editor )
   2. Repositório: SEU-USUARIO/redeastral-site
-     Chave: cole o github_pat_...
+     Chave: cole o ghp_...
   3. Entrar. Aparece a barra roxa "Modo editor" no topo da Wiki.
   Fica salvo só neste navegador. Em outro celular ou PC, entre de novo com a mesma chave.
   Jogadores não veem nada disso; sem a chave ninguém edita.
