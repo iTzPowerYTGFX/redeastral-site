@@ -56,7 +56,8 @@ BOTÕES DO EDITOR
   Depois de enviar imagem ou vídeo, clique em SALVAR.
 
 AUMENTAR / DIMINUIR (bolinha roxa)
-  No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, imagem ou vídeo.
+  No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, lista, tabela,
+  caixa de dica, imagem ou vídeo.
   Aparece uma bolinha roxa no canto: arraste para a DIREITA para aumentar e para a ESQUERDA para diminuir.
   Texto: de 50% a 300%. Imagem e vídeo: de 10% a 100% da largura da página.
   Duplo clique na bolinha volta ao tamanho normal. Depois clique em SALVAR.
@@ -84,8 +85,11 @@ EDITAR A PÁGINA INICIAL (início do site)
   4. Negrito: selecione o texto e clique em Negrito.
      Link: selecione o texto, clique em Link, cole o endereço e aperte Enter.
   5. Clique em Salvar. Cancelar desfaz tudo que não foi salvo.
-  Tamanho do texto: clique no texto e arraste a bolinha roxa que aparece no canto
-  (direita = maior, esquerda = menor, duplo clique = normal).
+  Tamanho de QUALQUER coisa (logo, cartão, caixa de IP, botão, ícone, texto):
+  clique nela e arraste a bolinha roxa do canto (direita = maior, esquerda = menor,
+  duplo clique = normal). O contorno verde mostra o que está selecionado.
+  "Selecionar o bloco de fora" pega o que está em volta (ex.: clicou no título do cartão
+  -> pega o cartão inteiro).
 
 STATUS DO SERVIDOR (página inicial)
   Na barra roxa da página inicial: "Status do Servidor:" com 4 botões.

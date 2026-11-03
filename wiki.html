@@ -369,27 +369,27 @@ function md(src, nested) {
     const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size)}${width(size)} `); i++; continue; }
     if (RX.img.test(l)) { html += figure(l).replace(/^<figure/, `<figure${at(i, "media", size)}${width(size)}`); i++; continue; }
     if (RX.quote.test(l)) {
-      const buf = [];
-      while (i < lines.length && RX.quote.test(lines[i])) { buf.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+      const buf = [], q0 = i, qs = size;
+      while (i < lines.length && RX.quote.test(lines[i])) { buf.push((i === q0 ? l : lines[i]).replace(/^\s*>\s?/, "")); i++; }
       const k = (buf[0].match(/^\s*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:/i) || [])[1];
       if (k) buf[0] = buf[0].replace(/^\s*([^:]+):/, "**$1:**");
       const cls = !k ? "" : /dica/i.test(k) ? " tip" : " warn";
-      html += `<aside class="callout${cls}">${md(buf.join("\n"), true)}</aside>`; continue;
+      html += `<aside class="callout${cls}"${at(q0, "text", qs)}${zoom(qs)}>${md(buf.join("\n"), true)}</aside>`; continue;
     }
     if (RX.item.test(l)) {
-      const ordered = /^\s*\d/.test(l), start = ordered ? parseInt(l, 10) : 1, items = [];
+      const ordered = /^\s*\d/.test(l), start = ordered ? parseInt(l, 10) : 1, items = [], L0 = i, ls = size;
       while (i < lines.length && RX.item.test(lines[i]) && /^\s*\d/.test(lines[i]) === ordered) {
-        let it = lines[i].replace(RX.item, ""); i++;
+        let it = (i === L0 ? l : lines[i]).replace(RX.item, ""); i++;
         while (i < lines.length && lines[i].trim() && /^\s{2,}\S/.test(lines[i]) && !RX.item.test(lines[i])) { it += " " + lines[i].trim(); i++; }
         items.push(`<li>${inline(it)}</li>`);
       }
-      html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}>${items.join("")}</ol>` : `<ul>${items.join("")}</ul>`; continue;
+      html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}${at(L0, "text", ls)}${zoom(ls)}>${items.join("")}</ol>` : `<ul${at(L0, "text", ls)}${zoom(ls)}>${items.join("")}</ul>`; continue;
     }
     if (isTable(l, next)) {
       const row = r => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-      const head = row(l); i += 2; const rows = [];
+      const head = row(l), t0 = i, tsz = size; i += 2; const rows = [];
       while (i < lines.length && lines[i].includes("|") && lines[i].trim()) { rows.push(row(lines[i])); i++; }
-      html += `<div class="table"><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      html += `<div class="table"${at(t0, "text", tsz)}${zoom(tsz)}><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       continue;
     }
     const buf = [raw]; let last = i; i++;
