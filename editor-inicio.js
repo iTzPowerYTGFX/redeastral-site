@@ -95,6 +95,7 @@
       <span class="ed-st" role="group" aria-label="Status do servidor no site">Status do Servidor:
         <button type="button" data-st="auto">Automático</button><button type="button" data-st="online">Online</button><button type="button" data-st="offline">Offline</button><button type="button" data-st="manutencao">Manutenção</button>
       </span>
+      <button type="button" id="ed-desk" data-desk-label title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
       <a href="wiki.html">Ir para a Wiki</a></div>
     <div class="ed-line" id="ed-dyn"><span class="grow" id="ed-msg">Clique em "Editar esta página" para mudar textos, tamanhos e listas.</span>
       <button type="button" class="acc" id="ed-start">Editar esta página</button></div>`;
@@ -367,6 +368,8 @@
   }
 
   bar.querySelector("#ed-start").addEventListener("click", startEditing);
+  bar.querySelector("#ed-desk").addEventListener("click", () => { if (window.astralDesktop) window.astralDesktop.toggle(); });
+  if (window.astralDesktop) window.astralDesktop.refresh();
 
   /* ---------- status do servidor (status.json) ---------- */
   const NAMES = { auto: "Automático", online: "Online", offline: "Offline", manutencao: "Em manutenção" };

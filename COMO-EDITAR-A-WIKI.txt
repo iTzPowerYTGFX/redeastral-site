@@ -91,9 +91,15 @@ EDITAR A PÁGINA INICIAL (início do site)
   "Selecionar o bloco de fora" pega o que está em volta (ex.: clicou no título do cartão
   -> pega o cartão inteiro).
 
+EDITAR PELO CELULAR VENDO COMO NO COMPUTADOR
+  Na barra roxa (página inicial ou Wiki): botão "Modo computador".
+  A página passa a aparecer como no PC (dê zoom com os dedos). Para voltar: "Modo celular".
+  Fica ligado neste celular até você desligar.
+
 STATUS DO SERVIDOR (página inicial)
   Na barra roxa da página inicial: "Status do Servidor:" com 4 botões.
-  Automático -> o site pergunta ao servidor e mostra Online/Offline e quantos jogadores (padrão).
+  Automático -> o site pergunta ao servidor Java e mostra Online/Offline e quantos jogadores (padrão).
+                O Bedrock acompanha o Java (é o mesmo servidor, pelo Geyser).
   Online     -> mostra Online mesmo que a consulta falhe.
   Offline    -> mostra Offline.
   Manutenção -> mostra "Em manutenção · volta em breve" (laranja).
