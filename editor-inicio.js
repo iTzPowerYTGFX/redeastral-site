@@ -12,7 +12,7 @@
   /* ---------- o que pode ser editado ---------- */
   // Textos soltos (uma linha = Enter não quebra linha)
   const EDITABLE = [
-    [".hero .eyebrow", 1], [".hero h1", 1], [".hero .lead", 0],
+    [".hero .eyebrow", 1], [".hero h1", 1], [".hero .lead", 0], [".hero .st-title", 1],
     [".block-head .eyebrow", 1], [".block-head h2", 1], [".block-head .lead", 0],
     [".feat h3", 1], [".feat > p", 0], [".feat .more", 1],
     [".panel > .lead", 0], [".steps li > div", 0], [".panel .note", 0], ["#primeiros-passos > .wrap > .note", 0],
@@ -63,9 +63,13 @@
   .ed-bar strong { font-family: "Chakra Petch", system-ui, sans-serif; margin-right: .25rem; }
   .ed-bar .grow { flex: 1; min-width: 8rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
   .ed-bar .grow.ok { color: #5fd8cb; } .ed-bar .grow.err { color: #ffb547; }
-  .ed-bar button, .ed-bar a { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font: 700 .875rem inherit; cursor: pointer; text-decoration: none; }
+  .ed-bar button, .ed-bar a { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font-family: inherit; font-size: .875rem; font-weight: 700; cursor: pointer; text-decoration: none; }
   .ed-bar .acc { background: #7c3aed; border-color: #7c3aed; color: #fff; }
-  .ed-bar input { min-width: 0; flex: 1 1 14rem; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font: 1rem inherit; }
+  .ed-st { display: inline-flex; flex-wrap: wrap; gap: .25rem; align-items: center; color: #b2abd3; font-weight: 400; }
+  .ed-st button[aria-pressed="true"] { background: #5fd8cb; border-color: #5fd8cb; color: #06201d; }
+  .ed-st button[data-st="manutencao"][aria-pressed="true"] { background: #ffb547; border-color: #ffb547; color: #2a1800; }
+  .ed-st button[data-st="offline"][aria-pressed="true"] { background: #ff7a7a; border-color: #ff7a7a; color: #2a0505; }
+  .ed-bar input { min-width: 0; flex: 1 1 14rem; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font-family: inherit; font-size: 1rem; }
   body.ed-on { padding-bottom: 7rem; }
   body.ed-on [data-ed] { outline: 1px dashed color-mix(in srgb, #b99bff 55%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
   body.ed-on [data-ed]:focus { outline: 2px solid #b99bff; background: color-mix(in srgb, #7c3aed 12%, transparent); }
@@ -75,7 +79,9 @@
   .ed-add { display: block; margin: .75rem 0 0; padding: .45rem .9rem; border-radius: 6px; border: 1px dashed #b99bff; background: transparent; color: #b99bff; font: 700 .875rem system-ui; cursor: pointer; }
   .ed-href { position: absolute; left: .75rem; right: .75rem; bottom: -1.1rem; z-index: 5; display: flex; gap: .25rem; align-items: center; background: #1b1438; border: 1px solid #7c3aed; border-radius: 6px; padding: .2rem .4rem; font: 600 .75rem system-ui; color: #b99bff; }
   .ed-href input { flex: 1; min-width: 0; background: transparent; border: 0; color: #f1eeff; font: .8125rem system-ui; }
-  body.ed-on .feat.ed-item { margin-bottom: 1.25rem; }`;
+  body.ed-on .feat.ed-item { margin-bottom: 1.25rem; }
+  .ed-rz { position: fixed; z-index: 45; width: 20px; height: 20px; border-radius: 50%; background: #7c3aed; border: 2px solid #fff; cursor: ew-resize; touch-action: none; box-shadow: 0 0 0 4px rgba(124,58,237,.35); }
+  .ed-rz-label { position: fixed; z-index: 46; background: #0b0a1a; border: 1px solid #7c3aed; color: #f1eeff; font: 700 .75rem ui-monospace, monospace; padding: .1rem .4rem; border-radius: 4px; pointer-events: none; }`;
   style.className = "ed-ui";
   document.head.appendChild(style);
 
@@ -83,6 +89,9 @@
   const bar = document.createElement("div");
   bar.className = "ed-bar ed-ui";
   bar.innerHTML = `<strong>Modo editor</strong><span class="grow" id="ed-msg">Página inicial</span>
+    <span class="ed-st" role="group" aria-label="Status do servidor no site">Status do Servidor:
+      <button type="button" data-st="auto">Automático</button><button type="button" data-st="online">Online</button><button type="button" data-st="offline">Offline</button><button type="button" data-st="manutencao">Manutenção</button>
+    </span>
     <button type="button" class="acc" id="ed-start">Editar esta página</button>
     <a href="wiki.html">Ir para a Wiki</a>`;
   document.body.appendChild(bar);
@@ -261,6 +270,42 @@
   }, true);
   addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
 
+  /* ---------- bolinha: aumentar/diminuir o texto selecionado ---------- */
+  const hz = document.createElement("div"); hz.className = "ed-rz ed-ui"; hz.hidden = true;
+  hz.title = "Arraste para os lados para aumentar ou diminuir. Duplo clique volta ao tamanho normal.";
+  const hzLabel = document.createElement("div"); hzLabel.className = "ed-rz-label ed-ui"; hzLabel.hidden = true;
+  document.body.append(hz, hzLabel);
+  let hzEl = null, hzDrag = null;
+  function placeHz() {
+    if (!editing || !hzEl || !hzEl.isConnected) { hz.hidden = true; return; }
+    const r = hzEl.getBoundingClientRect();
+    hz.style.left = (r.right - 10) + "px"; hz.style.top = (r.bottom - 10) + "px"; hz.hidden = false;
+  }
+  document.addEventListener("focusin", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el) { hzEl = el; placeHz(); } });
+  document.addEventListener("input", () => placeHz());
+  addEventListener("scroll", placeHz, { passive: true }); addEventListener("resize", placeHz);
+  hz.addEventListener("pointerdown", e => {
+    if (!hzEl) return; e.preventDefault(); hz.setPointerCapture(e.pointerId);
+    hzDrag = { x: e.clientX, start: Math.round((parseFloat(hzEl.style.zoom) || 1) * 100), pct: 0 };
+    hzDrag.pct = hzDrag.start;
+  });
+  hz.addEventListener("pointermove", e => {
+    if (!hzDrag) return;
+    hzDrag.pct = Math.max(50, Math.min(300, Math.round((hzDrag.start + (e.clientX - hzDrag.x) / 2) / 5) * 5));
+    hzEl.style.zoom = hzDrag.pct / 100; placeHz();
+    hzLabel.textContent = hzDrag.pct + "%"; hzLabel.hidden = false;
+    hzLabel.style.left = (parseFloat(hz.style.left) - 44) + "px"; hzLabel.style.top = (parseFloat(hz.style.top) - 26) + "px";
+  });
+  const hzEnd = () => {
+    if (!hzDrag) return;
+    if (hzDrag.pct === 100) hzEl.style.removeProperty("zoom");
+    hzEl.setAttribute("data-ed-changed", "1"); dirty = true; hzLabel.hidden = true;
+    msg(hzDrag.pct === 100 ? "Tamanho normal." : `Tamanho ${hzDrag.pct}%. Clique em Salvar para gravar.`, "ok");
+    hzDrag = null; placeHz();
+  };
+  hz.addEventListener("pointerup", hzEnd); hz.addEventListener("pointercancel", hzEnd);
+  hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
+
   /* ---------- salvar ---------- */
   async function save() {
     const btn = bar.querySelector("#ed-save"); btn.disabled = true; msg("Salvando…");
@@ -279,6 +324,9 @@
         const target = byPath(doc, pathOf(el));
         if (!target || target.tagName !== el.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
         target.innerHTML = cleanHtml(el);
+        const z = el.style.zoom;
+        if (z && z !== "1") target.style.zoom = z;
+        else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
       }
       const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
       if (!/<main[\s>]/i.test(html) || !/<script/i.test(html)) throw new Error("Algo saiu errado ao montar a página. Nada foi salvo.");
@@ -290,4 +338,22 @@
   }
 
   bar.querySelector("#ed-start").addEventListener("click", startEditing);
+
+  /* ---------- status do servidor (status.json) ---------- */
+  const NAMES = { auto: "Automático", online: "Online", offline: "Offline", manutencao: "Em manutenção" };
+  const markSt = mode => bar.querySelectorAll("[data-st]").forEach(b => b.setAttribute("aria-pressed", b.dataset.st === mode));
+  fetch("status.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : {}).then(d => markSt(String(d.modo || "auto").toLowerCase())).catch(() => markSt("auto"));
+  bar.querySelectorAll("[data-st]").forEach(b => b.addEventListener("click", async () => {
+    const mode = b.dataset.st;
+    msg("Salvando status…");
+    try {
+      let sha = null;
+      try { sha = (await gh(filePath("status.json") + "?ref=" + encodeURIComponent(GH.branch))).sha; } catch (e) { if (!/não encontrado/i.test(e.message)) throw e; }
+      const body = JSON.stringify({ modo: mode, atualizado: new Date().toISOString() }, null, 2) + "\n";
+      await gh(filePath("status.json"), { method: "PUT", body: JSON.stringify({ message: "Site: status " + NAMES[mode], content: encText(body), branch: GH.branch, ...(sha ? { sha } : {}) }) });
+      markSt(mode);
+      if (window.showServerStatus) window.showServerStatus(mode);
+      msg(`Status: ${NAMES[mode]}. Os visitantes veem em 1 a 2 minutos.`, "ok");
+    } catch (e) { msg(e.message, "err"); }
+  }));
 })();

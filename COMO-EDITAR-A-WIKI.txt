@@ -55,6 +55,13 @@ BOTÕES DO EDITOR
   YouTube     -> cole o link do vídeo. Shorts aparecem em pé.
   Depois de enviar imagem ou vídeo, clique em SALVAR.
 
+AUMENTAR / DIMINUIR (bolinha roxa)
+  No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, imagem ou vídeo.
+  Aparece uma bolinha roxa no canto: arraste para a DIREITA para aumentar e para a ESQUERDA para diminuir.
+  Texto: de 50% a 300%. Imagem e vídeo: de 10% a 100% da largura da página.
+  Duplo clique na bolinha volta ao tamanho normal. Depois clique em SALVAR.
+  (No texto aparece no fim da linha algo como {70%}. Pode apagar para voltar ao normal.)
+
 NOVA PÁGINA
   Barra roxa -> "Nova página" -> título e categoria (ou "+ Nova categoria").
   A página é criada, entra no menu e o editor abre.
@@ -77,6 +84,16 @@ EDITAR A PÁGINA INICIAL (início do site)
   4. Negrito: selecione o texto e clique em Negrito.
      Link: selecione o texto, clique em Link, cole o endereço e aperte Enter.
   5. Clique em Salvar. Cancelar desfaz tudo que não foi salvo.
+  Tamanho do texto: clique no texto e arraste a bolinha roxa que aparece no canto
+  (direita = maior, esquerda = menor, duplo clique = normal).
+
+STATUS DO SERVIDOR (página inicial)
+  Na barra roxa da página inicial: "Status do Servidor:" com 4 botões.
+  Automático -> o site pergunta ao servidor e mostra Online/Offline e quantos jogadores (padrão).
+  Online     -> mostra Online mesmo que a consulta falhe.
+  Offline    -> mostra Offline.
+  Manutenção -> mostra "Em manutenção · volta em breve" (laranja).
+  Salva na hora, sem precisar de "Editar esta página". Lembre de voltar para Automático depois.
   Ainda não dá para trocar pelo editor: a logo, os ícones dos cartões e os IPs
   (IPs e links do Discord/loja ficam em "Links do site" na Wiki ou no config.js).
 
@@ -101,6 +118,7 @@ COLOCAR VÍDEO
   YouTube: cole o link sozinho numa linha.
   Arquivo: suba o .mp4 em wiki/midia (até 25 MB) e escreva sozinho numa linha:  midia/video.mp4
   Em loop, como GIF: escreva sozinho numa linha:  animacao: midia/video.mp4
+  Tamanho: coloque no fim da linha  {70%}   ex.:  ![Legenda](midia/foto.png) {50%}   ou   ## Título {150%}
 
 COLOCAR LINK NO TEXTO
   [texto que aparece](https://endereco.com)
