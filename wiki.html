@@ -113,6 +113,7 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .video.file { aspect-ratio: auto; }
 .video iframe, .video video { display: block; width: 100%; height: 100%; border: 0; }
 .video.file video { height: auto; max-height: 75vh; }
+.video.anim { background: var(--sky-2); }
 .missing { border: 1px dashed var(--amber); color: var(--amber); padding: .75rem 1rem; border-radius: 8px; font-size: .9375rem; }
 
 .pager { max-width: 46rem; display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 2.5rem; }
@@ -276,7 +277,7 @@ dialog.form form { display: grid; gap: .75rem; }
 const CFG = window.ASTRAL || {};
 const $ = s => document.querySelector(s);
 const view = $("#view"), results = $("#results"), q = $("#q"), toc = $("#toc");
-let PAGES = [], CATS = [];
+let PAGES = [], CATS = [], READY = false;
 
 /* ---------- links do topo ---------- */
 document.querySelectorAll("[data-link]").forEach(a => {
@@ -303,7 +304,11 @@ function ytId(u) {
   return m ? m[1] : null;
 }
 function mediaLine(t) {
-  if (!t || /\s/.test(t)) return null;
+  if (!t) return null;
+  // "animacao: midia/x.mp4" = vídeo que toca sozinho, em loop, sem som e sem controles (como um GIF)
+  const an = t.match(/^anima[cç][aã]o\s*:\s*(\S+)$/i);
+  if (an && /\.(mp4|webm|mov)(\?.*)?$/i.test(an[1])) return `<div class="video file anim"><video autoplay muted loop playsinline preload="auto" aria-label="Animação" src="${esc(resolveSrc(an[1]))}"></video></div>`;
+  if (/\s/.test(t)) return null;
   const id = ytId(t);
   if (id) {
     const vert = /\/shorts\//.test(t);
@@ -380,7 +385,7 @@ function md(src) {
   return html;
 }
 function plain(src) {
-  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
     .replace(/^\s*\|?\s*:?-{3,}.*$/gm, " ").replace(/[#>*`|_]/g, " ").replace(/^\s*[-+]\s+/gm, " ").replace(/https?:\/\/\S+/g, " ").replace(/\s+/g, " ").trim();
 }
 
@@ -411,7 +416,7 @@ async function load() {
     } catch (e) { p.md = null; }
     indexPage(p);
   }));
-  buildToc(); route();
+  READY = true; buildToc(); route();
   let pending = null; try { pending = sessionStorage.getItem("wikiBusca"); sessionStorage.removeItem("wikiBusca"); } catch (e) {}
   if (pending) { q.value = pending; search(); }
 }
@@ -466,6 +471,8 @@ function showPage(p) {
     </nav>
     <p class="help">Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>`;
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches)
+    view.querySelectorAll("video[loop]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
   view.querySelectorAll(".prose img").forEach(img => {
     img.addEventListener("click", () => openZoom(img));
     img.addEventListener("error", () => {
@@ -646,6 +653,7 @@ async function openEditor(p) {
       <span class="sep" aria-hidden="true"></span>
       <label class="btn">Imagem<input type="file" id="ed-img" accept="image/png,image/jpeg,image/webp,image/gif"></label>
       <label class="btn">Vídeo .mp4<input type="file" id="ed-vid" accept="video/mp4,video/webm"></label>
+      <label class="btn" title="Toca sozinho, em loop, sem som, como um GIF">Animação (loop)<input type="file" id="ed-anim" accept="video/mp4,video/webm"></label>
       <button class="btn" type="button" data-panel="yt">YouTube</button>
     </div>
     <div class="ed-row" id="pn-link" hidden>
@@ -732,14 +740,17 @@ async function openEditor(p) {
       await putFile("wiki/midia/" + name, b64bytes(new Uint8Array(await file.arrayBuffer())), null, "Wiki: enviar " + name);
       LOCAL_MEDIA["wiki/midia/" + name] = URL.createObjectURL(file);
       if (kind === "img") insertBlock(`![Escreva a legenda aqui](midia/${name})`);
+      else if (kind === "anim") insertBlock("animacao: midia/" + name);
       else insertBlock("midia/" + name);
       setStatus(st, kind === "img"
         ? `${name} enviado. Troque "Escreva a legenda aqui" pela legenda e clique em Salvar.`
+        : kind === "anim" ? `${name} enviado como animação em loop. Clique em Salvar.`
         : `${name} enviado. Clique em Salvar para a página usar o vídeo.`, "ok");
     } catch (e) { setStatus(st, e.message, "err"); }
   }
   $("#ed-img").addEventListener("change", e => { upload(e.target.files[0], "img"); e.target.value = ""; });
   $("#ed-vid").addEventListener("change", e => { upload(e.target.files[0], "vid"); e.target.value = ""; });
+  $("#ed-anim").addEventListener("change", e => { upload(e.target.files[0], "anim"); e.target.value = ""; });
 
   view.querySelectorAll(".ed-switch .btn").forEach(b => b.addEventListener("click", () => {
     view.querySelector(".ed").dataset.pane = b.dataset.pane;
@@ -857,7 +868,7 @@ function openZoom(img) {
 zoom.addEventListener("click", e => { if (e.target === zoom || e.target.tagName === "IMG") zoom.close(); });
 $("#zoom-close").addEventListener("click", () => zoom.close());
 
-addEventListener("hashchange", () => { q.value = ""; search(); route(); });
+addEventListener("hashchange", () => { if (!READY) return; q.value = ""; search(); route(); });
 if (matchMedia("(max-width: 860px)").matches) $("#side-box").open = false;
 load();
 </script>
