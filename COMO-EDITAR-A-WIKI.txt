@@ -66,6 +66,20 @@ LINKS DO DISCORD E DA LOJA
 SAIR
   Barra roxa -> "Sair". Apaga a chave deste navegador.
 
+EDITAR A PÁGINA INICIAL (início do site)
+  Com o modo editor ligado, a página inicial mostra uma barra roxa embaixo.
+  1. Clique em "Editar esta página".
+  2. Tudo que pode mudar fica com um contorno tracejado: clique e escreva ali mesmo.
+     Títulos, textos, regras, punições, VIPs, perguntas, passos de "Como entrar" e o rodapé.
+  3. Listas têm "+ Adicionar ..." no fim e um X vermelho em cada item para remover.
+     Os cartões de sistemas mostram uma caixinha "Link:" para escolher qual página da Wiki abrem
+     (ex.: wiki.html#mochilas).
+  4. Negrito: selecione o texto e clique em Negrito.
+     Link: selecione o texto, clique em Link, cole o endereço e aperte Enter.
+  5. Clique em Salvar. Cancelar desfaz tudo que não foi salvo.
+  Ainda não dá para trocar pelo editor: a logo, os ícones dos cartões e os IPs
+  (IPs e links do Discord/loja ficam em "Links do site" na Wiki ou no config.js).
+
 
 B) EDITAR PELO GITHUB
 =====================
