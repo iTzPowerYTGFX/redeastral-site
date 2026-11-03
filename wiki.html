@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wiki da Rede Astral</title>
+<meta name="description" content="Como cada sistema da Rede Astral funciona: pets, capturas, minérios, mochilas, fornalhas e eventos.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: barra lateral fixa com as páginas + coluna de leitura de ~68 caracteres; busca sempre no topo da coluna. */
+:root {
+  --sky: #0b0a1a; --sky-2: #151229; --sky-3: #1f1a3b; --line: #2e2853;
+  --ink: #f1eeff; --ink-dim: #b2abd3;
+  --violet: #7c3aed; --violet-ink: #ffffff; --violet-soft: #b99bff;
+  --teal: #5fd8cb; --amber: #ffb547;
+  --f-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 5rem; }
+body { margin: 0; background: var(--sky); color: var(--ink); font: 1.0625rem/1.65 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sky); }
+a { color: var(--violet-soft); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; line-height: 1.2; text-wrap: balance; }
+.wrap { max-width: 76rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--sky) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 1rem; padding-block: .5rem; }
+.brand { display: flex; align-items: center; gap: .625rem; margin-right: auto; color: var(--ink); text-decoration: none; font: 700 1.125rem var(--f-display); }
+.brand img { height: 30px; width: auto; }
+.brand span small { color: var(--violet-soft); font-weight: 600; margin-left: .375rem; }
+.top nav { display: flex; gap: 1rem; align-items: center; }
+.top nav a { color: var(--ink-dim); text-decoration: none; font-size: .9375rem; }
+.top nav a:hover { color: var(--ink); }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .875rem; border-radius: 6px; font: 700 .9375rem var(--f-body); text-decoration: none; border: 1px solid var(--line); background: var(--sky-2); color: var(--ink); cursor: pointer; }
+.btn.accent { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
+.btn.accent:hover { filter: brightness(1.12); }
+.btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+@media (max-width: 520px) { .top nav a.hide-sm { display: none; } .brand span small { display: none; } }
+
+.layout { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: 2.5rem; padding-block: 1.75rem 4rem; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 1rem; } }
+
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 4.25rem); max-height: calc(100vh - 6rem); overflow: auto; }
+@media (max-width: 860px) { .side { position: static; max-height: none; order: 2; } }
+.side details { border: 1px solid var(--line); border-radius: 10px; background: var(--sky-2); }
+.side summary { cursor: pointer; padding: .75rem 1rem; font: 700 1rem var(--f-display); }
+@media (min-width: 861px) { .side details { border: 0; background: none; } .side summary { display: none; } }
+.toc { padding: 0 .5rem .75rem; display: grid; gap: 1rem; }
+@media (min-width: 861px) { .toc { padding: 0; } }
+.toc h4 { margin: 0 0 .25rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--violet-soft); padding-left: .625rem; }
+.toc a { display: block; padding: .3rem .625rem; border-radius: 6px; color: var(--ink-dim); text-decoration: none; font-size: .9375rem; line-height: 1.35; }
+.toc a:hover { color: var(--ink); background: var(--sky-2); }
+.toc a[aria-current="page"] { color: var(--ink); background: var(--sky-3); box-shadow: inset 3px 0 0 var(--violet); }
+.toc .wiki-home { font-weight: 700; color: var(--ink); }
+
+.main { min-width: 0; }
+.search { position: relative; display: flex; align-items: center; gap: .5rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; padding: .25rem .5rem .25rem .875rem; }
+.search:focus-within { border-color: var(--violet); box-shadow: 0 0 0 3px color-mix(in srgb, var(--violet) 30%, transparent); }
+.search svg { flex: none; color: var(--ink-dim); }
+.search input { flex: 1; min-width: 0; background: none; border: 0; color: var(--ink); font: 1.0625rem var(--f-body); padding: .625rem 0; outline: none; }
+.search input::placeholder { color: var(--ink-dim); }
+.search input::-webkit-search-cancel-button { filter: invert(1); }
+.search kbd { flex: none; font: 500 .75rem var(--f-mono); color: var(--ink-dim); border: 1px solid var(--line); border-radius: 4px; padding: .1rem .4rem; }
+@media (hover: none) { .search kbd { display: none; } }
+
+.results { margin-top: .75rem; display: grid; gap: .5rem; }
+.results .count { color: var(--ink-dim); font-size: .875rem; }
+.hit { display: block; text-decoration: none; color: var(--ink); background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; padding: .875rem 1rem; }
+.hit:hover, .hit:focus-visible { border-color: var(--violet); }
+.hit strong { font-family: var(--f-display); font-size: 1.0625rem; }
+.hit small { display: block; color: var(--violet-soft); font-size: .8125rem; }
+.hit p { margin: .25rem 0 0; color: var(--ink-dim); font-size: .9375rem; }
+mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: var(--ink); border-radius: 2px; padding: 0 .1em; }
+
+.view { margin-top: 1.5rem; }
+.crumb { font-size: .875rem; color: var(--ink-dim); display: flex; gap: .375rem; flex-wrap: wrap; }
+.crumb a { color: var(--ink-dim); }
+.edit-link { margin-left: auto; }
+
+.prose { max-width: 46rem; }
+.prose h1 { font-size: clamp(1.875rem, 4.5vw, 2.5rem); margin: .375rem 0 .75rem; }
+.prose h2 { font-size: 1.5rem; margin: 2.25rem 0 .75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.prose h3 { font-size: 1.1875rem; margin: 1.75rem 0 .5rem; color: var(--violet-soft); }
+.prose h4 { font-size: 1rem; margin: 1.25rem 0 .5rem; }
+.prose p, .prose ul, .prose ol { margin: 0 0 1rem; }
+.prose > p:first-of-type { font-size: 1.1875rem; color: var(--ink-dim); }
+.prose li { margin-bottom: .375rem; }
+.prose li::marker { color: var(--violet-soft); }
+.prose code { font: 500 .875em var(--f-mono); background: var(--sky-3); border: 1px solid var(--line); border-radius: 4px; padding: .05em .35em; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+.prose .table { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); border-radius: 10px; }
+.prose table { border-collapse: collapse; width: 100%; font-size: .9375rem; font-variant-numeric: tabular-nums; }
+.prose th, .prose td { text-align: left; padding: .625rem .875rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose th { background: var(--sky-2); font-size: .8125rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-dim); }
+.callout { margin: 0 0 1.25rem; padding: .875rem 1rem; border-radius: 8px; background: var(--sky-2); border: 1px solid var(--line); border-left: 4px solid var(--violet); }
+.callout.tip { border-left-color: var(--teal); }
+.callout.warn { border-left-color: var(--amber); }
+.callout > :last-child { margin-bottom: 0; }
+.prose figure { margin: 0 0 1.5rem; }
+.prose img { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); cursor: zoom-in; background: var(--sky-2); }
+.prose figcaption { margin-top: .5rem; font-size: .875rem; color: var(--ink-dim); }
+.video { margin: 0 0 1.5rem; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+.video.vertical { aspect-ratio: 9 / 16; max-width: 340px; }
+.video.file { aspect-ratio: auto; }
+.video iframe, .video video { display: block; width: 100%; height: 100%; border: 0; }
+.video.file video { height: auto; max-height: 75vh; }
+.missing { border: 1px dashed var(--amber); color: var(--amber); padding: .75rem 1rem; border-radius: 8px; font-size: .9375rem; }
+
+.pager { max-width: 46rem; display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 2.5rem; }
+.pager a { display: block; padding: .875rem 1rem; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); background: var(--sky-2); min-width: 0; }
+.pager a:hover { border-color: var(--violet); }
+.pager small { display: block; color: var(--ink-dim); font-size: .8125rem; }
+.pager .next { text-align: right; grid-column: 2; }
+.help { max-width: 46rem; margin-top: 1.5rem; font-size: .9375rem; color: var(--ink-dim); }
+
+.home-head { display: grid; gap: .5rem; margin-bottom: 2rem; }
+.home-head h1 { margin: 0; font-size: clamp(2rem, 5vw, 2.75rem); }
+.home-head p { margin: 0; color: var(--ink-dim); max-width: 58ch; }
+.cat { margin-bottom: 2.25rem; }
+.cat h2 { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--violet-soft); margin: 0 0 .75rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: .75rem; }
+.card { display: grid; grid-template-rows: auto 1fr; text-decoration: none; color: var(--ink); background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.card:hover { border-color: var(--violet); background: var(--sky-3); }
+.card .cover { aspect-ratio: 16 / 9; background: var(--sky-3) center / cover no-repeat; border-bottom: 1px solid var(--line); }
+.card .body { padding: .875rem 1rem 1rem; display: grid; gap: .25rem; align-content: start; }
+.card strong { font-family: var(--f-display); font-size: 1.125rem; }
+.card span { color: var(--ink-dim); font-size: .9375rem; line-height: 1.45; }
+.state { color: var(--ink-dim); padding: 2rem 0; }
+.state h1 { color: var(--ink); }
+
+dialog#zoom { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1400px); max-height: 94vh; }
+dialog#zoom::backdrop { background: rgba(5, 4, 14, .88); }
+dialog#zoom img { display: block; max-width: 100%; max-height: 86vh; border-radius: 8px; margin: 0 auto; }
+dialog#zoom p { color: #e6e1ff; text-align: center; margin: .5rem 0 0; font-size: .9375rem; }
+dialog#zoom button { position: absolute; top: .5rem; right: .5rem; }
+
+footer { border-top: 1px solid var(--line); padding-block: 1.75rem; color: var(--ink-dim); font-size: .8125rem; }
+.toast { position: fixed; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--violet); color: var(--violet-ink); font-weight: 700; padding: .5rem 1rem; border-radius: 6px; z-index: 30; }
+footer .wrap { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; }
+footer a { color: var(--ink-dim); }
+
+/* ---------- modo editor ---------- */
+.edbar { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; padding: .5rem .5rem .5rem .875rem; border: 1px solid var(--violet); border-radius: 10px; background: color-mix(in srgb, var(--violet) 14%, var(--sky-2)); font-size: .9375rem; }
+.edbar strong { margin-right: auto; font-family: var(--f-display); }
+.edbar .btn, .ed .btn { padding: .375rem .75rem; font-size: .875rem; }
+.crumb .btn { margin-left: auto; padding: .3rem .7rem; font-size: .8125rem; }
+.ed { display: grid; gap: .75rem; }
+.ed-head { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.ed-head > div:first-child { margin-right: auto; min-width: 0; }
+.ed-head small { display: block; color: var(--ink-dim); font-size: .8125rem; }
+.ed-head strong { font: 700 1.125rem var(--f-display); overflow-wrap: anywhere; }
+.ed-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.ed-tools { display: flex; gap: .375rem; flex-wrap: wrap; align-items: center; padding: .5rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; }
+.ed-tools .sep { width: 1px; align-self: stretch; background: var(--line); margin-inline: .25rem; }
+.ed-tools input[type=file] { display: none; }
+.ed-row { display: flex; gap: .5rem; }
+.ed-row input, .field input, .field select { flex: 1; min-width: 0; background: var(--sky); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: .5rem .625rem; font: 1rem var(--f-body); }
+.ed-status { margin: 0; min-height: 1.4em; font-size: .9375rem; color: var(--ink-dim); }
+.ed-status.ok { color: var(--teal); }
+.ed-status.err { color: var(--amber); }
+.ed-panes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; align-items: start; }
+.ed textarea { width: 100%; min-height: 65vh; resize: vertical; background: var(--sky); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: .875rem; font: 500 .9375rem/1.6 var(--f-mono); }
+.ed textarea:focus { outline: none; border-color: var(--violet); }
+.ed-prev { border: 1px dashed var(--line); border-radius: 10px; padding: .25rem 1rem 1rem; max-height: 75vh; overflow: auto; min-width: 0; }
+.ed-switch { display: none; gap: .5rem; }
+@media (max-width: 1100px) {
+  .ed-panes { grid-template-columns: minmax(0, 1fr); }
+  .ed-switch { display: flex; }
+  .ed[data-pane="write"] .ed-prev, .ed[data-pane="preview"] textarea { display: none; }
+}
+.ed-switch .btn[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
+.draft { margin: 0; padding: .625rem .875rem; border-radius: 8px; border: 1px solid var(--amber); color: var(--ink); font-size: .9375rem; }
+dialog.form { width: min(92vw, 34rem); border: 1px solid var(--line); border-radius: 12px; background: var(--sky-2); color: var(--ink); padding: 1.25rem 1.25rem 1rem; }
+dialog.form::backdrop { background: rgba(5, 4, 14, .8); }
+dialog.form h2 { margin: 0 0 .5rem; font-size: 1.375rem; }
+dialog.form p, dialog.form ol { color: var(--ink-dim); font-size: .9375rem; margin: 0 0 .75rem; }
+dialog.form ol { padding-left: 1.25rem; }
+dialog.form form { display: grid; gap: .75rem; }
+.field { display: grid; gap: .25rem; font-size: .875rem; font-weight: 700; }
+.field small { font-weight: 400; color: var(--ink-dim); }
+.form-actions { display: flex; gap: .5rem; justify-content: flex-end; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt=""><span>Rede Astral<small>Wiki</small></span></a>
+    <nav aria-label="Site">
+      <a class="hide-sm" href="index.html">Início</a>
+      <a class="hide-sm" href="index.html#como-entrar">Como entrar</a>
+      <a class="btn accent" data-link="discord" href="#">Discord</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <aside class="side">
+    <details id="side-box" open>
+      <summary>Todas as páginas</summary>
+      <nav class="toc" id="toc" aria-label="Páginas da wiki"></nav>
+    </details>
+  </aside>
+
+  <main class="main">
+    <div class="edbar" id="edbar" hidden>
+      <strong>Modo editor</strong>
+      <button class="btn" type="button" id="ed-new">Nova página</button>
+      <button class="btn" type="button" id="ed-links">Links do site</button>
+      <button class="btn" type="button" id="ed-logout">Sair</button>
+    </div>
+    <div class="search" role="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Pesquisar na wiki: rubi, orbe, renascer…" autocomplete="off" spellcheck="false" aria-label="Pesquisar na wiki" aria-controls="results">
+      <kbd>/</kbd>
+    </div>
+    <div class="results" id="results" hidden></div>
+    <div class="view" id="view"><p class="state">Carregando a wiki…</p></div>
+  </main>
+</div>
+
+<dialog id="zoom" aria-label="Imagem ampliada"><button class="btn" type="button" id="zoom-close">Fechar</button><img alt=""><p></p></dialog>
+
+<dialog class="form" id="login">
+  <h2>Entrar no modo editor</h2>
+  <p>Só quem tem a chave do repositório do site consegue editar. A chave fica salva só neste navegador.</p>
+  <ol>
+    <li>Abra <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+    <li>Repository access: <b>Only select repositories</b> → o repositório do site.</li>
+    <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
+    <li>Generate token, copie e cole abaixo.</li>
+  </ol>
+  <form id="login-form">
+    <label class="field">Repositório<small>usuário/nome, como aparece no GitHub</small><input id="lg-repo" placeholder="SEU-USUARIO/redeastral-site" autocomplete="off" spellcheck="false" required></label>
+    <label class="field">Chave (token)<input id="lg-token" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false" required></label>
+    <p class="ed-status" id="lg-status" role="status"></p>
+    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Entrar</button></div>
+  </form>
+</dialog>
+
+<dialog class="form" id="newpage">
+  <h2>Nova página</h2>
+  <form id="np-form">
+    <label class="field">Título<input id="np-title" placeholder="Ex.: Waifus" required></label>
+    <label class="field">Categoria<select id="np-cat"></select></label>
+    <label class="field" id="np-newcat-wrap" hidden>Nome da nova categoria<input id="np-newcat" placeholder="Ex.: Personagens"></label>
+    <p class="ed-status" id="np-status" role="status"></p>
+    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Criar e editar</button></div>
+  </form>
+</dialog>
+
+<dialog class="form" id="links">
+  <h2>Links do site</h2>
+  <p>Valem para a página inicial e para a Wiki. Deixe vazio para mostrar "em breve".</p>
+  <form id="lk-form">
+    <label class="field">Convite do Discord<input id="lk-discord" type="url" placeholder="https://discord.gg/…"></label>
+    <label class="field">Loja<input id="lk-loja" type="url" placeholder="https://….centralcart.com.br"></label>
+    <p class="ed-status" id="lk-status" role="status"></p>
+    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Salvar links</button></div>
+  </form>
+</dialog>
+
+<footer>
+  <div class="wrap"><span>Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a href="#modo-editor">Área do editor</a></div>
+</footer>
+
+<script src="config.js"></script>
+<script>
+const CFG = window.ASTRAL || {};
+const $ = s => document.querySelector(s);
+const view = $("#view"), results = $("#results"), q = $("#q"), toc = $("#toc");
+let PAGES = [], CATS = [];
+
+/* ---------- links do topo ---------- */
+document.querySelectorAll("[data-link]").forEach(a => {
+  const url = CFG[a.dataset.link];
+  if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  else { a.setAttribute("aria-disabled", "true"); a.removeAttribute("href"); a.textContent += " (em breve)"; }
+});
+
+/* ---------- utilidades ---------- */
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const slug = s => norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function toast(msg) { const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
+/* Sessão do editor: só existe no navegador de quem entrou com a chave do GitHub. */
+let GH = null; try { GH = JSON.parse(localStorage.getItem("astralGH") || "null"); } catch (e) {}
+const LOCAL_MEDIA = {}; // imagens/vídeos enviados agora, mostrados antes do site publicar
+
+/* ---------- leitor de texto (markdown simples) ---------- */
+// Caminho relativo (midia/x.png) aponta para dentro da pasta wiki.
+const resolveSrc = s => { const r = /^(https?:|data:|blob:|\/)/i.test(s) ? s : "wiki/" + s.replace(/^\.\//, ""); return LOCAL_MEDIA[r] || r; };
+const linkHref = h => { const m = h.match(/^([\w-]+)\.md(#[\w-]*)?$/); if (m) return "#" + m[1]; return /^\s*(javascript|data|vbscript):/i.test(h) ? "#" : h; };
+function ytId(u) {
+  const m = u.match(/^(?:https?:\/\/)?(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function mediaLine(t) {
+  if (!t || /\s/.test(t)) return null;
+  const id = ytId(t);
+  if (id) {
+    const vert = /\/shorts\//.test(t);
+    return `<div class="video${vert ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="Vídeo do YouTube" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`;
+  }
+  if (/\.(mp4|webm|mov)(\?.*)?$/i.test(t)) return `<div class="video file"><video controls preload="metadata" playsinline src="${esc(resolveSrc(t))}"></video></div>`;
+  return null;
+}
+function inline(t) {
+  return t.split(/(`[^`]+`)/).map(p => {
+    if (/^`[^`]+`$/.test(p)) return "<code>" + esc(p.slice(1, -1)) + "</code>";
+    let s = esc(p);
+    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, src) => `<img src="${resolveSrc(src)}" alt="${alt}" loading="lazy">`);
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, txt, href) => {
+      const h = linkHref(href), ext = /^https?:/i.test(h);
+      return `<a href="${h}"${ext ? ' target="_blank" rel="noopener"' : ""}>${txt}</a>`;
+    });
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, "$1<em>$2</em>");
+    s = s.replace(/(^|\s)(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+    return s;
+  }).join("");
+}
+const RX = {
+  heading: /^(#{1,4})\s+(.*)$/, hr: /^\s*(-{3,}|\*{3,})\s*$/, quote: /^\s*>/,
+  item: /^\s*([-*+]|\d+[.)])\s+/, img: /^\s*!\[[^\]]*\]\([^)\s]+\)\s*$/,
+  sep: /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/
+};
+const isTable = (l, n) => l.includes("|") && n !== undefined && RX.sep.test(n);
+const isBlock = (l, n) => RX.heading.test(l) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
+function figure(line) {
+  const m = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+  return `<figure>${inline(line.trim())}${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`;
+}
+function md(src) {
+  const lines = src.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "").split("\n");
+  let i = 0, html = "";
+  while (i < lines.length) {
+    const l = lines[i], next = lines[i + 1];
+    let m;
+    if (!l.trim()) { i++; continue; }
+    if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}">${inline(m[2])}</h${n}>`; i++; continue; }
+    if (RX.hr.test(l)) { html += "<hr>"; i++; continue; }
+    const media = mediaLine(l.trim()); if (media) { html += media; i++; continue; }
+    if (RX.img.test(l)) { html += figure(l); i++; continue; }
+    if (RX.quote.test(l)) {
+      const buf = [];
+      while (i < lines.length && RX.quote.test(lines[i])) { buf.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+      const k = (buf[0].match(/^\s*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:/i) || [])[1];
+      if (k) buf[0] = buf[0].replace(/^\s*([^:]+):/, "**$1:**");
+      const cls = !k ? "" : /dica/i.test(k) ? " tip" : " warn";
+      html += `<aside class="callout${cls}">${md(buf.join("\n"))}</aside>`; continue;
+    }
+    if (RX.item.test(l)) {
+      const ordered = /^\s*\d/.test(l), start = ordered ? parseInt(l, 10) : 1, items = [];
+      while (i < lines.length && RX.item.test(lines[i]) && /^\s*\d/.test(lines[i]) === ordered) {
+        let it = lines[i].replace(RX.item, ""); i++;
+        while (i < lines.length && lines[i].trim() && /^\s{2,}\S/.test(lines[i]) && !RX.item.test(lines[i])) { it += " " + lines[i].trim(); i++; }
+        items.push(`<li>${inline(it)}</li>`);
+      }
+      html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}>${items.join("")}</ol>` : `<ul>${items.join("")}</ul>`; continue;
+    }
+    if (isTable(l, next)) {
+      const row = s => s.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const head = row(l); i += 2; const rows = [];
+      while (i < lines.length && lines[i].includes("|") && lines[i].trim()) { rows.push(row(lines[i])); i++; }
+      html += `<div class="table"><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      continue;
+    }
+    const buf = [l]; i++;
+    while (i < lines.length && lines[i].trim() && !isBlock(lines[i], lines[i + 1])) { buf.push(lines[i]); i++; }
+    html += `<p>${inline(buf.join(" ").trim())}</p>`;
+  }
+  return html;
+}
+function plain(src) {
+  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/^\s*\|?\s*:?-{3,}.*$/gm, " ").replace(/[#>*`|_]/g, " ").replace(/^\s*[-+]\s+/gm, " ").replace(/https?:\/\/\S+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/* ---------- carregar páginas ---------- */
+async function load() {
+  let list;
+  try {
+    const r = await fetch("wiki/paginas.txt", { cache: "no-cache" });
+    if (!r.ok) throw new Error(r.status);
+    list = await r.text();
+  } catch (e) {
+    view.innerHTML = `<div class="state"><h1>Não deu para abrir a wiki</h1><p>O arquivo <code>wiki/paginas.txt</code> não foi encontrado. Se você abriu o <code>wiki.html</code> direto do computador, o navegador bloqueia a leitura das páginas: abra pelo site publicado.</p></div>`;
+    return;
+  }
+  let cat = "Geral";
+  for (const raw of list.replace(/\r/g, "").split("\n")) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    if (/\.md$/i.test(line)) PAGES.push({ file: line, id: line.replace(/\.md$/i, "").replace(/^.*\//, ""), cat });
+    else { cat = line; CATS.push(cat); }
+  }
+  if (!CATS.includes("Geral") && PAGES.some(p => p.cat === "Geral")) CATS.unshift("Geral");
+  await Promise.all(PAGES.map(async p => {
+    try {
+      const r = await fetch("wiki/" + p.file, { cache: "no-cache" });
+      if (!r.ok) throw new Error(r.status);
+      p.md = (await r.text()).replace(/^﻿/, "");
+    } catch (e) { p.md = null; }
+    indexPage(p);
+  }));
+  buildToc(); route();
+  let pending = null; try { pending = sessionStorage.getItem("wikiBusca"); sessionStorage.removeItem("wikiBusca"); } catch (e) {}
+  if (pending) { q.value = pending; search(); }
+}
+
+function indexPage(p) {
+  const src = p.md || "";
+  const t = src.match(/^#\s+(.+)$/m);
+  p.title = t ? t[1].trim() : p.id.replace(/-/g, " ");
+  const clean = src.replace(/<!--[\s\S]*?-->/g, "").split("\n");
+  p.summary = (clean.find(l => l.trim() && !/^\s*(#|>|!\[|\||[-*+]\s|\d+[.)]\s)/.test(l) && !mediaLine(l.trim())) || "").trim();
+  p.summaryText = plain(p.summary);
+  const img = src.replace(/<!--[\s\S]*?-->/g, "").match(/!\[[^\]]*\]\(([^)\s]+)\)/);
+  p.cover = img ? resolveSrc(img[1]) : null;
+  p.text = plain(src);
+  p.nText = norm(p.text); p.nTitle = norm(p.title);
+}
+
+function buildToc() {
+  let h = `<a class="wiki-home" href="#">Início da wiki</a>`;
+  for (const c of CATS) {
+    const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
+    h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`;
+  }
+  toc.innerHTML = h;
+}
+
+/* ---------- telas ---------- */
+function showHome() {
+  document.title = "Wiki da Rede Astral";
+  let h = `<div class="home-head"><h1>Wiki da Rede Astral</h1><p>Como cada sistema do servidor funciona, com imagens e vídeos. Escolha um assunto ou pesquise acima.</p></div>`;
+  for (const c of CATS) {
+    const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
+    h += `<section class="cat"><h2>${esc(c)}</h2><div class="cards">${ps.map(p => `
+      <a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+        <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>`).join("")}</div></section>`;
+  }
+  view.innerHTML = h;
+}
+function showPage(p) {
+  document.title = p.title + " · Wiki da Rede Astral";
+  const idx = PAGES.indexOf(p), prev = PAGES[idx - 1], next = PAGES[idx + 1];
+  const edit = GH ? `<button class="btn accent" type="button" id="edit-this">Editar esta página</button>` : "";
+  const body = p.md === null
+    ? `<h1>${esc(p.title)}</h1><p class="missing">O arquivo <code>wiki/${esc(p.file)}</code> está na lista do <code>paginas.txt</code>, mas não foi encontrado. Confira se o nome está escrito igual nos dois lugares.</p>`
+    : md(p.md);
+  view.innerHTML = `
+    <nav class="crumb" aria-label="Você está em"><a href="#">Wiki</a><span>›</span><span>${esc(p.cat)}</span>${edit}</nav>
+    <article class="prose">${body}</article>
+    <nav class="pager" aria-label="Outras páginas">
+      ${prev ? `<a class="prev" href="#${prev.id}"><small>Anterior</small>${esc(prev.title)}</a>` : ""}
+      ${next ? `<a class="next" href="#${next.id}"><small>Próxima</small>${esc(next.title)}</a>` : ""}
+    </nav>
+    <p class="help">Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>`;
+  const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
+  view.querySelectorAll(".prose img").forEach(img => {
+    img.addEventListener("click", () => openZoom(img));
+    img.addEventListener("error", () => {
+      const f = document.createElement("p"); f.className = "missing";
+      f.textContent = "Imagem não encontrada: " + img.getAttribute("src") + ". Confira o nome do arquivo na pasta wiki/midia.";
+      (img.closest("figure") || img).replaceWith(f);
+    }, { once: true });
+  });
+}
+function route() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  EDIT = null;
+  if (id === "modo-editor") {
+    history.replaceState(null, "", location.pathname); showHome(); markToc("");
+    if (GH) toast("Você já está no modo editor"); else openLogin();
+    return;
+  }
+  const p = PAGES.find(x => x.id === id);
+  if (!id) showHome();
+  else if (p) showPage(p);
+  else view.innerHTML = `<div class="state"><h1>Página não encontrada</h1><p><a href="#">Voltar para o início da wiki</a></p></div>`;
+  markToc(id);
+  if (id && !p) return;
+  window.scrollTo({ top: 0 });
+  if (matchMedia("(max-width: 860px)").matches) $("#side-box").open = false;
+}
+function markToc(id) {
+  toc.querySelectorAll("a[data-id]").forEach(a => {
+    if (a.dataset.id === id) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+}
+
+/* ---------- busca ---------- */
+function snippet(p, terms) {
+  const t = p.text, n = p.nText;
+  let at = -1; for (const w of terms) { const k = n.indexOf(w); if (k >= 0 && (at < 0 || k < at)) at = k; }
+  if (at < 0) return esc(p.summaryText.slice(0, 160));
+  const s = Math.max(0, at - 60), e = Math.min(t.length, at + 120);
+  let out = "", last = s; const marks = [];
+  for (const w of terms) { let k = n.indexOf(w, s); while (k >= 0 && k < e) { marks.push([k, k + w.length]); k = n.indexOf(w, k + w.length); } }
+  marks.sort((a, b) => a[0] - b[0]);
+  for (const [a, b] of marks) { if (a < last) continue; out += esc(t.slice(last, a)) + "<mark>" + esc(t.slice(a, b)) + "</mark>"; last = b; }
+  out += esc(t.slice(last, e));
+  return (s > 0 ? "…" : "") + out + (e < t.length ? "…" : "");
+}
+function search() {
+  const raw = q.value.trim();
+  if (!raw) { results.hidden = true; results.innerHTML = ""; view.hidden = false; return; }
+  const terms = norm(raw).split(/\s+/).filter(Boolean);
+  const hits = PAGES.filter(p => p.md !== null && terms.every(w => p.nText.includes(w) || p.nTitle.includes(w)))
+    .map(p => ({ p, score: terms.reduce((s, w) => s + (p.nTitle.includes(w) ? 20 : 0) + p.nText.split(w).length - 1, 0) }))
+    .sort((a, b) => b.score - a.score);
+  view.hidden = true; results.hidden = false;
+  results.innerHTML = hits.length
+    ? `<p class="count">${hits.length} ${hits.length === 1 ? "página encontrada" : "páginas encontradas"}</p>` + hits.map(({ p }) =>
+        `<a class="hit" href="#${p.id}"><small>${esc(p.cat)}</small><strong>${esc(p.title)}</strong><p>${snippet(p, terms)}</p></a>`).join("")
+    : `<p class="count">Nada encontrado para “${esc(raw)}”. Tente outra palavra, ou pergunte no Discord.</p>`;
+}
+let timer; q.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(search, 90); });
+q.addEventListener("keydown", e => {
+  if (e.key === "Enter") { const f = results.querySelector(".hit"); if (f) f.click(); }
+  if (e.key === "Escape") { q.value = ""; search(); }
+  if (e.key === "ArrowDown") { const f = results.querySelector(".hit"); if (f) { e.preventDefault(); f.focus(); } }
+});
+results.addEventListener("keydown", e => {
+  const hits = [...results.querySelectorAll(".hit")], k = hits.indexOf(document.activeElement);
+  if (e.key === "ArrowDown" && k >= 0 && k < hits.length - 1) { e.preventDefault(); hits[k + 1].focus(); }
+  if (e.key === "ArrowUp" && k >= 0) { e.preventDefault(); (k === 0 ? q : hits[k - 1]).focus(); }
+});
+results.addEventListener("click", e => { if (e.target.closest(".hit")) { q.value = ""; setTimeout(search, 0); } });
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== q && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); q.focus(); }
+});
+
+/* =====================================================================
+   MODO EDITOR: edita a wiki direto no site, salvando no GitHub.
+   A chave (token) fica só no localStorage do navegador de quem entrou.
+   ===================================================================== */
+let EDIT = null;
+const API = "https://api.github.com";
+const encPath = p => p.split("/").map(encodeURIComponent).join("/");
+const b64bytes = bytes => { let bin = ""; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(bin); };
+const encText = s => b64bytes(new TextEncoder().encode(s));
+const decText = b64 => new TextDecoder().decode(Uint8Array.from(atob((b64 || "").replace(/\s/g, "")), c => c.charCodeAt(0)));
+
+async function gh(path, opts = {}, auth = GH) {
+  let r;
+  try {
+    r = await fetch(API + path, { ...opts, cache: "no-store", headers: {
+      Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
+      Authorization: "Bearer " + auth.token, ...(opts.body ? { "Content-Type": "application/json" } : {}) } });
+  } catch (e) { const err = new Error("Sem conexão com o GitHub. Confira a internet e tente de novo."); err.status = 0; throw err; }
+  if (!r.ok) {
+    let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {}
+    const human = {
+      401: "Chave inválida ou vencida. Saia e entre de novo com uma chave nova.",
+      403: "A chave não tem permissão de escrita. No GitHub, dê a ela Contents: Read and write.",
+      404: "Não encontrado no GitHub. Confira o nome do repositório.",
+      409: "Esta página foi salva por outra pessoa ou aba enquanto você editava. Copie seu texto, reabra a página e salve de novo.",
+      413: "Arquivo grande demais para enviar por aqui. Para vídeo, use o YouTube.",
+      422: "O GitHub recusou o arquivo (" + msg + ")."
+    }[r.status] || ("Erro do GitHub " + r.status + (msg ? ": " + msg : ""));
+    const err = new Error(human); err.status = r.status; throw err;
+  }
+  return r.status === 204 ? null : r.json();
+}
+const repoPath = p => `/repos/${GH.repo}/contents/${encPath(p)}`;
+async function getFile(path) {
+  try { const d = await gh(repoPath(path) + "?ref=" + encodeURIComponent(GH.branch)); return { sha: d.sha, text: decText(d.content) }; }
+  catch (e) { if (e.status === 404) return null; throw e; }
+}
+async function putFile(path, b64, sha, message) {
+  return gh(repoPath(path), { method: "PUT", body: JSON.stringify({ message, content: b64, branch: GH.branch, ...(sha ? { sha } : {}) }) });
+}
+async function listDir(path) {
+  try { const d = await gh(repoPath(path) + "?ref=" + encodeURIComponent(GH.branch)); return Array.isArray(d) ? d.map(x => x.name) : []; }
+  catch (e) { if (e.status === 404) return []; throw e; }
+}
+function setStatus(el, msg, kind) { el.textContent = msg || ""; el.className = "ed-status" + (kind ? " " + kind : ""); }
+function closeOnButtons(dlg) { dlg.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => dlg.close())); }
+["#login", "#newpage", "#links"].forEach(s => closeOnButtons($(s)));
+
+/* ----- entrar / sair ----- */
+function openLogin() {
+  $("#lg-repo").value = (GH && GH.repo) || CFG.github || "";
+  $("#lg-token").value = ""; setStatus($("#lg-status"), "");
+  $("#login").showModal();
+}
+$("#login-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const repo = $("#lg-repo").value.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\/+$/, "").replace(/\.git$/, "");
+  const token = $("#lg-token").value.trim();
+  if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return setStatus($("#lg-status"), "Escreva o repositório no formato usuário/nome.", "err");
+  setStatus($("#lg-status"), "Conferindo a chave…");
+  try {
+    const d = await gh(`/repos/${repo}`, {}, { token });
+    if (d.permissions && d.permissions.push === false) throw new Error("Esta chave não pode salvar neste repositório. Dê a ela Contents: Read and write.");
+    GH = { repo: d.full_name, token, branch: d.default_branch || "main" };
+    try { localStorage.setItem("astralGH", JSON.stringify(GH)); } catch (err) {}
+    $("#login").close(); syncEditorUi(); route(); toast("Modo editor ligado neste navegador");
+  } catch (err) { setStatus($("#lg-status"), err.message, "err"); }
+});
+$("#ed-logout").addEventListener("click", () => {
+  GH = null; EDIT = null; try { localStorage.removeItem("astralGH"); } catch (e) {}
+  syncEditorUi(); route(); toast("Você saiu do modo editor");
+});
+function syncEditorUi() { $("#edbar").hidden = !GH; }
+syncEditorUi();
+
+/* ----- editor de página ----- */
+const draftKey = p => "astralDraft:" + p.file;
+async function openEditor(p) {
+  results.hidden = true; view.hidden = false; q.value = "";
+  view.innerHTML = `<p class="state">Abrindo <code>wiki/${esc(p.file)}</code> no GitHub…</p>`;
+  let file;
+  try { file = await getFile("wiki/" + p.file); }
+  catch (e) { view.innerHTML = `<div class="state"><h1>Não deu para abrir</h1><p>${esc(e.message)}</p></div>`; return; }
+  const original = file ? file.text : (p.md || `# ${p.title}\n\n`);
+  let draft = null; try { draft = localStorage.getItem(draftKey(p)); } catch (e) {}
+  const useDraft = draft !== null && draft !== original;
+  EDIT = { p, sha: file ? file.sha : null, original, dirty: useDraft };
+  const others = PAGES.filter(x => x !== p).map(x => `<option value="${x.id}.md">${esc(x.title)}</option>`).join("");
+  view.innerHTML = `
+  <div class="ed" data-pane="write">
+    <div class="ed-head">
+      <div><small>Editando</small><strong>${esc(p.title)}</strong></div>
+      <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><button class="btn accent" type="button" id="ed-save">Salvar</button></div>
+    </div>
+    ${useDraft ? `<p class="draft">Recuperamos um rascunho que não foi salvo. <button class="btn" type="button" id="ed-drop">Descartar rascunho</button></p>` : ""}
+    <div class="ed-tools" role="toolbar" aria-label="Formatação">
+      <button class="btn" type="button" data-ins="h2">Título</button>
+      <button class="btn" type="button" data-ins="b">Negrito</button>
+      <button class="btn" type="button" data-ins="list">Lista</button>
+      <button class="btn" type="button" data-ins="tip">Dica</button>
+      <button class="btn" type="button" data-ins="warn">Atenção</button>
+      <button class="btn" type="button" data-ins="table">Tabela</button>
+      <button class="btn" type="button" data-panel="link">Link</button>
+      <span class="sep" aria-hidden="true"></span>
+      <label class="btn">Imagem<input type="file" id="ed-img" accept="image/png,image/jpeg,image/webp,image/gif"></label>
+      <label class="btn">Vídeo .mp4<input type="file" id="ed-vid" accept="video/mp4,video/webm"></label>
+      <button class="btn" type="button" data-panel="yt">YouTube</button>
+    </div>
+    <div class="ed-row" id="pn-link" hidden>
+      <input id="lnk-text" placeholder="Texto do link (ex.: nossa loja)" aria-label="Texto do link">
+      <input id="lnk-url" placeholder="https://… ou escolha uma página ao lado" aria-label="Endereço do link">
+      <select id="lnk-page" aria-label="Página da wiki"><option value="">Página da wiki…</option>${others}</select>
+      <button class="btn accent" type="button" id="lnk-ok">Inserir</button>
+    </div>
+    <div class="ed-row" id="pn-yt" hidden>
+      <input id="yt-url" placeholder="Cole o link do vídeo do YouTube" aria-label="Link do YouTube">
+      <button class="btn accent" type="button" id="yt-ok">Inserir</button>
+    </div>
+    <p class="ed-status" id="ed-status" role="status">Nada vai para o site até você clicar em Salvar.</p>
+    <div class="ed-switch"><button class="btn" type="button" data-pane="write" aria-pressed="true">Escrever</button><button class="btn" type="button" data-pane="preview" aria-pressed="false">Ver como fica</button></div>
+    <div class="ed-panes">
+      <textarea id="ed-text" spellcheck="true" aria-label="Texto da página"></textarea>
+      <div class="ed-prev prose" id="ed-prev" aria-label="Prévia"></div>
+    </div>
+  </div>`;
+  const ta = $("#ed-text"), prev = $("#ed-prev"), st = $("#ed-status");
+  ta.value = useDraft ? draft : original;
+  const renderPrev = () => { prev.innerHTML = md(ta.value); };
+  renderPrev();
+  let t1;
+  ta.addEventListener("input", () => {
+    EDIT.dirty = ta.value !== EDIT.original;
+    clearTimeout(t1); t1 = setTimeout(() => { renderPrev(); try { localStorage.setItem(draftKey(p), ta.value); } catch (e) {} }, 200);
+  });
+  const dropBtn = $("#ed-drop");
+  if (dropBtn) dropBtn.addEventListener("click", () => { ta.value = EDIT.original; EDIT.dirty = false; try { localStorage.removeItem(draftKey(p)); } catch (e) {} renderPrev(); dropBtn.closest(".draft").remove(); });
+
+  function insert(before, after = "", placeholder = "") {
+    const s = ta.selectionStart, e = ta.selectionEnd, had = e > s, sel = had ? ta.value.slice(s, e) : placeholder;
+    ta.setRangeText(before + sel + after, s, e, "end");
+    if (!had && placeholder) { const p0 = s + before.length; ta.setSelectionRange(p0, p0 + sel.length); }
+    ta.focus(); ta.dispatchEvent(new Event("input"));
+  }
+  function insertBlock(text) {
+    const s = ta.selectionEnd, v = ta.value;
+    const pre = s === 0 || v.slice(0, s).endsWith("\n\n") ? "" : (v.slice(0, s).endsWith("\n") ? "\n" : "\n\n");
+    ta.setRangeText(pre + text + "\n\n", s, s, "end"); ta.focus(); ta.dispatchEvent(new Event("input"));
+  }
+  view.querySelectorAll("[data-ins]").forEach(b => b.addEventListener("click", () => {
+    const k = b.dataset.ins;
+    if (k === "b") insert("**", "**", "texto em negrito");
+    if (k === "h2") insertBlock("## Novo subtítulo");
+    if (k === "list") insertBlock("- Primeiro item\n- Segundo item");
+    if (k === "tip") insertBlock("> Dica: escreva a dica aqui.");
+    if (k === "warn") insertBlock("> Atenção: escreva o aviso aqui.");
+    if (k === "table") insertBlock("| Coluna 1 | Coluna 2 |\n| --- | --- |\n| valor | valor |");
+  }));
+  view.querySelectorAll("[data-panel]").forEach(b => b.addEventListener("click", () => {
+    const pn = $("#pn-" + b.dataset.panel), open = pn.hidden;
+    $("#pn-link").hidden = true; $("#pn-yt").hidden = true; pn.hidden = !open;
+    if (open && b.dataset.panel === "link") { $("#lnk-text").value = ta.value.slice(ta.selectionStart, ta.selectionEnd); $("#lnk-url").focus(); }
+    if (open && b.dataset.panel === "yt") $("#yt-url").focus();
+  }));
+  $("#lnk-page").addEventListener("change", e => { if (e.target.value) { $("#lnk-url").value = e.target.value; if (!$("#lnk-text").value) $("#lnk-text").value = e.target.selectedOptions[0].textContent; } });
+  $("#lnk-ok").addEventListener("click", () => {
+    let url = $("#lnk-url").value.trim(); const text = $("#lnk-text").value.trim() || url;
+    if (!url) return setStatus(st, "Escreva o endereço do link ou escolha uma página.", "err");
+    if (!/^(https?:\/\/|[\w-]+\.md$|#)/i.test(url)) url = "https://" + url;
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    ta.setRangeText(`[${text.replace(/[\[\]]/g, "")}](${url.replace(/\s/g, "%20")})`, s, e, "end");
+    ta.focus(); ta.dispatchEvent(new Event("input"));
+    $("#pn-link").hidden = true; $("#lnk-url").value = ""; $("#lnk-text").value = ""; $("#lnk-page").value = "";
+    setStatus(st, "Link inserido.", "ok");
+  });
+  $("#yt-ok").addEventListener("click", () => {
+    const u = $("#yt-url").value.trim();
+    if (!ytId(u)) return setStatus(st, "Esse link não parece ser de um vídeo do YouTube.", "err");
+    insertBlock(u); $("#pn-yt").hidden = true; $("#yt-url").value = ""; setStatus(st, "Vídeo inserido.", "ok");
+  });
+
+  async function upload(file, kind) {
+    if (!file) return;
+    if (file.size > 25 * 1024 * 1024) return setStatus(st, "Arquivo maior que 25 MB. Para vídeo grande, suba no YouTube e use o botão YouTube.", "err");
+    const ext = ((file.name.match(/\.[a-z0-9]+$/i) || [""])[0] || (kind === "img" ? ".png" : ".mp4")).toLowerCase();
+    const base = slug(file.name.replace(/\.[^.]+$/, "")).slice(0, 50) || (kind === "img" ? "imagem" : "video");
+    try {
+      setStatus(st, "Enviando " + file.name + "…");
+      const names = new Set(await listDir("wiki/midia"));
+      let name = base + ext, n = 2; while (names.has(name)) name = `${base}-${n++}${ext}`;
+      await putFile("wiki/midia/" + name, b64bytes(new Uint8Array(await file.arrayBuffer())), null, "Wiki: enviar " + name);
+      LOCAL_MEDIA["wiki/midia/" + name] = URL.createObjectURL(file);
+      if (kind === "img") insertBlock(`![Escreva a legenda aqui](midia/${name})`);
+      else insertBlock("midia/" + name);
+      setStatus(st, kind === "img"
+        ? `${name} enviado. Troque "Escreva a legenda aqui" pela legenda e clique em Salvar.`
+        : `${name} enviado. Clique em Salvar para a página usar o vídeo.`, "ok");
+    } catch (e) { setStatus(st, e.message, "err"); }
+  }
+  $("#ed-img").addEventListener("change", e => { upload(e.target.files[0], "img"); e.target.value = ""; });
+  $("#ed-vid").addEventListener("change", e => { upload(e.target.files[0], "vid"); e.target.value = ""; });
+
+  view.querySelectorAll(".ed-switch .btn").forEach(b => b.addEventListener("click", () => {
+    view.querySelector(".ed").dataset.pane = b.dataset.pane;
+    view.querySelectorAll(".ed-switch .btn").forEach(x => x.setAttribute("aria-pressed", x === b));
+    if (b.dataset.pane === "preview") renderPrev();
+  }));
+
+  $("#ed-save").addEventListener("click", async () => {
+    const text = ta.value;
+    if (!/^#\s+\S/m.test(text)) return setStatus(st, "A página precisa de um título na primeira linha, começando com # e espaço.", "err");
+    $("#ed-save").disabled = true; setStatus(st, "Salvando…");
+    try {
+      const res = await putFile("wiki/" + p.file, encText(text), EDIT.sha, "Wiki: editar " + p.file);
+      EDIT.sha = res.content.sha; EDIT.original = text; EDIT.dirty = false;
+      p.md = text; indexPage(p); buildToc(); markToc(p.id);
+      $(".ed-head strong").textContent = p.title;
+      try { localStorage.removeItem(draftKey(p)); } catch (e) {}
+      setStatus(st, "Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
+    } catch (e) { setStatus(st, e.message, "err"); }
+    finally { $("#ed-save").disabled = false; }
+  });
+  $("#ed-close").addEventListener("click", () => {
+    if (EDIT && EDIT.dirty) setStatus(st, "Há mudanças não salvas. Elas ficam guardadas como rascunho neste navegador.", "err");
+    EDIT = null; showPage(p);
+  });
+  window.scrollTo({ top: 0 });
+}
+addEventListener("beforeunload", e => { if (EDIT && EDIT.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ----- nova página ----- */
+$("#ed-new").addEventListener("click", () => {
+  const sel = $("#np-cat");
+  sel.innerHTML = CATS.map(c => `<option>${esc(c)}</option>`).join("") + `<option value="__nova">+ Nova categoria…</option>`;
+  $("#np-title").value = ""; $("#np-newcat").value = ""; $("#np-newcat-wrap").hidden = true; setStatus($("#np-status"), "");
+  $("#newpage").showModal();
+});
+$("#np-cat").addEventListener("change", e => { $("#np-newcat-wrap").hidden = e.target.value !== "__nova"; });
+$("#np-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const title = $("#np-title").value.trim();
+  const cat = $("#np-cat").value === "__nova" ? $("#np-newcat").value.trim() : $("#np-cat").value;
+  if (!title || !cat) return setStatus($("#np-status"), "Preencha o título e a categoria.", "err");
+  if (/\.md$/i.test(cat) || cat.startsWith("#")) return setStatus($("#np-status"), "O nome da categoria não pode terminar em .md nem começar com #.", "err");
+  const base = slug(title).slice(0, 50) || "pagina";
+  try {
+    setStatus($("#np-status"), "Criando a página…");
+    const existing = new Set(await listDir("wiki"));
+    let id = base, n = 2; while (existing.has(id + ".md") || PAGES.some(x => x.id === id)) id = `${base}-${n++}`;
+    const file = id + ".md";
+    const body = `# ${title}\n\nEscreva aqui uma frase explicando o sistema. Ela aparece no cartão da página.\n\n<!-- Imagem: botão Imagem do editor. Vídeo: botão YouTube ou Vídeo .mp4. -->\n\n## Como funciona\n\n`;
+    await putFile("wiki/" + file, encText(body), null, "Wiki: criar " + file);
+    const list = await getFile("wiki/paginas.txt");
+    const lines = (list ? list.text : "").replace(/\r/g, "").split("\n");
+    let ci = lines.findIndex(l => l.trim() === cat), at = -1;
+    if (ci >= 0) {
+      at = ci;
+      for (let k = ci + 1; k < lines.length; k++) {
+        const l = lines[k].trim();
+        if (!l || l.startsWith("#")) continue;
+        if (/\.md$/i.test(l)) at = k; else break;
+      }
+      lines.splice(at + 1, 0, file);
+    } else {
+      while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+      lines.push("", cat, file);
+    }
+    await putFile("wiki/paginas.txt", encText(lines.join("\n") + "\n"), list ? list.sha : null, "Wiki: adicionar " + file + " ao menu");
+    if (!CATS.includes(cat)) CATS.push(cat);
+    const p = { file, id, cat, md: body }; indexPage(p);
+    const lastInCat = PAGES.map(x => x.cat).lastIndexOf(cat);
+    if (lastInCat >= 0) PAGES.splice(lastInCat + 1, 0, p); else PAGES.push(p);
+    buildToc(); $("#newpage").close();
+    history.replaceState(null, "", "#" + id); markToc(id);
+    openEditor(p);
+  } catch (err) { setStatus($("#np-status"), err.message, "err"); }
+});
+
+/* ----- links do site (config.js) ----- */
+let CFG_FILE = null;
+$("#ed-links").addEventListener("click", async () => {
+  setStatus($("#lk-status"), "Lendo config.js…"); $("#links").showModal();
+  try {
+    CFG_FILE = await getFile("config.js");
+    if (!CFG_FILE) throw new Error("O arquivo config.js não foi encontrado no repositório.");
+    const get = k => ((CFG_FILE.text.match(new RegExp(k + '\\s*:\\s*"([^"]*)"')) || [])[1] || "");
+    $("#lk-discord").value = get("discord"); $("#lk-loja").value = get("loja");
+    setStatus($("#lk-status"), "");
+  } catch (e) { setStatus($("#lk-status"), e.message, "err"); }
+});
+$("#lk-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!CFG_FILE) return;
+  const val = id => $(id).value.trim().replace(/["\\\n]/g, "");
+  let text = CFG_FILE.text;
+  for (const [k, v] of [["discord", val("#lk-discord")], ["loja", val("#lk-loja")]]) {
+    const rx = new RegExp("(" + k + '\\s*:\\s*")[^"]*(")');
+    if (!rx.test(text)) return setStatus($("#lk-status"), `Não achei a linha "${k}" no config.js. Edite pelo GitHub.`, "err");
+    text = text.replace(rx, (m, a, b) => a + v + b);
+  }
+  try {
+    setStatus($("#lk-status"), "Salvando…");
+    const res = await putFile("config.js", encText(text), CFG_FILE.sha, "Site: atualizar links");
+    CFG_FILE = { sha: res.content.sha, text };
+    setStatus($("#lk-status"), "Salvo. Os botões mudam no site em 1 a 2 minutos.", "ok");
+  } catch (err) { setStatus($("#lk-status"), err.message, "err"); }
+});
+
+/* ---------- imagem ampliada ---------- */
+const zoom = $("#zoom");
+function openZoom(img) {
+  zoom.querySelector("img").src = img.src; zoom.querySelector("img").alt = img.alt;
+  zoom.querySelector("p").textContent = img.alt || "";
+  if (zoom.showModal) zoom.showModal();
+}
+zoom.addEventListener("click", e => { if (e.target === zoom || e.target.tagName === "IMG") zoom.close(); });
+$("#zoom-close").addEventListener("click", () => zoom.close());
+
+addEventListener("hashchange", () => { q.value = ""; search(); route(); });
+if (matchMedia("(max-width: 860px)").matches) $("#side-box").open = false;
+load();
+</script>
+</body>
+</html>

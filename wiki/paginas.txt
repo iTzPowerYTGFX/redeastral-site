@@ -1,0 +1,23 @@
+# LISTA DAS PÁGINAS DA WIKI
+# Linhas que começam com # são comentários e não aparecem no site.
+# Linha SEM ".md" no fim = nome de uma categoria.
+# Linha COM ".md" no fim = uma página (o arquivo fica nesta mesma pasta "wiki").
+# A ordem aqui é a ordem em que aparece no site.
+
+Começando
+primeiros-passos.md
+
+Pets e capturas
+captura.md
+raridades.md
+pets.md
+pets-especiais.md
+
+Itens e equipamentos
+minerios.md
+mochilas.md
+fornalhas.md
+
+Mundo e eventos
+arena-astral.md
+limpeza.md
