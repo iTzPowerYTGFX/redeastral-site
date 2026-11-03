@@ -447,7 +447,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
       <p>Ao jogar, você aceita as regras desta página. Guardamos seu nick, seu identificador do Minecraft e os registros de chat e de ações no jogo, usados só para moderação e para o funcionamento do servidor. Pagamentos são processados pela plataforma da loja; não temos acesso aos dados do seu cartão ou banco. Para pedir a remoção dos seus dados, abra um ticket no Discord.</p>
       <p>Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</p>
     </div>
-    <p>© <span id="year">2026</span> Rede Astral</p>
+    <p>© <span id="year">2026</span> Rede Astral · <a href="wiki.html#modo-editor">Área do editor</a></p>
   </div>
 </footer>
 
@@ -575,6 +575,9 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
   size(); draw(0);
   addEventListener("resize", () => { size(); if (still) draw(0); });
 })();
+
+/* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
+try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js"; s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
 
 </body>

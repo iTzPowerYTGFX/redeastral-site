@@ -1,0 +1,293 @@
+/* =====================================================================
+   EDITOR DA PÁGINA INICIAL — só carrega para quem entrou no modo editor
+   (a chave do GitHub fica no localStorage deste navegador).
+   Clique em qualquer texto para editar; "+ Adicionar" e "✕" mexem nas listas.
+   Ao salvar, o index.html do repositório é atualizado no GitHub.
+   ===================================================================== */
+(() => {
+  let GH = null;
+  try { GH = JSON.parse(localStorage.getItem("astralGH") || "null"); } catch (e) {}
+  if (!GH || !GH.token) return;
+
+  /* ---------- o que pode ser editado ---------- */
+  // Textos soltos (uma linha = Enter não quebra linha)
+  const EDITABLE = [
+    [".hero .eyebrow", 1], [".hero h1", 1], [".hero .lead", 0],
+    [".block-head .eyebrow", 1], [".block-head h2", 1], [".block-head .lead", 0],
+    [".feat h3", 1], [".feat > p", 0], [".feat .more", 1],
+    [".panel > .lead", 0], [".steps li > div", 0], [".panel .note", 0], ["#primeiros-passos > .wrap > .note", 0],
+    [".rules h3", 1], [".rules li", 0],
+    [".punish > div", 0],
+    [".tier h3", 1], [".tier p", 0], [".shop-foot .note", 0],
+    [".faq summary", 1], [".faq details p", 0],
+    ["footer .legal h3", 1], ["footer .legal p", 0]
+  ];
+  // Listas onde dá para adicionar e remover itens
+  const LISTS = [
+    [".features", "cartão"], [".rules ol", "regra"], [".punish", "punição"], [".shop", "VIP"],
+    [".faq", "pergunta"], ["#primeiros-passos .steps", "passo"],
+    ["#p-java .steps", "passo"], ["#p-bedrock .steps", "passo"], ["#p-consoles .steps", "passo"]
+  ];
+
+  /* ---------- GitHub ---------- */
+  const API = "https://api.github.com";
+  const b64bytes = bytes => { let bin = ""; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(bin); };
+  const encText = s => b64bytes(new TextEncoder().encode(s));
+  const decText = b64 => new TextDecoder().decode(Uint8Array.from(atob((b64 || "").replace(/\s/g, "")), c => c.charCodeAt(0)));
+  async function gh(path, opts = {}) {
+    let r;
+    try {
+      r = await fetch(API + path, { ...opts, cache: "no-store", headers: {
+        Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
+        Authorization: "Bearer " + GH.token, ...(opts.body ? { "Content-Type": "application/json" } : {}) } });
+    } catch (e) { throw new Error("Sem conexão com o GitHub. Confira a internet e tente de novo."); }
+    if (!r.ok) {
+      let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {}
+      throw new Error({
+        401: "Chave inválida ou vencida. Entre de novo pela Área do editor da Wiki.",
+        403: "A chave não tem permissão de escrita (public_repo).",
+        404: "Arquivo ou repositório não encontrado no GitHub.",
+        409: "O arquivo mudou no GitHub enquanto você editava. Recarregue a página e tente de novo."
+      }[r.status] || ("Erro do GitHub " + r.status + (msg ? ": " + msg : "")));
+    }
+    return r.json();
+  }
+  const filePath = p => `/repos/${GH.repo}/contents/${p}`;
+
+  /* ---------- estilos do editor ---------- */
+  const style = document.createElement("style");
+  style.textContent = `
+  .ed-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #1b1438; border-top: 2px solid #7c3aed;
+    padding: .625rem max(16px, env(safe-area-inset-right, 0px)) calc(.625rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font: 600 .9375rem "Atkinson Hyperlegible", system-ui, sans-serif; color: #f1eeff; }
+  .ed-bar strong { font-family: "Chakra Petch", system-ui, sans-serif; margin-right: .25rem; }
+  .ed-bar .grow { flex: 1; min-width: 8rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
+  .ed-bar .grow.ok { color: #5fd8cb; } .ed-bar .grow.err { color: #ffb547; }
+  .ed-bar button, .ed-bar a { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font: 700 .875rem inherit; cursor: pointer; text-decoration: none; }
+  .ed-bar .acc { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+  .ed-bar input { min-width: 0; flex: 1 1 14rem; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font: 1rem inherit; }
+  body.ed-on { padding-bottom: 7rem; }
+  body.ed-on [data-ed] { outline: 1px dashed color-mix(in srgb, #b99bff 55%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
+  body.ed-on [data-ed]:focus { outline: 2px solid #b99bff; background: color-mix(in srgb, #7c3aed 12%, transparent); }
+  body.ed-on .ed-item { position: relative; }
+  .ed-del { position: absolute; top: -.6rem; right: -.6rem; z-index: 5; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 0; background: #ff7a7a; color: #1b0505; font: 700 .875rem system-ui; cursor: pointer; line-height: 1; }
+  li > .ed-del { top: 50%; transform: translateY(-50%); right: -.8rem; }
+  .ed-add { display: block; margin: .75rem 0 0; padding: .45rem .9rem; border-radius: 6px; border: 1px dashed #b99bff; background: transparent; color: #b99bff; font: 700 .875rem system-ui; cursor: pointer; }
+  .ed-href { position: absolute; left: .75rem; right: .75rem; bottom: -1.1rem; z-index: 5; display: flex; gap: .25rem; align-items: center; background: #1b1438; border: 1px solid #7c3aed; border-radius: 6px; padding: .2rem .4rem; font: 600 .75rem system-ui; color: #b99bff; }
+  .ed-href input { flex: 1; min-width: 0; background: transparent; border: 0; color: #f1eeff; font: .8125rem system-ui; }
+  body.ed-on .feat.ed-item { margin-bottom: 1.25rem; }`;
+  style.className = "ed-ui";
+  document.head.appendChild(style);
+
+  /* ---------- barra ---------- */
+  const bar = document.createElement("div");
+  bar.className = "ed-bar ed-ui";
+  bar.innerHTML = `<strong>Modo editor</strong><span class="grow" id="ed-msg">Página inicial</span>
+    <button type="button" class="acc" id="ed-start">Editar esta página</button>
+    <a href="wiki.html">Ir para a Wiki</a>`;
+  document.body.appendChild(bar);
+  const msg = (t, k) => { const m = bar.querySelector("#ed-msg"); m.textContent = t; m.className = "grow" + (k ? " " + k : ""); };
+
+  let editing = false, dirty = false, savedRange = null;
+  const isUi = el => el.classList && el.classList.contains("ed-ui");
+  const kids = el => [...el.children].filter(c => !isUi(c) && !c.classList.contains("toast"));
+  function pathOf(el) {
+    const path = [];
+    for (let n = el; n && n !== document.body; n = n.parentElement) path.unshift(kids(n.parentElement).indexOf(n));
+    return path;
+  }
+  function byPath(doc, path) {
+    let n = doc.body;
+    for (const i of path) { n = n && [...n.children][i]; }
+    return n || null;
+  }
+  const listOf = el => el.closest("[data-ed-list]");
+
+  /* ---------- limpeza do HTML editado ---------- */
+  function sanitizeInto(src, dst, doc) {
+    for (const n of [...src.childNodes]) {
+      if (n.nodeType === 3) { dst.appendChild(doc.createTextNode(n.textContent)); continue; }
+      if (n.nodeType !== 1 || isUi(n)) continue;
+      const tag = n.tagName.toLowerCase();
+      if (tag === "br") { dst.appendChild(doc.createElement("br")); continue; }
+      if (tag === "div" || tag === "p") { if (dst.childNodes.length) dst.appendChild(doc.createElement("br")); sanitizeInto(n, dst, doc); continue; }
+      const map = { strong: "b", b: "b", em: "i", i: "i", a: "a", code: "code", small: "small", span: "span" };
+      if (!map[tag]) { sanitizeInto(n, dst, doc); continue; }
+      const e = doc.createElement(map[tag]);
+      if (tag === "a") {
+        const h = (n.getAttribute("href") || "").trim();
+        if (h && !/^\s*(javascript|data|vbscript):/i.test(h)) e.setAttribute("href", h);
+        if (/^https?:/i.test(h)) { e.setAttribute("target", "_blank"); e.setAttribute("rel", "noopener"); }
+      }
+      if (tag === "span") { if (n.classList.contains("mono")) e.className = "mono"; if (n.dataset.cfg) e.setAttribute("data-cfg", n.dataset.cfg); }
+      sanitizeInto(n, e, doc); dst.appendChild(e);
+    }
+    while (dst.lastChild && dst.lastChild.nodeName === "BR") dst.removeChild(dst.lastChild);
+  }
+  const cleanHtml = el => { const d = document.createElement("div"); sanitizeInto(el, d, document); return d.innerHTML; };
+  function cleanClone(item) {
+    const c = item.cloneNode(true);
+    c.querySelectorAll(".ed-ui").forEach(x => x.remove());
+    const all = [c, ...c.querySelectorAll("*")];
+    for (const el of all) {
+      if (el.hasAttribute("data-ed")) { el.innerHTML = cleanHtml(el); el.removeAttribute("data-ed"); el.removeAttribute("data-ed-changed"); }
+      if (el.getAttribute("style") === "") el.removeAttribute("style");
+      el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
+      el.classList.remove("ed-item"); if (el.getAttribute("class") === "") el.removeAttribute("class");
+      if (el.tagName === "DETAILS") el.removeAttribute("open");
+    }
+    return c;
+  }
+
+  /* ---------- ligar / desligar edição ---------- */
+  function makeEditable(el, single) {
+    el.setAttribute("data-ed", single ? "1" : "0");
+    el.setAttribute("contenteditable", "true");
+    el.setAttribute("spellcheck", "true");
+  }
+  function decorateItem(list, item) {
+    item.classList.add("ed-item");
+    const del = document.createElement("button");
+    del.type = "button"; del.className = "ed-del ed-ui"; del.textContent = "✕";
+    del.title = "Remover este item"; del.setAttribute("contenteditable", "false");
+    del.addEventListener("click", e => { e.preventDefault(); e.stopPropagation();
+      if (kids(list).length <= 1) return msg("Precisa sobrar pelo menos um item nesta lista.", "err");
+      item.remove(); dirty = true; msg("Item removido. Clique em Salvar para gravar.");
+    });
+    item.appendChild(del);
+    if (item.matches("a.feat")) {
+      const box = document.createElement("label");
+      box.className = "ed-href ed-ui"; box.setAttribute("contenteditable", "false");
+      box.innerHTML = `Link:<input type="text" spellcheck="false">`;
+      const inp = box.querySelector("input"); inp.value = item.getAttribute("href") || "";
+      inp.addEventListener("input", () => { item.setAttribute("href", inp.value.trim() || "wiki.html"); dirty = true; });
+      inp.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); inp.focus(); });
+      box.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); });
+      item.appendChild(box);
+    }
+    EDITABLE.forEach(([sel, single]) => item.querySelectorAll(sel).forEach(el => makeEditable(el, single)));
+    if (item.matches("li") && item.closest(".rules")) makeEditable(item, 0);
+    if (item.matches(".punish > div")) makeEditable(item, 0);
+  }
+  function startEditing() {
+    editing = true; document.body.classList.add("ed-on");
+    document.querySelectorAll(".faq details").forEach(d => d.open = true);
+    LISTS.forEach(([sel, name]) => document.querySelectorAll(sel).forEach(list => {
+      list.setAttribute("data-ed-list", name);
+      kids(list).forEach(item => decorateItem(list, item));
+      const add = document.createElement("button");
+      add.type = "button"; add.className = "ed-add ed-ui"; add.textContent = "+ Adicionar " + name;
+      add.addEventListener("click", () => {
+        const last = kids(list).at(-1); if (!last) return;
+        const copy = cleanClone(last);
+        copy.querySelectorAll("*").forEach(el => el.removeAttribute("id"));
+        list.appendChild(copy);
+        decorateItem(list, copy);
+        let firstText = null;
+        [copy, ...copy.querySelectorAll("[data-ed]")].filter(el => el.hasAttribute("data-ed")).forEach(el => {
+          for (const n of [...el.childNodes]) if (!(n.nodeType === 1 && isUi(n))) n.remove();
+          const tn = document.createTextNode(el.getAttribute("data-ed") === "1" ? "Novo título" : "Escreva aqui.");
+          el.insertBefore(tn, el.firstChild); el.setAttribute("data-ed-changed", "1");
+          if (!firstText) firstText = tn;
+        });
+        dirty = true;
+        if (firstText) {
+          firstText.parentElement.focus();
+          const r = document.createRange(); r.selectNodeContents(firstText);
+          const sel = document.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        }
+        msg("Item novo adicionado no fim da lista. Clique em Salvar para gravar.");
+      });
+      list.after(add);
+    }));
+    EDITABLE.forEach(([sel, single]) => document.querySelectorAll(sel).forEach(el => { if (!el.hasAttribute("data-ed")) makeEditable(el, single); }));
+    bar.innerHTML = `<strong>Editando</strong>
+      <button type="button" id="ed-b" title="Negrito">Negrito</button>
+      <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
+      <button type="button" id="ed-ul" title="Tirar link do texto selecionado">Tirar link</button>
+      <input type="text" id="ed-url" placeholder="Cole o endereço e aperte Enter (https://… ou wiki.html#pagina)" hidden>
+      <span class="grow" id="ed-msg">Clique em qualquer texto marcado para editar.</span>
+      <button type="button" id="ed-cancel">Cancelar</button>
+      <button type="button" class="acc" id="ed-save">Salvar</button>`;
+    const keep = e => e.preventDefault();
+    ["#ed-b", "#ed-l", "#ed-ul"].forEach(s => bar.querySelector(s).addEventListener("mousedown", keep));
+    bar.querySelector("#ed-b").addEventListener("click", () => { document.execCommand("bold"); dirty = true; });
+    bar.querySelector("#ed-ul").addEventListener("click", () => { document.execCommand("unlink"); dirty = true; });
+    bar.querySelector("#ed-l").addEventListener("click", () => {
+      const sel = document.getSelection();
+      const node = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement);
+      if (!sel.rangeCount || sel.isCollapsed || !node || !node.closest("[data-ed]")) return msg("Primeiro selecione o texto que vai virar link.", "err");
+      savedRange = sel.getRangeAt(0).cloneRange();
+      const u = bar.querySelector("#ed-url"); u.hidden = false; u.value = ""; u.focus();
+    });
+    bar.querySelector("#ed-url").addEventListener("keydown", e => {
+      if (e.key === "Escape") { e.target.hidden = true; return; }
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      let url = e.target.value.trim(); if (!url || !savedRange) return;
+      if (!/^(https?:\/\/|#|[\w-]+\.html)/i.test(url)) url = "https://" + url;
+      const sel = document.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange);
+      document.execCommand("createLink", false, url);
+      e.target.hidden = true; savedRange = null; dirty = true; msg("Link colocado.", "ok");
+    });
+    bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
+    bar.querySelector("#ed-save").addEventListener("click", save);
+    msg("Clique em qualquer texto marcado para editar.");
+  }
+
+  /* ---------- comportamento durante a edição ---------- */
+  document.addEventListener("click", e => {
+    if (!editing) return;
+    const a = e.target.closest("a");
+    if (a && !a.closest(".ed-bar") && (a.closest("[data-ed]") || a.matches(".feat") || a.closest(".feat"))) e.preventDefault();
+    if (e.target.closest(".faq summary")) e.preventDefault();
+  }, true);
+  document.addEventListener("keydown", e => {
+    const el = e.target.closest && e.target.closest("[data-ed]");
+    if (!editing || !el) return;
+    if (e.key === "Enter") { e.preventDefault(); if (el.getAttribute("data-ed") === "0") document.execCommand("insertLineBreak"); }
+    if (e.key === " " && el.matches("summary")) { e.preventDefault(); document.execCommand("insertText", false, " "); }
+  }, true);
+  document.addEventListener("keyup", e => { if (editing && e.key === " " && e.target.closest && e.target.closest("summary")) e.preventDefault(); }, true);
+  document.addEventListener("paste", e => {
+    if (!editing || !e.target.closest || !e.target.closest("[data-ed]")) return;
+    e.preventDefault();
+    const t = (e.clipboardData || window.clipboardData).getData("text/plain");
+    document.execCommand("insertText", false, t);
+  }, true);
+  document.addEventListener("input", e => {
+    const el = editing && e.target.closest && e.target.closest("[data-ed]");
+    if (el) { dirty = true; el.setAttribute("data-ed-changed", "1"); }
+  }, true);
+  addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+  /* ---------- salvar ---------- */
+  async function save() {
+    const btn = bar.querySelector("#ed-save"); btn.disabled = true; msg("Salvando…");
+    try {
+      const d = await gh(filePath("index.html") + "?ref=" + encodeURIComponent(GH.branch));
+      const doc = new DOMParser().parseFromString(decText(d.content), "text/html");
+      // listas inteiras
+      for (const list of document.querySelectorAll("[data-ed-list]")) {
+        const target = byPath(doc, pathOf(list));
+        if (!target || target.tagName !== list.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
+        target.innerHTML = "\n" + kids(list).map(item => "        " + cleanClone(item).outerHTML).join("\n") + "\n      ";
+      }
+      // textos soltos
+      for (const el of document.querySelectorAll("[data-ed]")) {
+        if (listOf(el) || !el.hasAttribute("data-ed-changed")) continue;
+        const target = byPath(doc, pathOf(el));
+        if (!target || target.tagName !== el.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
+        target.innerHTML = cleanHtml(el);
+      }
+      const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
+      if (!/<main[\s>]/i.test(html) || !/<script/i.test(html)) throw new Error("Algo saiu errado ao montar a página. Nada foi salvo.");
+      await gh(filePath("index.html"), { method: "PUT", body: JSON.stringify({ message: "Site: editar página inicial", content: encText(html), sha: d.sha, branch: GH.branch }) });
+      dirty = false;
+      msg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
+    } catch (err) { msg(err.message, "err"); }
+    finally { btn.disabled = false; }
+  }
+
+  bar.querySelector("#ed-start").addEventListener("click", startEditing);
+})();
