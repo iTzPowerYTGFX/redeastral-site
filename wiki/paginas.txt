@@ -41,10 +41,10 @@ mimicos.md
 saque.md
 
 Social
-correio.md
 
 Eventos
 arena-astral.md
 limpeza.md
+correio.md
 
 Servidor
