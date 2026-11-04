@@ -124,6 +124,13 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .video.file video { height: auto; max-height: 75vh; }
 .video.anim { background: var(--sky-2); }
 .prose figure[style] img { width: 100%; }
+/* lado a lado (colunas) */
+.cols { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; margin: 0 0 1.5rem; }
+.cols > .col { flex: 1 1 9rem; min-width: 0; }
+.cols > .col > :last-child { margin-bottom: 0; }
+.cols > .col > :first-child { margin-top: 0; }
+.cols .prose img, .cols img { width: 100%; }
+.cols .video.vertical { max-width: 100%; }
 /* cartões de classe, raça, habilidade e atributo */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: .75rem; margin: 0 0 1.5rem; }
 .cards-grid.habilidade, .cards-grid.atributo { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
@@ -145,6 +152,12 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .bcard.ico > div { display: grid; gap: .3rem; min-width: 0; }
 .video.vertical[style] { max-width: none; }
 .ed-prev { position: relative; }
+.ed-prev .cols > .col { outline: 1px dashed color-mix(in srgb, var(--teal) 45%, transparent); outline-offset: 4px; border-radius: 4px; }
+.ed-prev .mv-src { opacity: .35; }
+.mv { position: absolute; z-index: 8; background: var(--teal); color: #06221f; border: 0; border-radius: 6px; padding: .15rem .45rem; font: 700 .75rem var(--f-body); cursor: grab; touch-action: none; user-select: none; box-shadow: 0 2px 8px rgba(0,0,0,.45); }
+.mv:active { cursor: grabbing; }
+.drop-ind { position: absolute; z-index: 7; background: var(--teal); border-radius: 3px; pointer-events: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 30%, transparent); }
+.drop-tip { position: absolute; z-index: 9; background: var(--sky); border: 1px solid var(--teal); color: var(--ink); font: 700 .75rem var(--f-body); padding: .15rem .45rem; border-radius: 4px; pointer-events: none; white-space: nowrap; }
 .ed-prev [data-line].rz-on { outline: 1px dashed var(--violet-soft); outline-offset: 3px; }
 .rz { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--violet); border: 2px solid #fff; cursor: ew-resize; z-index: 6; touch-action: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--violet) 35%, transparent); }
 .rz-label { position: absolute; z-index: 7; background: var(--sky); border: 1px solid var(--violet); color: var(--ink); font: 700 .75rem var(--f-mono); padding: .1rem .4rem; border-radius: 4px; pointer-events: none; }
@@ -426,7 +439,8 @@ const RX = {
   sep: /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/
 };
 const isTable = (l, n) => l.includes("|") && n !== undefined && RX.sep.test(n);
-const isBlock = (l, n) => (l = stripSize(l), CARD_RX.test(l) || RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
+const LADO_RX = /^:::\s*lado\s*$/i;
+const isBlock = (l, n) => (l = stripSize(l), CARD_RX.test(l) || /^\s*(:::|\+\+\+\s*$)/.test(l) || RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
 function figure(line) {
   const m = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
   return `<figure>${inline(line.trim())}${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`;
@@ -457,16 +471,44 @@ function cardBlock(kind, name, f) {
 const SIZE_RX = /\s*\{\s*(\d{1,3})\s*%\s*\}\s*$/;
 const stripSize = l => l.replace(SIZE_RX, "");
 const sizeOf = l => { const m = l.match(SIZE_RX); return m ? Math.max(10, Math.min(300, +m[1])) : 0; };
-function md(src, nested) {
+/* fim de um bloco "::: lado" (conta os ":::" de cartões dentro dele) */
+function ladoEnd(lines, i) {
+  let d = 0;
+  for (let j = i; j < lines.length; j++) {
+    const t = stripSize(lines[j]).trim();
+    if (LADO_RX.test(t) || CARD_RX.test(t)) d++;
+    else if (t === ":::") { d--; if (d === 0) return j; }
+  }
+  return lines.length;
+}
+/* colunas de um "::: lado": [início, fim) de cada uma, separadas por "+++" */
+function ladoCols(lines, i, end) {
+  const cols = []; let cs = i + 1, d = 0;
+  for (let j = i + 1; j < end; j++) {
+    const t = stripSize(lines[j]).trim();
+    if (LADO_RX.test(t) || CARD_RX.test(t)) d++;
+    else if (t === ":::") d--;
+    else if (d === 0 && t === "+++") { cols.push([cs, j]); cs = j + 1; }
+  }
+  cols.push([cs, end]); return cols;
+}
+function md(src, nested, base = 0) {
   const lines = src.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, c => c.replace(/[^\n]/g, "")).split("\n");
   let i = 0, html = "";
-  const at = (k, kind, size) => nested ? "" : ` data-line="${k}" data-kind="${kind}"${size ? ` data-size="${size}"` : ""}`;
+  const se = (a, b, blk) => nested ? "" : ` data-s="${base + a}" data-e="${base + b}"${blk ? ` data-blk="${blk}"` : ""}`;
+  const at = (k, kind, size, a, b) => nested ? "" : ` data-line="${base + k}" data-kind="${kind}"${size ? ` data-size="${size}"` : ""}${se(a, b)}`;
   const zoom = sz => sz && sz !== 100 ? ` style="zoom:${Math.max(50, sz) / 100}"` : "";
   const width = sz => sz && sz < 100 ? ` style="width:${sz}%"` : "";
   while (i < lines.length) {
     const raw = lines[i], size = sizeOf(raw), l = stripSize(raw), next = lines[i + 1];
     let m;
     if (!l.trim()) { i++; continue; }
+    if (LADO_RX.test(l.trim())) {
+      const s0 = i, end = ladoEnd(lines, i), cols = ladoCols(lines, i, end);
+      html += `<div class="cols"${se(s0, Math.min(end + 1, lines.length), "cols")}>` + cols.map(([a, b]) =>
+        `<div class="col"${se(a, b, "col")}>${md(lines.slice(a, b).join("\n"), nested, base + a)}</div>`).join("") + `</div>`;
+      i = end + 1; continue;
+    }
     if (CARD_RX.test(l)) {
       const c0 = i, csz = size, cards = []; let kind = null;
       while (i < lines.length) {
@@ -486,20 +528,20 @@ function md(src, nested) {
         if (i < lines.length && /^:::\s*$/.test(lines[i])) i++;
         cards.push(cardBlock(kind, cm[2], f));
       }
-      html += `<div class="cards-grid ${kind}"${at(c0, "text", csz)}${zoom(csz)}>${cards.join("")}</div>`;
+      html += `<div class="cards-grid ${kind}"${at(c0, "text", csz, c0, i)}${zoom(csz)}>${cards.join("")}</div>`;
       continue;
     }
-    if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}"${at(i, "text", size)}${zoom(size)}>${inline(m[2])}</h${n}>`; i++; continue; }
-    if (RX.hr.test(l)) { html += "<hr>"; i++; continue; }
-    const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size)}${width(size)} `); i++; continue; }
-    if (RX.img.test(l)) { html += figure(l).replace(/^<figure/, `<figure${at(i, "media", size)}${width(size)}`); i++; continue; }
+    if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}"${at(i, "text", size, i, i + 1)}${zoom(size)}>${inline(m[2])}</h${n}>`; i++; continue; }
+    if (RX.hr.test(l)) { html += `<hr${se(i, i + 1)}>`; i++; continue; }
+    const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size, i, i + 1)}${width(size)} `); i++; continue; }
+    if (RX.img.test(l)) { html += figure(l).replace(/^<figure/, `<figure${at(i, "media", size, i, i + 1)}${width(size)}`); i++; continue; }
     if (RX.quote.test(l)) {
       const buf = [], q0 = i, qs = size;
       while (i < lines.length && RX.quote.test(lines[i])) { buf.push((i === q0 ? l : lines[i]).replace(/^\s*>\s?/, "")); i++; }
       const k = (buf[0].match(/^\s*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:/i) || [])[1];
       if (k) buf[0] = buf[0].replace(/^\s*([^:]+):/, "**$1:**");
       const cls = !k ? "" : /dica/i.test(k) ? " tip" : " warn";
-      html += `<aside class="callout${cls}"${at(q0, "text", qs)}${zoom(qs)}>${md(buf.join("\n"), true)}</aside>`; continue;
+      html += `<aside class="callout${cls}"${at(q0, "text", qs, q0, i)}${zoom(qs)}>${md(buf.join("\n"), true)}</aside>`; continue;
     }
     if (RX.item.test(l)) {
       const ordered = /^\s*\d/.test(l), start = ordered ? parseInt(l, 10) : 1, items = [], L0 = i, ls = size;
@@ -508,24 +550,24 @@ function md(src, nested) {
         while (i < lines.length && lines[i].trim() && /^\s{2,}\S/.test(lines[i]) && !RX.item.test(lines[i])) { it += " " + lines[i].trim(); i++; }
         items.push(`<li>${inline(it)}</li>`);
       }
-      html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}${at(L0, "text", ls)}${zoom(ls)}>${items.join("")}</ol>` : `<ul${at(L0, "text", ls)}${zoom(ls)}>${items.join("")}</ul>`; continue;
+      html += ordered ? `<ol${start !== 1 ? ` start="${start}"` : ""}${at(L0, "text", ls, L0, i)}${zoom(ls)}>${items.join("")}</ol>` : `<ul${at(L0, "text", ls, L0, i)}${zoom(ls)}>${items.join("")}</ul>`; continue;
     }
     if (isTable(l, next)) {
       const row = r => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
       const head = row(l), t0 = i, tsz = size; i += 2; const rows = [];
       while (i < lines.length && lines[i].includes("|") && lines[i].trim()) { rows.push(row(lines[i])); i++; }
-      html += `<div class="table"${at(t0, "text", tsz)}${zoom(tsz)}><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      html += `<div class="table"${at(t0, "text", tsz, t0, i)}${zoom(tsz)}><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       continue;
     }
-    const buf = [raw]; let last = i; i++;
+    const buf = [raw], p0 = i; let last = i; i++;
     while (i < lines.length && lines[i].trim() && !isBlock(lines[i], lines[i + 1])) { buf.push(lines[i]); last = i; i++; }
     const ps = sizeOf(buf[buf.length - 1]); buf[buf.length - 1] = stripSize(buf[buf.length - 1]);
-    html += `<p${at(last, "text", ps)}${zoom(ps)}>${inline(buf.join(" ").trim())}</p>`;
+    html += `<p${at(last, "text", ps, p0, last + 1)}${zoom(ps)}>${inline(buf.join(" ").trim())}</p>`;
   }
   return html;
 }
 function plain(src) {
-  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^:::\s*(classe|raca|raça|habilidade|atributo)?\s*/gim, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/\s*\{\s*\d{1,3}\s*%\s*\}\s*$/gm, "").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^:::\s*(classe|raca|raça|habilidade|atributo|lado)?\s*/gim, " ").replace(/^\s*\+\+\+\s*$/gm, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/\s*\{\s*\d{1,3}\s*%\s*\}\s*$/gm, "").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
     .replace(/^\s*\|?\s*:?-{3,}.*$/gm, " ").replace(/[#>*`|_]/g, " ").replace(/^\s*[-+]\s+/gm, " ").replace(/https?:\/\/\S+/g, " ").replace(/\s+/g, " ").trim();
 }
 
@@ -772,6 +814,41 @@ syncEditorUi();
 
 /* ----- editor de página ----- */
 const draftKey = p => "astralDraft:" + p.file;
+/* ----- mover blocos no texto da página ----- */
+function moveBlock(text, s, e, tgt, zone) {
+  const L = text.replace(/\r/g, "").split("\n").map(t => ({ t }));
+  if (s >= e || tgt.s >= tgt.e || (tgt.s >= s && tgt.e <= e)) return text;
+  const moving = L.slice(s, e), B = () => ({ t: "" }), N = t => ({ t });
+  const tS = L[tgt.s], tE = L[tgt.e - 1];
+  const col = tgt.col ? { open: L[tgt.col.s - 1], close: L[tgt.col.e] } : null;
+  const grp = tgt.group ? { open: L[tgt.group.s], close: L[tgt.group.e - 1] } : null;
+  L.splice(s, e - s, B());
+  const at = o => L.indexOf(o), put = (i, arr) => L.splice(i, 0, ...arr);
+  const side = col || grp;
+  if (zone === "before") put(at(tS), [B(), ...moving, B()]);
+  else if (zone === "after") put(at(tE) + 1, [B(), ...moving, B()]);
+  else if (zone === "end" && col) put(at(col.close), [B(), ...moving, B()]);
+  else if (side && zone === "left") put(at(side.open) + 1, [B(), ...moving, B(), N("+++")]);
+  else if (side && zone === "right") put(at(side.close), [N("+++"), B(), ...moving, B()]);
+  else if (zone === "left") { put(at(tE) + 1, [B(), N(":::"), B()]); put(at(tS), [B(), N("::: lado"), ...moving, B(), N("+++")]); }
+  else if (zone === "right") { put(at(tE) + 1, [N("+++"), ...moving, B(), N(":::"), B()]); put(at(tS), [B(), N("::: lado")]); }
+  return tidyLado(L.map(o => o.t)).join("\n").replace(/^\n+/, "").replace(/\n{3,}/g, "\n\n").replace(/\n+$/, "\n");
+}
+/* tira colunas vazias e desfaz "lado a lado" que ficou com uma coluna só */
+function tidyLado(lines) {
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (!LADO_RX.test(stripSize(lines[i]).trim())) { out.push(lines[i]); continue; }
+    const end = ladoEnd(lines, i);
+    const cols = ladoCols(lines, i, end).map(([a, b]) => tidyLado(lines.slice(a, b))).filter(c => c.some(x => x.trim()));
+    if (cols.length === 1) out.push("", ...cols[0], "");
+    else if (cols.length > 1) { out.push(lines[i]); cols.forEach((c, k) => { if (k) out.push("+++"); out.push(...c); }); out.push(end < lines.length ? lines[end] : ":::"); }
+    i = end;
+  }
+  // tira linhas em branco logo depois de "::: lado"/"+++" e logo antes de "+++"/":::" de colunas
+  return out.filter((l, k) => !(l.trim() === "" && ((k > 0 && /^(:::\s*lado|\+\+\+)\s*$/i.test(out[k - 1].trim())) || (k + 1 < out.length && /^(\+\+\+|:::)$/.test(out[k + 1].trim()) && !CARD_RX.test(out[k + 1])))));
+}
+
 async function openEditor(p) {
   results.hidden = true; view.hidden = false; q.value = "";
   view.innerHTML = `<p class="state">Abrindo <code>wiki/${esc(p.file)}</code> no GitHub…</p>`;
@@ -798,6 +875,7 @@ async function openEditor(p) {
       <button class="btn" type="button" data-ins="warn">Atenção</button>
       <button class="btn" type="button" data-ins="table">Tabela</button>
       <button class="btn" type="button" data-ins="card" title="Cartão com ícones de habilidades e atributos">Cartão</button>
+      <button class="btn" type="button" data-ins="cols" title="Duas coisas uma do lado da outra (ex.: duas imagens)">Lado a lado</button>
       <button class="btn" type="button" data-panel="link">Link</button>
       <span class="sep" aria-hidden="true"></span>
       <label class="btn">Imagem<input type="file" id="ed-img" accept="image/png,image/jpeg,image/webp,image/gif"></label>
@@ -832,7 +910,7 @@ async function openEditor(p) {
   const rzLabel = document.createElement("div"); rzLabel.className = "rz-label"; rzLabel.hidden = true;
   let rzEl = null, rzLine = null, drag = null;
   const clamp = (a, b, v) => Math.max(a, Math.min(b, v));
-  function afterRender() { prev.append(rz, rzLabel); pick(rzLine === null ? null : prev.querySelector(`[data-line="${rzLine}"]`)); }
+  let afterRender = function () { prev.append(rz, rzLabel); pick(rzLine === null ? null : prev.querySelector(`[data-line="${rzLine}"]`)); }
   function placeRz() {
     if (!rzEl || !rzEl.isConnected) { rz.hidden = true; return; }
     const pr = prev.getBoundingClientRect(), r = rzEl.getBoundingClientRect();
@@ -878,6 +956,82 @@ async function openEditor(p) {
   rz.addEventListener("pointerup", endDrag);
   rz.addEventListener("pointercancel", endDrag);
   rz.addEventListener("dblclick", () => { if (rzEl) setSize(+rzEl.dataset.line, 100); });
+
+  /* ----- mover: arraste o botão "✥ Mover" para cima, para baixo ou para o lado de outra coisa ----- */
+  const mv = document.createElement("button"); mv.type = "button"; mv.className = "mv"; mv.hidden = true; mv.textContent = "✥ Mover";
+  mv.title = "Arraste para cima ou para baixo de outra coisa, ou para o lado dela (fica lado a lado)";
+  const ind = document.createElement("div"); ind.className = "drop-ind"; ind.hidden = true;
+  const tip = document.createElement("div"); tip.className = "drop-tip"; tip.hidden = true;
+  let mvEl = null, mvDrag = null;
+  const relRect = el => { const pr = prev.getBoundingClientRect(), r = el.getBoundingClientRect(); return { l: r.left - pr.left + prev.scrollLeft, t: r.top - pr.top + prev.scrollTop, w: r.width, h: r.height }; };
+  function placeMv() {
+    if (!mvEl || !mvEl.isConnected) { mv.hidden = true; return; }
+    const r = relRect(mvEl); mv.style.left = Math.max(0, r.l - 6) + "px"; mv.style.top = Math.max(0, r.t - 12) + "px"; mv.hidden = false;
+  }
+  prev.addEventListener("pointerover", e => {
+    if (mvDrag || drag) return;
+    const el = e.target.closest("[data-s]:not([data-blk=col])");
+    if (el && prev.contains(el)) { mvEl = el; placeMv(); }
+  });
+  prev.addEventListener("scroll", placeMv);
+  function dropAt(x, y) {
+    const el = document.elementsFromPoint(x, y).find(n => n !== mv && n !== ind && n !== tip);
+    let t = el && el.closest("[data-s]");
+    if (t && !prev.contains(t)) t = null;
+    if (!t) {
+      const pr = prev.getBoundingClientRect();
+      if (x < pr.left || x > pr.right || y < pr.top || y > pr.bottom) return null;
+      const tops = [...prev.querySelectorAll(":scope > [data-s]")]; if (!tops.length) return null;
+      const last = tops[tops.length - 1];
+      if (y > last.getBoundingClientRect().bottom) t = last; else return null;
+      if (t === mvEl) return null;
+      return { t, zone: "after" };
+    }
+    if (t === mvEl || mvEl.contains(t)) return null;
+    const r = t.getBoundingClientRect(), fx = (x - r.left) / r.width;
+    let zone = fx < .22 ? "left" : fx > .78 ? "right" : (y < r.top + r.height / 2 ? "before" : "after");
+    if (t.dataset.blk === "col" && (zone === "before" || zone === "after")) zone = "end";
+    return { t, zone };
+  }
+  function showInd(d) {
+    if (!d) { ind.hidden = tip.hidden = true; return; }
+    const r = relRect(d.t), v = d.zone === "left" || d.zone === "right";
+    Object.assign(ind.style, v
+      ? { left: (d.zone === "left" ? r.l - 6 : r.l + r.w + 2) + "px", top: r.t + "px", width: "4px", height: Math.max(r.h, 24) + "px" }
+      : { left: r.l + "px", top: (d.zone === "before" ? r.t - 6 : r.t + r.h + 2) + "px", width: r.w + "px", height: "4px" });
+    tip.textContent = v ? (d.zone === "left" ? "Colocar do lado esquerdo" : "Colocar do lado direito") : d.zone === "before" ? "Colocar em cima" : d.zone === "end" ? "Colocar nesta coluna" : "Colocar embaixo";
+    tip.style.left = Math.max(0, r.l + (v ? (d.zone === "left" ? -6 : r.w - 150) : 0)) + "px";
+    tip.style.top = Math.max(0, (d.zone === "before" ? r.t - 30 : v ? r.t - 26 : r.t + r.h + 8)) + "px";
+    ind.hidden = tip.hidden = false;
+  }
+  mv.addEventListener("pointerdown", e => {
+    if (!mvEl) return; e.preventDefault(); mv.setPointerCapture(e.pointerId);
+    mvDrag = { s: +mvEl.dataset.s, e: +mvEl.dataset.e, drop: null }; mvEl.classList.add("mv-src"); rz.hidden = true;
+  });
+  mv.addEventListener("pointermove", e => {
+    if (!mvDrag) return;
+    const pr = prev.getBoundingClientRect();
+    if (e.clientY < pr.top + 40) prev.scrollTop -= 14; else if (e.clientY > pr.bottom - 40) prev.scrollTop += 14;
+    if (e.clientY < 50) scrollBy(0, -14); else if (e.clientY > innerHeight - 50) scrollBy(0, 14);
+    mv.style.left = (e.clientX - pr.left + prev.scrollLeft - 30) + "px"; mv.style.top = (e.clientY - pr.top + prev.scrollTop - 12) + "px";
+    mvDrag.drop = dropAt(e.clientX, e.clientY); showInd(mvDrag.drop);
+  });
+  const endMove = () => {
+    if (!mvDrag) return; const d = mvDrag; mvDrag = null; showInd(null);
+    if (mvEl) mvEl.classList.remove("mv-src");
+    if (!d.drop) { placeMv(); return; }
+    const t = d.drop.t, colEl = t.dataset.blk === "col" ? t : t.parentElement && t.parentElement.dataset.blk === "col" ? t.parentElement : null;
+    const groupEl = t.dataset.blk === "cols" ? t : null;
+    const out = moveBlock(ta.value, d.s, d.e, { s: +t.dataset.s, e: +t.dataset.e, col: colEl && { s: +colEl.dataset.s, e: +colEl.dataset.e }, group: groupEl && { s: +groupEl.dataset.s, e: +groupEl.dataset.e } }, d.drop.zone);
+    if (out === ta.value) { placeMv(); return; }
+    ta.value = out; mvEl = null; mv.hidden = true; rzLine = null;
+    ta.dispatchEvent(new Event("input")); renderPrev();
+    setStatus(st, "Movido. Clique em Salvar para gravar (Ctrl+Z no quadro de texto desfaz).", "ok");
+  };
+  mv.addEventListener("pointerup", endMove);
+  mv.addEventListener("pointercancel", endMove);
+  const afterRender0 = afterRender;
+  afterRender = function () { afterRender0(); prev.append(mv, ind, tip); if (mvEl && !mvEl.isConnected) mvEl = null; placeMv(); };
   renderPrev();
   let t1;
   ta.addEventListener("input", () => {
@@ -906,6 +1060,7 @@ async function openEditor(p) {
     if (k === "tip") insertBlock("> Dica: escreva a dica aqui.");
     if (k === "warn") insertBlock("> Atenção: escreva o aviso aqui.");
     if (k === "table") insertBlock("| Coluna 1 | Coluna 2 |\n| --- | --- |\n| valor | valor |");
+    if (k === "cols") insertBlock("::: lado\nColuna 1: troque por imagem, vídeo ou texto.\n+++\nColuna 2: troque por imagem, vídeo ou texto.\n:::");
     if (k === "card") insertBlock("::: classe Nome da classe\nhabilidades: Espadas, Defesa, Mineração\natributos: +3 Força, -2 Vida\nespecial: **Nome do especial**: o que ele faz.\n:::");
   }));
   view.querySelectorAll("[data-panel]").forEach(b => b.addEventListener("click", () => {
