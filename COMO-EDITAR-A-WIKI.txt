@@ -104,8 +104,12 @@ AUMENTAR / DIMINUIR (bolinha roxa)
   Duplo clique na bolinha volta ao tamanho normal. Depois clique em SALVAR.
   (No texto aparece no fim da linha algo como {70%}. Pode apagar para voltar ao normal.)
 
-LÁPIS NA PÁGINA INICIAL DA WIKI (cartões)
-  Logado como editor, a página inicial da Wiki mostra botões roxos com lápis:
+LÁPIS E "MOVER" NA PÁGINA INICIAL DA WIKI (cartões)
+  Logado como editor, a página inicial da Wiki mostra botões verdes "✥ Mover" e roxos com lápis.
+  "✥ Mover" num cartão: segure e arraste para o lado de outro cartão (muda a ordem) ou para
+    outra categoria (o cartão vai para o fim dela). Salva sozinho na hora.
+  "✥ Mover" ao lado do nome da categoria: arraste para cima ou para baixo de outra categoria.
+  Categoria vazia continua aparecendo para você (só para o editor), para dar para arrastar cartões para ela.
   - "Editar" em cada cartão -> muda o título, o resumo (texto pequeno) e a capa do cartão.
     Capa: "Escolher imagem" envia uma foto; "Sem capa" tira; "Automática" usa a
     primeira imagem da página. O título e o resumo também mudam dentro da página.
@@ -155,6 +159,11 @@ EDITAR A PÁGINA INICIAL (início do site)
   4. Negrito: selecione o texto e clique em Negrito.
      Link: selecione o texto, clique em Link, cole o endereço e aperte Enter.
   5. Clique em Salvar. Cancelar desfaz tudo que não foi salvo.
+  MOVER QUALQUER COISA: clique nela; aparece o botão verde "✥ Mover" no canto de cima.
+  Segure e arraste. Uma linha verde mostra onde vai cair (em cima, embaixo, à esquerda ou
+  à direita de outra coisa). Para mover um bloco inteiro (ex.: o cartão todo, uma pergunta
+  inteira das Dúvidas), use antes "Selecionar o bloco de fora". Arrastando perto do topo
+  ou do fim da tela, a página rola sozinha. Depois clique em Salvar (Cancelar desfaz tudo).
   Tamanho de QUALQUER coisa (logo, cartão, caixa de IP, botão, ícone, texto):
   clique nela e arraste a bolinha roxa do canto (direita = maior, esquerda = menor,
   duplo clique = normal). O contorno verde mostra o que está selecionado.

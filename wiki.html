@@ -182,6 +182,11 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .ed-pen { position: absolute; top: .5rem; right: .5rem; z-index: 2; background: var(--violet); color: var(--violet-ink, #fff); border: 0; border-radius: 999px; padding: .3rem .65rem; font: 700 .8125rem var(--f-body); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
 .ed-pen:hover { filter: brightness(1.15); }
 .card-wrap:has(> .ed-pen) .card:not(:has(.cover)) .body { padding-top: 2.6rem; }
+.ed-grip { position: absolute; top: .5rem; left: .5rem; z-index: 2; background: var(--teal); color: #06221f; border: 0; border-radius: 999px; padding: .3rem .6rem; font: 700 .8125rem var(--f-body); cursor: grab; touch-action: none; user-select: none; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.ed-grip.inline { position: static; margin-left: .5rem; vertical-align: middle; text-transform: none; letter-spacing: 0; box-shadow: none; }
+.hm-src { opacity: .35; }
+.hm-ind { position: fixed; z-index: 50; background: var(--teal); border-radius: 3px; pointer-events: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 30%, transparent); }
+.cat .org-empty-drop { margin: 0; padding: 1rem; border: 1px dashed var(--line); border-radius: 10px; color: var(--ink-dim); font-size: .875rem; }
 .ed-pen.inline { position: static; margin-left: .5rem; vertical-align: middle; text-transform: none; letter-spacing: 0; box-shadow: none; }
 .home-head .ed-pen.inline { margin: 0; justify-self: start; }
 .field textarea { background: var(--sky); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: .5rem .625rem; font: 1rem var(--f-body); resize: vertical; min-height: 5rem; }
@@ -634,11 +639,12 @@ function showHome() {
   document.title = HOME.title + " · Rede Astral";
   const rest = HOME.md.replace(/^\s*#\s+.+$/m, "");
   const pen = (a, label, cls = "") => GH ? `<button type="button" class="ed-pen ${cls}" ${a}>✎ ${label}</button>` : "";
+  const grip = (a, cls = "") => GH ? `<button type="button" class="ed-grip ${cls}" ${a} title="Segure e arraste para mudar de lugar">✥ Mover</button>` : "";
   let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div>${pen('data-pen="home"', "Editar título e texto", "inline")}</div>`;
   for (const c of CATS) {
-    const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
-    h += `<section class="cat"><h2>${esc(c)}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2><div class="cards">${ps.map(p => `
-      <div class="card-wrap"><a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+    const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !GH) continue;
+    h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
+      <div class="card-wrap" data-id="${p.id}">${grip(`data-grip="card"`)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
   view.innerHTML = h;
@@ -1218,6 +1224,72 @@ $("#org-save").addEventListener("click", async () => {
   } catch (err) { setStatus($("#org-status"), err.message, "err"); }
   finally { $("#org-save").disabled = false; }
 });
+
+/* ----- arrastar cartões e categorias na página inicial da wiki (grava wiki/paginas.txt) ----- */
+let HM = null, menuSaving = Promise.resolve();
+const hmInd = document.createElement("div"); hmInd.className = "hm-ind"; hmInd.hidden = true; document.body.appendChild(hmInd);
+function hmTarget(x, y) {
+  const el = document.elementsFromPoint(x, y).find(n => n !== hmInd && !n.classList.contains("ed-grip"));
+  if (!el) return null;
+  if (HM.kind === "card") {
+    const w = el.closest(".card-wrap");
+    if (w && w !== HM.el) { const r = w.getBoundingClientRect(); return { el: w, after: x > r.left + r.width / 2, horiz: true }; }
+    const sec = el.closest("section.cat");
+    if (sec) return { el: sec, end: true };
+    return null;
+  }
+  const sec = el.closest("section.cat");
+  if (sec && sec !== HM.el) { const r = sec.getBoundingClientRect(); return { el: sec, after: y > r.top + r.height / 2 }; }
+  return null;
+}
+function hmShow(t) {
+  if (!t) { hmInd.hidden = true; return; }
+  let r = t.el.getBoundingClientRect();
+  if (t.end) { const box = t.el.querySelector(".cards:not(:empty)") || t.el; r = box.getBoundingClientRect(); Object.assign(hmInd.style, { left: r.left + "px", top: (r.bottom + 4) + "px", width: r.width + "px", height: "4px" }); }
+  else if (t.horiz) Object.assign(hmInd.style, { left: (t.after ? r.right + 4 : r.left - 8) + "px", top: r.top + "px", width: "4px", height: r.height + "px" });
+  else Object.assign(hmInd.style, { left: r.left + "px", top: (t.after ? r.bottom + 4 : r.top - 8) + "px", width: r.width + "px", height: "4px" });
+  hmInd.hidden = false;
+}
+function saveMenuOrder() {
+  menuSaving = menuSaving.then(async () => {
+    try {
+      const f = await getFile("wiki/paginas.txt"), header = [];
+      for (const raw of (f ? f.text : "").replace(/\r/g, "").split("\n")) { const l = raw.trim(); if (!l) continue; if (l.startsWith("#")) header.push(raw); else break; }
+      const text = (header.length ? header.join("\n") + "\n\n" : "") + CATS.map(c => [c, ...PAGES.filter(p => p.cat === c).map(p => p.file)].join("\n")).join("\n\n") + "\n";
+      await putFile("wiki/paginas.txt", encText(text), f ? f.sha : null, "Wiki: mudar a ordem do menu");
+      toast("Ordem salva. O site público muda em 1 a 2 minutos.");
+    } catch (e) { toast("Não salvou: " + e.message); }
+  });
+}
+view.addEventListener("pointerdown", e => {
+  const g = e.target.closest(".ed-grip"); if (!g || !GH) return;
+  e.preventDefault(); g.setPointerCapture(e.pointerId);
+  const el = g.dataset.grip === "card" ? g.closest(".card-wrap") : g.closest("section.cat");
+  HM = { kind: g.dataset.grip, el, t: null }; el.classList.add("hm-src");
+});
+view.addEventListener("pointermove", e => {
+  if (!HM) return;
+  if (e.clientY < 60) scrollBy(0, -16); else if (e.clientY > innerHeight - 60) scrollBy(0, 16);
+  HM.t = hmTarget(e.clientX, e.clientY); hmShow(HM.t);
+});
+function hmEnd() {
+  if (!HM) return; const { kind, el, t } = HM; HM = null; hmShow(null); el.classList.remove("hm-src");
+  if (!t) return;
+  if (kind === "card") {
+    const p = PAGES.find(x => x.id === el.dataset.id); if (!p) return;
+    PAGES.splice(PAGES.indexOf(p), 1);
+    if (t.end) { p.cat = t.el.dataset.cat; PAGES.push(p); }
+    else { const q = PAGES.find(x => x.id === t.el.dataset.id); if (!q) { PAGES.push(p); return; } p.cat = q.cat; PAGES.splice(PAGES.indexOf(q) + (t.after ? 1 : 0), 0, p); }
+  } else {
+    const a = el.dataset.cat, b = t.el.dataset.cat;
+    CATS.splice(CATS.indexOf(a), 1); CATS.splice(CATS.indexOf(b) + (t.after ? 1 : 0), 0, a);
+  }
+  const ordered = CATS.flatMap(c => PAGES.filter(p => p.cat === c)), rest = PAGES.filter(p => !CATS.includes(p.cat));
+  PAGES.length = 0; PAGES.push(...ordered, ...rest);
+  buildToc(); showHome(); saveMenuOrder();
+}
+view.addEventListener("pointerup", hmEnd);
+view.addEventListener("pointercancel", hmEnd);
 
 /* ----- lápis da página inicial da wiki: cartões, categorias e topo ----- */
 let CE = null;
