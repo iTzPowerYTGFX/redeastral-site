@@ -175,6 +175,19 @@ EDITAR PELO CELULAR VENDO COMO NO COMPUTADOR
   A página passa a aparecer como no PC (dê zoom com os dedos). Para voltar: "Modo celular".
   Fica ligado neste celular até você desligar.
 
+MOUSE VIRTUAL (touchpad na tela, para o celular)
+  Na barra roxa (página inicial ou Wiki): botão "Mouse virtual". Aparece um touchpad e uma setinha.
+  - Arraste 1 dedo no touchpad      -> move a setinha (rápido = anda mais)
+  - Toque rápido no touchpad         -> clique
+  - Toque e SEGURE meio segundo, depois arraste -> segura o clique e arrasta (solte o dedo para soltar)
+  - Botão "Segurar"                  -> segura o clique até tocar de novo; dá para arrastar
+                                        longe, levantando e colocando o dedo várias vezes
+  - 2 dedos no touchpad              -> rola a página (ou o quadro que está embaixo da setinha)
+  - Botão "Clique"                   -> clique onde está a setinha
+  - Segure o título "Mouse virtual" e arraste para mudar o touchpad de lugar; "–" esconde.
+  Funciona junto com o "Modo computador". Fica ligado neste aparelho até você esconder.
+  Para escrever: clique no texto com o touchpad e use o teclado do celular.
+
 STATUS DO SERVIDOR (página inicial)
   Na barra roxa da página inicial: "Status do Servidor:" com 4 botões.
   Automático -> o site pergunta ao servidor Java e mostra Online/Offline e quantos jogadores (padrão).

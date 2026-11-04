@@ -105,10 +105,12 @@
         <button type="button" data-st="auto">Automático</button><button type="button" data-st="online">Online</button><button type="button" data-st="offline">Offline</button><button type="button" data-st="manutencao">Manutenção</button>
       </span>
       <button type="button" id="ed-desk" data-desk-label title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
+      <button type="button" data-tp-label title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
       <a href="wiki.html">Ir para a Wiki</a></div>
     <div class="ed-line" id="ed-dyn"><span class="grow" id="ed-msg">Clique em "Editar esta página" para mudar textos, tamanhos e listas.</span>
       <button type="button" class="acc" id="ed-start">Editar esta página</button></div>`;
   document.body.appendChild(bar); document.body.classList.add("ed-has-bar");
+  { const t = document.createElement("script"); t.src = "touchpad.js?v=" + Date.now(); t.className = "ed-ui"; document.body.appendChild(t); }
   const msg = (t, k) => { const m = bar.querySelector("#ed-msg"); m.textContent = t; m.className = "grow" + (k ? " " + k : ""); };
 
   let editing = false, dirty = false, savedRange = null;
@@ -356,7 +358,7 @@
     mvInd.hidden = mvTip.hidden = false;
   }
   mvH.addEventListener("pointerdown", e => {
-    if (!hzEl) return; e.preventDefault(); mvH.setPointerCapture(e.pointerId);
+    if (!hzEl) return; e.preventDefault(); try { mvH.setPointerCapture(e.pointerId); } catch (err) {}
     mvDrag = { el: hzEl, d: null }; hzEl.classList.add("ed-mv-src"); hz.hidden = true;
   });
   mvH.addEventListener("pointermove", e => {
@@ -402,7 +404,7 @@
   document.addEventListener("input", () => placeHz());
   addEventListener("scroll", placeHz, { passive: true }); addEventListener("resize", placeHz);
   hz.addEventListener("pointerdown", e => {
-    if (!hzEl) return; e.preventDefault(); hz.setPointerCapture(e.pointerId);
+    if (!hzEl) return; e.preventDefault(); try { hz.setPointerCapture(e.pointerId); } catch (err) {}
     hzDrag = { x: e.clientX, start: Math.round((parseFloat(hzEl.style.zoom) || 1) * 100), pct: 0 };
     hzDrag.pct = hzDrag.start;
   });
