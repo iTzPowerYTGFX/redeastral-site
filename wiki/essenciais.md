@@ -11,15 +11,15 @@ animacao: midia/screen-1793799434171.mp4
 
 usando este comando, abre o menu para Bedrock e Java.
 
-# Menu Bedrock {75%}
+::: lado
+# Menu Bedrock {70%}
 
-![Visual do Bedrock](midia/captura-de-tela-2026-11-04-224210.png) {65%}
-
-# Menu Java {75%}
-
+![](midia/captura-de-tela-2026-11-04-224210.png) {65%}
++++
 animacao: midia/screen-1793799907781.mp4 {65%}
 
-
+# Menu do Java {75%}
+:::
 
 ## Teleporte para Amigo
 
