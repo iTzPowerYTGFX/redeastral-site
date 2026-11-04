@@ -89,6 +89,10 @@
   .ed-href input { flex: 1; min-width: 0; background: transparent; border: 0; color: #f1eeff; font: .8125rem system-ui; }
   body.ed-on .feat.ed-item { margin-bottom: 1.25rem; }
   .ed-rz { position: fixed; z-index: 45; width: 20px; height: 20px; border-radius: 50%; background: #7c3aed; border: 2px solid #fff; cursor: ew-resize; touch-action: none; box-shadow: 0 0 0 4px rgba(124,58,237,.35); }
+  .ed-mv { position: fixed; z-index: 60; background: #5fd8cb; color: #06221f; border: 0; border-radius: 6px; padding: .2rem .5rem; font: 700 .75rem system-ui; cursor: grab; touch-action: none; user-select: none; box-shadow: 0 2px 8px rgba(0,0,0,.45); }
+  .ed-mv-ind { position: fixed; z-index: 59; background: #5fd8cb; border-radius: 3px; pointer-events: none; box-shadow: 0 0 0 3px rgba(95,216,203,.3); }
+  .ed-mv-tip { position: fixed; z-index: 61; background: #0b0a1a; border: 1px solid #5fd8cb; color: #f1eeff; font: 700 .75rem system-ui; padding: .15rem .45rem; border-radius: 4px; pointer-events: none; white-space: nowrap; }
+  .ed-mv-src { opacity: .35; }
   .ed-rz-label { position: fixed; z-index: 46; background: #0b0a1a; border: 1px solid #7c3aed; color: #f1eeff; font: 700 .75rem ui-monospace, monospace; padding: .1rem .4rem; border-radius: 4px; pointer-events: none; }`;
   style.className = "ed-ui";
   document.head.appendChild(style);
@@ -121,6 +125,14 @@
     return n || null;
   }
   const listOf = el => el.closest("[data-ed-list]");
+  // cada elemento ganha um número fixo ao começar a editar; o salvar acha o mesmo elemento no
+  // index.html do GitHub por esse número (assim dá para mover coisas de lugar)
+  let ORIG = [];
+  function tagIds() {
+    ORIG = []; let n = 0;
+    const walk = el => { for (const c of kids(el)) { c.setAttribute("data-ed-id", n); ORIG[n++] = pathOf(c); walk(c); } };
+    walk(document.body);
+  }
 
   /* ---------- limpeza do HTML editado ---------- */
   function sanitizeInto(src, dst, doc) {
@@ -153,7 +165,7 @@
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
-      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href");
+      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved");
       if (el.tagName === "DETAILS") el.removeAttribute("open");
     }
     return c;
@@ -190,6 +202,7 @@
     if (item.matches(".punish > div")) makeEditable(item, 0);
   }
   function startEditing() {
+    tagIds();
     editing = true; document.body.classList.add("ed-on");
     document.querySelectorAll(".faq details").forEach(d => d.open = true);
     LISTS.forEach(([sel, name]) => document.querySelectorAll(sel).forEach(list => {
@@ -259,7 +272,7 @@
       const a = linkTarget; if (!a || a.hasAttribute("data-link")) return;
       a.setAttribute("href", e.target.value.trim() || "#"); a.setAttribute("data-ed-href", "1"); dirty = true;
     });
-    msg("Clique em qualquer texto marcado para editar, ou em qualquer coisa para mudar o tamanho com a bolinha.");
+    msg("Clique em qualquer coisa: texto marcado para escrever, bolinha para o tamanho, \"✥ Mover\" para mudar de lugar.");
   }
 
   /* ---------- comportamento durante a edição ---------- */
@@ -301,10 +314,67 @@
   document.body.append(hz, hzLabel);
   let hzEl = null, hzDrag = null;
   function placeHz() {
-    if (!editing || !hzEl || !hzEl.isConnected) { hz.hidden = true; return; }
+    if (!editing || !hzEl || !hzEl.isConnected) { hz.hidden = true; mvH.hidden = true; return; }
     const r = hzEl.getBoundingClientRect();
     hz.style.left = (r.right - 10) + "px"; hz.style.top = (r.bottom - 10) + "px"; hz.hidden = false;
+    if (!mvDrag) {
+      const top = document.querySelector("header.top, .top"), hb = top ? top.getBoundingClientRect().bottom : 0;
+      mvH.style.left = Math.max(4, r.left - 4) + "px"; mvH.style.top = (r.top - 26 < hb + 4 ? Math.max(hb + 4, r.top + 4) : r.top - 26) + "px";
+    }
+    mvH.hidden = false;
   }
+
+  /* ---------- mover: arraste "✥ Mover" para cima/baixo ou para o lado de outra coisa ---------- */
+  const mvH = document.createElement("button"); mvH.type = "button"; mvH.className = "ed-mv ed-ui"; mvH.hidden = true; mvH.textContent = "✥ Mover";
+  mvH.title = "Segure e arraste para colocar antes ou depois de outra coisa";
+  const mvInd = document.createElement("div"); mvInd.className = "ed-mv-ind ed-ui"; mvInd.hidden = true;
+  const mvTip = document.createElement("div"); mvTip.className = "ed-mv-tip ed-ui"; mvTip.hidden = true;
+  document.body.append(mvH, mvInd, mvTip);
+  let mvDrag = null;
+  const isWrapper = el => !el || el.matches("html, body, main, header, footer, script, style, .ed-ui") || !el.closest("main, header, footer");
+  function mvTarget(x, y) {
+    const M = mvDrag.el;
+    const hit = document.elementsFromPoint(x, y).find(n => !(n.closest && n.closest(".ed-ui")));
+    if (!hit || M.contains(hit)) return null;
+    let t = hit;
+    const ed = t.closest("[data-ed]"); if (ed && !ed.contains(M)) t = ed;
+    while (t && !isWrapper(t) && getComputedStyle(t).display === "inline" && !t.hasAttribute("data-ed")) t = t.parentElement;
+    if (!t || isWrapper(t) || t.contains(M)) return null;
+    const ps = getComputedStyle(t.parentElement), ts = getComputedStyle(t);
+    const horiz = /inline/.test(ts.display) || (/flex/.test(ps.display) && !/column/.test(ps.flexDirection)) || (/grid/.test(ps.display) && ps.gridTemplateColumns.trim().split(/\s+/).length > 1);
+    const r = t.getBoundingClientRect();
+    return { t, horiz, after: horiz ? x > r.left + r.width / 2 : y > r.top + r.height / 2, r };
+  }
+  function mvShow(d) {
+    if (!d) { mvInd.hidden = mvTip.hidden = true; return; }
+    const r = d.r;
+    Object.assign(mvInd.style, d.horiz
+      ? { left: (d.after ? r.right + 3 : r.left - 7) + "px", top: r.top + "px", width: "4px", height: Math.max(r.height, 20) + "px" }
+      : { left: r.left + "px", top: (d.after ? r.bottom + 3 : r.top - 7) + "px", width: r.width + "px", height: "4px" });
+    mvTip.textContent = d.horiz ? (d.after ? "Colocar à direita" : "Colocar à esquerda") : (d.after ? "Colocar embaixo" : "Colocar em cima");
+    mvTip.style.left = Math.max(4, r.left) + "px"; mvTip.style.top = Math.max(4, (d.after && !d.horiz ? r.bottom + 10 : r.top - 28)) + "px";
+    mvInd.hidden = mvTip.hidden = false;
+  }
+  mvH.addEventListener("pointerdown", e => {
+    if (!hzEl) return; e.preventDefault(); mvH.setPointerCapture(e.pointerId);
+    mvDrag = { el: hzEl, d: null }; hzEl.classList.add("ed-mv-src"); hz.hidden = true;
+  });
+  mvH.addEventListener("pointermove", e => {
+    if (!mvDrag) return;
+    if (e.clientY < 50) scrollBy(0, -14); else if (e.clientY > innerHeight - 120) scrollBy(0, 14);
+    mvH.style.left = (e.clientX - 30) + "px"; mvH.style.top = (e.clientY - 12) + "px";
+    mvDrag.d = mvTarget(e.clientX, e.clientY); mvShow(mvDrag.d);
+  });
+  const mvEnd = () => {
+    if (!mvDrag) return; const { el, d } = mvDrag; mvDrag = null; mvShow(null); el.classList.remove("ed-mv-src");
+    if (d) {
+      d.t.parentElement.insertBefore(el, d.after ? d.t.nextSibling : d.t);
+      el.setAttribute("data-ed-moved", "1"); dirty = true;
+      msg("Movido. Clique em Salvar para gravar (Cancelar desfaz tudo).", "ok");
+    }
+    selectEl(el);
+  };
+  mvH.addEventListener("pointerup", mvEnd); mvH.addEventListener("pointercancel", mvEnd);
   const outer = el => !el || el === document.body || el === document.documentElement || el.matches("main, header, footer, .ed-ui");
   let linkTarget = null;
   function showLinkBox(a) {
@@ -360,17 +430,30 @@
     try {
       const d = await gh(filePath("index.html") + "?ref=" + encodeURIComponent(GH.branch));
       const doc = new DOMParser().parseFromString(decText(d.content), "text/html");
+      const docEls = ORIG.map(pth => byPath(doc, pth));
+      const docOf = el => { const id = el && el.getAttribute && el.getAttribute("data-ed-id"); return id == null ? null : docEls[+id] || null; };
+      const same = (a, b) => a && b && a.tagName.toLowerCase() === b.tagName.toLowerCase();
+      const DIFF = "A página no GitHub está diferente desta. Recarregue e edite de novo.";
+      // coisas movidas (do fim para o começo, para cada uma achar a vizinha já no lugar)
+      for (const el of [...document.querySelectorAll("[data-ed-moved]")].reverse()) {
+        const dEl = docOf(el); if (!same(dEl, el)) throw new Error(DIFF);
+        if (el.parentElement && listOf(el.parentElement)) { dEl.remove(); continue; }
+        const dParent = docOf(el.parentElement); if (!same(dParent, el.parentElement)) throw new Error(DIFF);
+        let sib = el.nextElementSibling;
+        while (sib && (isUi(sib) || sib.classList.contains("toast") || !docOf(sib) || docOf(sib).parentElement !== dParent)) sib = sib.nextElementSibling;
+        dParent.insertBefore(dEl, sib ? docOf(sib) : null);
+      }
       // listas inteiras
       for (const list of document.querySelectorAll("[data-ed-list]")) {
-        const target = byPath(doc, pathOf(list));
-        if (!target || target.tagName !== list.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
+        const target = docOf(list);
+        if (!same(target, list)) throw new Error(DIFF);
         target.innerHTML = "\n" + kids(list).map(item => "        " + cleanClone(item).outerHTML).join("\n") + "\n      ";
       }
       // textos soltos
       for (const el of document.querySelectorAll("[data-ed]")) {
         if (listOf(el) || !el.hasAttribute("data-ed-changed")) continue;
-        const target = byPath(doc, pathOf(el));
-        if (!target || target.tagName !== el.tagName) throw new Error("A página no GitHub está diferente desta. Recarregue e edite de novo.");
+        const target = docOf(el);
+        if (!same(target, el)) throw new Error(DIFF);
         target.innerHTML = cleanHtml(el);
         const z = el.style.zoom;
         if (z && z !== "1") target.style.zoom = z;
@@ -379,14 +462,14 @@
       // links de botões trocados
       for (const el of document.querySelectorAll("[data-ed-href]")) {
         if (listOf(el)) continue;
-        const target = byPath(doc, pathOf(el));
-        if (target && target.tagName === el.tagName) target.setAttribute("href", el.getAttribute("href"));
+        const target = docOf(el);
+        if (same(target, el)) target.setAttribute("href", el.getAttribute("href"));
       }
       // tamanhos (bolinha) de qualquer elemento fora das listas
       for (const el of document.querySelectorAll("[data-ed-zoom]")) {
         if (listOf(el)) continue;
-        const target = byPath(doc, pathOf(el));
-        if (!target || target.tagName.toLowerCase() !== el.tagName.toLowerCase()) continue;
+        const target = docOf(el);
+        if (!same(target, el)) continue;
         const z = el.style.zoom;
         if (z && z !== "1") target.style.zoom = z;
         else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
