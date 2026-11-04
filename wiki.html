@@ -335,19 +335,19 @@ function mediaLine(t) {
   return null;
 }
 function inline(t) {
-  return t.split(/(`[^`]+`)/).map(p => {
-    if (/^`[^`]+`$/.test(p)) return "<code>" + esc(p.slice(1, -1)) + "</code>";
-    let s = esc(p);
-    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, src) => `<img src="${resolveSrc(src)}" alt="${alt}" loading="lazy">`);
-    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, txt, href) => {
-      const h = linkHref(href), ext = /^https?:/i.test(h);
-      return `<a href="${h}"${ext ? ' target="_blank" rel="noopener"' : ""}>${txt}</a>`;
-    });
-    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-    s = s.replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, "$1<em>$2</em>");
-    s = s.replace(/(^|\s)(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
-    return s;
-  }).join("");
+  // Comandos entre crases são guardados antes, para o negrito e os links funcionarem em volta deles
+  const codes = [];
+  let s = t.replace(/`([^`]+)`/g, (m, c) => { codes.push("<code>" + esc(c) + "</code>"); return "\u0000" + (codes.length - 1) + "\u0000"; });
+  s = esc(s);
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, src) => `<img src="${resolveSrc(src)}" alt="${alt}" loading="lazy">`);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, txt, href) => {
+    const h = linkHref(href), ext = /^https?:/i.test(h);
+    return `<a href="${h}"${ext ? ' target="_blank" rel="noopener"' : ""}>${txt}</a>`;
+  });
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, "$1<em>$2</em>");
+  s = s.replace(/(^|\s)(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+  return s.replace(/\u0000(\d+)\u0000/g, (m, i) => codes[+i]);
 }
 const RX = {
   heading: /^(#{1,4})\s+(.*)$/, hr: /^\s*(-{3,}|\*{3,})\s*$/, quote: /^\s*>/,
@@ -456,7 +456,8 @@ function indexPage(p) {
   const img = src.replace(/<!--[\s\S]*?-->/g, "").match(/!\[[^\]]*\]\(([^)\s]+)\)/);
   p.cover = img ? resolveSrc(img[1]) : null;
   p.text = plain(src);
-  p.nText = norm(p.text); p.nTitle = norm(p.title);
+  const kw = (src.match(/<!--\s*busca:([\s\S]*?)-->/i) || [])[1] || "";
+  p.nText = norm(p.text + " " + kw.replace(/,/g, " ")); p.nTitle = norm(p.title);
 }
 
 function buildToc() {

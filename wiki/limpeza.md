@@ -1,22 +1,57 @@
-# Limpeza automática e /lixeira
+# Limpeza e lixeira
 
-Para o servidor não travar, itens no chão e monstros soltos são removidos de tempos em tempos. O que sumiu pode ser recuperado.
+Limpeza do chão, lixeira e mobs em pilha.
 
-<!-- COMO COLOCAR MÍDIA NESTA PÁGINA
-Imagem: suba o arquivo na pasta wiki/midia e escreva numa linha:  ![Legenda que aparece embaixo](midia/nome-da-imagem.png)
--->
+<!-- busca: astralclean, lixeira, limpar, lag -->
+<!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
 
-## O que é limpo
+## Limpeza do chão
 
-- A cada **10 minutos**, com aviso no chat antes.
-- Itens jogados no chão.
-- Monstros soltos pelo mapa.
-- Criaturas que nasceram de spawner.
+De tempos em tempos o servidor recolhe os itens largados no chão (o chat avisa antes).
 
-**Não é limpo:** animais que nasceram naturalmente no mundo.
+Perdeu algo? Os itens vão para a `/lixeira` por alguns minutos.
 
-## Perdeu um item?
+- `/limpar`: mostra quanto falta para a próxima limpeza.
 
-Digite `/lixeira` logo depois da limpeza para recuperar os itens que foram recolhidos.
+A limpeza também tira os **mobs de spawner** (as pilhas "Zumbi x40" e os animais de spawner). Animais normais do mundo nunca são tirados.
 
-> Dica: quando aparecer o aviso de limpeza, pegue o que estiver no chão ou guarde num baú.
+Cada spawner segura no máximo **100 mobs** perto dele (somando as pilhas). Spawner empilhado x3 = 300. Chegou no limite, ele para de soltar até você matar.
+
+## Mobs em pilha (spawners)
+
+Mobs de spawner se juntam num mob só com o nome **"Zumbi x12"**.
+
+Cada um que você mata dá o drop e a XP normal, e o próximo da pilha aparece no lugar.
+
+Cada chunk tem um limite de mobs (as pilhas, pets, waifus, NPCs e mobs com nome não contam).
+
+Flechas presas no chão somem depois de 30 segundos.
+
+## Pegar spawners
+
+Quebre o spawner com uma **picareta**:
+
+- **Spawner de Seda**: o spawner **sempre** cai inteiro.
+- **Toque Suave**: **25%** de chance de cair. Se não cair, ele quebra.
+
+Sem nenhum dos dois, o spawner quebra e não cai nada.
+
+## Juntar spawners
+
+Coloque um spawner **encostado** em outro do **mesmo mob**: eles viram um só, com o nome em cima (ex.: **Spawner de Zumbi x5**).
+
+Cada spawner a mais na pilha solta **mais mobs**. Máximo de **50** por bloco.
+
+Quer colocar separado? Coloque **agachado**.
+
+Quebrar tira **um por vez** da pilha (Spawner de Seda: sempre cai; Toque Suave: 25%).
+
+Clique direito com a mão vazia no spawner para ver quantos tem.
+
+## Itens no chão
+
+Itens iguais no chão se juntam numa pilha só, com o nome e a quantidade em cima (ex.: **Diamante x64**).
+
+## Atalhos no jogo
+
+- Abrir lixeira: `/lixeira`
