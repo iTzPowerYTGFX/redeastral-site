@@ -85,6 +85,15 @@ AUMENTAR / DIMINUIR (bolinha roxa)
   Duplo clique na bolinha volta ao tamanho normal. Depois clique em SALVAR.
   (No texto aparece no fim da linha algo como {70%}. Pode apagar para voltar ao normal.)
 
+LÁPIS NA PÁGINA INICIAL DA WIKI (cartões)
+  Logado como editor, a página inicial da Wiki mostra botões roxos com lápis:
+  - "Editar" em cada cartão -> muda o título, o resumo (texto pequeno) e a capa do cartão.
+    Capa: "Escolher imagem" envia uma foto; "Sem capa" tira; "Automática" usa a
+    primeira imagem da página. O título e o resumo também mudam dentro da página.
+    "Editar a página inteira" abre o editor completo.
+  - "Renomear / organizar" ao lado de cada categoria -> abre o "Organizar páginas".
+  - "Editar título e texto" no topo -> abre o "Editar início da Wiki".
+
 INÍCIO DA WIKI (título e texto do topo)
   Barra roxa -> "Editar início da Wiki". O título é a linha com # e o resto é o texto
   que aparece embaixo dele. Aceita negrito, link, imagem, vídeo e cartões, igual às páginas.
