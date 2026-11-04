@@ -290,6 +290,7 @@ dialog.form.wide { width: min(94vw, 46rem); }
     <div class="edbar" id="edbar" hidden>
       <strong>Modo editor</strong>
       <button class="btn" type="button" id="ed-desk" data-desk-label>Modo computador</button>
+      <button class="btn" type="button" data-tp-label title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
       <a class="btn" href="index.html">Editar página inicial</a>
       <button class="btn" type="button" id="ed-home">Editar início da Wiki</button>
       <button class="btn" type="button" id="ed-org">Organizar páginas</button>
@@ -815,7 +816,10 @@ $("#ed-logout").addEventListener("click", () => {
   GH = null; EDIT = null; try { localStorage.removeItem("astralGH"); } catch (e) {}
   syncEditorUi(); route(); toast("Você saiu do modo editor");
 });
-function syncEditorUi() { $("#edbar").hidden = !GH; }
+function syncEditorUi() {
+  $("#edbar").hidden = !GH;
+  if (GH && !document.querySelector("script[data-tp]")) { const t = document.createElement("script"); t.src = "touchpad.js?v=" + Date.now(); t.dataset.tp = "1"; t.className = "ed-ui"; document.body.appendChild(t); }
+}
 syncEditorUi();
 
 /* ----- editor de página ----- */
@@ -941,7 +945,7 @@ async function openEditor(p) {
   prev.addEventListener("click", e => { const el = e.target.closest("[data-line]"); if (el) { rzLine = el.dataset.line; pick(el); } });
   prev.addEventListener("scroll", placeRz);
   rz.addEventListener("pointerdown", e => {
-    if (!rzEl) return; e.preventDefault(); rz.setPointerCapture(e.pointerId);
+    if (!rzEl) return; e.preventDefault(); try { rz.setPointerCapture(e.pointerId); } catch (err) {}
     const cs = getComputedStyle(prev), cw = prev.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const kind = rzEl.dataset.kind, w = rzEl.getBoundingClientRect().width;
     const start = +rzEl.dataset.size || (kind === "media" ? clamp(10, 100, Math.round(w / cw * 100)) : 100);
@@ -1011,7 +1015,7 @@ async function openEditor(p) {
     ind.hidden = tip.hidden = false;
   }
   mv.addEventListener("pointerdown", e => {
-    if (!mvEl) return; e.preventDefault(); mv.setPointerCapture(e.pointerId);
+    if (!mvEl) return; e.preventDefault(); try { mv.setPointerCapture(e.pointerId); } catch (err) {}
     mvDrag = { s: +mvEl.dataset.s, e: +mvEl.dataset.e, drop: null }; mvEl.classList.add("mv-src"); rz.hidden = true;
   });
   mv.addEventListener("pointermove", e => {
@@ -1233,7 +1237,10 @@ function hmTarget(x, y) {
   if (!el) return null;
   if (HM.kind === "card") {
     const w = el.closest(".card-wrap");
-    if (w && w !== HM.el) { const r = w.getBoundingClientRect(); return { el: w, after: x > r.left + r.width / 2, horiz: true }; }
+    if (w && w !== HM.el) {
+      const r = w.getBoundingClientRect(), grid = w.parentElement, horiz = getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length > 1;
+      return { el: w, after: horiz ? x > r.left + r.width / 2 : y > r.top + r.height / 2, horiz };
+    }
     const sec = el.closest("section.cat");
     if (sec) return { el: sec, end: true };
     return null;
@@ -1263,7 +1270,7 @@ function saveMenuOrder() {
 }
 view.addEventListener("pointerdown", e => {
   const g = e.target.closest(".ed-grip"); if (!g || !GH) return;
-  e.preventDefault(); g.setPointerCapture(e.pointerId);
+  e.preventDefault(); try { g.setPointerCapture(e.pointerId); } catch (err) {}
   const el = g.dataset.grip === "card" ? g.closest(".card-wrap") : g.closest("section.cat");
   HM = { kind: g.dataset.grip, el, t: null }; el.classList.add("hm-src");
 });
