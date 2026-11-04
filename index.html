@@ -117,7 +117,8 @@ section.block.tab-page { border-bottom: 0; }
 .ip-row .btn { flex: none; }
 .ip-row code { flex: 1; min-width: 0; font: 500 .875rem var(--f-mono); background: var(--sky); border: 1px solid var(--line); border-radius: 6px; padding: .5rem .625rem; overflow-x: auto; white-space: nowrap; user-select: all; }
 @media (max-width: 480px) { .ip-row { flex-wrap: wrap; } .ip-row code { flex-basis: 100%; white-space: normal; overflow-wrap: anywhere; } .ip-row .btn { flex: 1; } }
-.ip-port { font-size: .875rem; color: var(--ink-dim); }
+.ip-port { font-size: .875rem; color: var(--ink-dim); margin-bottom: -.25rem; }
+.ip-row.port code { flex: 0 1 9rem; }
 .ip-port b { font-family: var(--f-mono); color: var(--ink); font-weight: 500; }
 .status { display: inline-flex; align-items: center; gap: .5rem; font-size: .875rem; color: var(--ink-dim); }
 .dot { width: 10px; height: 10px; background: var(--ink-dim); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink-dim) 25%, transparent); }
@@ -243,7 +244,8 @@ footer h3 { font-size: 1rem; color: var(--ink); }
           <div class="ip">
             <div class="ip-head"><strong>Bedrock</strong><small>celular, Windows, console</small></div>
             <div class="ip-row"><code id="ip-bedrock">ultra-07.bedhosting.com.br</code><button class="btn" type="button" data-copy="ip-bedrock">Copiar</button></div>
-            <span class="ip-port">Porta <b id="port-bedrock">30380</b></span>
+            <span class="ip-port">Porta</span>
+            <div class="ip-row port"><code id="port-bedrock">30380</code><button class="btn" type="button" data-copy="port-bedrock" data-copy-msg="Porta copiada">Copiar</button></div>
             <span class="status" id="st-bedrock" data-state="wait"><i class="dot"></i><span>Verificando…</span></span>
           </div>
         </div>
@@ -519,7 +521,7 @@ document.querySelectorAll("[data-copy]").forEach(btn => {
     const text = el.textContent.trim();
     const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selecionado: segure e copie"); };
     try {
-      navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copiado"; toast("Endereço copiado"); setTimeout(() => btn.textContent = "Copiar", 1600); }, fallback);
+      navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copiado"; toast(btn.dataset.copyMsg || "Endereço copiado"); setTimeout(() => btn.textContent = "Copiar", 1600); }, fallback);
     } catch (e) { fallback(); }
   });
 });
