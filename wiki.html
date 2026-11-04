@@ -165,6 +165,15 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: .75rem; }
 .card { display: grid; grid-template-rows: auto 1fr; text-decoration: none; color: var(--ink); background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .card:hover { border-color: var(--violet); background: var(--sky-3); }
+.card-wrap { position: relative; display: grid; }
+.ed-pen { position: absolute; top: .5rem; right: .5rem; z-index: 2; background: var(--violet); color: var(--violet-ink, #fff); border: 0; border-radius: 999px; padding: .3rem .65rem; font: 700 .8125rem var(--f-body); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.ed-pen:hover { filter: brightness(1.15); }
+.card-wrap:has(> .ed-pen) .card:not(:has(.cover)) .body { padding-top: 2.6rem; }
+.ed-pen.inline { position: static; margin-left: .5rem; vertical-align: middle; text-transform: none; letter-spacing: 0; box-shadow: none; }
+.home-head .ed-pen.inline { margin: 0; justify-self: start; }
+.field textarea { background: var(--sky); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: .5rem .625rem; font: 1rem var(--f-body); resize: vertical; min-height: 5rem; }
+.ce-cover { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.ce-cover .thumb { width: 8rem; aspect-ratio: 16 / 9; border-radius: 6px; border: 1px solid var(--line); background: var(--sky-3) center / cover no-repeat; display: grid; place-items: center; font-size: .75rem; font-weight: 400; color: var(--ink-dim); }
 .card .cover { aspect-ratio: 16 / 9; background: var(--sky-3) center / cover no-repeat; border-bottom: 1px solid var(--line); }
 .card .body { padding: .875rem 1rem 1rem; display: grid; gap: .25rem; align-content: start; }
 .card strong { font-family: var(--f-display); font-size: 1.125rem; }
@@ -316,6 +325,22 @@ dialog.form.wide { width: min(94vw, 46rem); }
   <div class="form-actions" style="justify-content:flex-start"><button class="btn" type="button" id="org-addcat">+ Nova categoria</button></div>
   <p class="ed-status" id="org-status" role="status"></p>
   <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="button" id="org-save">Salvar</button></div>
+</dialog>
+
+<dialog class="form" id="cardedit">
+  <h2>Editar cartão</h2>
+  <p>O que aparece no cartão da página <b id="ce-file"></b>. O título e o resumo também mudam dentro da página.</p>
+  <form id="ce-form">
+    <label class="field">Título<input id="ce-title" required></label>
+    <label class="field">Resumo <small>(primeiro parágrafo da página)</small><textarea id="ce-sum" rows="3"></textarea></label>
+    <div class="field">Capa <small>(sem capa escolhida, usa a primeira imagem da página)</small>
+      <div class="ce-cover"><div class="thumb" id="ce-thumb">sem capa</div>
+        <label class="btn">Escolher imagem<input type="file" id="ce-img" accept="image/*" hidden></label>
+        <button class="btn" type="button" id="ce-nocover">Sem capa</button>
+        <button class="btn" type="button" id="ce-auto">Automática</button></div></div>
+    <p class="ed-status" id="ce-status" role="status"></p>
+    <div class="form-actions"><button class="btn" type="button" id="ce-full">Editar a página inteira</button><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Salvar</button></div>
+  </form>
 </dialog>
 
 <dialog class="form" id="links">
@@ -542,11 +567,12 @@ function indexPage(p) {
   const src = p.md || "";
   const t = src.match(/^#\s+(.+)$/m);
   p.title = t ? stripSize(t[1]).trim() : p.id.replace(/-/g, " ");
-  const clean = src.replace(/<!--[\s\S]*?-->/g, "").split("\n");
-  p.summary = (clean.find(l => l.trim() && !/^\s*(#|>|!\[|\||[-*+]\s|\d+[.)]\s)/.test(l) && !mediaLine(l.trim())) || "").trim();
+  const L = src.replace(/\r/g, "").split("\n"), si = summaryLine(L);
+  p.summary = si >= 0 ? stripSize(L[si].replace(/<!--[\s\S]*?(-->|$)/g, "")).trim() : "";
   p.summaryText = plain(p.summary);
   const img = src.replace(/<!--[\s\S]*?-->/g, "").match(/!\[[^\]]*\]\(([^)\s]+)\)/);
-  p.cover = img ? resolveSrc(img[1]) : null;
+  const capa = (src.match(/<!--\s*capa:\s*(\S+?)\s*-->/i) || [])[1];
+  p.cover = capa ? (/^nenhuma$/i.test(capa) ? null : resolveSrc(capa)) : img ? resolveSrc(img[1]) : null;
   p.text = plain(src);
   const kw = (src.match(/<!--\s*busca:([\s\S]*?)-->/i) || [])[1] || "";
   p.nText = norm(p.text + " " + kw.replace(/,/g, " ")); p.nTitle = norm(p.title);
@@ -565,12 +591,13 @@ function buildToc() {
 function showHome() {
   document.title = HOME.title + " · Rede Astral";
   const rest = HOME.md.replace(/^\s*#\s+.+$/m, "");
-  let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div></div>`;
+  const pen = (a, label, cls = "") => GH ? `<button type="button" class="ed-pen ${cls}" ${a}>✎ ${label}</button>` : "";
+  let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div>${pen('data-pen="home"', "Editar título e texto", "inline")}</div>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
-    h += `<section class="cat"><h2>${esc(c)}</h2><div class="cards">${ps.map(p => `
-      <a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
-        <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>`).join("")}</div></section>`;
+    h += `<section class="cat"><h2>${esc(c)}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2><div class="cards">${ps.map(p => `
+      <div class="card-wrap"><a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+        <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
   view.innerHTML = h;
 }
@@ -712,7 +739,7 @@ async function listDir(path) {
 }
 function setStatus(el, msg, kind) { el.textContent = msg || ""; el.className = "ed-status" + (kind ? " " + kind : ""); }
 function closeOnButtons(dlg) { dlg.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => dlg.close())); }
-["#login", "#newpage", "#links", "#organize"].forEach(s => closeOnButtons($(s)));
+["#login", "#newpage", "#links", "#organize", "#cardedit"].forEach(s => closeOnButtons($(s)));
 
 /* ----- entrar / sair ----- */
 function openLogin() {
@@ -1035,6 +1062,90 @@ $("#org-save").addEventListener("click", async () => {
     toast("Menu salvo. O site público muda em 1 a 2 minutos.");
   } catch (err) { setStatus($("#org-status"), err.message, "err"); }
   finally { $("#org-save").disabled = false; }
+});
+
+/* ----- lápis da página inicial da wiki: cartões, categorias e topo ----- */
+let CE = null;
+function summaryLine(lines) {
+  let inC = false, inCard = false;
+  for (let i = 0; i < lines.length; i++) {
+    let l = lines[i], vis = "";
+    if (!inC && /^\s*:::/.test(l)) { inCard = !/^\s*:::\s*$/.test(l); continue; }
+    if (inCard) continue;
+    while (l) {
+      if (inC) { const e = l.indexOf("-->"); if (e < 0) { l = ""; break; } inC = false; l = l.slice(e + 3); }
+      else { const b = l.indexOf("<!--"); if (b < 0) { vis += l; break; } vis += l.slice(0, b); inC = true; l = l.slice(b + 4); }
+    }
+    if (vis.trim() && !/^\s*(#|>|!\[|\||[-*+]\s|\d+[.)]\s)/.test(vis) && !mediaLine(vis.trim())) return i;
+  }
+  return -1;
+}
+function ceThumb() {
+  const t = $("#ce-thumb");
+  const src = CE.cover === undefined ? (CE.autoCover || "") : CE.cover === "nenhuma" ? "" : resolveSrc(CE.cover);
+  t.style.backgroundImage = src ? `url('${src.replace(/'/g, "%27")}')` : "";
+  t.textContent = src ? "" : "sem capa";
+}
+view.addEventListener("click", async e => {
+  const b = e.target.closest(".ed-pen"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  if (b.dataset.pen === "home") return $("#ed-home").click();
+  if (b.dataset.pen === "org") return $("#ed-org").click();
+  const p = PAGES.find(x => x.id === b.dataset.id); if (!p) return;
+  const dlg = $("#cardedit"); setStatus($("#ce-status"), "Lendo a página…");
+  $("#ce-file").textContent = p.title; $("#ce-title").value = p.title; $("#ce-sum").value = p.summaryText || ""; dlg.showModal();
+  try {
+    const f = await getFile("wiki/" + p.file);
+    const text = f ? f.text : (p.md || `# ${p.title}\n`);
+    const capa = (text.match(/<!--\s*capa:\s*(\S+?)\s*-->/i) || [])[1];
+    const img = text.replace(/<!--[\s\S]*?-->/g, "").match(/!\[[^\]]*\]\(([^)\s]+)\)/);
+    CE = { p, sha: f ? f.sha : null, text, cover: capa, autoCover: img ? resolveSrc(img[1]) : null };
+    const lines = text.replace(/\r/g, "").split("\n"), si = summaryLine(lines);
+    $("#ce-sum").value = si >= 0 ? stripSize(lines[si]).trim() : "";
+    ceThumb(); setStatus($("#ce-status"), "");
+  } catch (err) { setStatus($("#ce-status"), err.message, "err"); }
+});
+$("#ce-img").addEventListener("change", async e => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file || !CE) return;
+  if (file.size > 25 * 1024 * 1024) return setStatus($("#ce-status"), "Imagem maior que 25 MB.", "err");
+  const ext = ((file.name.match(/\.[a-z0-9]+$/i) || [".png"])[0]).toLowerCase();
+  const base = slug(file.name.replace(/\.[^.]+$/, "")).slice(0, 50) || "capa";
+  try {
+    setStatus($("#ce-status"), "Enviando " + file.name + "…");
+    const names = new Set(await listDir("wiki/midia"));
+    let name = base + ext, n = 2; while (names.has(name)) name = `${base}-${n++}${ext}`;
+    await putFile("wiki/midia/" + name, b64bytes(new Uint8Array(await file.arrayBuffer())), null, "Wiki: enviar " + name);
+    LOCAL_MEDIA["wiki/midia/" + name] = URL.createObjectURL(file);
+    CE.cover = "midia/" + name; ceThumb();
+    setStatus($("#ce-status"), "Imagem enviada. Clique em Salvar.", "ok");
+  } catch (err) { setStatus($("#ce-status"), err.message, "err"); }
+});
+$("#ce-nocover").addEventListener("click", () => { if (CE) { CE.cover = "nenhuma"; ceThumb(); } });
+$("#ce-auto").addEventListener("click", () => { if (CE) { CE.cover = undefined; ceThumb(); } });
+$("#ce-full").addEventListener("click", () => { if (!CE) return; $("#cardedit").close(); location.hash = CE.p.id; setTimeout(() => openEditor(CE.p), 50); });
+$("#ce-form").addEventListener("submit", async e => {
+  e.preventDefault(); if (!CE) return;
+  const title = $("#ce-title").value.replace(/\s+/g, " ").trim(), sum = $("#ce-sum").value.replace(/\s*\n\s*/g, " ").trim();
+  if (!title) return setStatus($("#ce-status"), "O cartão precisa de um título.", "err");
+  let lines = CE.text.replace(/\r/g, "").split("\n");
+  // título: troca a linha "# ..." mantendo o tamanho {N%}
+  const ti = lines.findIndex(l => /^#\s+\S/.test(l));
+  if (ti >= 0) { const m = lines[ti].match(SIZE_RX); lines[ti] = "# " + title + (m ? m[0] : ""); }
+  else { lines.unshift("# " + title, ""); }
+  // resumo: troca o primeiro parágrafo (ou cria logo depois do título)
+  const si = summaryLine(lines);
+  if (si >= 0) { if (sum) { const m = lines[si].match(SIZE_RX); lines[si] = sum + (m ? m[0] : ""); } else lines.splice(si, 1); }
+  else if (sum) { const at = lines.findIndex(l => /^#\s+\S/.test(l)) + 1; lines.splice(at, 0, "", sum); }
+  // capa
+  let text = lines.join("\n").replace(/\n?<!--\s*capa:\s*\S+?\s*-->[ \t]*/i, "");
+  if (CE.cover) { const t2 = text.split("\n"), at = t2.findIndex(l => /^#\s+\S/.test(l)) + 1; t2.splice(at, 0, `<!-- capa: ${CE.cover} -->`); text = t2.join("\n"); }
+  setStatus($("#ce-status"), "Salvando…");
+  try {
+    const res = await putFile("wiki/" + CE.p.file, encText(text), CE.sha, "Wiki: cartão de " + CE.p.file);
+    CE.sha = res.content.sha; CE.text = text;
+    CE.p.md = text; indexPage(CE.p); buildToc(); route();
+    $("#cardedit").close(); toast("Cartão salvo. O site público muda em 1 a 2 minutos.");
+  } catch (err) { setStatus($("#ce-status"), err.message, "err"); }
 });
 
 /* ----- nova página ----- */
