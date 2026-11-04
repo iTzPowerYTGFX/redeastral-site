@@ -51,6 +51,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; line-height: 1
 .btn.accent { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
 .btn.accent:hover { filter: brightness(1.12); }
 .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 @media (max-width: 520px) { .top nav a.hide-sm { display: none; } .brand span small { display: none; } }
 
 .layout { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: 2.5rem; padding-block: 1.75rem 4rem; align-items: start; }
@@ -222,6 +223,19 @@ dialog.form form { display: grid; gap: .75rem; }
 .field { display: grid; gap: .25rem; font-size: .875rem; font-weight: 700; }
 .field small { font-weight: 400; color: var(--ink-dim); }
 .form-actions { display: flex; gap: .5rem; justify-content: flex-end; flex-wrap: wrap; }
+dialog.form.wide { width: min(94vw, 46rem); }
+.org-list { display: grid; gap: .75rem; max-height: 55vh; overflow: auto; padding-right: .25rem; }
+.org-cat { border: 1px solid var(--line); border-radius: 10px; padding: .5rem; display: grid; gap: .35rem; background: var(--sky); }
+.org-cat.out { border-style: dashed; }
+.org-row { display: flex; gap: .35rem; align-items: center; flex-wrap: wrap; padding: .2rem .25rem; border-radius: 6px; }
+.org-row:not(.head):hover { background: var(--sky-3); }
+.org-row .btn { padding: .3rem .55rem; font-size: .8125rem; }
+.org-row select { background: var(--sky-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: .3rem .4rem; font: .8125rem var(--f-body); max-width: 12rem; }
+.org-t { flex: 1; min-width: 8rem; font-size: .9375rem; }
+.org-name { flex: 1; min-width: 8rem; background: var(--sky-2); color: var(--violet-soft); border: 1px solid var(--line); border-radius: 6px; padding: .4rem .55rem; font: 700 .875rem var(--f-body); letter-spacing: .06em; text-transform: uppercase; }
+.org-empty { margin: 0; padding: .25rem .5rem; font-size: .8125rem; color: var(--ink-dim); }
+.home-intro { max-width: 58ch; color: var(--ink-dim); }
+.home-intro > :last-child { margin-bottom: 0; }
 </style>
 <script src="preferencias.js"></script>
 </head>
@@ -250,6 +264,8 @@ dialog.form form { display: grid; gap: .75rem; }
       <strong>Modo editor</strong>
       <button class="btn" type="button" id="ed-desk" data-desk-label>Modo computador</button>
       <a class="btn" href="index.html">Editar página inicial</a>
+      <button class="btn" type="button" id="ed-home">Editar início da Wiki</button>
+      <button class="btn" type="button" id="ed-org">Organizar páginas</button>
       <button class="btn" type="button" id="ed-new">Nova página</button>
       <button class="btn" type="button" id="ed-links">Links do site</button>
       <button class="btn" type="button" id="ed-logout">Sair</button>
@@ -293,6 +309,15 @@ dialog.form form { display: grid; gap: .75rem; }
   </form>
 </dialog>
 
+<dialog class="form wide" id="organize">
+  <h2>Organizar a Wiki</h2>
+  <p>Renomeie categorias, mude a ordem com ↑ ↓, troque a página de categoria pela lista ou tire do menu com ✕. Nada muda no site até clicar em Salvar.</p>
+  <div class="org-list" id="org-list"></div>
+  <div class="form-actions" style="justify-content:flex-start"><button class="btn" type="button" id="org-addcat">+ Nova categoria</button></div>
+  <p class="ed-status" id="org-status" role="status"></p>
+  <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="button" id="org-save">Salvar</button></div>
+</dialog>
+
 <dialog class="form" id="links">
   <h2>Links do site</h2>
   <p>Valem para a página inicial e para a Wiki. Deixe vazio para mostrar "em breve".</p>
@@ -314,12 +339,14 @@ const CFG = window.ASTRAL || {};
 const $ = s => document.querySelector(s);
 const view = $("#view"), results = $("#results"), q = $("#q"), toc = $("#toc");
 let PAGES = [], CATS = [], READY = false;
+const HOME_DEFAULT = "# Wiki (Como funciona)\n\nComo cada sistema do servidor funciona, com imagens e vídeos. Escolha um assunto ou pesquise acima.\n";
+const HOME = { file: "inicio.md", id: "inicio", cat: "Início da wiki", md: HOME_DEFAULT };
 
 /* ---------- links do topo ---------- */
 document.querySelectorAll("[data-link]").forEach(a => {
   const url = CFG[a.dataset.link];
   if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-  else { a.setAttribute("aria-disabled", "true"); a.removeAttribute("href"); a.textContent += " (em breve)"; }
+  else { a.setAttribute("aria-disabled", "true"); a.removeAttribute("href"); }
 });
 
 /* ---------- utilidades ---------- */
@@ -504,6 +531,8 @@ async function load() {
     } catch (e) { p.md = null; }
     indexPage(p);
   }));
+  try { const r = await fetch("wiki/inicio.md", { cache: "no-cache" }); if (r.ok) HOME.md = (await r.text()).replace(/^\uFEFF/, ""); } catch (e) {}
+  indexPage(HOME);
   READY = true; buildToc(); route();
   let pending = null; try { pending = sessionStorage.getItem("wikiBusca"); sessionStorage.removeItem("wikiBusca"); } catch (e) {}
   if (pending) { q.value = pending; search(); }
@@ -534,8 +563,9 @@ function buildToc() {
 
 /* ---------- telas ---------- */
 function showHome() {
-  document.title = "Wiki (Como funciona) · Rede Astral";
-  let h = `<div class="home-head"><h1>Wiki (Como funciona)</h1><p>Como cada sistema do servidor funciona, com imagens e vídeos. Escolha um assunto ou pesquise acima.</p></div>`;
+  document.title = HOME.title + " · Rede Astral";
+  const rest = HOME.md.replace(/^\s*#\s+.+$/m, "");
+  let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div></div>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
     h += `<section class="cat"><h2>${esc(c)}</h2><div class="cards">${ps.map(p => `
@@ -682,7 +712,7 @@ async function listDir(path) {
 }
 function setStatus(el, msg, kind) { el.textContent = msg || ""; el.className = "ed-status" + (kind ? " " + kind : ""); }
 function closeOnButtons(dlg) { dlg.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => dlg.close())); }
-["#login", "#newpage", "#links"].forEach(s => closeOnButtons($(s)));
+["#login", "#newpage", "#links", "#organize"].forEach(s => closeOnButtons($(s)));
 
 /* ----- entrar / sair ----- */
 function openLogin() {
@@ -912,6 +942,7 @@ async function openEditor(p) {
       const res = await putFile("wiki/" + p.file, encText(text), EDIT.sha, "Wiki: editar " + p.file);
       EDIT.sha = res.content.sha; EDIT.original = text; EDIT.dirty = false;
       p.md = text; indexPage(p); buildToc(); markToc(p.id);
+      if (p === HOME) document.title = HOME.title + " · Rede Astral";
       $(".ed-head strong").textContent = p.title;
       try { localStorage.removeItem(draftKey(p)); } catch (e) {}
       setStatus(st, "Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
@@ -920,11 +951,91 @@ async function openEditor(p) {
   });
   $("#ed-close").addEventListener("click", () => {
     if (EDIT && EDIT.dirty) setStatus(st, "Há mudanças não salvas. Elas ficam guardadas como rascunho neste navegador.", "err");
-    EDIT = null; showPage(p);
+    EDIT = null;
+    if (p === HOME) { history.replaceState(null, "", location.pathname); showHome(); markToc(""); } else showPage(p);
   });
   window.scrollTo({ top: 0 });
 }
 addEventListener("beforeunload", e => { if (EDIT && EDIT.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ----- editar o início da wiki ----- */
+$("#ed-home").addEventListener("click", () => { history.replaceState(null, "", location.pathname); openEditor(HOME); });
+
+/* ----- organizar páginas e categorias (wiki/paginas.txt) ----- */
+let ORG = null;
+const titleOf = f => { const p = PAGES.find(x => x.file === f); return p ? p.title : f.replace(/\.md$/i, ""); };
+function renderOrg() {
+  const opts = ci => ORG.cats.map((c, k) => `<option value="${k}"${k === ci ? " selected" : ""}>${esc(c.name || "(sem nome)")}</option>`).join("");
+  $("#org-list").innerHTML = ORG.cats.map((c, ci) => `
+    <div class="org-cat" data-ci="${ci}">
+      <div class="org-row head"><input class="org-name" value="${esc(c.name)}" aria-label="Nome da categoria">
+        <button type="button" class="btn" data-a="cup" title="Subir categoria">↑</button><button type="button" class="btn" data-a="cdown" title="Descer categoria">↓</button><button type="button" class="btn" data-a="cdel" title="Apagar categoria (precisa estar vazia)">✕</button></div>
+      ${c.pages.map((f, pi) => `<div class="org-row" data-pi="${pi}"><span class="org-t">${esc(titleOf(f))}</span>
+        <select data-a="move" aria-label="Mover para a categoria">${opts(ci)}</select>
+        <button type="button" class="btn" data-a="up" title="Subir">↑</button><button type="button" class="btn" data-a="down" title="Descer">↓</button><button type="button" class="btn" data-a="out" title="Tirar do menu">✕</button></div>`).join("") || `<p class="org-empty">Sem páginas. Mova uma para cá ou apague a categoria.</p>`}
+    </div>`).join("") + (ORG.out.length ? `<div class="org-cat out"><div class="org-row head"><strong>Fora do menu</strong></div>${ORG.out.map((f, oi) => `<div class="org-row" data-oi="${oi}"><span class="org-t">${esc(titleOf(f))}</span><button type="button" class="btn" data-a="back">Voltar ao menu</button></div>`).join("")}</div>` : "");
+}
+$("#ed-org").addEventListener("click", async () => {
+  $("#org-list").innerHTML = ""; setStatus($("#org-status"), "Lendo a lista de páginas…"); $("#organize").showModal();
+  try {
+    const list = await getFile("wiki/paginas.txt"), files = await listDir("wiki");
+    const cats = [], header = []; let cur = null, started = false;
+    for (const raw of (list ? list.text : "").replace(/\r/g, "").split("\n")) {
+      const l = raw.trim(); if (!l) continue;
+      if (l.startsWith("#")) { if (!started) header.push(raw); continue; }
+      started = true;
+      if (/\.md$/i.test(l)) { if (!cur) { cur = { name: "Geral", pages: [] }; cats.push(cur); } cur.pages.push(l); }
+      else { cur = { name: l, pages: [] }; cats.push(cur); }
+    }
+    const inMenu = new Set(cats.flatMap(c => c.pages));
+    ORG = { sha: list ? list.sha : null, header, cats, out: files.filter(f => /\.md$/i.test(f) && f !== "inicio.md" && !inMenu.has(f)) };
+    renderOrg(); setStatus($("#org-status"), "");
+  } catch (e) { setStatus($("#org-status"), e.message, "err"); }
+});
+$("#org-list").addEventListener("input", e => { if (e.target.classList.contains("org-name")) ORG.cats[+e.target.closest(".org-cat").dataset.ci].name = e.target.value; });
+$("#org-list").addEventListener("change", e => {
+  if (e.target.dataset.a !== "move") return;
+  const ci = +e.target.closest(".org-cat").dataset.ci, pi = +e.target.closest(".org-row").dataset.pi, to = +e.target.value;
+  ORG.cats[to].pages.push(...ORG.cats[ci].pages.splice(pi, 1)); renderOrg();
+});
+$("#org-list").addEventListener("click", e => {
+  const b = e.target.closest("button[data-a]"); if (!b) return;
+  const cat = b.closest(".org-cat"), row = b.closest(".org-row"), a = b.dataset.a;
+  const ci = cat && cat.dataset.ci !== undefined ? +cat.dataset.ci : -1;
+  const swap = (arr, i, j) => { if (j >= 0 && j < arr.length) [arr[i], arr[j]] = [arr[j], arr[i]]; };
+  if (a === "cup" || a === "cdown") swap(ORG.cats, ci, ci + (a === "cup" ? -1 : 1));
+  if (a === "cdel") { if (ORG.cats[ci].pages.length) return setStatus($("#org-status"), "Mova ou tire as páginas dessa categoria antes de apagar.", "err"); ORG.cats.splice(ci, 1); }
+  if (a === "up" || a === "down") { const pi = +row.dataset.pi; swap(ORG.cats[ci].pages, pi, pi + (a === "up" ? -1 : 1)); }
+  if (a === "out") ORG.out.push(...ORG.cats[ci].pages.splice(+row.dataset.pi, 1));
+  if (a === "back") { if (!ORG.cats.length) ORG.cats.push({ name: "Geral", pages: [] }); ORG.cats[0].pages.push(...ORG.out.splice(+row.dataset.oi, 1)); }
+  setStatus($("#org-status"), ""); renderOrg();
+});
+$("#org-addcat").addEventListener("click", () => {
+  ORG.cats.push({ name: "Nova categoria", pages: [] }); renderOrg();
+  const ins = $("#org-list").querySelectorAll(".org-name"), last = ins[ins.length - 1]; last.focus(); last.select();
+});
+$("#org-save").addEventListener("click", async () => {
+  const names = ORG.cats.map(c => c.name.trim());
+  if (names.some(n => !n || n.startsWith("#") || /\.md$/i.test(n))) return setStatus($("#org-status"), "Toda categoria precisa de nome (sem começar com # e sem terminar em .md).", "err");
+  if (new Set(names.map(norm)).size !== names.length) return setStatus($("#org-status"), "Duas categorias estão com o mesmo nome.", "err");
+  const text = (ORG.header.length ? ORG.header.join("\n") + "\n\n" : "") + ORG.cats.map(c => [c.name.trim(), ...c.pages].join("\n")).join("\n\n") + "\n";
+  $("#org-save").disabled = true; setStatus($("#org-status"), "Salvando…");
+  try {
+    const res = await putFile("wiki/paginas.txt", encText(text), ORG.sha, "Wiki: organizar páginas");
+    ORG.sha = res.content.sha;
+    const fresh = [];
+    for (const c of ORG.cats) for (const f of c.pages) {
+      let p = PAGES.find(x => x.file === f);
+      if (!p) { const fl = await getFile("wiki/" + f); p = { file: f, id: f.replace(/\.md$/i, "").replace(/^.*\//, ""), md: fl ? fl.text : null }; indexPage(p); }
+      p.cat = c.name.trim(); fresh.push(p);
+    }
+    PAGES.length = 0; PAGES.push(...fresh);
+    CATS.length = 0; CATS.push(...names);
+    buildToc(); route(); $("#organize").close();
+    toast("Menu salvo. O site público muda em 1 a 2 minutos.");
+  } catch (err) { setStatus($("#org-status"), err.message, "err"); }
+  finally { $("#org-save").disabled = false; }
+});
 
 /* ----- nova página ----- */
 $("#ed-new").addEventListener("click", () => {
