@@ -1,4 +1,5 @@
 # Comandos essenciais
+<!-- capa: nenhuma -->
 
 comandos que você usará frequentemente.
 
