@@ -55,83 +55,346 @@ São **23 classes** e **25 raças**. Algumas são **exclusivas**: só liberam de
 No `/skills`, as exigidas aparecem com **★**.
 
 ## Lista de classes
+Cada classe tem 4 habilidades (as que precisam chegar no limite para ascender) e um especial.
 
-- **Guerreiro**: Espadas, Machados, Defesa, Armas Pesadas. **Fúria de Batalha**: +12% de dano corpo a corpo com menos de 50% de vida.
-- **Arqueiro**: Arqueria, Acrobacia, Lenhador, Domesticação. **Olho de Águia**: +12% de dano com flechas e projéteis.
-- **Monge**: Desarmado, Acrobacia, Defesa, Alquimia. **Corpo Leve**: Velocidade I sempre e +20% de dano com as mãos vazias.
+::: classe Guerreiro
+habilidades: Espadas, Machados, Defesa, Armas Pesadas
+especial: **Fúria de Batalha**: +12% de dano corpo a corpo com menos de 50% de vida.
+:::
 
-Minerador: Mineração, Escavação, Forja, Defesa. **Visão das Profundezas**: Pressa I e Visão Noturna abaixo da altura Y 40.
+::: classe Arqueiro
+habilidades: Arqueria, Acrobacia, Lenhador, Domesticação
+especial: **Olho de Águia**: +12% de dano com flechas e projéteis.
+:::
 
-- **Fazendeiro**: Agricultura, Domesticação, Pesca, Alquimia. **Estômago Forte**: 30% de chance de não perder fome.
-- **Marinheiro**: Pesca, Armas Pesadas, Acrobacia, Alquimia. **Filho do Mar**: Respiração Aquática e Graça do Golfinho dentro da água.
-- **Mago**: Encantamento, Alquimia, Forja, Pesca. **Fonte Arcana**: +100 de mana máxima e +25% de regeneração de mana.
-- **Ferreiro**: Forja, Mineração, Encantamento, Machados. **Pele de Forja**: -50% de dano de fogo e lava.
-- **Caçador**: Domesticação, Arqueria, Espadas, Lenhador. **Instinto Predador**: +15% de dano contra criaturas (não jogadores) e Visão Noturna à noite.
-- **Explorador**: Lenhador, Escavação, Acrobacia, Agricultura. **Pés Ligeiros**: Velocidade I sempre e -50% de dano de queda.
-- **Paladino**: Defesa, Espadas, Alquimia, Encantamento. **Bênção**: -10% de dano recebido de qualquer coisa.
+::: classe Monge
+habilidades: Desarmado, Acrobacia, Defesa, Alquimia
+especial: **Corpo Leve**: Velocidade I sempre e +20% de dano com as mãos vazias.
+:::
 
-Assassino: Espadas, Acrobacia, Desarmado, Arqueria. **Golpe Furtivo**: +25% de dano corpo a corpo agachado e Velocidade I à noite.
+::: classe Minerador
+habilidades: Mineração, Escavação, Forja, Defesa
+especial: **Visão das Profundezas**: Pressa I e Visão Noturna abaixo da altura Y 40.
+:::
 
-- **Berserker**: Machados, Armas Pesadas, Defesa, Desarmado. **Sede de Sangue**: 5% do dano causado volta como vida e Força I com menos de 30% de vida.
-- **Druida**: Agricultura, Domesticação, Alquimia, Lenhador. **Comunhão**: Regeneração I em florestas, selvas e campos de flores.
-- **Cozinheiro**: Culinária, Agricultura, Pesca, Alquimia. **Banquete**: 50% de chance de não perder fome e +5% de XP em tudo.
-- **Artífice**: Forja, Mineração, Escavação, Encantamento. **Mãos Firmes**: Pressa I sempre.
-- **Pirata**: Pesca, Espadas, Acrobacia, Armas Pesadas. **Lobo do Mar**: Graça do Golfinho e +15% de dano dentro da água.
-- **Necromante**: Alquimia, Encantamento, Espadas, Defesa. **Pacto Sombrio**: 8% do dano causado volta como vida e Visão Noturna à noite.
-- **Batedor**: Arqueria, Lenhador, Acrobacia, Escavação. **Passos Leves**: Salto I sempre e -75% de dano de queda.
-- **Gladiador**: Espadas, Defesa, Desarmado, Acrobacia. **Arena**: +12% de dano contra jogadores e -8% de dano de golpes.
-- **Domador**: Domesticação, Desarmado, Defesa, Agricultura. **Laço Animal**: +5 no atributo Pets (ATK e DEF dos seus pets).
+::: classe Fazendeiro
+habilidades: Agricultura, Domesticação, Pesca, Alquimia
+especial: **Estômago Forte**: 30% de chance de não perder fome.
+:::
+
+::: classe Marinheiro
+habilidades: Pesca, Armas Pesadas, Acrobacia, Alquimia
+especial: **Filho do Mar**: Respiração Aquática e Graça do Golfinho dentro da água.
+:::
+
+::: classe Mago
+habilidades: Encantamento, Alquimia, Forja, Pesca
+especial: **Fonte Arcana**: +100 de mana máxima e +25% de regeneração de mana.
+:::
+
+::: classe Ferreiro
+habilidades: Forja, Mineração, Encantamento, Machados
+especial: **Pele de Forja**: -50% de dano de fogo e lava.
+:::
+
+::: classe Caçador
+habilidades: Domesticação, Arqueria, Espadas, Lenhador
+especial: **Instinto Predador**: +15% de dano contra criaturas (não jogadores) e Visão Noturna à noite.
+:::
+
+::: classe Explorador
+habilidades: Lenhador, Escavação, Acrobacia, Agricultura
+especial: **Pés Ligeiros**: Velocidade I sempre e -50% de dano de queda.
+:::
+
+::: classe Paladino
+habilidades: Defesa, Espadas, Alquimia, Encantamento
+especial: **Bênção**: -10% de dano recebido de qualquer coisa.
+:::
+
+::: classe Assassino
+habilidades: Espadas, Acrobacia, Desarmado, Arqueria
+especial: **Golpe Furtivo**: +25% de dano corpo a corpo agachado e Velocidade I à noite.
+:::
+
+::: classe Berserker
+habilidades: Machados, Armas Pesadas, Defesa, Desarmado
+especial: **Sede de Sangue**: 5% do dano causado volta como vida e Força I com menos de 30% de vida.
+:::
+
+::: classe Druida
+habilidades: Agricultura, Domesticação, Alquimia, Lenhador
+especial: **Comunhão**: Regeneração I em florestas, selvas e campos de flores.
+:::
+
+::: classe Cozinheiro
+habilidades: Culinária, Agricultura, Pesca, Alquimia
+especial: **Banquete**: 50% de chance de não perder fome e +5% de XP em tudo.
+:::
+
+::: classe Artífice
+habilidades: Forja, Mineração, Escavação, Encantamento
+especial: **Mãos Firmes**: Pressa I sempre.
+:::
+
+::: classe Pirata
+habilidades: Pesca, Espadas, Acrobacia, Armas Pesadas
+especial: **Lobo do Mar**: Graça do Golfinho e +15% de dano dentro da água.
+:::
+
+::: classe Necromante
+habilidades: Alquimia, Encantamento, Espadas, Defesa
+especial: **Pacto Sombrio**: 8% do dano causado volta como vida e Visão Noturna à noite.
+:::
+
+::: classe Batedor
+habilidades: Arqueria, Lenhador, Acrobacia, Escavação
+especial: **Passos Leves**: Salto I sempre e -75% de dano de queda.
+:::
+
+::: classe Gladiador
+habilidades: Espadas, Defesa, Desarmado, Acrobacia
+especial: **Arena**: +12% de dano contra jogadores e -8% de dano de golpes.
+:::
+
+::: classe Domador
+habilidades: Domesticação, Desarmado, Defesa, Agricultura
+especial: **Laço Animal**: +5 no atributo Pets (ATK e DEF dos seus pets).
+:::
 
 Exclusivas (5ª Reencarnação): Rei/Rainha e Dominador. Veja o tópico Reencarnação.
 
 ## Lista de raças
+Cada raça tem 2 habilidades, soma ou tira atributos e muda o seu tamanho (100% = normal). Algumas têm um especial.
 
-- **Humano**: Agricultura, Pesca. **+3 Sorte, +20 Sabedoria, +2 Vida** Tamanho normal
-- **Anão**: Mineração, Forja. **+5 Resistência, +4 Vida, -3 Agilidade** Tamanho 85%
-- **Elfo**: Arqueria, Lenhador. **+5 Agilidade, +5 Precisão, -2 Vida** Tamanho 105%
-- **Orc**: Machados, Desarmado. **+8 Força, +10 Regeneração, -30 Sabedoria** Tamanho 110%
-- **Draconiano**: Defesa, Armas Pesadas. **+4 Força, +3 Resistência, +2 Vida** Tamanho 105%
-- **Tritão**: Pesca, Acrobacia. **+20 Regeneração, +3 Agilidade, +30 Sabedoria** Tamanho normal
-- **Feérico**: Encantamento, Alquimia. **+80 Sabedoria, +5 Sorte, -4 Vida** Tamanho 70%
-- **Meio-Gigante**: Defesa, Escavação. **+10 Vida, +3 Força, -5 Agilidade** Tamanho 125%
-- **Gnomo**: Forja, Encantamento. **+8 Sorte, +3 Precisão, -2 Vida** Tamanho 75%
-- **Lobo da Noite**: Desarmado, Acrobacia. **+4 Força, +4 Agilidade, -20 Sabedoria** Tamanho 105%. **Lua Caçadora**: À noite: Força I, Velocidade I e Visão Noturna.
-- **Vampiro**: Espadas, Alquimia. **+15 Regeneração, +3 Força, -2 Vida** Tamanho normal. **Sede**: 6% do dano causado volta como vida. De dia: Fraqueza I e **pega fogo no sol** (capacete, sombra, chuva ou água protegem; o capacete vai gastando).
-- **Elfo Sombrio**: Arqueria, Encantamento. **+6 Precisão, +3 Agilidade, -2 Vida** Tamanho 105%. **Olhos do Escuro**: Visão Noturna abaixo da altura Y 50.
-- **Demônio**: Armas Pesadas, Alquimia. **+5 Força, +3 Resistência, -20 Sabedoria** Tamanho 110%. **Pele Infernal**: -60% de dano de fogo e lava. Resistência ao Fogo no Nether.
-- **Celestial**: Defesa, Encantamento. **+4 Vida, +10 Regeneração, +30 Sabedoria** Tamanho 95%. **Asas de Luz**: Queda Lenta enquanto estiver agachado.
+::: raca Humano
+habilidades: Agricultura, Pesca
+atributos: +3 Sorte, +20 Sabedoria, +2 Vida
+tamanho: 100%
+:::
 
-Pétreo: Mineração, Defesa. **+8 Resistência, +6 Vida, -6 Agilidade** Tamanho 120%. **Rocha**: -25% de dano de explosões.
+::: raca Anão
+habilidades: Mineração, Forja
+atributos: +5 Resistência, +4 Vida, -3 Agilidade
+tamanho: 85%
+:::
 
-- **Kitsune**: Acrobacia, Encantamento. **+5 Agilidade, +5 Sorte, -2 Vida** Tamanho 90%. **Pulo da Raposa**: Salto I sempre.
-- **Minotauro**: Machados, Armas Pesadas. **+6 Força, +4 Vida, -4 Precisão** Tamanho 120%.
-- **Pequenino**: Agricultura, Culinária. **+6 Sorte, +3 Agilidade, -3 Força** Tamanho 70%. **Estômago de Hobbit**: 40% de chance de não perder fome.
-- **Silvestre**: Lenhador, Agricultura. **+6 Vida, +15 Regeneração, -4 Agilidade** Tamanho 115%. **Fotossíntese**: Regeneração I de dia.
-- **Morto-Vivo**: Arqueria, Defesa. **+5 Precisão, +3 Resistência, -4 Vida** Tamanho normal. **Sem Fôlego**: Imune a veneno e -50% de dano por afogamento.
-- **Nômade**: Escavação, Mineração. **+3 Agilidade, +3 Resistência** Tamanho normal. **Areia nos Pés**: Velocidade I em desertos e badlands e 25% de chance de não perder fome.
-- **Glacial**: Pesca, Defesa. **+4 Vida, +3 Resistência, -2 Agilidade** Tamanho 115%. **Coração de Gelo**: Imune ao congelamento e Velocidade I na neve e no gelo.
-- **Sapiano**: Pesca, Acrobacia. **+5 Agilidade, -2 Vida** Tamanho 80%. **Pernas de Sapo**: Salto II sempre e -50% de dano de queda.
-- **Abissal**: Mineração, Forja. **+4 Resistência, +2 Força** Tamanho 105%. **Casa**: No Nether: Resistência ao Fogo e +10% de dano.
+::: raca Elfo
+habilidades: Arqueria, Lenhador
+atributos: +5 Agilidade, +5 Precisão, -2 Vida
+tamanho: 105%
+:::
+
+::: raca Orc
+habilidades: Machados, Desarmado
+atributos: +8 Força, +10 Regeneração, -30 Sabedoria
+tamanho: 110%
+:::
+
+::: raca Draconiano
+habilidades: Defesa, Armas Pesadas
+atributos: +4 Força, +3 Resistência, +2 Vida
+tamanho: 105%
+:::
+
+::: raca Tritão
+habilidades: Pesca, Acrobacia
+atributos: +20 Regeneração, +3 Agilidade, +30 Sabedoria
+tamanho: 100%
+:::
+
+::: raca Feérico
+habilidades: Encantamento, Alquimia
+atributos: +80 Sabedoria, +5 Sorte, -4 Vida
+tamanho: 70%
+:::
+
+::: raca Meio-Gigante
+habilidades: Defesa, Escavação
+atributos: +10 Vida, +3 Força, -5 Agilidade
+tamanho: 125%
+:::
+
+::: raca Gnomo
+habilidades: Forja, Encantamento
+atributos: +8 Sorte, +3 Precisão, -2 Vida
+tamanho: 75%
+:::
+
+::: raca Lobo da Noite
+habilidades: Desarmado, Acrobacia
+atributos: +4 Força, +4 Agilidade, -20 Sabedoria
+tamanho: 105%
+especial: **Lua Caçadora**: À noite: Força I, Velocidade I e Visão Noturna.
+:::
+
+::: raca Vampiro
+habilidades: Espadas, Alquimia
+atributos: +15 Regeneração, +3 Força, -2 Vida
+tamanho: 100%
+especial: **Sede**: 6% do dano causado volta como vida. De dia: Fraqueza I e **pega fogo no sol** (capacete, sombra, chuva ou água protegem; o capacete vai gastando).
+:::
+
+::: raca Elfo Sombrio
+habilidades: Arqueria, Encantamento
+atributos: +6 Precisão, +3 Agilidade, -2 Vida
+tamanho: 105%
+especial: **Olhos do Escuro**: Visão Noturna abaixo da altura Y 50.
+:::
+
+::: raca Demônio
+habilidades: Armas Pesadas, Alquimia
+atributos: +5 Força, +3 Resistência, -20 Sabedoria
+tamanho: 110%
+especial: **Pele Infernal**: -60% de dano de fogo e lava. Resistência ao Fogo no Nether.
+:::
+
+::: raca Celestial
+habilidades: Defesa, Encantamento
+atributos: +4 Vida, +10 Regeneração, +30 Sabedoria
+tamanho: 95%
+especial: **Asas de Luz**: Queda Lenta enquanto estiver agachado.
+:::
+
+::: raca Pétreo
+habilidades: Mineração, Defesa
+atributos: +8 Resistência, +6 Vida, -6 Agilidade
+tamanho: 120%
+especial: **Rocha**: -25% de dano de explosões.
+:::
+
+::: raca Kitsune
+habilidades: Acrobacia, Encantamento
+atributos: +5 Agilidade, +5 Sorte, -2 Vida
+tamanho: 90%
+especial: **Pulo da Raposa**: Salto I sempre.
+:::
+
+::: raca Minotauro
+habilidades: Machados, Armas Pesadas
+atributos: +6 Força, +4 Vida, -4 Precisão
+tamanho: 120%
+:::
+
+::: raca Pequenino
+habilidades: Agricultura, Culinária
+atributos: +6 Sorte, +3 Agilidade, -3 Força
+tamanho: 70%
+especial: **Estômago de Hobbit**: 40% de chance de não perder fome.
+:::
+
+::: raca Silvestre
+habilidades: Lenhador, Agricultura
+atributos: +6 Vida, +15 Regeneração, -4 Agilidade
+tamanho: 115%
+especial: **Fotossíntese**: Regeneração I de dia.
+:::
+
+::: raca Morto-Vivo
+habilidades: Arqueria, Defesa
+atributos: +5 Precisão, +3 Resistência, -4 Vida
+tamanho: 100%
+especial: **Sem Fôlego**: Imune a veneno e -50% de dano por afogamento.
+:::
+
+::: raca Nômade
+habilidades: Escavação, Mineração
+atributos: +3 Agilidade, +3 Resistência
+tamanho: 100%
+especial: **Areia nos Pés**: Velocidade I em desertos e badlands e 25% de chance de não perder fome.
+:::
+
+::: raca Glacial
+habilidades: Pesca, Defesa
+atributos: +4 Vida, +3 Resistência, -2 Agilidade
+tamanho: 115%
+especial: **Coração de Gelo**: Imune ao congelamento e Velocidade I na neve e no gelo.
+:::
+
+::: raca Sapiano
+habilidades: Pesca, Acrobacia
+atributos: +5 Agilidade, -2 Vida
+tamanho: 80%
+especial: **Pernas de Sapo**: Salto II sempre e -50% de dano de queda.
+:::
+
+::: raca Abissal
+habilidades: Mineração, Forja
+atributos: +4 Resistência, +2 Força
+tamanho: 105%
+especial: **Casa**: No Nether: Resistência ao Fogo e +10% de dano.
+:::
 
 Exclusiva (6ª Reencarnação): Slime. Veja o tópico Reencarnação.
 
 ## As 17 habilidades
+::: habilidade Mineração
+texto: Pedras e minérios com picareta
+:::
 
-- **Mineração**: pedras e minérios com picareta
-- **Lenhador**: troncos com machado
-- **Escavação**: terra, areia, cascalho e argila
-- **Agricultura**: colher plantações maduras
-- **Pesca**: pescar com a vara
-- **Espadas**, **Machados**, **Desarmado**: lutar com cada um
-- **Arqueria**: acertar com arco e besta
-- **Armas Pesadas**: tridente, maça e lança
-- **Defesa**: levar dano de criaturas usando armadura
-- **Acrobacia**: cair de altura e desviar
-- **Alquimia**: fazer poções
-- **Encantamento**: encantar na mesa
-- **Domesticação**: domar, criar animais e lutar com lobos
-- **Forja**: consertar na bigorna, melhorar na ferraria e fundir
-- **Culinária**: cozinhar as receitas do AstralFoods (`/comidas`)
+::: habilidade Lenhador
+texto: Troncos com machado
+:::
+
+::: habilidade Escavação
+texto: Terra, areia, cascalho e argila
+:::
+
+::: habilidade Agricultura
+texto: Colher plantações maduras
+:::
+
+::: habilidade Pesca
+texto: Pescar com a vara
+:::
+
+::: habilidade Espadas
+texto: Lutar com espada
+:::
+
+::: habilidade Machados
+texto: Lutar com machado
+:::
+
+::: habilidade Desarmado
+texto: Lutar com as mãos vazias
+:::
+
+::: habilidade Arqueria
+texto: Acertar com arco e besta
+:::
+
+::: habilidade Armas Pesadas
+texto: Tridente, maça e lança
+:::
+
+::: habilidade Defesa
+texto: Levar dano de criaturas usando armadura
+:::
+
+::: habilidade Acrobacia
+texto: Cair de altura e desviar
+:::
+
+::: habilidade Alquimia
+texto: Fazer poções
+:::
+
+::: habilidade Encantamento
+texto: Encantar na mesa
+:::
+
+::: habilidade Domesticação
+texto: Domar, criar animais e lutar com lobos
+:::
+
+::: habilidade Forja
+texto: Consertar na bigorna, melhorar na ferraria e fundir
+:::
+
+::: habilidade Culinária
+texto: Cozinhar as receitas do AstralFoods (`/comidas`)
+:::
 
 No `/skills`, clique numa habilidade para ver todos os bônus e em que nível cada um libera.
 
@@ -222,54 +485,60 @@ Java: **clique esquerdo +1**, **direito +5**, **Shift + clique +10**.
 
 Bedrock: toque no atributo e escolha **+1**, **+5** ou **+10**.
 
-São 9 atributos: **Força**, **Vida**, **Regeneração**, **Sorte**, **Sabedoria**, Resistência, **Agilidade**, **Precisão** e **Pets**. O que cada um faz está no tópico **O que cada atributo faz**.
+São 9 atributos: **Força**, **Vida**, **Regeneração**, **Sorte**, **Sabedoria**, **Resistência**, **Agilidade**, **Precisão** e **Pets**. O que cada um faz está no tópico **O que cada atributo faz**.
 
 Não dá para encher todos: escolha o seu estilo! Para trocar, use **Resetar pontos** no menu (custa dinheiro).
 
 ## O que cada atributo faz
+::: atributo Força
+valor: +1% por ponto, até 60%
+texto: Todo dano que você causa fica maior: espada, machado, mão, flecha, tridente e outros projéteis. Não vale para o dano do seu lobo.
+:::
 
-**Força** (+1% por ponto, até 60%)
+::: atributo Vida
+valor: +0,5 por ponto, até +40
+texto: Vida máxima a mais. 2 de vida = 1 coração, então +40 = 20 corações a mais.
+:::
 
-Todo dano que você causa fica maior: espada, machado, mão, flecha, tridente e outros projéteis. Não vale para o dano do seu lobo.
+::: atributo Regeneração
+valor: +2,5% por ponto, até 150%
+texto: Sua vida volta mais rápido sozinha (quando está alimentado) e sua mana recarrega mais rápido. 100% = o dobro da velocidade.
+:::
 
-**Vida** (+0,5 por ponto, até +40)
+::: atributo Sorte
+valor: +0,5% por ponto, até 25%
+texto: Vale só para coletar e pescar:
+texto: • soma na chance de **Drop Duplo** da Mineração, Lenhador e Agricultura (25 de sorte = +25%);
+texto: • soma metade na chance de **Drop Triplo** (Mineração) e de **Pesca Dupla**;
+texto: • deixa os **Tesouros** da Escavação e da Pesca mais frequentes (25 de sorte = 25% mais vezes).
+texto: • nos **baús de estruturas**: mais chance de itens Astral e de itens raros (veja `/guia saque`).
+texto: Não muda o drop de mobs nem a chance de encantar livros.
+:::
 
-Vida máxima a mais. 2 de vida = 1 coração, então +40 = 20 corações a mais.
+::: atributo Sabedoria
+valor: +5 por ponto, até +400
+texto: Mana máxima a mais (todo mundo começa com 100). Mana é gasta nas habilidades ativas e nas magias.
+:::
 
-**Regeneração** (+2,5% por ponto, até 150%)
+::: atributo Resistência
+valor: +0,5% por ponto, até 30%
+texto: Você toma menos dano quando um mob ou jogador te acerta (golpe ou flecha). Não reduz queda, fogo, lava nem afogamento. Somando com o bônus da habilidade Defesa, o máximo é 60%.
+:::
 
-Sua vida volta mais rápido sozinha (quando está alimentado) e sua mana recarrega mais rápido. 100% = o dobro da velocidade.
+::: atributo Agilidade
+valor: +0,5% por ponto, até 25%
+texto: Você anda e corre mais rápido.
+:::
 
-**Sorte** (+0,5% por ponto, até 25%)
+::: atributo Precisão
+valor: +0,5% por ponto, até 30%
+texto: Chance de acerto crítico em qualquer ataque seu (corpo a corpo ou flecha): o golpe dá 1,5x de dano e solta faíscas.
+:::
 
-Vale só para coletar e pescar:
-
-- soma na chance de **Drop Duplo** da Mineração, Lenhador e Agricultura (25 de sorte = +25%);
-- soma metade na chance de **Drop Triplo** (Mineração) e de **Pesca Dupla**;
-- deixa os **Tesouros** da Escavação e da Pesca mais frequentes (25 de sorte = 25% mais vezes).
-- nos **baús de estruturas**: mais chance de itens Astral e de itens raros (veja `/guia saque`).
-
-Não muda o drop de mobs nem a chance de encantar livros.
-
-**Sabedoria** (+5 por ponto, até +400)
-
-Mana máxima a mais (todo mundo começa com 100). Mana é gasta nas habilidades ativas e nas magias.
-
-Resistência (+0,5% por ponto, até 30%)
-
-Você toma menos dano quando um mob ou jogador te acerta (golpe ou flecha). Não reduz queda, fogo, lava nem afogamento. Somando com o bônus da habilidade Defesa, o máximo é 60%.
-
-**Agilidade** (+0,5% por ponto, até 25%)
-
-Você anda e corre mais rápido.
-
-**Precisão** (+0,5% por ponto, até 30%)
-
-Chance de acerto crítico em qualquer ataque seu (corpo a corpo ou flecha): o golpe dá 1,5x de dano e solta faíscas.
-
-**Pets** (+0,5 por ponto, até 15)
-
-Seus pets do AstralCapture ficam mais fortes: cada 1 de Pets = +1 de dano em cada golpe do pet e +1 de armadura nele. A classe Domador já começa com +5.
+::: atributo Pets
+valor: +0,5 por ponto, até 15
+texto: Seus pets do AstralCapture ficam mais fortes: cada 1 de Pets = +1 de dano em cada golpe do pet e +1 de armadura nele. A classe Domador já começa com +5.
+:::
 
 Sua **raça** também soma ou tira desses atributos (veja **Lista de raças**) e pode passar do máximo.
 

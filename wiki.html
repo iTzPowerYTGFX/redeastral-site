@@ -15,7 +15,7 @@
   --sky: #0b0a1a; --sky-2: #151229; --sky-3: #1f1a3b; --line: #2e2853;
   --ink: #f1eeff; --ink-dim: #b2abd3;
   --violet: #7c3aed; --violet-ink: #ffffff; --violet-soft: #b99bff;
-  --teal: #5fd8cb; --amber: #ffb547;
+  --teal: #5fd8cb; --amber: #ffb547; --red: #ff7a7a;
   --f-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
   --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -25,7 +25,7 @@
   --sky: #f6f4fc; --sky-2: #ffffff; --sky-3: #ece8fa; --line: #d9d3ef;
   --ink: #1a1530; --ink-dim: #565072;
   --violet: #6d28d9; --violet-ink: #ffffff; --violet-soft: #6d28d9;
-  --teal: #0f7f74; --amber: #a35f00;
+  --teal: #0f7f74; --amber: #a35f00; --red: #c62828;
   color-scheme: light;
 }
 :root[data-texto="grande"] { font-size: 112.5%; }
@@ -123,6 +123,25 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .video.file video { height: auto; max-height: 75vh; }
 .video.anim { background: var(--sky-2); }
 .prose figure[style] img { width: 100%; }
+/* cartões de classe, raça, habilidade e atributo */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: .75rem; margin: 0 0 1.5rem; }
+.cards-grid.habilidade, .cards-grid.atributo { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+.bcard { background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; padding: .875rem 1rem; display: grid; gap: .45rem; align-content: start; min-width: 0; }
+.bcard h4 { margin: 0; font-size: 1.0625rem; display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; }
+.bcard .badge { font: 700 .75rem var(--f-mono); color: var(--ink-dim); border: 1px solid var(--line); border-radius: 999px; padding: .1rem .5rem; white-space: nowrap; }
+.bcard .lbl { font-size: .6875rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); margin-top: .15rem; }
+.bcard p { margin: 0; font-size: .9375rem; color: var(--ink-dim); line-height: 1.5; }
+.bcard p strong { color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+.chip { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .55rem .2rem .3rem; border-radius: 999px; background: var(--sky-3); border: 1px solid var(--line); font-size: .8125rem; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.chip b { font-family: var(--f-mono); }
+.chip.up b { color: var(--teal); }
+.chip.down b { color: var(--red); }
+.prose img.ic, .prose img.big { border: 0; border-radius: 0; background: none; cursor: default; image-rendering: pixelated; display: inline-block; }
+.prose img.ic { width: 20px; height: 20px; }
+.bcard.ico { grid-template-columns: auto minmax(0, 1fr); align-items: start; column-gap: .875rem; }
+.prose img.big { width: 40px; height: 40px; background: var(--sky-3); border: 1px solid var(--line); border-radius: 8px; padding: 6px; box-sizing: content-box; }
+.bcard.ico > div { display: grid; gap: .3rem; min-width: 0; }
 .video.vertical[style] { max-width: none; }
 .ed-prev { position: relative; }
 .ed-prev [data-line].rz-on { outline: 1px dashed var(--violet-soft); outline-offset: 3px; }
@@ -355,11 +374,33 @@ const RX = {
   sep: /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/
 };
 const isTable = (l, n) => l.includes("|") && n !== undefined && RX.sep.test(n);
-const isBlock = (l, n) => (l = stripSize(l), RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
+const isBlock = (l, n) => (l = stripSize(l), CARD_RX.test(l) || RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
 function figure(line) {
   const m = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
   return `<figure>${inline(line.trim())}${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`;
 }
+/* Cartões: "::: classe Nome" ... ":::" (também raca, habilidade, atributo) */
+const CARD_RX = /^:::\s*(classe|raca|raça|habilidade|atributo)\s+(.+?)\s*$/i;
+const ICONS = new Set(["mineracao", "lenhador", "escavacao", "agricultura", "pesca", "espadas", "machados", "desarmado", "arqueria", "armas-pesadas", "defesa", "acrobacia", "alquimia", "encantamento", "domesticacao", "forja", "culinaria", "forca", "vida", "regeneracao", "sorte", "sabedoria", "resistencia", "agilidade", "precisao", "pets"]);
+const icon = (name, cls) => { const k = slug(name); return ICONS.has(k) ? `<img class="${cls || "ic"}" src="img/icones/${k}.svg" alt="" loading="lazy">` : ""; };
+function chip(txt) {
+  const m = txt.match(/^([+-]\s?\d[\d,.]*%?)\s+(.+)$/);
+  if (m) { const v = m[1].replace(/\s/g, ""); return `<span class="chip ${v.startsWith("+") ? "up" : "down"}">${icon(m[2])}<b>${esc(v)}</b>${esc(m[2])}</span>`; }
+  return `<span class="chip">${icon(txt)}${esc(txt)}</span>`;
+}
+function cardBlock(kind, name, f) {
+  const list = k => (f[k] || []).join(",").split(",").map(x => x.trim()).filter(Boolean);
+  const paras = k => (f[k] || []).map(x => `<p>${inline(x)}</p>`).join("");
+  const badge = (k, title) => f[k] ? ` <span class="badge" title="${title}">${esc(f[k].join(" "))}</span>` : "";
+  if (kind === "habilidade" || kind === "atributo")
+    return `<article class="bcard ico">${icon(name, "big")}<div><h4>${esc(name)}${badge("valor", "Valor")}</h4>${paras("texto")}</div></article>`;
+  let h = `<article class="bcard"><h4>${esc(name)}${badge("tamanho", "Tamanho")}</h4>`;
+  if (list("habilidades").length) h += `<div class="lbl">Habilidades</div><div class="chips">${list("habilidades").map(chip).join("")}</div>`;
+  if (list("atributos").length) h += `<div class="lbl">Atributos</div><div class="chips">${list("atributos").map(chip).join("")}</div>`;
+  if (f.especial) h += `<div class="lbl">Especial</div>${paras("especial")}`;
+  return h + paras("texto") + `</article>`;
+}
+
 /* Tamanho: "{150%}" no fim da linha. Texto = zoom (50% a 300%); imagem/vídeo = largura (10% a 100%). */
 const SIZE_RX = /\s*\{\s*(\d{1,3})\s*%\s*\}\s*$/;
 const stripSize = l => l.replace(SIZE_RX, "");
@@ -374,6 +415,28 @@ function md(src, nested) {
     const raw = lines[i], size = sizeOf(raw), l = stripSize(raw), next = lines[i + 1];
     let m;
     if (!l.trim()) { i++; continue; }
+    if (CARD_RX.test(l)) {
+      const c0 = i, csz = size, cards = []; let kind = null;
+      while (i < lines.length) {
+        let j = i; while (j < lines.length && !lines[j].trim()) j++;
+        const cm = j < lines.length && stripSize(lines[j]).match(CARD_RX);
+        if (!cm) break;
+        const k = norm(cm[1]);
+        if (kind && k !== kind) break;
+        kind = k; i = j + 1;
+        const f = {};
+        while (i < lines.length && !/^:::\s*$/.test(lines[i]) && !CARD_RX.test(stripSize(lines[i]))) {
+          const fm = lines[i].match(/^\s*([A-Za-zÀ-ú]+)\s*:\s*(.*)$/);
+          if (fm && ["habilidades", "atributos", "tamanho", "especial", "texto", "valor"].includes(norm(fm[1]))) (f[norm(fm[1])] = f[norm(fm[1])] || []).push(fm[2]);
+          else if (lines[i].trim()) (f.texto = f.texto || []).push(lines[i].trim());
+          i++;
+        }
+        if (i < lines.length && /^:::\s*$/.test(lines[i])) i++;
+        cards.push(cardBlock(kind, cm[2], f));
+      }
+      html += `<div class="cards-grid ${kind}"${at(c0, "text", csz)}${zoom(csz)}>${cards.join("")}</div>`;
+      continue;
+    }
     if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}"${at(i, "text", size)}${zoom(size)}>${inline(m[2])}</h${n}>`; i++; continue; }
     if (RX.hr.test(l)) { html += "<hr>"; i++; continue; }
     const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size)}${width(size)} `); i++; continue; }
@@ -410,7 +473,7 @@ function md(src, nested) {
   return html;
 }
 function plain(src) {
-  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/\s*\{\s*\d{1,3}\s*%\s*\}\s*$/gm, "").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+  return src.replace(/<!--[\s\S]*?-->/g, " ").replace(/^:::\s*(classe|raca|raça|habilidade|atributo)?\s*/gim, " ").replace(/^\s*anima[cç][aã]o\s*:.*$/gim, " ").replace(/\s*\{\s*\d{1,3}\s*%\s*\}\s*$/gm, "").replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
     .replace(/^\s*\|?\s*:?-{3,}.*$/gm, " ").replace(/[#>*`|_]/g, " ").replace(/^\s*[-+]\s+/gm, " ").replace(/https?:\/\/\S+/g, " ").replace(/\s+/g, " ").trim();
 }
 
@@ -677,6 +740,7 @@ async function openEditor(p) {
       <button class="btn" type="button" data-ins="tip">Dica</button>
       <button class="btn" type="button" data-ins="warn">Atenção</button>
       <button class="btn" type="button" data-ins="table">Tabela</button>
+      <button class="btn" type="button" data-ins="card" title="Cartão com ícones de habilidades e atributos">Cartão</button>
       <button class="btn" type="button" data-panel="link">Link</button>
       <span class="sep" aria-hidden="true"></span>
       <label class="btn">Imagem<input type="file" id="ed-img" accept="image/png,image/jpeg,image/webp,image/gif"></label>
@@ -785,6 +849,7 @@ async function openEditor(p) {
     if (k === "tip") insertBlock("> Dica: escreva a dica aqui.");
     if (k === "warn") insertBlock("> Atenção: escreva o aviso aqui.");
     if (k === "table") insertBlock("| Coluna 1 | Coluna 2 |\n| --- | --- |\n| valor | valor |");
+    if (k === "card") insertBlock("::: classe Nome da classe\nhabilidades: Espadas, Defesa, Mineração\natributos: +3 Força, -2 Vida\nespecial: **Nome do especial**: o que ele faz.\n:::");
   }));
   view.querySelectorAll("[data-panel]").forEach(b => b.addEventListener("click", () => {
     const pn = $("#pn-" + b.dataset.panel), open = pn.hidden;
