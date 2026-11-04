@@ -94,6 +94,7 @@ section.block.tab-page { border-bottom: 0; }
 .btn.accent { background: var(--violet); color: var(--violet-ink); border-color: var(--violet); }
 .btn.accent:hover { filter: brightness(1.12); }
 .btn[aria-disabled="true"] { opacity: .55; cursor: default; pointer-events: none; }
+a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 
 /* Hero */
 .hero { --sky: #0b0a1a; --sky-2: #151229; --sky-3: #1f1a3b; --line: #2e2853; --ink: #f1eeff; --ink-dim: #b2abd3;
@@ -496,7 +497,7 @@ document.querySelectorAll("[data-cfg]").forEach(el => { if (CONFIG[el.dataset.cf
 document.querySelectorAll("[data-link]").forEach(a => {
   const url = CONFIG[a.dataset.link];
   if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-  else { a.setAttribute("aria-disabled", "true"); a.removeAttribute("href"); a.textContent = a.textContent.trim() + " (em breve)"; }
+  else { a.setAttribute("aria-disabled", "true"); a.removeAttribute("href"); }
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();

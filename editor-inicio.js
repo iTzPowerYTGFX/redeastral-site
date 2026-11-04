@@ -20,7 +20,9 @@
     [".punish > div", 0],
     [".tier h3", 1], [".tier p", 0], [".shop-foot .note", 0],
     [".faq summary", 1], [".faq details p", 0],
-    ["footer .legal h3", 1], ["footer .legal p", 0]
+    ["footer .legal h3", 1], ["footer .legal p", 0],
+    // botões e menu
+    [".hero-cta .btn", 1], [".shop-foot .btn", 1], [".top .nav a", 1], [".tab", 1], ["#home-search button", 1]
   ];
   // Listas onde dá para adicionar e remover itens
   const LISTS = [
@@ -75,6 +77,9 @@
   body.ed-on { padding-bottom: 10rem; }
   .ed-sel { outline: 2px solid #5fd8cb !important; outline-offset: 3px; }
   body.ed-on [data-ed] { outline: 1px dashed color-mix(in srgb, #b99bff 55%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
+  body.ed-on .btn[aria-disabled="true"] { pointer-events: auto; cursor: text; }
+  .ed-linkbox { display: inline-flex; align-items: center; gap: .35rem; font-weight: 400; color: #b2abd3; }
+  .ed-linkbox input { min-width: 12rem; }
   body.ed-on [data-ed]:focus { outline: 2px solid #b99bff; background: color-mix(in srgb, #7c3aed 12%, transparent); }
   body.ed-on .ed-item { position: relative; }
   .ed-del { position: absolute; top: -.6rem; right: -.6rem; z-index: 5; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 0; background: #ff7a7a; color: #1b0505; font: 700 .875rem system-ui; cursor: pointer; line-height: 1; }
@@ -148,7 +153,7 @@
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
-      el.removeAttribute("data-ed-zoom");
+      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href");
       if (el.tagName === "DETAILS") el.removeAttribute("open");
     }
     return c;
@@ -218,6 +223,7 @@
     EDITABLE.forEach(([sel, single]) => document.querySelectorAll(sel).forEach(el => { if (!el.hasAttribute("data-ed")) makeEditable(el, single); }));
     bar.querySelector("#ed-dyn").innerHTML = `<strong>Editando</strong>
       <button type="button" id="ed-up" hidden title="Seleciona o bloco que está em volta (ex.: o cartão inteiro)">Selecionar o bloco de fora</button>
+      <label class="ed-linkbox" id="ed-linkbox" hidden>Link do botão: <input type="text" id="ed-href" spellcheck="false" placeholder="#regras, wiki.html#captura ou https://…"></label>
       <button type="button" id="ed-b" title="Negrito">Negrito</button>
       <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
       <button type="button" id="ed-ul" title="Tirar link do texto selecionado">Tirar link</button>
@@ -249,6 +255,10 @@
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
     bar.querySelector("#ed-save").addEventListener("click", save);
     bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
+    bar.querySelector("#ed-href").addEventListener("input", e => {
+      const a = linkTarget; if (!a || a.hasAttribute("data-link")) return;
+      a.setAttribute("href", e.target.value.trim() || "#"); a.setAttribute("data-ed-href", "1"); dirty = true;
+    });
     msg("Clique em qualquer texto marcado para editar, ou em qualquer coisa para mudar o tamanho com a bolinha.");
   }
 
@@ -274,7 +284,13 @@
   }, true);
   document.addEventListener("input", e => {
     const el = editing && e.target.closest && e.target.closest("[data-ed]");
-    if (el) { dirty = true; el.setAttribute("data-ed-changed", "1"); }
+    if (!el) return;
+    dirty = true; el.setAttribute("data-ed-changed", "1");
+    // o menu existe duas vezes (computador e celular): o mesmo item muda nos dois
+    if (el.matches(".top .nav a")) {
+      const key = el.dataset.tab !== undefined ? `[data-tab="${el.dataset.tab}"]` : (el.classList.contains("wiki") ? ".wiki" : null);
+      if (key) document.querySelectorAll(".top .nav a" + key).forEach(o => { if (o !== el) { o.innerHTML = el.innerHTML; o.setAttribute("data-ed-changed", "1"); } });
+    }
   }, true);
   addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
 
@@ -290,11 +306,22 @@
     hz.style.left = (r.right - 10) + "px"; hz.style.top = (r.bottom - 10) + "px"; hz.hidden = false;
   }
   const outer = el => !el || el === document.body || el === document.documentElement || el.matches("main, header, footer, .ed-ui");
+  let linkTarget = null;
+  function showLinkBox(a) {
+    const box = bar.querySelector("#ed-linkbox"); if (!box) return;
+    const inp = box.querySelector("input");
+    linkTarget = a && !a.closest(".ed-ui") ? a : null;
+    box.hidden = !linkTarget;
+    if (!linkTarget) return;
+    if (linkTarget.hasAttribute("data-link")) { inp.value = "Discord/loja: mude em Links do site (Wiki)"; inp.disabled = true; }
+    else { inp.disabled = false; inp.value = linkTarget.getAttribute("href") || ""; }
+  }
   function selectEl(el) {
     if (outer(el)) return;
     if (hzEl && hzEl !== el) hzEl.classList.remove("ed-sel");
     hzEl = el; el.classList.add("ed-sel");
     const up = bar.querySelector("#ed-up"); if (up) up.hidden = outer(el.parentElement);
+    showLinkBox(el.closest("a"));
     placeHz();
   }
   document.addEventListener("focusin", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el) selectEl(el); });
@@ -348,6 +375,12 @@
         const z = el.style.zoom;
         if (z && z !== "1") target.style.zoom = z;
         else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
+      }
+      // links de botões trocados
+      for (const el of document.querySelectorAll("[data-ed-href]")) {
+        if (listOf(el)) continue;
+        const target = byPath(doc, pathOf(el));
+        if (target && target.tagName === el.tagName) target.setAttribute("href", el.getAttribute("href"));
       }
       // tamanhos (bolinha) de qualquer elemento fora das listas
       for (const el of document.querySelectorAll("[data-ed-zoom]")) {

@@ -85,6 +85,20 @@ AUMENTAR / DIMINUIR (bolinha roxa)
   Duplo clique na bolinha volta ao tamanho normal. Depois clique em SALVAR.
   (No texto aparece no fim da linha algo como {70%}. Pode apagar para voltar ao normal.)
 
+INÍCIO DA WIKI (título e texto do topo)
+  Barra roxa -> "Editar início da Wiki". O título é a linha com # e o resto é o texto
+  que aparece embaixo dele. Aceita negrito, link, imagem, vídeo e cartões, igual às páginas.
+
+ORGANIZAR PÁGINAS E CATEGORIAS
+  Barra roxa -> "Organizar páginas". Ali dá para:
+  - renomear uma categoria (clique no nome dela e escreva);
+  - subir/descer categorias e páginas com as setas;
+  - mudar uma página de categoria pela lista ao lado dela;
+  - tirar uma página do menu com o X (ela vai para "Fora do menu" e não é apagada;
+    "Voltar ao menu" traz de volta);
+  - "+ Nova categoria"; o X de uma categoria só apaga se ela estiver vazia.
+  Nada muda até clicar em Salvar.
+
 NOVA PÁGINA
   Barra roxa -> "Nova página" -> título e categoria (ou "+ Nova categoria").
   A página é criada, entra no menu e o editor abre.
@@ -100,10 +114,16 @@ EDITAR A PÁGINA INICIAL (início do site)
   Com o modo editor ligado, a página inicial mostra uma barra roxa embaixo.
   1. Clique em "Editar esta página".
   2. Tudo que pode mudar fica com um contorno tracejado: clique e escreva ali mesmo.
-     Títulos, textos, regras, punições, VIPs, perguntas, passos de "Como entrar" e o rodapé.
+     Títulos, textos, regras, punições, VIPs, perguntas, passos de "Como entrar", o rodapé,
+     os textos dos BOTÕES e os nomes do MENU do topo e das abas.
+     (o nome do menu muda junto no computador e no celular)
   3. Listas têm "+ Adicionar ..." no fim e um X vermelho em cada item para remover.
      Os cartões de sistemas mostram uma caixinha "Link:" para escolher qual página da Wiki abrem
      (ex.: wiki.html#mochilas).
+     Ao clicar num botão, aparece na barra "Link do botão:": escreva para onde ele leva
+     (#regras, #como-entrar, wiki.html#captura ou https://...).
+     Botões do Discord e da loja pegam o link de "Links do site" (na Wiki); enquanto
+     não tiver link, eles mostram "(em breve)" sozinhos.
   4. Negrito: selecione o texto e clique em Negrito.
      Link: selecione o texto, clique em Link, cole o endereço e aperte Enter.
   5. Clique em Salvar. Cancelar desfaz tudo que não foi salvo.
@@ -126,7 +146,7 @@ STATUS DO SERVIDOR (página inicial)
   Offline    -> mostra Offline.
   Manutenção -> mostra "Em manutenção · volta em breve" (laranja).
   Salva na hora, sem precisar de "Editar esta página". Lembre de voltar para Automático depois.
-  Ainda não dá para trocar pelo editor: a logo, os ícones dos cartões e os IPs
+  Ainda não dá para trocar pelo editor: a imagem da logo, os ícones dos cartões e os IPs
   (IPs e links do Discord/loja ficam em "Links do site" na Wiki ou no config.js).
 
 
