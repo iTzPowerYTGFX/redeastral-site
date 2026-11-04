@@ -48,8 +48,14 @@
     ["texto", "Tamanho do texto", [["normal", "Normal"], ["grande", "Grande"]]],
     ["animacao", "Animações", [["ligada", "Ligadas"], ["desligada", "Desligadas"]]]
   ];
+  /* "Área do editor" só aparece em aparelhos onde alguém já entrou como editor */
+  function showEditorLinks() {
+    let editor = false;
+    try { editor = !!localStorage.getItem("astralGH") || localStorage.getItem("astralEditorDevice") === "1"; } catch (e) {}
+    if (editor) document.querySelectorAll(".ed-link").forEach(el => { el.hidden = false; });
+  }
   function buildUi() {
-    swapLogos(); applyDesktop();
+    swapLogos(); applyDesktop(); showEditorLinks();
     const host = document.querySelector(".top .wrap");
     if (!host || host.querySelector(".pref")) return;
     const style = document.createElement("style");
