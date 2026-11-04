@@ -1,11 +1,27 @@
-# Teleporte e Comandos
+# Comandos essenciais
 
-TP para amigo, spawn, warps, mensagens privadas e mais.
+comandos que você usará frequentemente.
 
 <!-- busca: astralessentials, tpa, teleporte, tp, spawn, back, msg, mensagem, afk, tempo, playtime, vida, balao, bossbar -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
 
-## TP para Amigo
+## /menu
+
+animacao: midia/screen-1793799434171.mp4
+
+usando este comando, abre o menu para Bedrock e Java.
+
+# Menu Bedrock {75%}
+
+![Visual do Bedrock](midia/captura-de-tela-2026-11-04-224210.png) {65%}
+
+# Menu Java {75%}
+
+animacao: midia/screen-1793799907781.mp4 {65%}
+
+
+
+## Teleporte para Amigo
 
 - `/tpa`: abre a **lista dos jogadores online**: é só clicar em quem você quer visitar. No Bedrock aparece um formulário com os nomes.
 - `/tpahere`: faz o mesmo, mas chama o jogador para perto de você.
@@ -16,18 +32,18 @@ Quem recebe o pedido vê **[ACEITAR]** e **[NEGAR]** no chat (no Bedrock abre um
 
 O pedido vale **60 segundos**. Depois de aceito, você é teleportado em **3 segundos**: não se mexa!
 
-- `/tpacancel`: cancela o pedido que você mandou. `/tptoggle` liga/desliga receber pedidos.
-- `/tpmenu`: abre o menu com todas as opções (o botão TP para Amigo do `/menu`).
+- `/tpacancel`: cancela o pedido que você mandou. `/tptoggle` liga/desliga de receber pedidos.
+- `/tpmenu`: abre o menu com todas as opções (No `/menu` tambem tem caso precise).
 
 ## Spawn, warps e voltar
 
-- `/spawn`: leva para o spawn do servidor.
+- `/spawn`: leva para o lobby principal do servidor.
 - `/warps`: abre o menu das warps. `/warp <nome>` vai direto (ex.: `/arena`, `/caixas`).
-- `/back`: volta para onde você estava antes do último teleporte ou de onde morreu (se tiver permissão).
+- `/back`: volta para onde você morreu desde a ultima vez.
 
 ## Mensagens privadas
 
-- `/msg <nick> <mensagem>`: (ou `/tell`, `/w`). `/r <mensagem>` responde a última.
+- `/msg <nick> <mensagem>`: (ou `/tell`, `/w`). `/r <mensagem>` responde a última pessoa que te mandou.
 - `/ignore <nick>`: para de receber mensagens e pedidos de teleporte dessa pessoa. Use de novo para desfazer.
 
 ## Vida e balão de chat
@@ -41,12 +57,3 @@ O que você escreve no chat aparece num **balão em cima da sua cabeça** por al
 ## Outros
 
 - `/afk`: avisa que você está ausente.
-- `/playtime`: mostra seu tempo de jogo (`/playtime top` = ranking). O tempo do sistema antigo veio junto.
-
-VIPs podem ter `/fly`, `/ec`, `/craft`, `/hat`, `/repair`, `/heal` e `/feed`, conforme o plano.
-
-## Atalhos no jogo
-
-- Ir até um jogador: `/tpa`
-- Menu de TP: `/tpmenu`
-- Warps: `/warps`
