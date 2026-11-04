@@ -77,6 +77,25 @@ CARTÕES COM ÍCONES (classes, raças, habilidades, atributos)
   Precisão, Pets). Atributo com + fica verde e com - fica vermelho.
   As imagens dos ícones ficam em img/icones/ (um arquivo .svg para cada).
 
+MOVER E COLOCAR LADO A LADO (botão verde "✥ Mover")
+  No quadro "como vai ficar", passe o mouse (ou toque) em qualquer coisa: texto, título,
+  imagem, vídeo, lista, tabela, cartão. Aparece o botão verde "✥ Mover" no canto de cima.
+  Segure e arraste. Uma linha verde mostra onde vai cair:
+  - em cima ou embaixo de outra coisa  -> muda a ordem;
+  - na beirada ESQUERDA ou DIREITA de outra coisa -> fica uma do lado da outra (colunas).
+    Dá para pôr 3 ou mais lado a lado: é só soltar na beirada de uma coluna.
+  Para tirar do lado a lado, arraste para cima ou para baixo de algo fora das colunas.
+  Depois clique em SALVAR. Errou? Ctrl+Z no quadro de texto desfaz.
+  No celular as colunas ficam uma embaixo da outra quando não cabem na tela.
+
+  No texto, o lado a lado fica assim (o botão "Lado a lado" escreve isto pronto):
+      ::: lado
+      ![Primeira imagem](midia/foto1.png)
+      +++
+      ![Segunda imagem](midia/foto2.png)
+      :::
+  Cada +++ separa uma coluna. Dentro de uma coluna pode ter texto, imagem, vídeo, lista...
+
 AUMENTAR / DIMINUIR (bolinha roxa)
   No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, lista, tabela,
   caixa de dica, imagem ou vídeo.
