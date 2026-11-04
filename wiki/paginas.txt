@@ -40,11 +40,7 @@ historia.md
 mimicos.md
 saque.md
 
-Social
-
 Eventos
 arena-astral.md
 limpeza.md
 correio.md
-
-Servidor
