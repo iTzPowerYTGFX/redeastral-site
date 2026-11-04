@@ -24,8 +24,10 @@ PRIMEIRA VEZ: criar a chave (token clássico) — só uma vez
   - Se vazar: no GitHub, Settings -> Developer settings -> Personal access tokens -> Tokens (classic) -> apague a chave.
 
 ENTRAR NO MODO EDITOR
-  1. Abra a Wiki do site e clique em "Área do editor", no rodapé.
-     (ou abra o endereço  .../wiki.html#modo-editor )
+  1. Abra o endereço direto (salve nos favoritos):
+        https://itzpowerytgfx.github.io/redeastral-site/wiki.html#modo-editor
+     O link "Área do editor" no rodapé fica escondido para o público: ele só aparece
+     nos aparelhos onde você já entrou como editor pelo menos uma vez.
   2. Repositório: SEU-USUARIO/redeastral-site
      Chave: cole o ghp_...
   3. Entrar. Aparece a barra roxa "Modo editor" no topo da Wiki.

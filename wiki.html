@@ -286,7 +286,7 @@ dialog.form form { display: grid; gap: .75rem; }
 </dialog>
 
 <footer>
-  <div class="wrap"><span>Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a href="#modo-editor">Área do editor</a></div>
+  <div class="wrap"><span>Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
 </footer>
 
 <script src="config.js"></script>
@@ -636,7 +636,8 @@ $("#login-form").addEventListener("submit", async e => {
     const d = await gh(`/repos/${repo}`, {}, { token });
     if (d.permissions && d.permissions.push === false) throw new Error("Esta chave não pode salvar neste repositório. Dê a ela Contents: Read and write.");
     GH = { repo: d.full_name, token, branch: d.default_branch || "main" };
-    try { localStorage.setItem("astralGH", JSON.stringify(GH)); } catch (err) {}
+    try { localStorage.setItem("astralGH", JSON.stringify(GH)); localStorage.setItem("astralEditorDevice", "1"); } catch (err) {}
+    document.querySelectorAll(".ed-link").forEach(el => { el.hidden = false; });
     $("#login").close(); syncEditorUi(); route(); toast("Modo editor ligado neste navegador");
   } catch (err) { setStatus($("#lg-status"), err.message, "err"); }
 });
