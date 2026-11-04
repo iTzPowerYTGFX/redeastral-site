@@ -57,6 +57,26 @@ BOTÕES DO EDITOR
   YouTube     -> cole o link do vídeo. Shorts aparecem em pé.
   Depois de enviar imagem ou vídeo, clique em SALVAR.
 
+CARTÕES COM ÍCONES (classes, raças, habilidades, atributos)
+  Botão "Cartão" no editor. Ele escreve isto (troque pelos dados certos):
+      ::: classe Guerreiro
+      habilidades: Espadas, Machados, Defesa
+      atributos: +3 Força, -2 Vida
+      especial: **Fúria de Batalha**: +12% de dano com pouca vida.
+      :::
+  Troque "classe" por "raca" para raça (aceita a linha  tamanho: 85% ).
+  Para um cartão de uma habilidade ou atributo sozinho:
+      ::: atributo Força
+      valor: +1% por ponto, até 60%
+      texto: o que ele faz
+      :::
+  Cartões seguidos ficam lado a lado. O ícone aparece sozinho pelo nome
+  (Mineração, Lenhador, Escavação, Agricultura, Pesca, Espadas, Machados, Desarmado,
+  Arqueria, Armas Pesadas, Defesa, Acrobacia, Alquimia, Encantamento, Domesticação,
+  Forja, Culinária, Força, Vida, Regeneração, Sorte, Sabedoria, Resistência, Agilidade,
+  Precisão, Pets). Atributo com + fica verde e com - fica vermelho.
+  As imagens dos ícones ficam em img/icones/ (um arquivo .svg para cada).
+
 AUMENTAR / DIMINUIR (bolinha roxa)
   No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, lista, tabela,
   caixa de dica, imagem ou vídeo.
