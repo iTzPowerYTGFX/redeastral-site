@@ -3,44 +3,29 @@
 # Linha SEM ".md" no fim = nome de uma categoria.
 # Linha COM ".md" no fim = uma página (o arquivo fica nesta mesma pasta "wiki").
 # A ordem aqui é a ordem em que aparece no site.
-# Cada plugin do servidor é uma página. Plugins só de staff/admin não entram.
 
-Começando
+Sistemas do servidor
 primeiros-passos.md
 essenciais.md
 viajar.md
-
-Pets e personagens
 captura.md
 waifus.md
-
-Progresso
 skills.md
 quests.md
 aura.md
 boosts.md
-
-Itens e equipamentos
 encantamentos.md
 minerios.md
 mochilas.md
 comidas.md
-
-Base e construção
 fornalhas.md
 moveis.md
 cofres.md
 torretas.md
-
-Economia e lojas
 loja.md
-
-Mundo e exploração
 historia.md
 mimicos.md
 saque.md
-
-Eventos
 arena-astral.md
 limpeza.md
 correio.md
