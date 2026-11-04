@@ -45,6 +45,6 @@ correio.md
 
 Eventos
 arena-astral.md
+limpeza.md
 
 Servidor
-limpeza.md
