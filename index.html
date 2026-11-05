@@ -343,7 +343,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
       <div class="features">
         <a class="feat wide" href="wiki.html#captura">
           <svg class="feat-icon" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="6" height="12" fill="#8b5cf6"></rect><rect x="0" y="3" width="12" height="6" fill="#8b5cf6"></rect><rect x="1" y="1" width="10" height="10" fill="#8b5cf6"></rect><rect x="0" y="5" width="12" height="2" fill="#0b0a1a"></rect><rect x="4" y="4" width="4" height="4" fill="#f1eeff"></rect><rect x="5" y="5" width="2" height="2" fill="#0b0a1a"></rect><rect x="3" y="2" width="2" height="1" fill="#e2d6ff"></rect></svg>
-          <h3>Monstros Capturavéis?</h3>
+          <figure class="site-media fundo"><video autoplay="" muted="" loop="" playsinline="" src="midia/screen-1793885202030-mw3lktrv.mp4"></video></figure><h3>Monstros Capturavéis?</h3>
           <p>Enfraqueça a criatura, jogue um orbe e ela é sua. Pets sobem de nível, ganham pontos de atributo, lutam com você e podem ser trocados com outros jogadores. Até 3 ativos ao mesmo tempo. Quanto mais rara, mais difícil a captura:</p>
           <div class="rarity" aria-label="Raridades, da mais comum à mais rara" bis_skin_checked="1">
             <span style="color:var(--r-comum)">Comum</span><span style="color:var(--r-incomum)">Incomum</span><span style="color:var(--r-raro)">Raro</span><span style="color:var(--r-epico)">Épico</span><span style="color:var(--r-lendario)">Lendário</span><span style="color:var(--r-mitico)">Mítico</span><span style="color:var(--r-deus)">Deus</span><span class="sep">e</span><span style="color:var(--r-especial)">Especial</span>
@@ -865,6 +865,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
 try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
+
 
 
 
