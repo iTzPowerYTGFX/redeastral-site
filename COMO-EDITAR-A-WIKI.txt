@@ -24,6 +24,11 @@ PRIMEIRA VEZ: criar a chave (token clássico) — só uma vez
   - Se vazar: no GitHub, Settings -> Developer settings -> Personal access tokens -> Tokens (classic) -> apague a chave.
 
 ENTRAR NO MODO EDITOR
+  Jeito rápido: botão da engrenagem (no topo do site) -> "Entrar no modo editor".
+    Ele só aparece nos aparelhos onde você já entrou como editor. Num aparelho novo,
+    abra a engrenagem e toque 5 vezes seguidas na palavra "Configurações": o botão aparece.
+    Já logado, a engrenagem mostra "Editar esta página" (página inicial) e "Editar a Wiki".
+  Ou:
   1. Abra o endereço direto (salve nos favoritos):
         https://itzpowerytgfx.github.io/redeastral-site/wiki.html#modo-editor
      O link "Área do editor" no rodapé fica escondido para o público: ele só aparece
