@@ -93,6 +93,14 @@
   .ed-mv-ind { position: fixed; z-index: 59; background: #5fd8cb; border-radius: 3px; pointer-events: none; box-shadow: 0 0 0 3px rgba(95,216,203,.3); }
   .ed-mv-tip { position: fixed; z-index: 61; background: #0b0a1a; border: 1px solid #5fd8cb; color: #f1eeff; font: 700 .75rem system-ui; padding: .15rem .45rem; border-radius: 4px; pointer-events: none; white-space: nowrap; }
   .ed-mv-src { opacity: .35; }
+  .ed-insmenu { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+  .ed-insmenu[hidden] { display: none; }
+  .ed-insmenu label { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font-size: .875rem; font-weight: 700; cursor: pointer; }
+  .ed-insmenu input[type=file] { display: none; }
+  #ed-rm.armed { background: #ff7a7a; border-color: #ff7a7a; color: #2a0505; }
+  body.ed-on .site-yt iframe { pointer-events: none; }
+  body.ed-on .site-media figcaption:empty::before { content: "Legenda (opcional): clique para escrever"; opacity: .5; }
+  body.ed-on .site-media figcaption:empty { display: block; min-height: 1.2em; }
   .ed-rz-label { position: fixed; z-index: 46; background: #0b0a1a; border: 1px solid #7c3aed; color: #f1eeff; font: 700 .75rem ui-monospace, monospace; padding: .1rem .4rem; border-radius: 4px; pointer-events: none; }`;
   style.className = "ed-ui";
   document.head.appendChild(style);
@@ -168,6 +176,10 @@
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
       el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved");
+      if (el.hasAttribute("data-ed-src")) { el.setAttribute("src", el.getAttribute("data-ed-src")); el.removeAttribute("data-ed-src"); }
+      el.removeAttribute("data-ed-new"); el.classList.remove("ed-mv-src");
+      el.removeAttribute("aria-current");
+      if (el.tagName === "SECTION" && el.classList.contains("block")) { el.removeAttribute("hidden"); el.classList.remove("tab-page"); }
       if (el.tagName === "DETAILS") el.removeAttribute("open");
     }
     return c;
@@ -238,6 +250,8 @@
     EDITABLE.forEach(([sel, single]) => document.querySelectorAll(sel).forEach(el => { if (!el.hasAttribute("data-ed")) makeEditable(el, single); }));
     bar.querySelector("#ed-dyn").innerHTML = `<strong>Editando</strong>
       <button type="button" id="ed-up" hidden title="Seleciona o bloco que está em volta (ex.: o cartão inteiro)">Selecionar o bloco de fora</button>
+      <button type="button" id="ed-ins" title="Coloca imagem, vídeo, texto ou título depois do que está selecionado">+ Inserir</button>
+      <button type="button" id="ed-rm" hidden title="Apaga o que está selecionado (clique duas vezes)">Apagar</button>
       <label class="ed-linkbox" id="ed-linkbox" hidden>Link do botão: <input type="text" id="ed-href" spellcheck="false" placeholder="#regras, wiki.html#captura ou https://…"></label>
       <button type="button" id="ed-b" title="Negrito">Negrito</button>
       <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
@@ -268,6 +282,7 @@
       e.target.hidden = true; savedRange = null; dirty = true; msg("Link colocado.", "ok");
     });
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
+    montarInserir();
     bar.querySelector("#ed-save").addEventListener("click", save);
     bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
     bar.querySelector("#ed-href").addEventListener("input", e => {
@@ -372,6 +387,8 @@
     if (d) {
       d.t.parentElement.insertBefore(el, d.after ? d.t.nextSibling : d.t);
       el.setAttribute("data-ed-moved", "1"); dirty = true;
+      if (el.matches(".top .nav a")) espelharMenu(el.closest(".nav"));
+      if (window.astralAjustaMenu) window.astralAjustaMenu();
       msg("Movido. Clique em Salvar para gravar (Cancelar desfaz tudo).", "ok");
     }
     selectEl(el);
@@ -393,6 +410,7 @@
     if (hzEl && hzEl !== el) hzEl.classList.remove("ed-sel");
     hzEl = el; el.classList.add("ed-sel");
     const up = bar.querySelector("#ed-up"); if (up) up.hidden = outer(el.parentElement);
+    const rm = bar.querySelector("#ed-rm"); if (rm) { rm.hidden = !podeApagar(el); rm.classList.remove("armed"); rm.textContent = "Apagar"; }
     showLinkBox(el.closest("a"));
     placeHz();
   }
@@ -426,6 +444,149 @@
   hz.addEventListener("pointerup", hzEnd); hz.addEventListener("pointercancel", hzEnd);
   hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
 
+  /* o menu existe duas vezes (computador e celular): a ordem de um vale para o outro */
+  const chaveLink = a => a.dataset.tab !== undefined ? "t:" + a.dataset.tab : a.classList.contains("wiki") ? "wiki" : "h:" + a.getAttribute("href");
+  function espelharMenu(origem) {
+    const ordem = [...origem.querySelectorAll(":scope > a")].map(chaveLink);
+    document.querySelectorAll(".top nav.nav").forEach(nav => {
+      if (nav === origem) return;
+      const links = new Map([...nav.querySelectorAll(":scope > a")].map(a => [chaveLink(a), a]));
+      for (const k of ordem) { const a = links.get(k); if (a) { nav.appendChild(a); a.setAttribute("data-ed-moved", "1"); } }
+    });
+  }
+
+  /* ---------- inserir imagem, vídeo, texto, título / apagar ---------- */
+  const apagados = [];
+  const podeApagar = el => !!el && !outer(el) && !el.closest(".ed-ui") &&
+    (el.matches("main > section.aba-extra") || !el.matches("main > section, .hero, .top, .top *, .wrap"));
+  function alvoInsercao() {
+    let el = hzEl && hzEl.isConnected && !outer(hzEl) && !hzEl.closest(".ed-ui") ? hzEl : null;
+    if (el) {
+      const ed = el.closest("[data-ed]"); if (ed) el = ed;
+      while (el && el.parentElement && !outer(el.parentElement) && getComputedStyle(el).display === "inline") el = el.parentElement;
+      if (el.matches("main > section")) { const w = el.querySelector(":scope > .wrap") || el; return { parent: w, before: null }; }
+      if (el.closest(".top")) el = null;
+    }
+    if (el) return { parent: el.parentElement, before: el.nextSibling };
+    const sec = [...document.querySelectorAll("main > section")].find(x => !x.hidden && x.offsetParent !== null);
+    return { parent: sec ? (sec.querySelector(":scope > .wrap") || sec) : null, before: null };
+  }
+  function inserir(node, msgTxt) {
+    const a = alvoInsercao();
+    if (!a.parent) return msg("Clique primeiro onde quer colocar (o novo entra logo depois).", "err");
+    a.parent.insertBefore(node, a.before);
+    node.setAttribute("data-ed-new", "1"); node.setAttribute("data-ed-moved", "1");
+    node.querySelectorAll("[data-ed]").forEach(x => makeEditable(x, x.getAttribute("data-ed") === "1"));
+    if (node.hasAttribute("data-ed")) makeEditable(node, node.getAttribute("data-ed") === "1");
+    dirty = true; selectEl(node);
+    node.scrollIntoView({ block: "center", behavior: "smooth" });
+    msg(msgTxt || "Colocado. Arraste com ✥ Mover, mude o tamanho com a bolinha e clique em Salvar.", "ok");
+  }
+  const slugify = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "arquivo";
+  async function enviarArquivo(file) {
+    if (file.size > 25 * 1024 * 1024) throw new Error("Arquivo maior que 25 MB. Para vídeo grande, suba no YouTube e use YouTube.");
+    const ext = ((file.name.match(/\.[a-z0-9]+$/i) || [""])[0]).toLowerCase() || (file.type.startsWith("video") ? ".mp4" : ".png");
+    const nome = slugify(file.name.replace(/\.[^.]+$/, "")) + "-" + Date.now().toString(36) + ext;
+    msg("Enviando " + file.name + "…");
+    await gh(filePath("midia/" + nome), { method: "PUT", body: JSON.stringify({ message: "Site: enviar " + nome, content: b64bytes(new Uint8Array(await file.arrayBuffer())), branch: GH.branch }) });
+    return { url: URL.createObjectURL(file), caminho: "midia/" + nome };
+  }
+  function ytId(u) {
+    const m = String(u).match(/^(?:https?:\/\/)?(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+  function montarInserir() {
+    const linha = document.createElement("div");
+    linha.className = "ed-line ed-insmenu"; linha.id = "ed-insmenu"; linha.hidden = true;
+    linha.innerHTML = `<strong>Inserir:</strong>
+      <label>Imagem<input type="file" accept="image/png,image/jpeg,image/webp,image/gif" data-t="img"></label>
+      <label>Vídeo .mp4<input type="file" accept="video/mp4,video/webm" data-t="vid"></label>
+      <label title="Toca sozinho em loop, sem som, como um GIF">Animação (loop)<input type="file" accept="video/mp4,video/webm" data-t="anim"></label>
+      <button type="button" data-t="yt">YouTube</button>
+      <button type="button" data-t="txt">Texto</button>
+      <button type="button" data-t="tit">Título</button>
+      <button type="button" data-t="aba" title="Cria uma aba nova no menu do topo">Nova aba</button>
+      <input type="text" id="ed-yt" placeholder="Cole o link do YouTube e aperte Enter" hidden>
+      <input type="text" id="ed-aba" placeholder="Nome da nova aba e Enter" hidden>
+      <button type="button" data-t="fechar">Fechar</button>`;
+    bar.insertBefore(linha, bar.querySelector("#ed-dyn"));
+    bar.querySelector("#ed-ins").addEventListener("click", () => { linha.hidden = !linha.hidden; });
+    linha.querySelectorAll("input[type=file]").forEach(inp => inp.addEventListener("change", async () => {
+      const f = inp.files[0]; inp.value = ""; if (!f) return;
+      const t = inp.dataset.t;
+      try {
+        const up = await enviarArquivo(f);
+        const fig = document.createElement("figure"); fig.className = "site-media";
+        if (t === "img") fig.innerHTML = `<img alt=""><figcaption data-ed="0"></figcaption>`;
+        else fig.innerHTML = t === "anim" ? `<video autoplay muted loop playsinline></video>` : `<video controls preload="metadata" playsinline></video><figcaption data-ed="0"></figcaption>`;
+        const m = fig.querySelector("img, video"); m.setAttribute("src", up.url); m.setAttribute("data-ed-src", up.caminho);
+        inserir(fig, f.name + " enviado e colocado. Clique em Salvar (o site público mostra em 1 a 2 minutos).");
+      } catch (e) { msg(e.message, "err"); }
+    }));
+    const yt = linha.querySelector("#ed-yt"), aba = linha.querySelector("#ed-aba");
+    aba.addEventListener("keydown", e => {
+      if (e.key !== "Enter") return; e.preventDefault();
+      const nome = aba.value.trim(); if (!nome) return;
+      let id = slugify(nome), n = 2; while (document.getElementById(id)) id = slugify(nome) + "-" + n++;
+      const main = document.querySelector("main"); if (!main) return;
+      const sec = document.createElement("section");
+      sec.className = "block aba-extra"; sec.id = id;
+      sec.innerHTML = `<div class="wrap"><div class="block-head"><p class="eyebrow" data-ed="1"></p><h2 data-ed="1"></h2><p class="lead" data-ed="0">Escreva aqui o texto desta aba. Use + Inserir para colocar imagens, vídeos e mais textos.</p></div></div>`;
+      sec.querySelector(".eyebrow").textContent = nome; sec.querySelector("h2").textContent = nome;
+      main.appendChild(sec);
+      for (const el of [sec]) { el.setAttribute("data-ed-new", "1"); el.setAttribute("data-ed-moved", "1"); }
+      sec.querySelectorAll("[data-ed]").forEach(x => makeEditable(x, x.getAttribute("data-ed") === "1"));
+      document.querySelectorAll(".top nav.nav").forEach(nav => {
+        const a = document.createElement("a");
+        a.href = "#" + id; a.dataset.tab = id; a.textContent = nome; a.setAttribute("data-ed", "1");
+        a.setAttribute("data-ed-new", "1"); a.setAttribute("data-ed-moved", "1");
+        nav.insertBefore(a, nav.querySelector("a.wiki"));
+        makeEditable(a, true);
+      });
+      aba.value = ""; aba.hidden = true; dirty = true;
+      location.hash = id;
+      if (window.astralAjustaMenu) window.astralAjustaMenu();
+      msg(`Aba "${nome}" criada no menu. Escreva, use + Inserir e clique em Salvar.`, "ok");
+    });
+    linha.addEventListener("click", e => {
+      const b = e.target.closest("button[data-t]"); if (!b) return;
+      const t = b.dataset.t;
+      if (t === "fechar") { linha.hidden = true; return; }
+      if (t === "yt") { yt.hidden = !yt.hidden; if (!yt.hidden) yt.focus(); return; }
+      if (t === "aba") { aba.hidden = !aba.hidden; if (!aba.hidden) aba.focus(); return; }
+      if (t === "txt") { const p = document.createElement("p"); p.className = "site-texto"; p.setAttribute("data-ed", "0"); p.textContent = "Escreva aqui."; inserir(p); }
+      if (t === "tit") { const h = document.createElement("h3"); h.className = "site-titulo"; h.setAttribute("data-ed", "1"); h.textContent = "Novo título"; inserir(h); }
+    });
+    yt.addEventListener("keydown", e => {
+      if (e.key !== "Enter") return; e.preventDefault();
+      const id = ytId(yt.value.trim()); if (!id) return msg("Esse link não parece ser do YouTube.", "err");
+      const d = document.createElement("div"); d.className = "site-yt" + (/shorts\//.test(yt.value) ? " vertical" : "");
+      d.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="Vídeo do YouTube" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      yt.value = ""; yt.hidden = true; inserir(d);
+    });
+    const rm = bar.querySelector("#ed-rm");
+    let armado = 0;
+    rm.addEventListener("click", () => {
+      const el = hzEl; if (!podeApagar(el)) return;
+      if (Date.now() - armado > 3000) { armado = Date.now(); rm.classList.add("armed"); rm.textContent = "Confirmar apagar"; return; }
+      armado = 0; rm.classList.remove("armed"); rm.textContent = "Apagar";
+      const naLista = el.parentElement && listOf(el.parentElement);
+      if (!el.hasAttribute("data-ed-new") && !naLista) {
+        el.querySelectorAll("[data-ed-moved]").forEach(x => x.removeAttribute("data-ed-moved"));
+        const id = el.getAttribute("data-ed-id"); if (id != null) apagados.push(id);
+      }
+      if (el.matches("[data-ed-list]") && el.nextElementSibling && el.nextElementSibling.classList.contains("ed-add")) el.nextElementSibling.remove();
+      const ehAba = el.matches("main > section.aba-extra");
+      if (ehAba) document.querySelectorAll(`.top .nav a[data-tab="${el.id}"]`).forEach(a => {
+        if (!a.hasAttribute("data-ed-new")) { const id = a.getAttribute("data-ed-id"); if (id != null) apagados.push(id); }
+        a.remove();
+      });
+      el.remove(); hzEl = null; rm.hidden = true; placeHz(); dirty = true;
+      if (ehAba) location.hash = "";
+      msg("Apagado. Clique em Salvar para gravar (Cancelar desfaz tudo).", "ok");
+    });
+  }
+
   /* ---------- salvar ---------- */
   async function save() {
     const btn = bar.querySelector("#ed-save"); btn.disabled = true; msg("Salvando…");
@@ -437,14 +598,22 @@
       const same = (a, b) => a && b && a.tagName.toLowerCase() === b.tagName.toLowerCase();
       const DIFF = "A página no GitHub está diferente desta. Recarregue e edite de novo.";
       // coisas movidas (do fim para o começo, para cada uma achar a vizinha já no lugar)
+      // coisas movidas e coisas novas (inseridas), do fim para o começo
+      const novos = new Map(), docOf2 = el => docOf(el) || novos.get(el) || null;
       for (const el of [...document.querySelectorAll("[data-ed-moved]")].reverse()) {
-        const dEl = docOf(el); if (!same(dEl, el)) throw new Error(DIFF);
+        // dentro de algo novo: vai junto com ele (a cópia do novo já leva); se já existia, sai do lugar antigo
+        if (el.parentElement && el.parentElement.closest("[data-ed-new]")) { const d0 = docOf(el); if (d0) d0.remove(); continue; }
+        let dEl = docOf(el);
+        if (!dEl && el.hasAttribute("data-ed-new")) { if (el.parentElement && listOf(el.parentElement)) continue; dEl = doc.importNode(cleanClone(el), true); novos.set(el, dEl); }
+        if (!same(dEl, el)) throw new Error(DIFF);
         if (el.parentElement && listOf(el.parentElement)) { dEl.remove(); continue; }
-        const dParent = docOf(el.parentElement); if (!same(dParent, el.parentElement)) throw new Error(DIFF);
+        const dParent = docOf2(el.parentElement); if (!same(dParent, el.parentElement)) throw new Error(DIFF);
         let sib = el.nextElementSibling;
-        while (sib && (isUi(sib) || sib.classList.contains("toast") || !docOf(sib) || docOf(sib).parentElement !== dParent)) sib = sib.nextElementSibling;
-        dParent.insertBefore(dEl, sib ? docOf(sib) : null);
+        while (sib && (isUi(sib) || sib.classList.contains("toast") || !docOf2(sib) || docOf2(sib).parentElement !== dParent)) sib = sib.nextElementSibling;
+        dParent.insertBefore(dEl, sib ? docOf2(sib) : null);
       }
+      // coisas apagadas
+      for (const id of apagados) { const d = docEls[+id]; if (d) d.remove(); }
       // listas inteiras
       for (const list of document.querySelectorAll("[data-ed-list]")) {
         const target = docOf(list);
@@ -453,7 +622,7 @@
       }
       // textos soltos
       for (const el of document.querySelectorAll("[data-ed]")) {
-        if (listOf(el) || !el.hasAttribute("data-ed-changed")) continue;
+        if (listOf(el) || !el.hasAttribute("data-ed-changed") || el.closest("[data-ed-new]")) continue;
         const target = docOf(el);
         if (!same(target, el)) throw new Error(DIFF);
         target.innerHTML = cleanHtml(el);
@@ -463,7 +632,7 @@
       }
       // links de botões trocados
       for (const el of document.querySelectorAll("[data-ed-href]")) {
-        if (listOf(el)) continue;
+        if (listOf(el) || el.closest("[data-ed-new]")) continue;
         const target = docOf(el);
         if (same(target, el)) target.setAttribute("href", el.getAttribute("href"));
       }
@@ -477,9 +646,15 @@
         else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
       }
       const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
-      if (!/<main[\s>]/i.test(html) || !/<script/i.test(html)) throw new Error("Algo saiu errado ao montar a página. Nada foi salvo.");
+      if (!/<main[\s>]/i.test(html) || !/<script/i.test(html) || /blob:/i.test(html)) throw new Error("Algo saiu errado ao montar a página. Nada foi salvo.");
       await gh(filePath("index.html"), { method: "PUT", body: JSON.stringify({ message: "Site: editar página inicial", content: encText(html), sha: d.sha, branch: GH.branch }) });
       dirty = false;
+      // a página no GitHub agora é igual a esta: zera as marcas e renumera, para poder salvar de novo sem recarregar
+      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom]").forEach(el => {
+        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom"].forEach(k => el.removeAttribute(k));
+      });
+      apagados.length = 0;
+      tagIds();
       msg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
     } catch (err) { msg(err.message, "err"); }
     finally { btn.disabled = false; }

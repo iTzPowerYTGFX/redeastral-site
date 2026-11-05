@@ -176,6 +176,22 @@ EDITAR A PÁGINA INICIAL (início do site)
   "Selecionar o bloco de fora" pega o que está em volta (ex.: clicou no título do cartão
   -> pega o cartão inteiro).
 
+INSERIR IMAGEM, VÍDEO, TEXTO, TÍTULO E ABAS NOVAS (página inicial, qualquer aba)
+  Com "Editar esta página" ligado, clique onde quer colocar (o novo entra logo DEPOIS do que
+  estiver selecionado; sem nada selecionado, entra no fim da aba aberta) e clique em "+ Inserir":
+    Imagem / Vídeo .mp4 / Animação (loop)  -> escolha o arquivo (até 25 MB). Ele vai para a pasta
+                                              midia/ do site. Imagem e vídeo têm legenda opcional.
+    YouTube                                -> cole o link e aperte Enter
+    Texto / Título                         -> escreva por cima de "Escreva aqui." / "Novo título"
+    Nova aba                               -> nome e Enter: a aba entra no menu do topo (computador
+                                              e celular) com título e texto para editar
+  Depois dá para arrastar com "✥ Mover" e mudar o tamanho com a bolinha. Clique em Salvar.
+  APAGAR: selecione e clique em "Apagar" e depois em "Confirmar apagar". As abas que você criou
+  também podem ser apagadas (selecione a aba inteira com "Selecionar o bloco de fora").
+  As abas que já vinham no site não podem ser apagadas, só o que está dentro delas.
+  MENU: mover um item do menu do topo muda a ordem nos dois menus (computador e celular).
+  Se as abas não cabem no topo, o site mostra o botão "Menu" sozinho.
+
 EDITAR PELO CELULAR VENDO COMO NO COMPUTADOR
   Na barra roxa (página inicial ou Wiki): botão "Modo computador".
   A página passa a aparecer como no PC (dê zoom com os dedos). Para voltar: "Modo celular".
