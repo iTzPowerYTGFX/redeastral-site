@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-05T21:02:17Z",
+  "atualizado": "2026-11-05T21:32:17Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 13054},
+      {"nome": "DullLucasdeolro", "valor": 13088},
       {"nome": "TagaYato_", "valor": 11929},
       {"nome": "_MitKan22", "valor": 11150},
       {"nome": "_Heisenberg22194", "valor": 7786},
@@ -18,15 +18,15 @@
      "mes": [
       {"nome": "_Flos7304", "valor": 365},
       {"nome": "_MitKan22", "valor": 86},
-      {"nome": "DullLucasdeolro", "valor": 47},
+      {"nome": "DullLucasdeolro", "valor": 81},
       {"nome": "_Kroven_1611", "valor": 20},
       {"nome": "_Heisenberg22194", "valor": 2}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 9415039.91},
       {"nome": "TagaYato_", "valor": 8750979.63},
+      {"nome": "DullLucasdeolro", "valor": 7957366.21},
       {"nome": "_Afton2460", "valor": 4582098.82},
       {"nome": "_OsiBloodMoon", "valor": 3518609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
@@ -37,7 +37,6 @@
       {"nome": "_Kroven_1611", "valor": 460379.19}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 1080906.28},
       {"nome": "_Kroven_1611", "valor": 175040.32},
       {"nome": "_Heisenberg22194", "valor": 3300.00}
      ],
@@ -278,7 +277,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 159781},
+      {"nome": "DullLucasdeolro", "valor": 160432},
       {"nome": "TagaYato_", "valor": 50873},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 22209},
@@ -290,8 +289,8 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
+      {"nome": "DullLucasdeolro", "valor": 698},
       {"nome": "_MitKan22", "valor": 553},
-      {"nome": "DullLucasdeolro", "valor": 47},
       {"nome": "_Flos7304", "valor": 3}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
