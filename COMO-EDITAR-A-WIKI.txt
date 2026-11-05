@@ -186,6 +186,9 @@ INSERIR IMAGEM, VÍDEO, TEXTO, TÍTULO E ABAS NOVAS (página inicial, qualquer a
     Nova aba                               -> nome e Enter: a aba entra no menu do topo (computador
                                               e celular) com título e texto para editar
   Depois dá para arrastar com "✥ Mover" e mudar o tamanho com a bolinha. Clique em Salvar.
+  FUNDO: com uma imagem ou vídeo selecionado (ou o balão que tem a imagem/vídeo), clique em
+  "Usar como fundo": ela cobre o balão inteiro, com uma camada escura para o texto aparecer.
+  Vídeo de fundo toca sozinho, em loop e sem som. Para voltar: selecione o balão -> "Tirar do fundo".
   APAGAR: selecione e clique em "Apagar" e depois em "Confirmar apagar". As abas que você criou
   também podem ser apagadas (selecione a aba inteira com "Selecionar o bloco de fora").
   As abas que já vinham no site não podem ser apagadas, só o que está dentro delas.

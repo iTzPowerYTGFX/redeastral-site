@@ -175,7 +175,7 @@
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
-      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved");
+      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved"); el.removeAttribute("data-ed-cls");
       if (el.hasAttribute("data-ed-src")) { el.setAttribute("src", el.getAttribute("data-ed-src")); el.removeAttribute("data-ed-src"); }
       el.removeAttribute("data-ed-new"); el.classList.remove("ed-mv-src");
       el.removeAttribute("aria-current");
@@ -252,6 +252,7 @@
       <button type="button" id="ed-up" hidden title="Seleciona o bloco que está em volta (ex.: o cartão inteiro)">Selecionar o bloco de fora</button>
       <button type="button" id="ed-ins" title="Coloca imagem, vídeo, texto ou título depois do que está selecionado">+ Inserir</button>
       <button type="button" id="ed-rm" hidden title="Apaga o que está selecionado (clique duas vezes)">Apagar</button>
+      <button type="button" id="ed-fundo" hidden title="A imagem ou vídeo vira o fundo do balão onde está">Usar como fundo</button>
       <label class="ed-linkbox" id="ed-linkbox" hidden>Link do botão: <input type="text" id="ed-href" spellcheck="false" placeholder="#regras, wiki.html#captura ou https://…"></label>
       <button type="button" id="ed-b" title="Negrito">Negrito</button>
       <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
@@ -283,6 +284,7 @@
     });
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
     montarInserir();
+    bar.querySelector("#ed-fundo").addEventListener("click", alternarFundo);
     bar.querySelector("#ed-save").addEventListener("click", save);
     bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
     bar.querySelector("#ed-href").addEventListener("input", e => {
@@ -411,6 +413,7 @@
     hzEl = el; el.classList.add("ed-sel");
     const up = bar.querySelector("#ed-up"); if (up) up.hidden = outer(el.parentElement);
     const rm = bar.querySelector("#ed-rm"); if (rm) { rm.hidden = !podeApagar(el); rm.classList.remove("armed"); rm.textContent = "Apagar"; }
+    mostrarFundo(el);
     showLinkBox(el.closest("a"));
     placeHz();
   }
@@ -443,6 +446,32 @@
   };
   hz.addEventListener("pointerup", hzEnd); hz.addEventListener("pointercancel", hzEnd);
   hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
+
+  /* imagem/vídeo como fundo do balão: acha a mídia do que está selecionado (ou do balão que tem mídia de fundo) */
+  function midiaDe(el) {
+    if (!el) return null;
+    const m = el.closest(".site-media"); if (m) return m;
+    for (let n = el, i = 0; n && i < 5 && !outer(n); n = n.parentElement, i++) {
+      const f = n.querySelector(":scope > .site-media"); if (f) return f;
+    }
+    return null;
+  }
+  function mostrarFundo(el) {
+    const b = bar.querySelector("#ed-fundo"); if (!b) return;
+    const m = midiaDe(el);
+    b.hidden = !m || !m.parentElement || outer(m.parentElement) || m.parentElement.matches("main > section, .wrap");
+    if (!b.hidden) b.textContent = m.classList.contains("fundo") ? "Tirar do fundo" : "Usar como fundo";
+  }
+  function alternarFundo() {
+    const m = midiaDe(hzEl); if (!m) return;
+    const on = !m.classList.contains("fundo");
+    m.classList.toggle("fundo", on);
+    const v = m.querySelector("video");
+    if (v && on) { v.removeAttribute("controls"); v.muted = true; ["autoplay", "muted", "loop", "playsinline"].forEach(a => v.setAttribute(a, "")); v.play && v.play().catch(() => {}); }
+    m.setAttribute("data-ed-cls", "1"); if (v) v.setAttribute("data-ed-cls", "1");
+    dirty = true; placeHz(); mostrarFundo(hzEl);
+    msg(on ? "Agora é o fundo do balão. Para desfazer, selecione o balão e clique em Tirar do fundo. Depois, Salvar." : "Voltou a ser imagem/vídeo normal. Clique em Salvar.", "ok");
+  }
 
   /* o menu existe duas vezes (computador e celular): a ordem de um vale para o outro */
   const chaveLink = a => a.dataset.tab !== undefined ? "t:" + a.dataset.tab : a.classList.contains("wiki") ? "wiki" : "h:" + a.getAttribute("href");
@@ -614,6 +643,14 @@
       }
       // coisas apagadas
       for (const id of apagados) { const d = docEls[+id]; if (d) d.remove(); }
+      // fundo ligado/desligado: copia a classe e os atributos do vídeo
+      for (const el of document.querySelectorAll("[data-ed-cls]")) {
+        if (listOf(el) || el.closest("[data-ed-new]")) continue;
+        const t = docOf(el); if (!same(t, el)) continue;
+        const c = cleanClone(el);
+        if (c.getAttribute("class")) t.setAttribute("class", c.getAttribute("class")); else t.removeAttribute("class");
+        if (el.tagName === "VIDEO") ["controls", "autoplay", "muted", "loop", "playsinline"].forEach(a => { if (c.hasAttribute(a)) t.setAttribute(a, ""); else t.removeAttribute(a); });
+      }
       // listas inteiras
       for (const list of document.querySelectorAll("[data-ed-list]")) {
         const target = docOf(list);
@@ -650,8 +687,8 @@
       await gh(filePath("index.html"), { method: "PUT", body: JSON.stringify({ message: "Site: editar página inicial", content: encText(html), sha: d.sha, branch: GH.branch }) });
       dirty = false;
       // a página no GitHub agora é igual a esta: zera as marcas e renumera, para poder salvar de novo sem recarregar
-      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom]").forEach(el => {
-        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom"].forEach(k => el.removeAttribute(k));
+      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom], [data-ed-cls]").forEach(el => {
+        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls"].forEach(k => el.removeAttribute(k));
       });
       apagados.length = 0;
       tagIds();
