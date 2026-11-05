@@ -70,6 +70,9 @@
     .pref-g button { flex: 1; padding: .45rem .6rem; border-radius: 6px; border: 1px solid var(--line); background: var(--sky); color: var(--ink); font-family: inherit; font-size: .875rem; font-weight: 700; cursor: pointer; }
     .pref-g button[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
     .pref-note { margin: 0; font-size: .8125rem; color: var(--ink-dim); }
+    .pref-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+    .pref-key { flex: none; display: grid; place-items: center; width: 1.25rem; height: 1.25rem; padding: 0; border: 0; border-radius: 4px; background: transparent; color: var(--ink-dim); opacity: .3; cursor: pointer; }
+    .pref-key:hover, .pref-key:focus-visible { opacity: .9; }
     .pref-ed { display: grid; gap: .375rem; padding-top: .75rem; border-top: 1px solid var(--line); font-size: .875rem; color: var(--ink-dim); }
     .pref-ed[hidden] { display: none; }
     .pref-ed a, .pref-ed button { display: block; text-align: center; padding: .5rem .6rem; border-radius: 6px; border: 1px solid var(--violet); background: var(--violet); color: var(--violet-ink); font-weight: 700; font-size: .875rem; font-family: inherit; text-decoration: none; cursor: pointer; }
@@ -84,7 +87,7 @@
       <div class="pref-panel" id="pref-panel" role="dialog" aria-label="Configurações" hidden>
         <p class="pref-h">Configurações</p>
         ${OPTS.map(([k, label, vals]) => `<div class="pref-g" role="group" aria-label="${label}"><span>${label}</span><div>${vals.map(([v, t]) => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="${prefs[k] === v}">${t}</button>`).join("")}</div></div>`).join("")}
-        <p class="pref-note">Fica salvo só neste aparelho.</p>
+        <div class="pref-foot"><p class="pref-note">Fica salvo só neste aparelho.</p><button type="button" class="pref-key" title="Modo editor" aria-label="Modo editor"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2M16 7l3 3M18.5 4.5l2 2"/></svg></button></div>
         <div class="pref-ed" hidden></div>
       </div>`;
     const ref = host.querySelector(":scope > a.btn");
@@ -108,6 +111,10 @@
     panel.querySelector(".pref-h").addEventListener("click", () => {
       const agora = Date.now(); toques = agora - toqueT < 1500 ? toques + 1 : 1; toqueT = agora;
       if (toques >= 5 && !liberado) { liberado = true; try { sessionStorage.setItem("astralEdLib", "1"); } catch (e) {} montarEditor(); }
+    });
+    panel.querySelector(".pref-key").addEventListener("click", () => {
+      liberado = true; try { sessionStorage.setItem("astralEdLib", "1"); } catch (e) {}
+      montarEditor(); const a = edBox.querySelector("a, button"); if (a) a.focus();
     });
     edBox.addEventListener("click", e => {
       if (!e.target.closest("[data-ed-start]")) return;

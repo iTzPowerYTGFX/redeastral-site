@@ -25,8 +25,9 @@ PRIMEIRA VEZ: criar a chave (token clássico) — só uma vez
 
 ENTRAR NO MODO EDITOR
   Jeito rápido: botão da engrenagem (no topo do site) -> "Entrar no modo editor".
-    Ele só aparece nos aparelhos onde você já entrou como editor. Num aparelho novo,
-    abra a engrenagem e toque 5 vezes seguidas na palavra "Configurações": o botão aparece.
+    Nos aparelhos onde você já entrou como editor, ele aparece sozinho. Num aparelho novo,
+    clique na chavezinha bem pequena no canto de baixo do painel (ao lado de
+    "Fica salvo só neste aparelho") ou toque 5 vezes na palavra "Configurações".
     Já logado, a engrenagem mostra "Editar esta página" (página inicial) e "Editar a Wiki".
   Ou:
   1. Abra o endereço direto (salve nos favoritos):
