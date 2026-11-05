@@ -1,4 +1,230 @@
 {
-  "atualizado": null,
-  "rankings": []
+  "atualizado": "2026-11-05T12:18:11Z",
+  "rankings": [
+    {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo", "jogadores": [
+      {"nome": "_PeakWALL200", "valor": 13700},
+      {"nome": "DullLucasdeolro", "valor": 13007},
+      {"nome": "TagaYato_", "valor": 11929},
+      {"nome": "_MitKan22", "valor": 11064},
+      {"nome": "_Heisenberg22194", "valor": 7784},
+      {"nome": "_M_na_voz", "valor": 5547},
+      {"nome": "Shen_Kaizhang", "valor": 3974},
+      {"nome": "_Sayko_ax", "valor": 3200},
+      {"nome": "_Maya06908", "valor": 2383},
+      {"nome": "_Afton2460", "valor": 2207}
+    ]},
+    {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro", "jogadores": [
+      {"nome": "_PeakWALL200", "valor": 87441739.49},
+      {"nome": "TagaYato_", "valor": 8750979.63},
+      {"nome": "DullLucasdeolro", "valor": 8334133.63},
+      {"nome": "_Afton2460", "valor": 4582098.82},
+      {"nome": "_OsiBloodMoon", "valor": 3518609.64},
+      {"nome": "xmatheusgmr", "valor": 3233073.68},
+      {"nome": "_MitKan22", "valor": 2999845.03},
+      {"nome": "_Corvus8910", "valor": 1226854.18},
+      {"nome": "_xmatheusgmr", "valor": 856188.17},
+      {"nome": "_Luiz101585", "valor": 804920.68}
+    ]},
+    {"id": "rank", "titulo": "Rank", "formato": "nivel", "descricao": "Rank do /rank (AstralSkills).", "jogadores": [
+      {"nome": "_PeakWALL200", "valor": 769.00, "texto": "Rank 769"},
+      {"nome": "DullLucasdeolro", "valor": 300, "texto": "Rank 300"},
+      {"nome": "_MitKan22", "valor": 200, "texto": "Rank 200"},
+      {"nome": "TagaYato_", "valor": 180.00, "texto": "Rank 180"},
+      {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
+      {"nome": "_Jpzin001", "valor": 100, "texto": "Rank 100"},
+      {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
+      {"nome": "_OsiBloodMoon", "valor": 57.00, "texto": "Rank 57"},
+      {"nome": "_Sayko_ax", "valor": 20.00, "texto": "Rank 20"},
+      {"nome": "_Foxyismyname553", "valor": 20.00, "texto": "Rank 20"}
+    ]},
+    {"id": "hab-mineracao", "titulo": "Mineração", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 173},
+      {"nome": "TagaYato_", "valor": 82},
+      {"nome": "_Kroven_1611", "valor": 38},
+      {"nome": "_MitKan22", "valor": 19},
+      {"nome": "_Heisenberg22194", "valor": 13},
+      {"nome": "_Corvus8910", "valor": 6},
+      {"nome": "_Flos7304", "valor": 4},
+      {"nome": "_Sayko_ax", "valor": 3},
+      {"nome": "_Jpzin001", "valor": 1}
+    ]},
+    {"id": "hab-lenhador", "titulo": "Lenhador", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "TagaYato_", "valor": 10},
+      {"nome": "_Foxyismyname553", "valor": 8},
+      {"nome": "_Corvus8910", "valor": 4},
+      {"nome": "_OsiBloodMoon", "valor": 2},
+      {"nome": "_Sayko_ax", "valor": 2},
+      {"nome": "_Maya06908", "valor": 1},
+      {"nome": "_MitKan22", "valor": 1},
+      {"nome": "DullLucasdeolro", "valor": 1}
+    ]},
+    {"id": "hab-escavacao", "titulo": "Escavação", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "TagaYato_", "valor": 148},
+      {"nome": "DullLucasdeolro", "valor": 99},
+      {"nome": "_M_na_voz", "valor": 28},
+      {"nome": "_OsiBloodMoon", "valor": 20},
+      {"nome": "_Foxyismyname553", "valor": 16},
+      {"nome": "_Maya06908", "valor": 14},
+      {"nome": "_Flos7304", "valor": 11},
+      {"nome": "_TioDoPave9665", "valor": 4},
+      {"nome": "_MitKan22", "valor": 3},
+      {"nome": "_Heisenberg22194", "valor": 1}
+    ]},
+    {"id": "hab-agricultura", "titulo": "Agricultura", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 48},
+      {"nome": "TagaYato_", "valor": 29},
+      {"nome": "_Foxyismyname553", "valor": 8},
+      {"nome": "_Kroven_1611", "valor": 8},
+      {"nome": "_MitKan22", "valor": 5},
+      {"nome": "_Maya06908", "valor": 3},
+      {"nome": "_Heisenberg22194", "valor": 2},
+      {"nome": "_OsiBloodMoon", "valor": 1},
+      {"nome": "_Sayko_ax", "valor": 1}
+    ]},
+    {"id": "hab-pesca", "titulo": "Pesca", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 101},
+      {"nome": "_Heisenberg22194", "valor": 13},
+      {"nome": "TagaYato_", "valor": 7}
+    ]},
+    {"id": "hab-espadas", "titulo": "Espadas", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 300},
+      {"nome": "_MitKan22", "valor": 200},
+      {"nome": "TagaYato_", "valor": 200},
+      {"nome": "_Heisenberg22194", "valor": 100},
+      {"nome": "_Corvus8910", "valor": 84},
+      {"nome": "_OsiBloodMoon", "valor": 62},
+      {"nome": "_Sayko_ax", "valor": 62},
+      {"nome": "sorae_dz", "valor": 49},
+      {"nome": "_Jpzin001", "valor": 39},
+      {"nome": "_Foxyismyname553", "valor": 23}
+    ]},
+    {"id": "hab-machados", "titulo": "Machados", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 300},
+      {"nome": "TagaYato_", "valor": 138},
+      {"nome": "_Jpzin001", "valor": 100},
+      {"nome": "_Maya06908", "valor": 21},
+      {"nome": "_Heisenberg22194", "valor": 10},
+      {"nome": "_Corvus8910", "valor": 1},
+      {"nome": "_Foxyismyname553", "valor": 1},
+      {"nome": "_M_na_voz", "valor": 1}
+    ]},
+    {"id": "hab-arqueria", "titulo": "Arqueria", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "TagaYato_", "valor": 107},
+      {"nome": "_Corvus8910", "valor": 100},
+      {"nome": "_MitKan22", "valor": 100},
+      {"nome": "_Jpzin001", "valor": 4},
+      {"nome": "DullLucasdeolro", "valor": 2},
+      {"nome": "_Maya06908", "valor": 1}
+    ]},
+    {"id": "hab-desarmado", "titulo": "Desarmado", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 196},
+      {"nome": "_Jpzin001", "valor": 100},
+      {"nome": "TagaYato_", "valor": 78},
+      {"nome": "_Maya06908", "valor": 13},
+      {"nome": "_MitKan22", "valor": 7},
+      {"nome": "_Sayko_ax", "valor": 3}
+    ]},
+    {"id": "hab-armas_pesadas", "titulo": "Armas Pesadas", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 200},
+      {"nome": "_Jpzin001", "valor": 100}
+    ]},
+    {"id": "hab-defesa", "titulo": "Defesa", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 134},
+      {"nome": "_MitKan22", "valor": 50},
+      {"nome": "TagaYato_", "valor": 49},
+      {"nome": "_Heisenberg22194", "valor": 9},
+      {"nome": "_Maya06908", "valor": 7},
+      {"nome": "_Jpzin001", "valor": 6},
+      {"nome": "_Flos7304", "valor": 5},
+      {"nome": "_OsiBloodMoon", "valor": 5},
+      {"nome": "_Sayko_ax", "valor": 4},
+      {"nome": "_Foxyismyname553", "valor": 2}
+    ]},
+    {"id": "hab-acrobacia", "titulo": "Acrobacia", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 245},
+      {"nome": "TagaYato_", "valor": 73},
+      {"nome": "_Corvus8910", "valor": 12},
+      {"nome": "_Heisenberg22194", "valor": 6},
+      {"nome": "_MitKan22", "valor": 5},
+      {"nome": "_M_na_voz", "valor": 4},
+      {"nome": "_Sayko_ax", "valor": 3},
+      {"nome": "_Flos7304", "valor": 2},
+      {"nome": "_Maya06908", "valor": 2},
+      {"nome": "_Jpzin001", "valor": 1}
+    ]},
+    {"id": "hab-alquimia", "titulo": "Alquimia", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "_MitKan22", "valor": 100},
+      {"nome": "DullLucasdeolro", "valor": 1}
+    ]},
+    {"id": "hab-encantamento", "titulo": "Encantamento", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "_Heisenberg22194", "valor": 34},
+      {"nome": "DullLucasdeolro", "valor": 28},
+      {"nome": "_MitKan22", "valor": 10},
+      {"nome": "TagaYato_", "valor": 4},
+      {"nome": "_Corvus8910", "valor": 2},
+      {"nome": "_OsiBloodMoon", "valor": 2},
+      {"nome": "_Kroven_1611", "valor": 1}
+    ]},
+    {"id": "hab-domesticacao", "titulo": "Domesticação", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 182},
+      {"nome": "TagaYato_", "valor": 11},
+      {"nome": "_Sayko_ax", "valor": 2}
+    ]},
+    {"id": "hab-forja", "titulo": "Forja", "formato": "nivel", "grupo": "Habilidades", "jogadores": [
+      {"nome": "_Heisenberg22194", "valor": 100},
+      {"nome": "DullLucasdeolro", "valor": 21},
+      {"nome": "_MitKan22", "valor": 17},
+      {"nome": "TagaYato_", "valor": 7},
+      {"nome": "_M_na_voz", "valor": 3},
+      {"nome": "_OsiBloodMoon", "valor": 3},
+      {"nome": "_Foxyismyname553", "valor": 2},
+      {"nome": "_Corvus8910", "valor": 1},
+      {"nome": "_Flos7304", "valor": 1},
+      {"nome": "_Sayko_ax", "valor": 1}
+    ]},
+    {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 159734},
+      {"nome": "TagaYato_", "valor": 50873},
+      {"nome": "_Heisenberg22194", "valor": 33167},
+      {"nome": "_MitKan22", "valor": 21656},
+      {"nome": "_Jpzin001", "valor": 5600},
+      {"nome": "Shen_Kaizhang", "valor": 4402},
+      {"nome": "_Afton2460", "valor": 3805},
+      {"nome": "_Corvus8910", "valor": 3031},
+      {"nome": "_OsiBloodMoon", "valor": 2239},
+      {"nome": "xmatheusgmr", "valor": 1675}
+    ]},
+    {"id": "pvp", "titulo": "Abates de jogadores", "formato": "numero", "jogadores": [
+      {"nome": "_Heisenberg22194", "valor": 22},
+      {"nome": "DullLucasdeolro", "valor": 14},
+      {"nome": "_PeakWALL200", "valor": 13},
+      {"nome": "Shen_Kaizhang", "valor": 10},
+      {"nome": "_Sayko_ax", "valor": 9},
+      {"nome": "_Afton2460", "valor": 6},
+      {"nome": "_Kroven_1611", "valor": 5},
+      {"nome": "TagaYato_", "valor": 4},
+      {"nome": "_Jpzin001", "valor": 3},
+      {"nome": "_MitKan22", "valor": 3}
+    ]},
+    {"id": "quests", "titulo": "Quests concluídas", "formato": "numero", "jogadores": [
+      {"nome": "DullLucasdeolro", "valor": 125},
+      {"nome": "TagaYato_", "valor": 110},
+      {"nome": "_Heisenberg22194", "valor": 105},
+      {"nome": "_MitKan22", "valor": 95},
+      {"nome": "_Corvus8910", "valor": 63},
+      {"nome": "_OsiBloodMoon", "valor": 56},
+      {"nome": "_Sayko_ax", "valor": 56},
+      {"nome": "_Flos7304", "valor": 52},
+      {"nome": "_Kroven_1611", "valor": 52},
+      {"nome": "_Maya06908", "valor": 51}
+    ]},
+    {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas).", "cabecas": false, "jogadores": [
+      {"nome": "_Alcateia_", "valor": 72.06, "texto": "Nv. 72 · 7 membros"},
+      {"nome": "cyber_doom", "valor": 36.02, "texto": "Nv. 36 · 5 membros"},
+      {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
+      {"nome": "astrals", "valor": 5.00, "texto": "Nv. 5 · 1 membro"},
+      {"nome": "VVs", "valor": 2.00, "texto": "Nv. 2 · 1 membro"},
+      {"nome": "legal", "valor": 2.00, "texto": "Nv. 2 · 1 membro"}
+    ]}
+  ]
 }
