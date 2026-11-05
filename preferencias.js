@@ -70,6 +70,10 @@
     .pref-g button { flex: 1; padding: .45rem .6rem; border-radius: 6px; border: 1px solid var(--line); background: var(--sky); color: var(--ink); font-family: inherit; font-size: .875rem; font-weight: 700; cursor: pointer; }
     .pref-g button[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
     .pref-note { margin: 0; font-size: .8125rem; color: var(--ink-dim); }
+    .pref-ed { display: grid; gap: .375rem; padding-top: .75rem; border-top: 1px solid var(--line); font-size: .875rem; color: var(--ink-dim); }
+    .pref-ed[hidden] { display: none; }
+    .pref-ed a, .pref-ed button { display: block; text-align: center; padding: .5rem .6rem; border-radius: 6px; border: 1px solid var(--violet); background: var(--violet); color: var(--violet-ink); font-weight: 700; font-size: .875rem; font-family: inherit; text-decoration: none; cursor: pointer; }
+    .pref-ed .sec { background: var(--sky); border-color: var(--line); color: var(--ink); }
     @media (max-width: 600px) { .pref-panel { position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); top: calc(env(safe-area-inset-top, 0px) + 4rem); width: auto; } }`;
     document.head.appendChild(style);
     const wrap = document.createElement("div");
@@ -81,11 +85,38 @@
         <p class="pref-h">Configurações</p>
         ${OPTS.map(([k, label, vals]) => `<div class="pref-g" role="group" aria-label="${label}"><span>${label}</span><div>${vals.map(([v, t]) => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="${prefs[k] === v}">${t}</button>`).join("")}</div></div>`).join("")}
         <p class="pref-note">Fica salvo só neste aparelho.</p>
+        <div class="pref-ed" hidden></div>
       </div>`;
     const ref = host.querySelector(":scope > a.btn");
     if (ref) host.insertBefore(wrap, ref); else host.appendChild(wrap);
     const btn = wrap.querySelector(".pref-btn"), panel = wrap.querySelector(".pref-panel");
-    const open = on => { panel.hidden = !on; btn.setAttribute("aria-expanded", on); };
+    /* Modo editor: só aparece em aparelhos de editor (ou depois de tocar 5 vezes em "Configurações") */
+    const edBox = panel.querySelector(".pref-ed");
+    let liberado = false;
+    try { liberado = sessionStorage.getItem("astralEdLib") === "1"; } catch (e) {}
+    function montarEditor() {
+      let logado = false, aparelho = false;
+      try { logado = !!localStorage.getItem("astralGH"); aparelho = logado || localStorage.getItem("astralEditorDevice") === "1"; } catch (e) {}
+      edBox.hidden = !(aparelho || liberado);
+      if (edBox.hidden) return;
+      const naWiki = /wiki\.html$/i.test(location.pathname);
+      if (!logado) edBox.innerHTML = `<span>Modo editor</span><a href="${naWiki ? "#modo-editor" : "wiki.html#modo-editor"}">Entrar no modo editor</a>`;
+      else if (naWiki) edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><a class="sec" href="index.html">Editar a página inicial</a>`;
+      else edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><button type="button" data-ed-start>Editar esta página</button><a class="sec" href="wiki.html">Editar a Wiki</a>`;
+    }
+    let toques = 0, toqueT = 0;
+    panel.querySelector(".pref-h").addEventListener("click", () => {
+      const agora = Date.now(); toques = agora - toqueT < 1500 ? toques + 1 : 1; toqueT = agora;
+      if (toques >= 5 && !liberado) { liberado = true; try { sessionStorage.setItem("astralEdLib", "1"); } catch (e) {} montarEditor(); }
+    });
+    edBox.addEventListener("click", e => {
+      if (!e.target.closest("[data-ed-start]")) return;
+      open(false);
+      const st = document.getElementById("ed-start");
+      if (st) { st.click(); st.scrollIntoView({ block: "nearest" }); }
+      else location.reload(); // a barra do editor ainda está carregando
+    });
+    const open = on => { if (on) montarEditor(); panel.hidden = !on; btn.setAttribute("aria-expanded", on); };
     btn.addEventListener("click", e => { e.stopPropagation(); open(panel.hidden); });
     panel.addEventListener("click", e => {
       e.stopPropagation();
