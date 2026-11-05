@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-05T13:02:06Z",
+  "atualizado": "2026-11-05T13:32:06Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -15,7 +15,9 @@
       {"nome": "_Afton2460", "valor": 2207},
       {"nome": "xmatheusgmr", "valor": 1961}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "_Flos7304", "valor": 15}
+     ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
