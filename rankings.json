@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-05T16:32:10Z",
+  "atualizado": "2026-11-05T17:02:10Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -16,8 +16,8 @@
       {"nome": "xmatheusgmr", "valor": 1961}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 191},
-      {"nome": "_Kroven_1611", "valor": 19},
+      {"nome": "_Flos7304", "valor": 221},
+      {"nome": "_Kroven_1611", "valor": 20},
       {"nome": "_MitKan22", "valor": 11},
       {"nome": "_Heisenberg22194", "valor": 2}
      ],
@@ -147,10 +147,13 @@
       {"nome": "_Maya06908", "valor": 21},
       {"nome": "_Heisenberg22194", "valor": 10},
       {"nome": "_Corvus8910", "valor": 1},
+      {"nome": "_Flos7304", "valor": 1},
       {"nome": "_Foxyismyname553", "valor": 1},
       {"nome": "_M_na_voz", "valor": 1}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "_Flos7304", "valor": 1}
+     ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-arqueria", "titulo": "Arqueria", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
@@ -204,15 +207,15 @@
       {"nome": "TagaYato_", "valor": 73},
       {"nome": "_Corvus8910", "valor": 12},
       {"nome": "_Heisenberg22194", "valor": 6},
+      {"nome": "_Flos7304", "valor": 5},
       {"nome": "_MitKan22", "valor": 5},
-      {"nome": "_Flos7304", "valor": 4},
       {"nome": "_M_na_voz", "valor": 4},
       {"nome": "_Sayko_ax", "valor": 3},
       {"nome": "_Maya06908", "valor": 2},
       {"nome": "_Jpzin001", "valor": 1}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 2}
+      {"nome": "_Flos7304", "valor": 3}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-alquimia", "titulo": "Alquimia", "formato": "nivel", "grupo": "Habilidades",
@@ -270,7 +273,9 @@
       {"nome": "_OsiBloodMoon", "valor": 2239},
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "_Flos7304", "valor": 2}
+     ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "pvp", "titulo": "Abates de jogadores", "formato": "numero",
      "jogadores": [
@@ -296,11 +301,12 @@
       {"nome": "_Corvus8910", "valor": 63},
       {"nome": "_OsiBloodMoon", "valor": 56},
       {"nome": "_Sayko_ax", "valor": 56},
+      {"nome": "_Flos7304", "valor": 53},
       {"nome": "_Kroven_1611", "valor": 53},
-      {"nome": "_Flos7304", "valor": 52},
       {"nome": "_Maya06908", "valor": 51}
      ],
      "mes": [
+      {"nome": "_Flos7304", "valor": 1},
       {"nome": "_Kroven_1611", "valor": 1}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
