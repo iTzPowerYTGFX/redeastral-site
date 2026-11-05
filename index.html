@@ -112,6 +112,12 @@ section.block.tab-page { border-bottom: 0; }
 .rk-modo button[aria-selected="true"] { background: var(--violet); color: var(--violet-ink); }
 .rk-tempo { margin: 0 0 1rem; color: var(--ink-dim); font-size: .9375rem; }
 .rk-tempo b { color: var(--ink); }
+.rk-cd { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .625rem 0 0; }
+.rk-cd > span:first-child { margin-right: .25rem; }
+@media (max-width: 560px) { .rk-cd > span:first-child { flex-basis: 100%; } .rk-cd { gap: .375rem; } .rk-cd-box { min-width: 0; flex: 1; } }
+.rk-cd-box { display: grid; justify-items: center; min-width: 3.4rem; padding: .4rem .5rem .35rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 8px; }
+.rk-cd-box b { font: 700 1.375rem/1.1 var(--f-mono, ui-monospace, monospace); color: var(--ink); font-variant-numeric: tabular-nums; }
+.rk-cd-box small { font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); }
 .rk-prize { font: 700 .875rem var(--f-body); color: #f2c14e; background: color-mix(in srgb, #f2c14e 12%, transparent); border: 1px solid color-mix(in srgb, #f2c14e 45%, transparent); border-radius: 999px; padding: .2rem .65rem; white-space: nowrap; justify-self: end; }
 .rk-row.prize { grid-template-columns: 2.5rem 2.25rem minmax(0, 1fr) auto auto; }
 .rk-row.vago .rk-name { color: var(--ink-dim); font-weight: 400; font-style: italic; }
@@ -744,11 +750,23 @@ fromHash(); addEventListener("hashchange", fromHash);
       modoBox.hidden = false;
       const marcaModo = () => {
         modoBox.querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", b.dataset.modo === modo));
-        const f = falta(d.mes.fim);
         tempoEl.hidden = modo !== "mes";
-        tempoEl.innerHTML = `Ranking de <b>${esc(d.mes.nome || "")}</b>: conta só o que cada um subiu neste mês` + (f ? ` · termina em <b>${f}</b>` : "")
-          + (d.mes.premios !== false ? ". Os prêmios chegam por carta do Carteiro na virada do mês." : ".");
+        tempoEl.innerHTML = `Ranking de <b>${esc(d.mes.nome || "")}</b>: conta só o que cada um subiu neste mês.`
+          + (d.mes.premios !== false ? " Os prêmios chegam por carta do Carteiro na virada do mês." : "")
+          + `<span class="rk-cd" aria-live="off"><span>Termina em</span>`
+          + ["dias", "horas", "min", "seg"].map(u => `<span class="rk-cd-box"><b data-u="${u}">--</b><small>${u}</small></span>`).join("") + `</span>`;
+        tick();
       };
+      // contador ao vivo até o fim do mês
+      const fim = new Date(d.mes.fim).getTime();
+      const tick = () => {
+        const cd = tempoEl.querySelector(".rk-cd"); if (!cd) return;
+        let ms = fim - Date.now();
+        if (!(ms > 0)) { cd.innerHTML = `<span>O mês acabou: os prêmios saem em instantes e o ranking zera.</span>`; return; }
+        const v = { dias: Math.floor(ms / 864e5), horas: Math.floor(ms % 864e5 / 36e5), min: Math.floor(ms % 36e5 / 6e4), seg: Math.floor(ms % 6e4 / 1e3) };
+        cd.querySelectorAll("b[data-u]").forEach(b => { const t = String(v[b.dataset.u]).padStart(b.dataset.u === "dias" ? 1 : 2, "0"); if (b.textContent !== t) b.textContent = t; });
+      };
+      setInterval(tick, 1000);
       modoBox.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
         modo = b.dataset.modo; try { localStorage.setItem("astralRkModo", modo); } catch (e) {}
         marcaModo(); show(list, k);
