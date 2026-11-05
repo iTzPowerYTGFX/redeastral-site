@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-05T14:02:06Z",
+  "atualizado": "2026-11-05T14:32:06Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,7 +7,7 @@
       {"nome": "DullLucasdeolro", "valor": 13007},
       {"nome": "TagaYato_", "valor": 11929},
       {"nome": "_MitKan22", "valor": 11064},
-      {"nome": "_Heisenberg22194", "valor": 7784},
+      {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 5547},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3200},
@@ -16,7 +16,8 @@
       {"nome": "xmatheusgmr", "valor": 1961}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 45}
+      {"nome": "_Flos7304", "valor": 75},
+      {"nome": "_Heisenberg22194", "valor": 2}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
@@ -32,7 +33,9 @@
       {"nome": "_Luiz101585", "valor": 804920.68},
       {"nome": "_Maya06908", "valor": 355004.20}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "_Heisenberg22194", "valor": 3300.00}
+     ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "rank", "titulo": "Rank", "formato": "nivel", "descricao": "Rank do /rank (AstralSkills).",
      "jogadores": [
@@ -177,13 +180,15 @@
       {"nome": "TagaYato_", "valor": 49},
       {"nome": "_Heisenberg22194", "valor": 9},
       {"nome": "_Maya06908", "valor": 7},
+      {"nome": "_Flos7304", "valor": 6},
       {"nome": "_Jpzin001", "valor": 6},
-      {"nome": "_Flos7304", "valor": 5},
       {"nome": "_OsiBloodMoon", "valor": 5},
       {"nome": "_Sayko_ax", "valor": 4},
       {"nome": "_Foxyismyname553", "valor": 2}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "_Flos7304", "valor": 1}
+     ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-acrobacia", "titulo": "Acrobacia", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
