@@ -97,6 +97,13 @@
   .ed-insmenu[hidden] { display: none; }
   .ed-insmenu label { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font-size: .875rem; font-weight: 700; cursor: pointer; }
   .ed-insmenu input[type=file] { display: none; }
+  .ed-ef { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .3rem .9rem; }
+  .ed-ef[hidden], .ed-op[hidden] { display: none; }
+  .ed-op { display: inline-flex; align-items: center; gap: .4rem; font-weight: 400; color: #b2abd3; }
+  .ed-op input[type=checkbox] { width: auto; accent-color: #5fd8cb; }
+  .ed-op input[type=color] { width: 2rem; height: 1.6rem; padding: 0 .1rem; border: 1px solid #2e2853; border-radius: 4px; background: #0b0a1a; cursor: pointer; flex: none; min-width: 0; }
+  .ed-op input { width: 7.5rem; accent-color: #7c3aed; padding: 0; flex: none; min-width: 0; }
+  .ed-op b { min-width: 2.6rem; color: #f1eeff; font-variant-numeric: tabular-nums; }
   #ed-rm.armed { background: #ff7a7a; border-color: #ff7a7a; color: #2a0505; }
   body.ed-on .site-yt iframe { pointer-events: none; }
   body.ed-on .site-media figcaption:empty::before { content: "Legenda (opcional): clique para escrever"; opacity: .5; }
@@ -175,7 +182,7 @@
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
-      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved"); el.removeAttribute("data-ed-cls");
+      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved"); el.removeAttribute("data-ed-cls"); el.removeAttribute("data-ed-op");
       if (el.hasAttribute("data-ed-src")) { el.setAttribute("src", el.getAttribute("data-ed-src")); el.removeAttribute("data-ed-src"); }
       el.removeAttribute("data-ed-new"); el.classList.remove("ed-mv-src");
       el.removeAttribute("aria-current");
@@ -253,6 +260,14 @@
       <button type="button" id="ed-ins" title="Coloca imagem, vídeo, texto ou título depois do que está selecionado">+ Inserir</button>
       <button type="button" id="ed-rm" hidden title="Apaga o que está selecionado (clique duas vezes)">Apagar</button>
       <button type="button" id="ed-fundo" hidden title="A imagem ou vídeo vira o fundo do balão onde está">Usar como fundo</button>
+      <button type="button" id="ed-ef-btn" hidden aria-expanded="false" title="Opacidade, desfoque, sombra e brilho do que está selecionado">Efeitos</button>
+      <span class="ed-ef" id="ed-ef" hidden>
+        <label class="ed-op" title="Opacidade (duplo clique volta a 100%)">Opacidade <input type="range" data-ef="op" min="10" max="100" step="5" value="100"><b>100%</b></label>
+        <label class="ed-op" title="Desfoque (duplo clique volta a 0%)">Desfoque <input type="range" data-ef="blur" min="0" max="100" step="5" value="0"><b>0%</b></label>
+        <label class="ed-op" id="ed-ef-sombra" title="Sombra no texto (duplo clique volta a 0%)">Sombra <input type="range" data-ef="sombra" min="0" max="100" step="5" value="0"><b>0%</b><input type="color" id="ed-ef-cor" data-cor="sombra" value="#000000" title="Cor da sombra"></label>
+        <label class="ed-op" id="ed-ef-brilho" title="Brilho em volta das letras (duplo clique volta a 0%)">Brilho <input type="range" data-ef="brilho" min="0" max="100" step="5" value="0"><b>0%</b><input type="color" id="ed-ef-cor2" data-cor="brilho" value="#b99bff" title="Cor do brilho"></label>
+        <label class="ed-op" id="ed-ef-fundo" hidden title="Opacidade e desfoque valem só para a imagem/vídeo de fundo"><input type="checkbox"> só no fundo</label>
+      </span>
       <label class="ed-linkbox" id="ed-linkbox" hidden>Link do botão: <input type="text" id="ed-href" spellcheck="false" placeholder="#regras, wiki.html#captura ou https://…"></label>
       <button type="button" id="ed-b" title="Negrito">Negrito</button>
       <button type="button" id="ed-l" title="Link no texto selecionado">Link</button>
@@ -285,6 +300,29 @@
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
     montarInserir();
     bar.querySelector("#ed-fundo").addEventListener("click", alternarFundo);
+    const efBtn = bar.querySelector("#ed-ef-btn");
+    efBtn.addEventListener("click", () => {
+      const on = efBtn.getAttribute("aria-expanded") !== "true";
+      efBtn.setAttribute("aria-expanded", on); efBtn.textContent = on ? "Fechar efeitos" : "Efeitos";
+      bar.querySelector("#ed-ef").hidden = !on || !podeOpacidade(hzEl);
+      if (on) mostrarEfeitos();
+    });
+    bar.querySelectorAll("#ed-ef input[data-ef]").forEach(inp => {
+      const nome = { op: "Opacidade", blur: "Desfoque", sombra: "Sombra", brilho: "Brilho" }[inp.dataset.ef];
+      inp.addEventListener("input", () => mudarEfeito(inp.dataset.ef, +inp.value));
+      inp.addEventListener("change", () => msg(`${nome} ${inp.value}%. Clique em Salvar para gravar.`, "ok"));
+      inp.closest("label").addEventListener("dblclick", () => { mudarEfeito(inp.dataset.ef, inp.dataset.ef === "op" ? 100 : 0); msg(nome + " normal.", "ok"); });
+    });
+    bar.querySelector("#ed-ef-fundo input").addEventListener("change", mostrarEfeitos);
+    bar.querySelectorAll("#ed-ef input[data-cor]").forEach(cor => {
+      const k = cor.dataset.cor;
+      cor.addEventListener("click", e => e.stopPropagation());
+      cor.addEventListener("input", () => {
+        const sl = bar.querySelector(`#ed-ef input[data-ef="${k}"]`);
+        mudarEfeito(k, +sl.value > 0 ? +sl.value : 50); // ainda em 0%: liga em 50%
+      });
+      cor.addEventListener("change", () => msg(`Cor ${k === "sombra" ? "da sombra" : "do brilho"} trocada. Clique em Salvar para gravar.`, "ok"));
+    });
     bar.querySelector("#ed-save").addEventListener("click", save);
     bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
     bar.querySelector("#ed-href").addEventListener("input", e => {
@@ -414,6 +452,16 @@
     const up = bar.querySelector("#ed-up"); if (up) up.hidden = outer(el.parentElement);
     const rm = bar.querySelector("#ed-rm"); if (rm) { rm.hidden = !podeApagar(el); rm.classList.remove("armed"); rm.textContent = "Apagar"; }
     mostrarFundo(el);
+    const ef = bar.querySelector("#ed-ef");
+    if (ef) {
+      const pode = podeOpacidade(el), btn = bar.querySelector("#ed-ef-btn");
+      btn.hidden = !pode;
+      ef.hidden = !pode || btn.getAttribute("aria-expanded") !== "true";
+      const m = midiaDe(el), temFundo = !!m && m.classList.contains("fundo") && m !== el;
+      const box = bar.querySelector("#ed-ef-fundo"); box.hidden = !temFundo;
+      if (!temFundo) box.querySelector("input").checked = false;
+      mostrarEfeitos();
+    }
     showLinkBox(el.closest("a"));
     placeHz();
   }
@@ -461,6 +509,53 @@
     const m = midiaDe(el);
     b.hidden = !m || !m.parentElement || outer(m.parentElement) || m.parentElement.matches("main > section, .wrap");
     if (!b.hidden) b.textContent = m.classList.contains("fundo") ? "Tirar do fundo" : "Usar como fundo";
+  }
+  /* opacidade e desfoque de qualquer elemento (ou só da imagem/vídeo de fundo do balão) */
+  const podeOpacidade = el => !!el && !outer(el) && !el.closest(".ed-ui") && !el.matches(".top, .wrap");
+  const BLUR_MAX = 20; // 100% = 20px
+  function alvoEfeito() {
+    const el = hzEl; if (!podeOpacidade(el)) return null;
+    const box = bar.querySelector("#ed-ef-fundo input"), m = midiaDe(el);
+    return box && box.checked && m && m.classList.contains("fundo") ? m : el;
+  }
+  const hexRgb = h => { const n = parseInt(String(h).replace("#", ""), 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const sombraCss = (v, cor) => { const [r, g, b] = hexRgb(cor || "#000000"); return `0 ${+(1 + v / 50).toFixed(1)}px ${+(v / 100 * 14).toFixed(1)}px rgba(${r}, ${g}, ${b}, ${(0.35 + 0.55 * v / 100).toFixed(2)})`; };
+  const brilhoCss = (v, cor) => { const [r, g, b] = hexRgb(cor || "#b99bff"); const a = (0.45 + 0.5 * v / 100).toFixed(2);
+    return `0 0 ${+(1 + v / 25).toFixed(1)}px rgba(${r}, ${g}, ${b}, ${a}), 0 0 ${+(3 + v / 6).toFixed(1)}px rgba(${r}, ${g}, ${b}, ${a})`; };
+  // o valor fica guardado no elemento (data-sombra="50 #000000", data-brilho="40 #b99bff") para dar para ajustar depois
+  const lerFx = (el, k, corPadrao) => { const [v, c] = (el.getAttribute("data-" + k) || "").split(" "); return { v: Math.max(0, Math.min(100, +v || 0)), c: /^#[0-9a-f]{6}$/i.test(c || "") ? c : corPadrao }; };
+  function aplicarTextoFx(t, k, v, c) {
+    if (v > 0) t.setAttribute("data-" + k, v + " " + c); else t.removeAttribute("data-" + k);
+    const s = lerFx(t, "sombra", "#000000"), b = lerFx(t, "brilho", "#b99bff"), partes = [];
+    if (b.v > 0) partes.push(brilhoCss(b.v, b.c));
+    if (s.v > 0) partes.push(sombraCss(s.v, s.c));
+    if (partes.length) t.style.textShadow = partes.join(", "); else t.style.removeProperty("text-shadow");
+  }
+  const lerBlur = el => { const m = (el.style.filter || "").match(/blur\(([\d.]+)px\)/); return m ? Math.round(parseFloat(m[1]) / BLUR_MAX * 100) : 0; };
+  function mostrarEfeitos() {
+    const t = alvoEfeito(); if (!t) return;
+    const op = Math.round((parseFloat(t.style.opacity) || 1) * 100), bl = lerBlur(t), sb = lerFx(t, "sombra", "#000000"), br = lerFx(t, "brilho", "#b99bff");
+    const q = k => bar.querySelector(`#ed-ef input[data-ef="${k}"]`);
+    for (const [k, v] of [["op", op], ["blur", bl], ["sombra", sb.v], ["brilho", br.v]]) { q(k).value = v; q(k).nextElementSibling.textContent = v + "%"; }
+    bar.querySelector("#ed-ef-cor").value = sb.c; bar.querySelector("#ed-ef-cor2").value = br.c;
+    const midia = t.classList.contains("site-media");
+    bar.querySelector("#ed-ef-sombra").hidden = midia; bar.querySelector("#ed-ef-brilho").hidden = midia;
+  }
+  function mudarEfeito(tipo, v) {
+    const t = alvoEfeito(); if (!t) return;
+    if (tipo === "op") {
+      v = Math.max(10, Math.min(100, Math.round(v)));
+      if (v >= 100) t.style.removeProperty("opacity"); else t.style.opacity = (v / 100).toString();
+    } else if (tipo === "sombra" || tipo === "brilho") {
+      v = Math.max(0, Math.min(100, Math.round(v)));
+      aplicarTextoFx(t, tipo, v, bar.querySelector(tipo === "sombra" ? "#ed-ef-cor" : "#ed-ef-cor2").value);
+    } else {
+      v = Math.max(0, Math.min(100, Math.round(v)));
+      if (v <= 0) t.style.removeProperty("filter"); else t.style.filter = `blur(${+(v / 100 * BLUR_MAX).toFixed(1)}px)`;
+    }
+    if (!t.getAttribute("style")) t.removeAttribute("style");
+    t.setAttribute("data-ed-op", "1"); dirty = true; placeHz();
+    mostrarEfeitos();
   }
   function alternarFundo() {
     const m = midiaDe(hzEl); if (!m) return;
@@ -643,6 +738,17 @@
       }
       // coisas apagadas
       for (const id of apagados) { const d = docEls[+id]; if (d) d.remove(); }
+      // opacidade (qualquer elemento fora das listas)
+      for (const el of document.querySelectorAll("[data-ed-op]")) {
+        if (listOf(el) || el.closest("[data-ed-new]")) continue;
+        const t = docOf(el); if (!same(t, el)) continue;
+        const o = el.style.opacity, f = el.style.filter, sh = el.style.textShadow;
+        if (o && o !== "1") t.style.opacity = o; else t.style.removeProperty("opacity");
+        if (f) t.style.filter = f; else t.style.removeProperty("filter");
+        if (sh) t.style.textShadow = sh; else t.style.removeProperty("text-shadow");
+        for (const k of ["data-sombra", "data-brilho"]) { if (el.hasAttribute(k)) t.setAttribute(k, el.getAttribute(k)); else t.removeAttribute(k); }
+        if (!t.getAttribute("style")) t.removeAttribute("style");
+      }
       // fundo ligado/desligado: copia a classe e os atributos do vídeo
       for (const el of document.querySelectorAll("[data-ed-cls]")) {
         if (listOf(el) || el.closest("[data-ed-new]")) continue;
@@ -687,8 +793,8 @@
       await gh(filePath("index.html"), { method: "PUT", body: JSON.stringify({ message: "Site: editar página inicial", content: encText(html), sha: d.sha, branch: GH.branch }) });
       dirty = false;
       // a página no GitHub agora é igual a esta: zera as marcas e renumera, para poder salvar de novo sem recarregar
-      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom], [data-ed-cls]").forEach(el => {
-        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls"].forEach(k => el.removeAttribute(k));
+      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom], [data-ed-cls], [data-ed-op]").forEach(el => {
+        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls", "data-ed-op"].forEach(k => el.removeAttribute(k));
       });
       apagados.length = 0;
       tagIds();

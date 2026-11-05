@@ -189,6 +189,12 @@ INSERIR IMAGEM, VÍDEO, TEXTO, TÍTULO E ABAS NOVAS (página inicial, qualquer a
   FUNDO: com uma imagem ou vídeo selecionado (ou o balão que tem a imagem/vídeo), clique em
   "Usar como fundo": ela cobre o balão inteiro, com uma camada escura para o texto aparecer.
   Vídeo de fundo toca sozinho, em loop e sem som. Para voltar: selecione o balão -> "Tirar do fundo".
+  EFEITOS: selecione qualquer coisa e clique em "Efeitos":
+    Opacidade 10-100%, Desfoque 0-100%, Sombra 0-100% + cor, Brilho 0-100% + cor.
+    Sombra e brilho valem para o texto do que está selecionado (título, parágrafo, botão,
+    ou um balão inteiro) e podem ser usados juntos. Duplo clique no nome volta ao normal.
+    Num balão com imagem/vídeo de fundo, marque "só no fundo" para mudar só o fundo
+    (ex.: fundo desfocado e mais transparente, com o texto nítido por cima).
   APAGAR: selecione e clique em "Apagar" e depois em "Confirmar apagar". As abas que você criou
   também podem ser apagadas (selecione a aba inteira com "Selecionar o bloco de fora").
   As abas que já vinham no site não podem ser apagadas, só o que está dentro delas.
