@@ -98,10 +98,30 @@ section.block.tab-page { border-bottom: 0; }
 .rk-chips button { font: 600 .9375rem var(--f-body); color: var(--ink); background: var(--sky-2); border: 1px solid var(--line); border-radius: 999px; padding: .5rem .95rem; cursor: pointer; }
 .rk-chips button:hover { border-color: var(--violet); }
 .rk-chips button[aria-selected="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
-.rk-sub { display: flex; flex-wrap: wrap; gap: .375rem; margin: -.5rem 0 1.25rem; }
-.rk-sub button { font: 600 .8125rem var(--f-body); color: var(--ink-dim); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: .3rem .7rem; cursor: pointer; }
-.rk-sub button:hover { color: var(--ink); border-color: var(--violet-soft); }
-.rk-sub button[aria-selected="true"] { color: var(--ink); border-color: var(--violet-soft); background: color-mix(in srgb, var(--violet) 25%, transparent); }
+.rk-sub { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.75rem, 1fr)); gap: .5rem; margin: -.25rem 0 1.5rem; max-width: 60rem; }
+.rk-sub button { display: grid; justify-items: center; gap: .35rem; padding: .7rem .4rem .6rem; font: 600 .8125rem var(--f-body); color: var(--ink-dim); background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; text-align: center; line-height: 1.2; }
+.rk-sub button:hover { color: var(--ink); border-color: var(--violet-soft); background: var(--sky-3); }
+.rk-sub button[aria-selected="true"] { color: var(--ink); border-color: var(--violet); background: color-mix(in srgb, var(--violet) 22%, var(--sky-2)); box-shadow: 0 0 0 1px var(--violet) inset; }
+.rk-ic { width: 2rem; height: 2rem; image-rendering: pixelated; display: block; }
+.rk-sub .rk-ic-vazio { width: 2rem; height: 2rem; border-radius: 6px; background: var(--sky-3); }
+.rk-title { display: flex; align-items: center; gap: .6rem; margin: 0 0 .25rem; font: 700 1.25rem var(--f-display); }
+.rk-title .rk-ic { width: 2.25rem; height: 2.25rem; }
+@media (max-width: 560px) { .rk-sub { grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: .4rem; } .rk-sub button { font-size: .75rem; padding: .55rem .25rem .5rem; } .rk-ic { width: 1.75rem; height: 1.75rem; } }
+.rk-modo { display: inline-flex; gap: .25rem; padding: .25rem; margin-bottom: .75rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 999px; }
+.rk-modo button { font: 700 .9375rem var(--f-body); color: var(--ink-dim); background: transparent; border: 0; border-radius: 999px; padding: .45rem 1.1rem; cursor: pointer; }
+.rk-modo button[aria-selected="true"] { background: var(--violet); color: var(--violet-ink); }
+.rk-tempo { margin: 0 0 1rem; color: var(--ink-dim); font-size: .9375rem; }
+.rk-tempo b { color: var(--ink); }
+.rk-prize { font: 700 .875rem var(--f-body); color: #f2c14e; background: color-mix(in srgb, #f2c14e 12%, transparent); border: 1px solid color-mix(in srgb, #f2c14e 45%, transparent); border-radius: 999px; padding: .2rem .65rem; white-space: nowrap; justify-self: end; }
+.rk-row.prize { grid-template-columns: 2.5rem 2.25rem minmax(0, 1fr) auto auto; }
+.rk-row.vago .rk-name { color: var(--ink-dim); font-weight: 400; font-style: italic; }
+.rk-row.vago .rk-head { opacity: .4; }
+.rk-ant { margin: 1rem 0 0; padding: .75rem 1rem; max-width: 46rem; border-radius: 10px; background: var(--sky-2); border: 1px solid var(--line); color: var(--ink-dim); font-size: .9375rem; }
+.rk-ant b { color: var(--ink); }
+@media (max-width: 560px) {
+  .rk-row.prize { grid-template-columns: 2rem 2.25rem minmax(0, 1fr) auto; }
+  .rk-row.prize .rk-prize { grid-column: 3 / -1; justify-self: start; }
+}
 .rk-board { display: grid; gap: .5rem; max-width: 46rem; }
 .rk-desc { margin: 0 0 .5rem; color: var(--ink-dim); }
 .rk-row { display: grid; grid-template-columns: 2.5rem 2.25rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; padding: .625rem .875rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; }
@@ -459,9 +479,12 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <h2>Os melhores do servidor</h2>
         <p class="lead">Quem mais jogou, quem tem mais dinheiro, os maiores Ranks, os melhores domadores de pets e muito mais. O servidor atualiza sozinho.</p>
       </div>
+      <div class="rk-modo" role="tablist" aria-label="Período" hidden><button type="button" data-modo="mes" aria-selected="true">Este mês</button><button type="button" data-modo="total" aria-selected="false">Total</button></div>
+      <p class="rk-tempo" hidden></p>
       <div class="rk-chips" role="tablist" aria-label="Escolha o ranking"></div>
       <div class="rk-sub" hidden></div>
       <div class="rk-board" aria-live="polite"><p class="rk-empty">Carregando os rankings…</p></div>
+      <p class="rk-ant" hidden></p>
       <p class="note rk-upd"></p>
     </div>
   </section>
@@ -650,29 +673,62 @@ fromHash(); addEventListener("hashchange", fromHash);
     if (f === "nivel") return "Nv. " + num(v);
     return num(v);
   }
-  let items = [];
+  const ICONES = new Set(["mineracao", "lenhador", "escavacao", "agricultura", "pesca", "espadas", "machados", "desarmado", "arqueria", "armas-pesadas", "defesa", "acrobacia", "alquimia", "encantamento", "domesticacao", "forja", "culinaria", "forca", "vida", "regeneracao", "sorte", "sabedoria", "resistencia", "agilidade", "precisao", "pets"]);
+  const iconeDe = r => {
+    const k = String(r.id || "").replace(/^hab-/, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const t = String(r.titulo || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const n = ICONES.has(k) ? k : ICONES.has(t) ? t : null;
+    return n ? `<img class="rk-ic" src="img/icones/${n}.svg" alt="" loading="lazy">` : "";
+  };
+  let items = [], dados = null, modo = "mes";
+  try { modo = localStorage.getItem("astralRkModo") || "mes"; } catch (e) {}
+  const modoBox = document.querySelector(".rk-modo"), tempoEl = document.querySelector(".rk-tempo"), antEl = document.querySelector(".rk-ant");
+  const temMes = () => dados && dados.mes && Array.isArray(dados.rankings) && dados.rankings.some(r => Array.isArray(r.mes));
+  function falta(fim) {
+    const ms = new Date(fim) - Date.now(); if (!(ms > 0)) return "";
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
+    return d ? `${d} d ${h} h` : h ? `${h} h ${m} min` : `${m} min`;
+  }
+  function mais(v, f) {
+    if (f === "nivel") { const n = Math.floor(Number(v) || 0); return "+" + n + (n === 1 ? " nível" : " níveis"); }
+    return "+" + fmt(v, f).replace(/^\$ /, "$ ");
+  }
   const sub = document.querySelector(".rk-sub");
-  function show(list, k) {
+  let show = function (list, k) {
     const r = list[k];
     chips.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-selected", items[i].idxs.includes(k)));
     const it = items.find(x => x.idxs.includes(k));
     if (it && it.grupo) {
       sub.hidden = false;
-      sub.innerHTML = it.idxs.map(i => `<button type="button" data-i="${i}" aria-selected="${i === k}">${esc(list[i].titulo)}</button>`).join("");
+      sub.innerHTML = it.idxs.map(i => `<button type="button" data-i="${i}" aria-selected="${i === k}" title="${esc(list[i].titulo)}">${iconeDe(list[i]) || '<span class="rk-ic-vazio"></span>'}<span>${esc(list[i].titulo)}</span></button>`).join("");
       sub.querySelectorAll("button").forEach(b => b.addEventListener("click", () => show(list, +b.dataset.i)));
       it.last = k;
     } else sub.hidden = true;
-    const rows = (r.jogadores || []).slice(0, Number(r.limite) || 10);
-    board.innerHTML = (r.descricao ? `<p class="rk-desc">${esc(r.descricao)}</p>` : "") + (rows.length ? rows.map((p, i) => {
+    const doMes = modo === "mes" && temMes();
+    const premios = doMes && dados.mes.premios !== false && Array.isArray(r.premios) ? r.premios : [];
+    const lista = (doMes ? r.mes : r.jogadores) || [];
+    const n = Math.min(Number(r.limite) || 10, Math.max(lista.length, premios.length));
+    const rows = Array.from({ length: n }, (_, i) => lista[i] || null);
+    // vencedores do mês passado neste ranking
+    const ant = doMes && dados.anterior && (dados.anterior.rankings || []).find(x => x.id === r.id);
+    antEl.hidden = !ant;
+    if (ant) antEl.innerHTML = `Vencedores de <b>${esc(dados.anterior.nome)}</b>: ` + ant.jogadores.slice(0, 3).map((p, i) => `${i + 1}º <b>${esc(p.nome)}</b>${p.premio ? " (" + esc(p.premio) + ")" : ""}`).join(" · ");
+    const titulo = r.grupo ? `<h3 class="rk-title">${iconeDe(r)}${esc(r.titulo)}</h3>` : "";
+    board.innerHTML = titulo + (r.descricao ? `<p class="rk-desc">${esc(r.descricao)}</p>` : "") + (rows.length ? rows.map((p, i) => {
+      const pr = premios[i] ? `<span class="rk-prize" title="Prêmio desta colocação">Prêmio: ${esc(premios[i])}</span>` : "";
+      const cls = `rk-row${i < 3 ? " p" + (i + 1) : ""}${pr ? " prize" : ""}${p ? "" : " vago"}`;
+      if (!p) return `<div class="${cls}"><span class="rk-pos">${i + 1}º</span><span class="rk-head"></span><span class="rk-name">Ninguém ainda</span><span class="rk-val"></span>${pr}</div>`;
       const nome = String(p.nome || "?"), java = r.cabecas !== false && /^[A-Za-z0-9_]{3,16}$/.test(nome);
       const ini = (nome.replace(/^[^A-Za-z0-9À-ú]+/, "")[0] || "?").toUpperCase();
       const head = java ? `<img src="https://mc-heads.net/avatar/${encodeURIComponent(nome)}/36" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(ini)}'))">` : esc(ini);
-      return `<div class="rk-row${i < 3 ? " p" + (i + 1) : ""}"><span class="rk-pos">${i + 1}º</span><span class="rk-head">${head}</span><span class="rk-name">${esc(nome)}</span><span class="rk-val">${esc(p.texto || fmt(p.valor, r.formato))}</span></div>`;
-    }).join("") : `<p class="rk-empty">Ninguém neste ranking ainda.</p>`);
+      const val = doMes ? mais(p.valor, r.formato) : (p.texto || fmt(p.valor, r.formato));
+      return `<div class="${cls}"><span class="rk-pos">${i + 1}º</span><span class="rk-head">${head}</span><span class="rk-name">${esc(nome)}</span><span class="rk-val">${esc(val)}</span>${pr}</div>`;
+    }).join("") : `<p class="rk-empty">${doMes ? "Ninguém subiu neste ranking ainda este mês." : "Ninguém neste ranking ainda."}</p>`);
     try { localStorage.setItem("astralRk", r.id || k); } catch (e) {}
-  }
+  };
   fetch("rankings.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
     const list = d && Array.isArray(d.rankings) ? d.rankings.filter(r => r && r.titulo) : [];
+    dados = d;
     if (!list.length) { board.innerHTML = `<p class="rk-empty">Os rankings aparecem aqui assim que o servidor começar a enviar os dados.</p>`; return; }
     // rankings com o mesmo "grupo" (ex.: Habilidades) viram um botão só, com os botões de cada um embaixo
     items = [];
@@ -683,7 +739,24 @@ fromHash(); addEventListener("hashchange", fromHash);
     chips.innerHTML = items.map(it => `<button type="button" role="tab" aria-selected="false">${esc(it.label)}</button>`).join("");
     chips.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => show(list, items[i].last ?? items[i].idxs[0])));
     let saved = null; try { saved = localStorage.getItem("astralRk"); } catch (e) {}
-    const k = Math.max(0, list.findIndex(r => r.id === saved));
+    let k = Math.max(0, list.findIndex(r => r.id === saved));
+    if (temMes()) {
+      modoBox.hidden = false;
+      const marcaModo = () => {
+        modoBox.querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", b.dataset.modo === modo));
+        const f = falta(d.mes.fim);
+        tempoEl.hidden = modo !== "mes";
+        tempoEl.innerHTML = `Ranking de <b>${esc(d.mes.nome || "")}</b>: conta só o que cada um subiu neste mês` + (f ? ` · termina em <b>${f}</b>` : "")
+          + (d.mes.premios !== false ? ". Os prêmios chegam por carta do Carteiro na virada do mês." : ".");
+      };
+      modoBox.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+        modo = b.dataset.modo; try { localStorage.setItem("astralRkModo", modo); } catch (e) {}
+        marcaModo(); show(list, k);
+      }));
+      marcaModo();
+    } else { modo = "total"; }
+    const show0 = show;
+    show = (l, i) => { k = i; show0(l, i); };
     show(list, k);
     if (d.atualizado) { const t = new Date(d.atualizado); if (!isNaN(t)) upd.textContent = "Atualizado em " + t.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) + "."; }
   }).catch(() => { board.innerHTML = `<p class="rk-empty">Não deu para carregar os rankings agora. Tente de novo em alguns minutos.</p>`; });
