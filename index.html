@@ -98,6 +98,10 @@ section.block.tab-page { border-bottom: 0; }
 .rk-chips button { font: 600 .9375rem var(--f-body); color: var(--ink); background: var(--sky-2); border: 1px solid var(--line); border-radius: 999px; padding: .5rem .95rem; cursor: pointer; }
 .rk-chips button:hover { border-color: var(--violet); }
 .rk-chips button[aria-selected="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
+.rk-sub { display: flex; flex-wrap: wrap; gap: .375rem; margin: -.5rem 0 1.25rem; }
+.rk-sub button { font: 600 .8125rem var(--f-body); color: var(--ink-dim); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: .3rem .7rem; cursor: pointer; }
+.rk-sub button:hover { color: var(--ink); border-color: var(--violet-soft); }
+.rk-sub button[aria-selected="true"] { color: var(--ink); border-color: var(--violet-soft); background: color-mix(in srgb, var(--violet) 25%, transparent); }
 .rk-board { display: grid; gap: .5rem; max-width: 46rem; }
 .rk-desc { margin: 0 0 .5rem; color: var(--ink-dim); }
 .rk-row { display: grid; grid-template-columns: 2.5rem 2.25rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; padding: .625rem .875rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; }
@@ -456,6 +460,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <p class="lead">Quem mais jogou, quem tem mais dinheiro, os maiores Ranks, os melhores domadores de pets e muito mais. O servidor atualiza sozinho.</p>
       </div>
       <div class="rk-chips" role="tablist" aria-label="Escolha o ranking"></div>
+      <div class="rk-sub" hidden></div>
       <div class="rk-board" aria-live="polite"><p class="rk-empty">Carregando os rankings…</p></div>
       <p class="note rk-upd"></p>
     </div>
@@ -645,13 +650,23 @@ fromHash(); addEventListener("hashchange", fromHash);
     if (f === "nivel") return "Nv. " + num(v);
     return num(v);
   }
+  let items = [];
+  const sub = document.querySelector(".rk-sub");
   function show(list, k) {
     const r = list[k];
-    chips.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-selected", i === k));
+    chips.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-selected", items[i].idxs.includes(k)));
+    const it = items.find(x => x.idxs.includes(k));
+    if (it && it.grupo) {
+      sub.hidden = false;
+      sub.innerHTML = it.idxs.map(i => `<button type="button" data-i="${i}" aria-selected="${i === k}">${esc(list[i].titulo)}</button>`).join("");
+      sub.querySelectorAll("button").forEach(b => b.addEventListener("click", () => show(list, +b.dataset.i)));
+      it.last = k;
+    } else sub.hidden = true;
     const rows = (r.jogadores || []).slice(0, Number(r.limite) || 10);
     board.innerHTML = (r.descricao ? `<p class="rk-desc">${esc(r.descricao)}</p>` : "") + (rows.length ? rows.map((p, i) => {
-      const nome = String(p.nome || "?"), java = /^[A-Za-z0-9_]{3,16}$/.test(nome);
-      const head = java ? `<img src="https://mc-heads.net/avatar/${encodeURIComponent(nome)}/36" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(nome[0] || "?")}'))">` : esc(nome.replace(/^\W/, "")[0] || "?");
+      const nome = String(p.nome || "?"), java = r.cabecas !== false && /^[A-Za-z0-9_]{3,16}$/.test(nome);
+      const ini = (nome.replace(/^[^A-Za-z0-9À-ú]+/, "")[0] || "?").toUpperCase();
+      const head = java ? `<img src="https://mc-heads.net/avatar/${encodeURIComponent(nome)}/36" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(ini)}'))">` : esc(ini);
       return `<div class="rk-row${i < 3 ? " p" + (i + 1) : ""}"><span class="rk-pos">${i + 1}º</span><span class="rk-head">${head}</span><span class="rk-name">${esc(nome)}</span><span class="rk-val">${esc(p.texto || fmt(p.valor, r.formato))}</span></div>`;
     }).join("") : `<p class="rk-empty">Ninguém neste ranking ainda.</p>`);
     try { localStorage.setItem("astralRk", r.id || k); } catch (e) {}
@@ -659,8 +674,14 @@ fromHash(); addEventListener("hashchange", fromHash);
   fetch("rankings.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
     const list = d && Array.isArray(d.rankings) ? d.rankings.filter(r => r && r.titulo) : [];
     if (!list.length) { board.innerHTML = `<p class="rk-empty">Os rankings aparecem aqui assim que o servidor começar a enviar os dados.</p>`; return; }
-    chips.innerHTML = list.map((r, i) => `<button type="button" role="tab" aria-selected="false">${esc(r.titulo)}</button>`).join("");
-    chips.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => show(list, i)));
+    // rankings com o mesmo "grupo" (ex.: Habilidades) viram um botão só, com os botões de cada um embaixo
+    items = [];
+    list.forEach((r, i) => {
+      if (r.grupo) { let g = items.find(x => x.grupo === r.grupo); if (!g) items.push(g = { label: r.grupo, grupo: r.grupo, idxs: [] }); g.idxs.push(i); }
+      else items.push({ label: r.titulo, idxs: [i] });
+    });
+    chips.innerHTML = items.map(it => `<button type="button" role="tab" aria-selected="false">${esc(it.label)}</button>`).join("");
+    chips.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => show(list, items[i].last ?? items[i].idxs[0])));
     let saved = null; try { saved = localStorage.getItem("astralRk"); } catch (e) {}
     const k = Math.max(0, list.findIndex(r => r.id === saved));
     show(list, k);
