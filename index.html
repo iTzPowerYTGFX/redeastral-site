@@ -261,8 +261,8 @@ footer h3 { font-size: 1rem; color: var(--ink); }
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Rede Astral, início"><img src="img/marca-clara.png" alt="" data-logo="">Rede Astral</a>
     <nav class="nav" aria-label="Seções">
-      <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
-    </nav>
+      <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
+    <a href="#regras" data-tab="regras">Regras</a></nav>
     <details class="menu">
       <summary>Menu</summary>
       <nav class="nav" aria-label="Seções (menu)">
@@ -832,6 +832,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
 try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
+
 
 
 
