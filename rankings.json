@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-06T23:03:25Z",
+  "atualizado": "2026-11-06T23:33:26Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -24,7 +24,7 @@
       {"nome": "_Foxyismyname553", "valor": 223},
       {"nome": "DullLucasdeolro", "valor": 179},
       {"nome": "_TioDoPave9665", "valor": 59},
-      {"nome": "_Kroven_1611", "valor": 52},
+      {"nome": "_Kroven_1611", "valor": 55},
       {"nome": "_Dxvi779974", "valor": 27}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
