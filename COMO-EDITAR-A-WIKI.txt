@@ -141,9 +141,12 @@ NOVA PÁGINA
   Barra roxa -> "Nova página" -> título e categoria (ou "+ Nova categoria").
   A página é criada, entra no menu e o editor abre.
 
-LINKS DO DISCORD E DA LOJA
+LINKS DO DISCORD, DA LOJA, DO YOUTUBE E DO INSTAGRAM
   Barra roxa -> "Links do site" -> cole os links -> Salvar links.
-  Vale para a página inicial e para a Wiki.
+  Vale para a página inicial e para a Wiki (botões do Discord e da loja e a aba Redes sociais).
+  Enquanto um link estiver vazio, o botão/cartão mostra "Em breve".
+  Os ícones da aba Redes sociais ficam em img/redes/ (video.svg, camera.svg, chat.svg);
+  para trocar por outra imagem, suba um arquivo com o mesmo nome por cima.
 
 SAIR
   Barra roxa -> "Sair". Apaga a chave deste navegador.
