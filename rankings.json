@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-06T10:32:48Z",
+  "atualizado": "2026-11-06T12:02:48Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -16,7 +16,7 @@
       {"nome": "xmatheusgmr", "valor": 1961}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 451},
+      {"nome": "_Flos7304", "valor": 471},
       {"nome": "TagaYato_", "valor": 344},
       {"nome": "_MitKan22", "valor": 314},
       {"nome": "_Maya06908", "valor": 242},
