@@ -94,6 +94,22 @@ section.block.tab-page { border-bottom: 0; }
 .btn:hover { background: var(--sky-3); }
 .btn.accent { background: var(--violet); color: var(--violet-ink); border-color: var(--violet); }
 .btn.accent:hover { filter: brightness(1.12); }
+/* Redes sociais */
+.redes { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; max-width: 64rem; }
+.rede { --rede-cor: var(--violet); display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); align-items: center; gap: .5rem 1rem; padding: 1.25rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-decoration: none; transition: border-color .2s, transform .2s; }
+.rede:hover { border-color: var(--rede-cor); transform: translateY(-2px); }
+.rede-yt { --rede-cor: #ff4e5b; } .rede-ig { --rede-cor: #e04d8f; } .rede-dc { --rede-cor: #6672f5; }
+.rede-ic { width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--rede-cor); display: grid; place-items: center; }
+.rede-ic img { width: 2.1rem; height: 2.1rem; display: block; }
+.rede-txt { display: grid; gap: .2rem; min-width: 0; }
+.rede-txt strong { font: 700 1.125rem var(--f-display); }
+.rede-txt small { font-size: .875rem; color: var(--ink-dim); line-height: 1.45; }
+.rede-cta { grid-column: 1 / -1; justify-self: start; margin-top: .5rem; font-weight: 700; color: var(--rede-cor); }
+.rede[aria-disabled="true"] { cursor: default; }
+.rede[aria-disabled="true"]:hover { transform: none; border-color: var(--line); }
+.rede[aria-disabled="true"] .rede-cta { display: none; }
+a.rede[data-link][aria-disabled="true"]::after { content: "Em breve"; grid-column: 1 / -1; justify-self: start; margin-top: .5rem; font-size: .8125rem; font-weight: 700; color: var(--ink-dim); border: 1px dashed var(--line); border-radius: 999px; padding: .15rem .6rem; }
+@media (prefers-reduced-motion: reduce) { .rede, .rede:hover { transition: none; transform: none; } }
 /* Imagens, vídeos e textos colocados pelo editor */
 .site-media { margin: 1.25rem 0; max-width: 100%; }
 .site-media img, .site-media video { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: var(--sky-2); }
@@ -281,12 +297,12 @@ footer h3 { font-size: 1rem; color: var(--ink); }
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Rede Astral, início"><img src="img/marca-clara.png" alt="" data-logo="">Rede Astral</a>
     <nav class="nav" aria-label="Seções">
-      <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
+      <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
     <a href="#regras" data-tab="regras">Regras</a></nav>
     <details class="menu">
       <summary>Menu</summary>
       <nav class="nav" aria-label="Seções (menu)">
-        <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
+        <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
       </nav>
     </details>
     <a class="btn accent" data-link="discord" href="#">Discord</a>
@@ -530,6 +546,21 @@ footer h3 { font-size: 1rem; color: var(--ink); }
       <div class="shop-foot">
         <a class="btn accent" data-link="loja" href="#">Abrir loja</a>
         <p class="note">Antes de comprar, entre no servidor pelo menos uma vez e confira se o nick está escrito igual ao do jogo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="redes">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="eyebrow">Redes sociais</p>
+        <h2>Siga a Rede Astral</h2>
+        <p class="lead">Novidades, eventos, vídeos e a comunidade do servidor. Escolha onde quer acompanhar.</p>
+      </div>
+      <div class="redes">
+        <a class="rede rede-yt" data-link="youtube" href="#"><span class="rede-ic"><img src="img/redes/video.svg" alt=""></span><span class="rede-txt"><strong>YouTube</strong><small>Trailers, tutoriais e eventos do servidor em vídeo.</small></span><b class="rede-cta">Inscrever-se →</b></a>
+        <a class="rede rede-ig" data-link="instagram" href="#"><span class="rede-ic"><img src="img/redes/camera.svg" alt=""></span><span class="rede-txt"><strong>Instagram</strong><small>Fotos das construções, prévias e avisos rápidos.</small></span><b class="rede-cta">Seguir →</b></a>
+        <a class="rede rede-dc" data-link="discord" href="#"><span class="rede-ic"><img src="img/redes/chat.svg" alt=""></span><span class="rede-txt"><strong>Discord</strong><small>Converse com os jogadores, tire dúvidas e veja os anúncios.</small></span><b class="rede-cta">Entrar →</b></a>
       </div>
     </div>
   </section>

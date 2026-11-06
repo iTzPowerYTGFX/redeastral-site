@@ -5,6 +5,8 @@
    Não apague as aspas nem as vírgulas do fim das linhas. */
 window.ASTRAL = {
   discord: "https://discord.gg/FJmAeC2mD9",      // convite do Discord
+  youtube: "",                                   // ex.: "https://www.youtube.com/@redeastral"
+  instagram: "",                                 // ex.: "https://www.instagram.com/redeastral"
   loja: "",                                      // ex.: "https://redeastral.centralcart.com.br"
   java: "ultra-07.bedhosting.com.br:30231",      // endereço do Java (com a porta)
   bedrock: "ultra-07.bedhosting.com.br",         // endereço do Bedrock (sem a porta)

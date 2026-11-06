@@ -21,6 +21,7 @@
     [".tier h3", 1], [".tier p", 0], [".shop-foot .note", 0],
     [".faq summary", 1], [".faq details p", 0],
     ["footer .legal h3", 1], ["footer .legal p", 0],
+    [".rede-txt strong", 1], [".rede-txt small", 0], [".rede-cta", 1],
     // botões e menu
     [".hero-cta .btn", 1], [".shop-foot .btn", 1], [".top .nav a", 1], [".tab", 1], ["#home-search button", 1]
   ];

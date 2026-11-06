@@ -368,6 +368,8 @@ dialog.form.wide { width: min(94vw, 46rem); }
   <form id="lk-form">
     <label class="field">Convite do Discord<input id="lk-discord" type="url" placeholder="https://discord.gg/…"></label>
     <label class="field">Loja<input id="lk-loja" type="url" placeholder="https://….centralcart.com.br"></label>
+    <label class="field">YouTube<input id="lk-youtube" type="url" placeholder="https://www.youtube.com/@…"></label>
+    <label class="field">Instagram<input id="lk-instagram" type="url" placeholder="https://www.instagram.com/…"></label>
     <p class="ed-status" id="lk-status" role="status"></p>
     <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Salvar links</button></div>
   </form>
@@ -1438,7 +1440,7 @@ $("#ed-links").addEventListener("click", async () => {
     CFG_FILE = await getFile("config.js");
     if (!CFG_FILE) throw new Error("O arquivo config.js não foi encontrado no repositório.");
     const get = k => ((CFG_FILE.text.match(new RegExp(k + '\\s*:\\s*"([^"]*)"')) || [])[1] || "");
-    $("#lk-discord").value = get("discord"); $("#lk-loja").value = get("loja");
+    for (const k of ["discord", "loja", "youtube", "instagram"]) $("#lk-" + k).value = get(k);
     setStatus($("#lk-status"), "");
   } catch (e) { setStatus($("#lk-status"), e.message, "err"); }
 });
@@ -1447,10 +1449,13 @@ $("#lk-form").addEventListener("submit", async e => {
   if (!CFG_FILE) return;
   const val = id => $(id).value.trim().replace(/["\\\n]/g, "");
   let text = CFG_FILE.text;
-  for (const [k, v] of [["discord", val("#lk-discord")], ["loja", val("#lk-loja")]]) {
+  for (const k of ["discord", "loja", "youtube", "instagram"]) {
+    const v = val("#lk-" + k);
     const rx = new RegExp("(" + k + '\\s*:\\s*")[^"]*(")');
-    if (!rx.test(text)) return setStatus($("#lk-status"), `Não achei a linha "${k}" no config.js. Edite pelo GitHub.`, "err");
-    text = text.replace(rx, (m, a, b) => a + v + b);
+    if (rx.test(text)) { text = text.replace(rx, (m, a, b) => a + v + b); continue; }
+    // linha ainda não existe no config.js: cria logo depois de "window.ASTRAL = {"
+    if (!/window\.ASTRAL\s*=\s*\{/.test(text)) return setStatus($("#lk-status"), `Não achei a linha "${k}" no config.js. Edite pelo GitHub.`, "err");
+    text = text.replace(/(window\.ASTRAL\s*=\s*\{\s*\n)/, `$1  ${k}: "${v}",\n`);
   }
   try {
     setStatus($("#lk-status"), "Salvando…");
