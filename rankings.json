@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-06T20:33:12Z",
+  "atualizado": "2026-11-06T21:03:15Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -8,7 +8,7 @@
       {"nome": "TagaYato_", "valor": 12273},
       {"nome": "_MitKan22", "valor": 11427},
       {"nome": "_Heisenberg22194", "valor": 7786},
-      {"nome": "_M_na_voz", "valor": 5848},
+      {"nome": "_M_na_voz", "valor": 5860},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3200},
       {"nome": "_Maya06908", "valor": 2681},
@@ -19,7 +19,7 @@
       {"nome": "_Flos7304", "valor": 854},
       {"nome": "_MitKan22", "valor": 363},
       {"nome": "TagaYato_", "valor": 344},
-      {"nome": "_M_na_voz", "valor": 301},
+      {"nome": "_M_na_voz", "valor": 313},
       {"nome": "_Maya06908", "valor": 298},
       {"nome": "_Foxyismyname553", "valor": 223},
       {"nome": "DullLucasdeolro", "valor": 142},
@@ -71,6 +71,7 @@
       {"nome": "_Kroven_1611", "valor": 3},
       {"nome": "_Foxyismyname553", "valor": 2},
       {"nome": "_Dxvi779974", "valor": 1},
+      {"nome": "_M_na_voz", "valor": 1},
       {"nome": "_Maya06908", "valor": 1}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
