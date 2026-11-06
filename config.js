@@ -4,7 +4,7 @@
    Deixe "" (aspas vazias) enquanto não tiver: o botão aparece como "em breve".
    Não apague as aspas nem as vírgulas do fim das linhas. */
 window.ASTRAL = {
-  discord: "",                                   // ex.: "https://discord.gg/seuconvite"
+  discord: "https://discord.gg/FJmAeC2mD9",      // convite do Discord
   loja: "",                                      // ex.: "https://redeastral.centralcart.com.br"
   java: "ultra-07.bedhosting.com.br:30231",      // endereço do Java (com a porta)
   bedrock: "ultra-07.bedhosting.com.br",         // endereço do Bedrock (sem a porta)
