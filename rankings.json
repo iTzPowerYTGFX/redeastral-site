@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-06T13:02:50Z",
+  "atualizado": "2026-11-06T13:32:51Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -16,7 +16,7 @@
       {"nome": "xmatheusgmr", "valor": 1961}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 531},
+      {"nome": "_Flos7304", "valor": 561},
       {"nome": "TagaYato_", "valor": 344},
       {"nome": "_MitKan22", "valor": 341},
       {"nome": "_Maya06908", "valor": 242},
@@ -164,7 +164,8 @@
      ],
      "mes": [
       {"nome": "_Kroven_1611", "valor": 4},
-      {"nome": "_Foxyismyname553", "valor": 2}
+      {"nome": "_Foxyismyname553", "valor": 2},
+      {"nome": "_Flos7304", "valor": 1}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-machados", "titulo": "Machados", "formato": "nivel", "grupo": "Habilidades",
@@ -333,8 +334,8 @@
       {"nome": "_Jpzin001", "valor": 16},
       {"nome": "_Maya06908", "valor": 10},
       {"nome": "_Dxvi779974", "valor": 7},
-      {"nome": "_M_na_voz", "valor": 5},
-      {"nome": "_Flos7304", "valor": 4}
+      {"nome": "_Flos7304", "valor": 7},
+      {"nome": "_M_na_voz", "valor": 5}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "pvp", "titulo": "Abates de jogadores", "formato": "numero",
