@@ -1,14 +1,14 @@
 {
-  "atualizado": "2026-11-06T00:02:32Z",
+  "atualizado": "2026-11-06T00:32:34Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 13149},
-      {"nome": "TagaYato_", "valor": 11948},
+      {"nome": "TagaYato_", "valor": 11980},
       {"nome": "_MitKan22", "valor": 11157},
       {"nome": "_Heisenberg22194", "valor": 7786},
-      {"nome": "_M_na_voz", "valor": 5627},
+      {"nome": "_M_na_voz", "valor": 5657},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3200},
       {"nome": "_Maya06908", "valor": 2383},
@@ -18,10 +18,10 @@
      "mes": [
       {"nome": "_Flos7304", "valor": 365},
       {"nome": "DullLucasdeolro", "valor": 142},
+      {"nome": "_M_na_voz", "valor": 110},
       {"nome": "_MitKan22", "valor": 93},
-      {"nome": "_M_na_voz", "valor": 80},
+      {"nome": "TagaYato_", "valor": 51},
       {"nome": "_Kroven_1611", "valor": 20},
-      {"nome": "TagaYato_", "valor": 19},
       {"nome": "_Heisenberg22194", "valor": 2}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
@@ -40,7 +40,7 @@
      ],
      "mes": [
       {"nome": "_Kroven_1611", "valor": 175040.32},
-      {"nome": "_M_na_voz", "valor": 8381.42},
+      {"nome": "_M_na_voz", "valor": 6882.44},
       {"nome": "_Heisenberg22194", "valor": 3300.00}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
@@ -48,7 +48,7 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 300, "texto": "Rank 300"},
       {"nome": "_MitKan22", "valor": 200, "texto": "Rank 200"},
-      {"nome": "TagaYato_", "valor": 180.00, "texto": "Rank 180"},
+      {"nome": "TagaYato_", "valor": 181.00, "texto": "Rank 181"},
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Jpzin001", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
@@ -59,7 +59,8 @@
      ],
      "mes": [
       {"nome": "_Kroven_1611", "valor": 2},
-      {"nome": "_Flos7304", "valor": 1}
+      {"nome": "_Flos7304", "valor": 1},
+      {"nome": "TagaYato_", "valor": 1}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "hab-mineracao", "titulo": "Mineração", "formato": "nivel", "grupo": "Habilidades",
@@ -94,7 +95,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-escavacao", "titulo": "Escavação", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "TagaYato_", "valor": 148},
+      {"nome": "TagaYato_", "valor": 150},
       {"nome": "DullLucasdeolro", "valor": 99},
       {"nome": "_M_na_voz", "valor": 28},
       {"nome": "_OsiBloodMoon", "valor": 20},
@@ -105,7 +106,9 @@
       {"nome": "_MitKan22", "valor": 3},
       {"nome": "_Heisenberg22194", "valor": 1}
      ],
-     "mes": [],
+     "mes": [
+      {"nome": "TagaYato_", "valor": 2}
+     ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-agricultura", "titulo": "Agricultura", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
@@ -281,7 +284,7 @@
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 162999},
-      {"nome": "TagaYato_", "valor": 50876},
+      {"nome": "TagaYato_", "valor": 50938},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 22210},
       {"nome": "_Jpzin001", "valor": 5600},
@@ -294,8 +297,8 @@
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 3265},
       {"nome": "_MitKan22", "valor": 554},
-      {"nome": "_Flos7304", "valor": 3},
-      {"nome": "TagaYato_", "valor": 3}
+      {"nome": "TagaYato_", "valor": 65},
+      {"nome": "_Flos7304", "valor": 3}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "pvp", "titulo": "Abates de jogadores", "formato": "numero",
