@@ -1,12 +1,12 @@
 {
-  "atualizado": "2026-11-07T10:01:12Z",
+  "atualizado": "2026-11-07T10:31:12Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 13186},
-      {"nome": "TagaYato_", "valor": 12660},
-      {"nome": "_MitKan22", "valor": 11738},
+      {"nome": "TagaYato_", "valor": 12669},
+      {"nome": "_MitKan22", "valor": 11747},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 5860},
       {"nome": "Shen_Kaizhang", "valor": 3974},
@@ -17,8 +17,8 @@
      ],
      "mes": [
       {"nome": "_Flos7304", "valor": 906},
-      {"nome": "TagaYato_", "valor": 731},
-      {"nome": "_MitKan22", "valor": 674},
+      {"nome": "TagaYato_", "valor": 740},
+      {"nome": "_MitKan22", "valor": 683},
       {"nome": "_M_na_voz", "valor": 313},
       {"nome": "_Maya06908", "valor": 298},
       {"nome": "_Foxyismyname553", "valor": 240},
@@ -326,9 +326,9 @@
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 163948},
-      {"nome": "TagaYato_", "valor": 69276},
+      {"nome": "TagaYato_", "valor": 69324},
       {"nome": "_Heisenberg22194", "valor": 33167},
-      {"nome": "_MitKan22", "valor": 25321},
+      {"nome": "_MitKan22", "valor": 25324},
       {"nome": "_Jpzin001", "valor": 5619},
       {"nome": "Shen_Kaizhang", "valor": 4402},
       {"nome": "_Afton2460", "valor": 3805},
@@ -337,9 +337,9 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
-      {"nome": "TagaYato_", "valor": 18403},
+      {"nome": "TagaYato_", "valor": 18451},
       {"nome": "DullLucasdeolro", "valor": 4214},
-      {"nome": "_MitKan22", "valor": 3665},
+      {"nome": "_MitKan22", "valor": 3668},
       {"nome": "_Kroven_1611", "valor": 86},
       {"nome": "_Foxyismyname553", "valor": 74},
       {"nome": "_Maya06908", "valor": 35},
