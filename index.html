@@ -98,9 +98,9 @@ section.block.tab-page { border-bottom: 0; }
 .redes { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; max-width: 64rem; }
 .rede { --rede-cor: var(--violet); display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); align-items: center; gap: .5rem 1rem; padding: 1.25rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-decoration: none; transition: border-color .2s, transform .2s; }
 .rede:hover { border-color: var(--rede-cor); transform: translateY(-2px); }
-.rede-yt { --rede-cor: #ff4e5b; } .rede-ig { --rede-cor: #e04d8f; } .rede-dc { --rede-cor: #6672f5; }
-.rede-ic { width: 3.5rem; height: 3.5rem; border-radius: 12px; background: var(--rede-cor); display: grid; place-items: center; }
-.rede-ic img { width: 2.1rem; height: 2.1rem; display: block; }
+.rede-yt { --rede-cor: #ff3b3b; } .rede-ig { --rede-cor: #d6337a; } .rede-dc { --rede-cor: #5865f2; }
+.rede-ic { width: 3.5rem; height: 3.5rem; display: grid; place-items: center; }
+.rede-ic img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .rede-txt { display: grid; gap: .2rem; min-width: 0; }
 .rede-txt strong { font: 700 1.125rem var(--f-display); }
 .rede-txt small { font-size: .875rem; color: var(--ink-dim); line-height: 1.45; }
@@ -127,6 +127,8 @@ a.rede[data-link][aria-disabled="true"]::after { content: "Em breve"; grid-colum
 .site-yt.vertical { aspect-ratio: 9 / 16; max-width: 22rem; }
 .site-yt iframe { display: block; width: 100%; height: 100%; border: 0; }
 .site-texto { max-width: 65ch; margin: 0 0 1rem; }
+.site-caixa { display: grid; gap: .75rem; margin: 1.25rem 0; padding: 1.5rem; max-width: 46rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 14px; }
+.site-caixa > .site-titulo, .site-caixa > .site-texto { margin: 0; }
 .site-titulo { margin: 1.5rem 0 .5rem; font-size: 1.375rem; }
 /* Rankings */
 .rk-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
@@ -558,9 +560,9 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <p class="lead">Novidades, eventos, vídeos e a comunidade do servidor. Escolha onde quer acompanhar.</p>
       </div>
       <div class="redes">
-        <a class="rede rede-yt" data-link="youtube" href="#"><span class="rede-ic"><img src="img/redes/video.svg" alt=""></span><span class="rede-txt"><strong>YouTube</strong><small>Trailers, tutoriais e eventos do servidor em vídeo.</small></span><b class="rede-cta">Inscrever-se →</b></a>
-        <a class="rede rede-ig" data-link="instagram" href="#"><span class="rede-ic"><img src="img/redes/camera.svg" alt=""></span><span class="rede-txt"><strong>Instagram</strong><small>Fotos das construções, prévias e avisos rápidos.</small></span><b class="rede-cta">Seguir →</b></a>
-        <a class="rede rede-dc" data-link="discord" href="#"><span class="rede-ic"><img src="img/redes/chat.svg" alt=""></span><span class="rede-txt"><strong>Discord</strong><small>Converse com os jogadores, tire dúvidas e veja os anúncios.</small></span><b class="rede-cta">Entrar →</b></a>
+        <a class="rede rede-yt" data-link="youtube" href="#"><span class="rede-ic"><img src="img/redes/youtube.webp" alt="YouTube"></span><span class="rede-txt"><strong>YouTube</strong><small>Trailers, tutoriais e eventos do servidor em vídeo.</small></span><b class="rede-cta">Inscrever-se →</b></a>
+        <a class="rede rede-ig" data-link="instagram" href="#"><span class="rede-ic"><img src="img/redes/instagram.webp" alt="Instagram"></span><span class="rede-txt"><strong>Instagram</strong><small>Fotos das construções, prévias e avisos rápidos.</small></span><b class="rede-cta">Seguir →</b></a>
+        <a class="rede rede-dc" data-link="discord" href="#"><span class="rede-ic"><img src="img/redes/discord.webp" alt="Discord"></span><span class="rede-txt"><strong>Discord</strong><small>Converse com os jogadores, tire dúvidas e veja os anúncios.</small></span><b class="rede-cta">Entrar →</b></a>
       </div>
     </div>
   </section>
