@@ -63,6 +63,17 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
   "Texto (avançado)": no computador fica do lado direito; no celular é o botão de cima.
   É o texto puro da página. Cartões de classe/habilidade se mudam por ali.
 
+MENU DO LADO (lista de páginas) — com a edição ligada
+  ⠿ (pontinhos verdes) do lado de uma página: segure e arraste para cima/baixo ou para
+     outra categoria (solte no nome dela = vai para o começo; embaixo dela = vai para o fim).
+  ⠿ do lado do nome de uma categoria: arraste para mudar a ordem das categorias.
+  Nome da categoria: clique nele, escreva e aperte Enter (Esc desiste).
+  A–Z (ao lado da categoria): ordena as páginas dela de A a Z.
+  "Tudo de A a Z" (no fim do menu): ordena as páginas de A a Z dentro de cada categoria.
+  "+ Nova categoria": cria uma no fim; escreva o nome e arraste páginas para ela.
+  ✕ aparece só em categoria vazia, para apagar.
+  Tudo isso salva sozinho na hora (muda também a ordem dos cartões no início da Wiki).
+
 TEXTOS FIXOS DA WIKI (menu do topo, rodapé, rótulos)
   Com a edição ligada, também dá para escrever direto em: "Wiki" do logo, "Início" e
   "Como entrar" do menu, texto do botão do Discord, "Todas as páginas" (celular),

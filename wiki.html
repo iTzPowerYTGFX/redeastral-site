@@ -69,6 +69,18 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .toc a:hover { color: var(--ink); background: var(--sky-2); }
 .toc a[aria-current="page"] { color: var(--ink); background: var(--sky-3); box-shadow: inset 3px 0 0 var(--violet); }
 .toc .wiki-home { font-weight: 700; color: var(--ink); }
+/* menu do lado no modo editor: arrastar, renomear categoria, A-Z */
+.toc-cat-h { display: flex; align-items: center; gap: .25rem; margin-bottom: .25rem; }
+.toc-cat-h h4 { margin: 0; flex: 1; min-width: 0; padding: .1rem .25rem; }
+.toc-row { display: flex; align-items: center; gap: .1rem; }
+.toc-row a { flex: 1; min-width: 0; }
+.toc-grip { flex: none; width: 1.5rem; height: 1.75rem; border: 0; background: none; color: var(--teal); cursor: grab; touch-action: none; user-select: none; border-radius: 4px; font-size: 1rem; line-height: 1; padding: 0; }
+.toc-grip:hover { background: var(--sky-3); }
+.toc-mini { flex: none; border: 1px solid var(--line); background: var(--sky-2); color: var(--ink-dim); border-radius: 6px; font: 700 .6875rem var(--f-body); padding: .2rem .45rem; cursor: pointer; }
+.toc-mini:hover { color: var(--ink); border-color: var(--violet); }
+.toc-tools { display: flex; flex-wrap: wrap; gap: .4rem; }
+.toc-tools .toc-mini { font-size: .8125rem; padding: .4rem .65rem; }
+.toc-vazia { margin: 0 0 0 1.6rem; padding: .35rem .625rem; font-size: .8125rem; color: var(--ink-dim); border: 1px dashed var(--line); border-radius: 6px; }
 
 .main { min-width: 0; }
 .search { position: relative; display: flex; align-items: center; gap: .5rem; background: var(--sky-2); border: 1px solid var(--line); border-radius: 10px; padding: .25rem .5rem .25rem .875rem; }
@@ -679,10 +691,17 @@ function indexPage(p) {
 
 function buildToc() {
   let h = `<a class="wiki-home" href="#"><span${rotAttr("inicio-wiki")}>${esc(rot("inicio-wiki"))}</span></a>`;
+  const grip = k => `<button type="button" class="toc-grip" data-tg="${k}" title="Segure e arraste para mudar de lugar" aria-label="Mover">⠿</button>`;
   for (const c of CATS) {
-    const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
-    h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`;
+    const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
+    if (!EDON) { h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`; continue; }
+    h += `<div class="toc-cat" data-cat="${esc(c)}"><div class="toc-cat-h">${grip("cat")}<h4 class="toc-cat-name wt-ed" contenteditable="true" spellcheck="false" title="Clique para mudar o nome da categoria">${esc(c)}</h4>`
+      + `<button type="button" class="toc-mini" data-ta="az" title="Ordenar as páginas desta categoria de A a Z">A–Z</button>`
+      + (ps.length ? "" : `<button type="button" class="toc-mini" data-ta="del" title="Apagar esta categoria (está vazia)">✕</button>`) + `</div>`
+      + ps.map(p => `<div class="toc-row" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a></div>`).join("")
+      + (ps.length ? "" : `<p class="toc-vazia">Vazia: arraste páginas para cá</p>`) + `</div>`;
   }
+  if (EDON) h += `<div class="toc-tools"><button type="button" class="toc-mini" data-ta="newcat">+ Nova categoria</button><button type="button" class="toc-mini" data-ta="azall" title="Ordena as páginas de A a Z dentro de cada categoria">Tudo de A a Z</button></div>`;
   toc.innerHTML = h;
 }
 
@@ -1601,6 +1620,117 @@ function hmShow(t) {
   else Object.assign(hmInd.style, { left: r.left + "px", top: (t.after ? r.bottom + 4 : r.top - 8) + "px", width: r.width + "px", height: "4px" });
   hmInd.hidden = false;
 }
+/* ----- menu do lado (modo editor): arrastar, renomear, criar categoria, A-Z. Salva sozinho. ----- */
+function aplicarMenu() {
+  const ordered = CATS.flatMap(c => PAGES.filter(p => p.cat === c)), rest = PAGES.filter(p => !CATS.includes(p.cat));
+  PAGES.length = 0; PAGES.push(...ordered, ...rest);
+  buildToc(); markToc(decodeURIComponent(location.hash.slice(1)));
+  if (!location.hash.slice(1) && !EDIT) showHome();
+  saveMenuOrder();
+}
+const TM_ORDEM = () => CATS.join("|") + "#" + PAGES.map(p => p.cat + "/" + p.id).join("|");
+const azTitulo = (a, b) => a.title.localeCompare(b.title, "pt", { sensitivity: "base", numeric: true });
+toc.addEventListener("click", e => {
+  const b = e.target.closest("[data-ta]"); if (!b || !EDON) return;
+  e.preventDefault();
+  const box = b.closest(".toc-cat"), cat = box && box.dataset.cat, k = b.dataset.ta;
+  if (k === "az" || k === "azall") {
+    const alvo = k === "az" ? [cat] : CATS;
+    const novo = CATS.flatMap(c => { const ps = PAGES.filter(p => p.cat === c); return alvo.includes(c) ? ps.sort(azTitulo) : ps; });
+    const rest = PAGES.filter(p => !CATS.includes(p.cat));
+    PAGES.length = 0; PAGES.push(...novo, ...rest); aplicarMenu();
+  } else if (k === "del") {
+    if (PAGES.some(p => p.cat === cat)) return toast("Tire as páginas da categoria antes de apagar.");
+    CATS.splice(CATS.indexOf(cat), 1); aplicarMenu();
+  } else if (k === "newcat") {
+    let n = "Nova categoria", i = 2; while (CATS.includes(n)) n = "Nova categoria " + i++;
+    CATS.push(n); aplicarMenu();
+    const h = [...toc.querySelectorAll(".toc-cat")].find(x => x.dataset.cat === n);
+    if (h) { const t = h.querySelector(".toc-cat-name"); t.focus(); const r = document.createRange(); r.selectNodeContents(t); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r); t.scrollIntoView({ block: "nearest" }); }
+    toast("Categoria criada: escreva o nome e arraste páginas para ela.");
+  }
+});
+toc.addEventListener("keydown", e => {
+  const h = e.target.closest && e.target.closest(".toc-cat-name"); if (!h) return;
+  if (e.key === "Enter") { e.preventDefault(); h.blur(); }
+  if (e.key === "Escape") { h.textContent = h.closest(".toc-cat").dataset.cat; h.blur(); }
+});
+toc.addEventListener("paste", e => {
+  if (!e.target.closest || !e.target.closest(".toc-cat-name")) return;
+  e.preventDefault(); document.execCommand("insertText", false, (e.clipboardData.getData("text/plain") || "").replace(/\s+/g, " "));
+});
+toc.addEventListener("focusout", e => {
+  const h = e.target.closest && e.target.closest(".toc-cat-name"); if (!h || !EDON) return;
+  const old = h.closest(".toc-cat").dataset.cat;
+  const nome = h.textContent.replace(/\s+/g, " ").trim().replace(/^#+\s*/, "").replace(/\.md$/i, "").trim();
+  if (!nome || nome === old) { h.textContent = old; return; }
+  if (CATS.includes(nome)) { h.textContent = old; return toast("Já existe uma categoria com esse nome."); }
+  CATS[CATS.indexOf(old)] = nome; PAGES.forEach(p => { if (p.cat === old) p.cat = nome; });
+  setTimeout(aplicarMenu, 0);
+});
+let TM = null;
+function tmTarget(x, y) {
+  const el = document.elementsFromPoint(x, y).find(n => n !== hmInd && !n.classList.contains("toc-grip"));
+  if (!el || !toc.contains(el)) return null;
+  const cat = el.closest(".toc-cat");
+  if (TM.kind === "page") {
+    const row = el.closest(".toc-row");
+    if (row && row !== TM.el) { const r = row.getBoundingClientRect(); return { el: row, after: y > r.top + r.height / 2 }; }
+    if (!cat) return null;
+    const head = cat.querySelector(".toc-cat-h");
+    if (head.contains(el)) return { el: head, after: true, cat: cat.dataset.cat, start: true };
+    if (!row) return { el: cat, after: true, cat: cat.dataset.cat, end: true };
+    return null;
+  }
+  if (cat && cat !== TM.el) { const r = cat.getBoundingClientRect(); return { el: cat, after: y > r.top + r.height / 2 }; }
+  if (!cat) { // entre categorias: a mais perto
+    let best = null, bd = 1e9;
+    toc.querySelectorAll(".toc-cat").forEach(c => { if (c === TM.el) return; const r = c.getBoundingClientRect(), d = y < r.top ? r.top - y : y > r.bottom ? y - r.bottom : 0; if (d < bd) { bd = d; best = { el: c, after: y > r.top + r.height / 2 }; } });
+    if (best && bd < 60) return best;
+  }
+  return null;
+}
+toc.addEventListener("pointerdown", e => {
+  const g = e.target.closest(".toc-grip"); if (!g || !EDON) return;
+  e.preventDefault(); try { g.setPointerCapture(e.pointerId); } catch (err) {}
+  const el = g.dataset.tg === "page" ? g.closest(".toc-row") : g.closest(".toc-cat");
+  TM = { kind: g.dataset.tg, el, t: null }; el.classList.add("hm-src");
+});
+toc.addEventListener("pointermove", e => {
+  if (!TM) return;
+  const side = document.querySelector(".side"), r = side.getBoundingClientRect();
+  if (side.scrollHeight > side.clientHeight) { if (e.clientY < r.top + 40) side.scrollTop -= 12; else if (e.clientY > r.bottom - 40) side.scrollTop += 12; }
+  if (e.clientY < 60) scrollBy(0, -14); else if (e.clientY > innerHeight - 60) scrollBy(0, 14);
+  TM.t = tmTarget(e.clientX, e.clientY);
+  hmShow(TM.t && TM.t.end ? { el: TM.t.el, after: true } : TM.t);
+});
+function tmEnd() {
+  if (!TM) return; const { kind, el, t } = TM; TM = null; hmShow(null); el.classList.remove("hm-src");
+  if (!t) return;
+  const antes = TM_ORDEM();
+  if (kind === "page") {
+    const p = PAGES.find(x => x.id === el.dataset.id); if (!p) return;
+    PAGES.splice(PAGES.indexOf(p), 1);
+    if (t.start || t.end) {
+      p.cat = t.cat;
+      const first = PAGES.find(x => x.cat === t.cat);
+      if (t.start && first) PAGES.splice(PAGES.indexOf(first), 0, p); else PAGES.push(p);
+    } else {
+      const q = PAGES.find(x => x.id === t.el.dataset.id); if (!q) { PAGES.push(p); return aplicarMenu(); }
+      p.cat = q.cat; PAGES.splice(PAGES.indexOf(q) + (t.after ? 1 : 0), 0, p);
+    }
+  } else {
+    const a = el.dataset.cat, b = t.el.dataset.cat;
+    CATS.splice(CATS.indexOf(a), 1); CATS.splice(CATS.indexOf(b) + (t.after ? 1 : 0), 0, a);
+  }
+  const ordered = CATS.flatMap(c => PAGES.filter(p => p.cat === c)), rest = PAGES.filter(p => !CATS.includes(p.cat));
+  PAGES.length = 0; PAGES.push(...ordered, ...rest);
+  if (TM_ORDEM() === antes) { buildToc(); markToc(decodeURIComponent(location.hash.slice(1))); return; }
+  aplicarMenu();
+}
+toc.addEventListener("pointerup", tmEnd);
+toc.addEventListener("pointercancel", tmEnd);
+
 function saveMenuOrder() {
   menuSaving = menuSaving.then(async () => {
     try {
