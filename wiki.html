@@ -1,14 +1,13 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wiki (Como funciona) · Rede Astral</title>
 <meta name="description" content="Como cada sistema da Rede Astral funciona: pets, capturas, minérios, mochilas, fornalhas e eventos.">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
 <style>
 /* Layout: barra lateral fixa com as páginas + coluna de leitura de ~68 caracteres; busca sempre no topo da coluna. */
 :root {
@@ -327,13 +326,13 @@ body.wbar-on { padding-bottom: 8rem; }
 </style>
 <script src="preferencias.js"></script>
 </head>
-<body data-esconder="">
+<body data-esconder="pager">
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small data-wt="marca" data-parte="marca">Wiki</small></span></a>
+    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo=""><span>Rede Astral<small data-wt="marca" data-parte="marca">Wiki</small></span></a>
     <nav aria-label="Site">
-      <a class="hide-sm" href="index.html" data-wt="menu-inicio" data-wt-href data-parte="menu-inicio">Início</a>
-      <a class="hide-sm" href="index.html#como-entrar" data-wt="menu-entrar" data-wt-href data-parte="menu-entrar">Como entrar</a>
+      <a class="hide-sm" href="index.html" data-wt="menu-inicio" data-wt-href="" data-parte="menu-inicio">Início</a>
+      <a class="hide-sm" href="index.html#como-entrar" data-wt="menu-entrar" data-wt-href="" data-parte="menu-entrar">Como entrar</a>
       <a class="btn accent" data-link="discord" href="#" data-wt="menu-discord" data-parte="menu-discord">Discord</a>
     </nav>
   </div>
@@ -341,14 +340,14 @@ body.wbar-on { padding-bottom: 8rem; }
 
 <div class="wrap layout">
   <aside class="side">
-    <details id="side-box" open>
+    <details id="side-box" open="">
       <summary><span data-wt="lista">Todas as páginas</span></summary>
       <nav class="toc" id="toc" aria-label="Páginas da wiki"></nav>
     </details>
   </aside>
 
   <main class="main">
-    <div class="edbar" id="edbar" hidden>
+    <div class="edbar" id="edbar" hidden="">
       <strong>Modo editor</strong>
       <a class="btn" href="index.html">Editar página inicial</a>
       <button class="btn" type="button" id="ed-home">Editar início da Wiki</button>
@@ -358,15 +357,15 @@ body.wbar-on { padding-bottom: 8rem; }
       <button class="btn" type="button" id="ed-logout">Sair</button>
     </div>
     <div class="search" role="search" data-parte="pesquisa">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
       <input id="q" type="search" placeholder="Pesquisar na wiki: rubi, orbe, renascer…" autocomplete="off" spellcheck="false" aria-label="Pesquisar na wiki" aria-controls="results">
       <kbd>/</kbd>
     </div>
-    <div class="wt-ph" id="wt-ph-row" hidden><label for="wt-ph">Texto dentro da caixa de pesquisa:</label><input id="wt-ph" autocomplete="off"></div>
-    <div class="results" id="results" hidden></div>
+    <div class="wt-ph" id="wt-ph-row" hidden=""><label for="wt-ph">Texto dentro da caixa de pesquisa:</label><input id="wt-ph" autocomplete="off"></div>
+    <div class="results" id="results" hidden=""></div>
     <div class="view" id="view"><p class="state">Carregando a wiki…</p></div>
-    <p class="help" id="wiki-ajuda" data-wt="ajuda" data-parte="ajuda" hidden>Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>
-    <div id="wiki-rotulos" hidden><span data-wt="trilha">Wiki</span><span data-wt="anterior">Anterior</span><span data-wt="proxima">Próxima</span><span data-wt="inicio-wiki">Início da wiki</span></div>
+    <p class="help" id="wiki-ajuda" data-wt="ajuda" data-parte="ajuda" hidden="">Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>
+    <div id="wiki-rotulos" hidden=""><span data-wt="trilha">Wiki</span><span data-wt="anterior">Anterior</span><span data-wt="proxima">Próxima</span><span data-wt="inicio-wiki">Início da wiki</span></div>
   </main>
 </div>
 
@@ -381,21 +380,21 @@ body.wbar-on { padding-bottom: 8rem; }
     <li>Generate token, copie o código <b>ghp_…</b> e cole abaixo.</li>
   </ol>
   <form id="login-form">
-    <label class="field">Repositório<small>usuário/nome, como aparece no GitHub</small><input id="lg-repo" placeholder="SEU-USUARIO/redeastral-site" autocomplete="off" spellcheck="false" required></label>
-    <label class="field">Chave (token)<input id="lg-token" type="password" placeholder="ghp_…" autocomplete="off" spellcheck="false" required></label>
+    <label class="field">Repositório<small>usuário/nome, como aparece no GitHub</small><input id="lg-repo" placeholder="SEU-USUARIO/redeastral-site" autocomplete="off" spellcheck="false" required=""></label>
+    <label class="field">Chave (token)<input id="lg-token" type="password" placeholder="ghp_…" autocomplete="off" spellcheck="false" required=""></label>
     <p class="ed-status" id="lg-status" role="status"></p>
-    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Entrar</button></div>
+    <div class="form-actions"><button class="btn" type="button" data-close="">Cancelar</button><button class="btn accent" type="submit">Entrar</button></div>
   </form>
 </dialog>
 
 <dialog class="form" id="newpage">
   <h2>Nova página</h2>
   <form id="np-form">
-    <label class="field">Título<input id="np-title" placeholder="Ex.: Waifus" required></label>
+    <label class="field">Título<input id="np-title" placeholder="Ex.: Waifus" required=""></label>
     <label class="field">Categoria<select id="np-cat"></select></label>
-    <label class="field" id="np-newcat-wrap" hidden>Nome da nova categoria<input id="np-newcat" placeholder="Ex.: Personagens"></label>
+    <label class="field" id="np-newcat-wrap" hidden="">Nome da nova categoria<input id="np-newcat" placeholder="Ex.: Personagens"></label>
     <p class="ed-status" id="np-status" role="status"></p>
-    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Criar e editar</button></div>
+    <div class="form-actions"><button class="btn" type="button" data-close="">Cancelar</button><button class="btn accent" type="submit">Criar e editar</button></div>
   </form>
 </dialog>
 
@@ -405,22 +404,22 @@ body.wbar-on { padding-bottom: 8rem; }
   <div class="org-list" id="org-list"></div>
   <div class="form-actions" style="justify-content:flex-start"><button class="btn" type="button" id="org-addcat">+ Nova categoria</button></div>
   <p class="ed-status" id="org-status" role="status"></p>
-  <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="button" id="org-save">Salvar</button></div>
+  <div class="form-actions"><button class="btn" type="button" data-close="">Cancelar</button><button class="btn accent" type="button" id="org-save">Salvar</button></div>
 </dialog>
 
 <dialog class="form" id="cardedit">
   <h2>Editar cartão</h2>
   <p>O que aparece no cartão da página <b id="ce-file"></b>. O título e o resumo também mudam dentro da página.</p>
   <form id="ce-form">
-    <label class="field">Título<input id="ce-title" required></label>
+    <label class="field">Título<input id="ce-title" required=""></label>
     <label class="field">Resumo <small>(primeiro parágrafo da página)</small><textarea id="ce-sum" rows="3"></textarea></label>
     <div class="field">Capa <small>(sem capa escolhida, usa a primeira imagem da página)</small>
       <div class="ce-cover"><div class="thumb" id="ce-thumb">sem capa</div>
-        <label class="btn">Escolher imagem<input type="file" id="ce-img" accept="image/*" hidden></label>
+        <label class="btn">Escolher imagem<input type="file" id="ce-img" accept="image/*" hidden=""></label>
         <button class="btn" type="button" id="ce-nocover">Sem capa</button>
         <button class="btn" type="button" id="ce-auto">Automática</button></div></div>
     <p class="ed-status" id="ce-status" role="status"></p>
-    <div class="form-actions"><button class="btn" type="button" id="ce-full">Editar a página inteira</button><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Salvar</button></div>
+    <div class="form-actions"><button class="btn" type="button" id="ce-full">Editar a página inteira</button><button class="btn" type="button" data-close="">Cancelar</button><button class="btn accent" type="submit">Salvar</button></div>
   </form>
 </dialog>
 
@@ -433,23 +432,23 @@ body.wbar-on { padding-bottom: 8rem; }
     <label class="field">YouTube<input id="lk-youtube" type="url" placeholder="https://www.youtube.com/@…"></label>
     <label class="field">Instagram<input id="lk-instagram" type="url" placeholder="https://www.instagram.com/…"></label>
     <p class="ed-status" id="lk-status" role="status"></p>
-    <div class="form-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn accent" type="submit">Salvar links</button></div>
+    <div class="form-actions"><button class="btn" type="button" data-close="">Cancelar</button><button class="btn accent" type="submit">Salvar links</button></div>
   </form>
 </dialog>
 
 <footer>
-  <div class="wrap"><span data-wt="rodape" data-parte="rodape">Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
+  <div class="wrap"><span data-wt="rodape" data-parte="rodape">Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden="">Área do editor</a></div>
 </footer>
 
-<div class="wbar" id="wbar" hidden>
+<div class="wbar" id="wbar" hidden="">
   <div class="wbar-line"><strong>Modo editor</strong>
-    <button type="button" id="wbar-desk" data-desk-label title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
-    <button type="button" data-tp-label title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
+    <button type="button" id="wbar-desk" data-desk-label="" title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
+    <button type="button" data-tp-label="" title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
     <a href="index.html">Ir para a página inicial</a></div>
   <div class="wbar-line"><span class="grow" id="wbar-msg">Clique em "Editar esta página" para mudar textos, imagens e tudo da Wiki.</span>
-    <label id="wt-link" hidden>Link do botão: <input id="wt-href" spellcheck="false" placeholder="index.html, #pagina ou https://…"></label>
-    <button type="button" id="wt-cancel" hidden>Cancelar</button><button type="button" class="acc" id="wt-save" hidden>Salvar textos</button>
-    <button type="button" id="ed-stop" hidden>Parar de editar</button>
+    <label id="wt-link" hidden="">Link do botão: <input id="wt-href" spellcheck="false" placeholder="index.html, #pagina ou https://…"></label>
+    <button type="button" id="wt-cancel" hidden="">Cancelar</button><button type="button" class="acc" id="wt-save" hidden="">Salvar textos</button>
+    <button type="button" id="ed-stop" hidden="">Parar de editar</button>
     <button type="button" class="acc" id="ed-start">Editar esta página</button></div>
 </div>
 
@@ -2109,5 +2108,6 @@ addEventListener("hashchange", () => {
 if (matchMedia("(max-width: 860px)").matches) $("#side-box").open = false;
 load();
 </script>
-</body>
-</html>
+
+
+</body></html>
