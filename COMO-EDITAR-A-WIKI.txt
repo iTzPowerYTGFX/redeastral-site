@@ -68,6 +68,9 @@ MENU DO LADO (lista de páginas) — com a edição ligada
      outra categoria (solte no nome dela = vai para o começo; embaixo dela = vai para o fim).
   ⠿ do lado do nome de uma categoria: arraste para mudar a ordem das categorias.
   Nome da categoria: clique nele, escreva e aperte Enter (Esc desiste).
+  + (ao lado da categoria): cria uma página nova já dentro dela (escreva o título e
+     clique em "Criar e editar"). "+ Nova página" no fim do menu: escolhe a categoria.
+     No início da Wiki, cada categoria tem o botão "Nova página aqui".
   A–Z (ao lado da categoria): ordena as páginas dela de A a Z.
   "Tudo de A a Z" (no fim do menu): ordena as páginas de A a Z dentro de cada categoria.
   "+ Nova categoria": cria uma no fim; escreva o nome e arraste páginas para ela.
