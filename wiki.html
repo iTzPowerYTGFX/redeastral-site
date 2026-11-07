@@ -317,6 +317,7 @@ body.wbar-on { padding-bottom: 8rem; }
 .wt-ph { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: -.25rem 0 1rem; font-size: .875rem; color: var(--ink-dim); }
 .wt-ph input { flex: 1 1 14rem; min-width: 0; background: var(--sky); color: var(--ink); border: 1px dashed var(--violet-soft); border-radius: 6px; padding: .4rem .6rem; font: .9375rem var(--f-body); }
 /* escrever direto na página (editor) */
+.ed-naosalvo { align-self: center; color: #ffb547; font: 700 .875rem var(--f-body); }
 .ed-prev .ie { outline: 1px dashed color-mix(in srgb, var(--violet-soft) 50%, transparent); outline-offset: 2px; border-radius: 3px; cursor: text; }
 .ed-prev .ie:focus { outline: 2px solid var(--violet); background: color-mix(in srgb, var(--violet) 8%, transparent); }
 .ed-prev figcaption.ie:empty::before { content: "Legenda (opcional): clique para escrever"; opacity: .5; }
@@ -447,7 +448,7 @@ body.wbar-on { padding-bottom: 8rem; }
     <a href="index.html">Ir para a página inicial</a></div>
   <div class="wbar-line"><span class="grow" id="wbar-msg">Clique em "Editar esta página" para mudar textos, imagens e tudo da Wiki.</span>
     <label id="wt-link" hidden="">Link do botão: <input id="wt-href" spellcheck="false" placeholder="index.html, #pagina ou https://…"></label>
-    <button type="button" id="wt-cancel" hidden="">Cancelar</button><button type="button" class="acc" id="wt-save" hidden="">Salvar textos</button>
+    <button type="button" id="wt-cancel" hidden="">Cancelar</button><button type="button" class="acc" id="wt-save" hidden="">Salvar</button>
     <button type="button" id="ed-stop" hidden="">Parar de editar</button>
     <button type="button" class="acc" id="ed-start">Editar esta página</button></div>
 </div>
@@ -963,7 +964,7 @@ $("#ed-start").addEventListener("click", () => {
   else route();
 });
 $("#ed-stop").addEventListener("click", () => {
-  if (WT.dirty) return wmsg("Os textos fixos mudaram: clique em Salvar textos ou em Cancelar antes de parar.", "err");
+  if (WT.dirty) return wmsg("Os textos fixos mudaram: clique em Salvar ou em Cancelar antes de parar.", "err");
   if (EDIT && EDIT.commit) EDIT.commit();
   if (EDIT && EDIT.dirty) toast("A página tem mudanças não salvas: ficaram guardadas como rascunho.");
   setEdOn(false); route();
@@ -1007,7 +1008,7 @@ parteBtn.addEventListener("click", () => {
   if (WT.esc === null) WT.esc = [...ESCONDER].join(" ");
   if (ESCONDER.has(k)) ESCONDER.delete(k); else ESCONDER.add(k);
   aplicaEsconder(); wtMark(); placeParte();
-  wmsg(ESCONDER.has(k) ? "Apagado (fica apagadinho só para você ver). Clique em Salvar textos para gravar no site." : "Volta a aparecer. Clique em Salvar textos para gravar no site.");
+  wmsg(ESCONDER.has(k) ? "Apagado (fica apagadinho só para você ver). Clique em Salvar para gravar no site." : "Volta a aparecer. Clique em Salvar para gravar no site.");
 });
 function wtSync() {
   document.querySelectorAll("[data-wt]").forEach(el => {
@@ -1021,8 +1022,22 @@ function wtSync() {
   if (!EDON) $("#wt-link").hidden = true;
   wtButtons();
 }
-function wtButtons() { $("#wt-save").hidden = $("#wt-cancel").hidden = !WT.dirty; }
-function wtMark() { if (!WT.dirty) { WT.dirty = true; wtButtons(); wmsg("Textos fixos mudados. Clique em Salvar textos para gravar no site."); } }
+function wtButtons() {
+  const pag = !!(EDIT && EDIT.dirty);
+  $("#wt-save").hidden = !(WT.dirty || pag); $("#wt-cancel").hidden = !WT.dirty;
+  const n = $(".ed-naosalvo"); if (n) n.hidden = !pag;
+}
+function wtMark() { if (!WT.dirty) { WT.dirty = true; wtButtons(); wmsg("Há mudanças que ainda NÃO estão no site. Clique em Salvar."); } }
+// aviso sempre visível quando a página aberta tem mudança não salva
+let avisoPag = false;
+setInterval(() => {
+  if (!GH) return;
+  wtButtons();
+  const pag = !!(EDIT && EDIT.dirty);
+  if (pag && !avisoPag) wmsg("Esta página tem mudanças que ainda NÃO estão no site. Clique em Salvar.", "err");
+  if (!pag && avisoPag && !WT.dirty) wmsg("Tudo salvo.", "ok");
+  avisoPag = pag;
+}, 700);
 document.addEventListener("input", e => {
   const t = e.target; if (!EDON || !t.closest) return;
   const ref = t.closest("[data-wt-ref]");
@@ -1070,6 +1085,12 @@ function wtCancel() {
 }
 $("#wt-cancel").addEventListener("click", wtCancel);
 $("#wt-save").addEventListener("click", async () => {
+  // um Salvar só: grava a página aberta e os textos fixos
+  if (EDIT && EDIT.commit) EDIT.commit();
+  if (EDIT && EDIT.dirty && $("#ed-save")) $("#ed-save").click();
+  if (WT.dirty) await wtSalvar();
+});
+async function wtSalvar() {
   const b = $("#wt-save"); b.disabled = true; wmsg("Salvando os textos…");
   try {
     const f = await getFile("wiki.html");
@@ -1090,7 +1111,7 @@ $("#wt-save").addEventListener("click", async () => {
     wmsg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
   } catch (e) { wmsg(e.message, "err"); }
   finally { b.disabled = false; }
-});
+}
 addEventListener("beforeunload", e => { if (WT.dirty) { e.preventDefault(); e.returnValue = ""; } });
 syncEditorUi();
 
@@ -1147,7 +1168,7 @@ async function openEditor(p) {
   <div class="ed" data-pane="preview">
     <div class="ed-head">
       <div><small>Editando</small><strong>${esc(p.title)}</strong></div>
-      <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><button class="btn accent" type="button" id="ed-save">Salvar</button></div>
+      <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><span class="ed-naosalvo" hidden>● Não salvo</span><button class="btn accent" type="button" id="ed-save">Salvar</button></div>
     </div>
     ${useDraft ? `<p class="draft">Recuperamos um rascunho que não foi salvo. <button class="btn" type="button" id="ed-drop">Descartar rascunho</button></p>` : ""}
     <div class="ed-tools" role="toolbar" aria-label="Formatação">
@@ -1614,7 +1635,8 @@ async function openEditor(p) {
       $(".ed-head strong").textContent = p.title;
       try { localStorage.removeItem(draftKey(p)); } catch (e) {}
       setStatus(st, "Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
-    } catch (e) { setStatus(st, e.message, "err"); }
+      wmsg("Página salva. O site público mostra a mudança em 1 a 2 minutos.", "ok"); avisoPag = false; wtButtons();
+    } catch (e) { setStatus(st, e.message, "err"); wmsg("Não salvou: " + e.message, "err"); }
     finally { $("#ed-save").disabled = false; }
   });
   $("#ed-close").addEventListener("click", () => {

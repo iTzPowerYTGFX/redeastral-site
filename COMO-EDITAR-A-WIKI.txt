@@ -60,8 +60,11 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
                          DEPOIS do que você clicou por último na página (sem nada clicado,
                          vão para o fim). Texto e títulos novos já ficam selecionados:
                          é só escrever por cima.
-  Clique em SALVAR. Até salvar, nada muda no site.
-  Se sair sem salvar, o texto fica guardado como rascunho neste navegador.
+  Clique em SALVAR (em cima, do lado de "Fechar editor", ou o "Salvar" da barra de baixo:
+  os dois gravam a página). Até salvar, nada muda no site: aparece "● Não salvo" em
+  laranja e a barra de baixo avisa "ainda NÃO estão no site".
+  Se sair sem salvar, o texto fica guardado como rascunho SÓ neste navegador; abra a
+  página de novo no editor e clique em Salvar.
   "Texto (avançado)": no computador fica do lado direito; no celular é o botão de cima.
   É o texto puro da página. Cartões de classe/habilidade se mudam por ali.
 
@@ -89,7 +92,7 @@ APAGAR PARTES FIXAS DA WIKI (com a edição ligada)
   topo, o "Wiki" do logo, "Início da wiki" do menu do lado ou o rodapé.
   Aparece o botão vermelho "✕ Apagar". Para você ele fica apagadinho (tracejado vermelho);
   quem visita não vê mais. Errou? O mesmo botão vira "↺ Mostrar de novo".
-  Depois clique em "Salvar textos" (barra de baixo).
+  Depois clique em "Salvar" (barra de baixo).
   Páginas do menu do lado: ✕ ao lado da página (clique 2 vezes: "Tirar?") tira do menu.
   O arquivo fica guardado: volta por Organizar páginas → Fora do menu.
 
@@ -100,7 +103,7 @@ TEXTOS FIXOS DA WIKI (menu do topo, rodapé, rótulos)
   "Próxima", "Faltou alguma coisa?..." e o rodapé. Também o texto dentro da pesquisa
   (campo "Texto dentro da caixa de pesquisa").
   Clicando em "Início" ou "Como entrar", aparece "Link do botão:" na barra de baixo.
-  Depois clique em "Salvar textos" (barra de baixo). "Cancelar" desfaz.
+  Depois clique em "Salvar" (barra de baixo). "Cancelar" desfaz.
 
 BOTÕES DO EDITOR
   Título      -> subtítulo de seção
