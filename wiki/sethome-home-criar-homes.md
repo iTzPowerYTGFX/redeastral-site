@@ -6,4 +6,8 @@ Aqui vamos te explicar como funciona o sistema de criar casas e teleportar para 
 
 ## /sethome | Criar Casas
 
-animacao: midia/1107-1-2.mp4
+use
+
+animacao: midia/1107-1-2.mp4 {85%}
+
+animacao: midia/1107-1-3.mp4 {85%}
