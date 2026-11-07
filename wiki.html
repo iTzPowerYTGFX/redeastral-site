@@ -128,6 +128,15 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .prose li::marker { color: var(--violet-soft); }
 .prose code { font: 500 .875em var(--f-mono); background: var(--sky-3); border: 1px solid var(--line); border-radius: 4px; padding: .05em .35em; }
 .prose hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+/* linha divisória entre assuntos */
+.prose .divisor { display: flex; align-items: center; gap: .9rem; margin: 2.5rem 0 1.75rem; color: var(--violet-soft); font: 700 .8125rem var(--f-display); letter-spacing: .14em; text-transform: uppercase; }
+.prose .divisor::before, .prose .divisor::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, var(--violet) 70%, var(--violet-soft)); }
+.prose .divisor::after { background: linear-gradient(90deg, var(--violet-soft), var(--violet) 30%, transparent); }
+.prose .divisor-t { flex: none; max-width: 70%; text-align: center; }
+.prose .divisor-t:empty::before { content: "✦"; font-size: 1rem; letter-spacing: 0; }
+.prose .divisor-t:not(:empty)::before { content: "✦ "; } .prose .divisor-t:not(:empty)::after { content: " ✦"; }
+.prose .divisor + h2, .prose .divisor + h3 { border-top: 0; padding-top: 0; margin-top: .5rem; }
+.ed-prev .divisor-t.ie:empty::before { content: "✦ título opcional"; opacity: .55; letter-spacing: .08em; }
 .prose .table { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); border-radius: 10px; }
 .prose table { border-collapse: collapse; width: 100%; font-size: .9375rem; font-variant-numeric: tabular-nums; }
 .prose th, .prose td { text-align: left; padding: .625rem .875rem; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -535,13 +544,13 @@ function inline(t) {
   return s.replace(/\u0000(\d+)\u0000/g, (m, i) => codes[+i]);
 }
 const RX = {
-  heading: /^(#{1,4})\s+(.*)$/, hr: /^\s*(-{3,}|\*{3,})\s*$/, quote: /^\s*>/,
+  heading: /^(#{1,4})\s+(.*)$/, hr: /^\s*(-{3,}|\*{3,})\s*$/, div: /^\s*-{3,}\s+(\S.*?)\s*-*\s*$/, quote: /^\s*>/,
   item: /^\s*([-*+]|\d+[.)])\s+/, img: /^\s*!\[[^\]]*\]\([^)\s]+\)\s*$/,
   sep: /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/
 };
 const isTable = (l, n) => l.includes("|") && n !== undefined && RX.sep.test(n);
 const LADO_RX = /^:::\s*lado\s*$/i;
-const isBlock = (l, n) => (l = stripSize(l), CARD_RX.test(l) || /^\s*(:::|\+\+\+\s*$)/.test(l) || RX.heading.test(l)) || RX.hr.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
+const isBlock = (l, n) => (l = stripSize(l), CARD_RX.test(l) || /^\s*(:::|\+\+\+\s*$)/.test(l) || RX.heading.test(l)) || RX.hr.test(l) || RX.div.test(l) || RX.quote.test(l) || RX.item.test(l) || RX.img.test(l) || mediaLine(l.trim()) || isTable(l, n);
 function figure(line) {
   const m = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
   return `<figure>${inline(line.trim())}${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`;
@@ -633,7 +642,12 @@ function md(src, nested, base = 0) {
       continue;
     }
     if ((m = l.match(RX.heading))) { const n = m[1].length; html += `<h${n} id="${slug(m[2])}"${at(i, "text", size, i, i + 1)}${zoom(size)}>${inline(m[2])}</h${n}>`; i++; continue; }
-    if (RX.hr.test(l)) { html += `<hr${se(i, i + 1)}>`; i++; continue; }
+    // linha divisória: "---" sozinho ou "--- Próximo assunto" (com um título no meio)
+    if (RX.hr.test(l) || RX.div.test(l)) {
+      const dm = l.match(RX.div);
+      html += `<div class="divisor" role="separator"${at(i, "text", 0, i, i + 1)}><span class="divisor-t">${dm ? inline(dm[1]) : ""}</span></div>`;
+      i++; continue;
+    }
     const media = mediaLine(l.trim()); if (media) { html += media.replace(/^<div /, `<div${at(i, "media", size, i, i + 1)}${width(size)} `); i++; continue; }
     if (RX.img.test(l)) { html += figure(l).replace(/^<figure/, `<figure${at(i, "media", size, i, i + 1)}${width(size)}`); i++; continue; }
     if (RX.quote.test(l)) {
@@ -1175,6 +1189,7 @@ async function openEditor(p) {
       <button class="btn" type="button" data-ins="p">Texto</button>
       <button class="btn" type="button" data-ins="h2">Título</button>
       <button class="btn" type="button" data-ins="h3">Título pequeno</button>
+      <button class="btn" type="button" data-ins="hr" title="Separa um assunto do outro (pode ter um título no meio)">Linha divisória</button>
       <button class="btn" type="button" data-ins="b">Negrito</button>
       <button class="btn" type="button" data-ins="list">Lista</button>
       <button class="btn" type="button" data-ins="tip">Dica</button>
@@ -1359,7 +1374,7 @@ async function openEditor(p) {
   afterRender = function () { afterRender0(); prev.append(mv, del, ind, tip); if (mvEl && !mvEl.isConnected) mvEl = null; placeMv(); marcarEditaveis(); };
 
   /* ----- escrever direto na página: cada texto vira editável e volta para o texto da página ao sair dele ----- */
-  const IE_SEL = "h1[data-line],h2[data-line],h3[data-line],h4[data-line],p[data-line],ul[data-line]>li,ol[data-line]>li,.table[data-line] th,.table[data-line] td,figure[data-line]>figcaption";
+  const IE_SEL = ".divisor[data-line] > .divisor-t,h1[data-line],h2[data-line],h3[data-line],h4[data-line],p[data-line],ul[data-line]>li,ol[data-line]>li,.table[data-line] th,.table[data-line] td,figure[data-line]>figcaption";
   let ieEl = null, ieMudou = false, selBlk = null, ultimo = "prev", ieRange = null;
   function marcarEditaveis() {
     prev.querySelectorAll("figure[data-line]").forEach(f => { if (!f.querySelector("figcaption")) f.appendChild(document.createElement("figcaption")); });
@@ -1427,6 +1442,7 @@ async function openEditor(p) {
       const out = []; ps.forEach((t, k) => { if (k) out.push(">"); out.push("> " + t); });
       out[0] += sufixo(sizeOf(old[0])); return out;
     }
+    if (blk.classList.contains("divisor")) { const t = mdInline(blk.querySelector(".divisor-t") || blk); return [t ? "--- " + t : "---"]; }
     if (tag === "FIGURE") {
       const cap = (blk.querySelector("figcaption") ? blk.querySelector("figcaption").textContent : "").replace(/[\[\]\n]/g, " ").replace(/\s+/g, " ").trim();
       return [old[0].replace(/!\[[^\]]*\]/, "![" + cap + "]")];
@@ -1549,6 +1565,7 @@ async function openEditor(p) {
     if (k === "p") insertBlock("Escreva aqui o seu texto.");
     if (k === "h2") insertBlock("## Novo título");
     if (k === "h3") insertBlock("### Novo título pequeno");
+    if (k === "hr") { insertBlock("---"); setStatus(st, "Linha colocada. Se quiser, escreva um título no meio dela (ex.: Comandos); senão, só clique fora.", "ok"); }
     if (k === "list") insertBlock("- Primeiro item\n- Segundo item");
     if (k === "tip") insertBlock("> Dica: escreva a dica aqui.");
     if (k === "warn") insertBlock("> Atenção: escreva o aviso aqui.");

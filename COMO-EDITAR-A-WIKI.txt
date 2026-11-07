@@ -60,6 +60,9 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
                          DEPOIS do que você clicou por último na página (sem nada clicado,
                          vão para o fim). Texto e títulos novos já ficam selecionados:
                          é só escrever por cima.
+    Linha divisória   -> separa um assunto do outro (linha roxa com ✦ no meio). Pode
+                         escrever um título no meio dela (ex.: "Comandos") ou deixar só
+                         a linha. No texto puro: "---" ou "--- Comandos".
   Clique em SALVAR (em cima, do lado de "Fechar editor", ou o "Salvar" da barra de baixo:
   os dois gravam a página). Até salvar, nada muda no site: aparece "● Não salvo" em
   laranja e a barra de baixo avisa "ainda NÃO estão no site".
