@@ -126,6 +126,12 @@ CARTÕES COM ÍCONES (classes, raças, habilidades, atributos)
   Precisão, Pets). Atributo com + fica verde e com - fica vermelho.
   As imagens dos ícones ficam em img/icones/ (um arquivo .svg para cada).
 
+APAGAR (botão vermelho "✕ Apagar", ao lado do "✥ Mover")
+  No editor de uma página, passe o mouse (ou toque) no que quer tirar: vídeo, YouTube,
+  imagem, texto, lista, tabela, caixa, colunas lado a lado. Clique em "✕ Apagar".
+  Errou? Clique em "Desfazer" logo embaixo dos botões. Depois clique em Salvar.
+  O arquivo do vídeo/imagem continua guardado na pasta midia (não aparece em lugar nenhum).
+
 MOVER E COLOCAR LADO A LADO (botão verde "✥ Mover")
   Na página (editor aberto), passe o mouse (ou toque) em qualquer coisa: texto, título,
   imagem, vídeo, lista, tabela, cartão. Aparece o botão verde "✥ Mover" no canto de cima.
