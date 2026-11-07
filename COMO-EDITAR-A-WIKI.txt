@@ -60,6 +60,8 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
                          DEPOIS do que você clicou por último na página (sem nada clicado,
                          vão para o fim). Texto e títulos novos já ficam selecionados:
                          é só escrever por cima.
+    Os mesmos botões ficam também na barra roxa de baixo ("Colocar:"), sempre à mão
+    sem precisar subir a página. No celular a barra fica só com eles + Salvar.
     Linha divisória   -> separa um assunto do outro (linha roxa com ✦ no meio). Pode
                          escrever um título no meio dela (ex.: "Comandos") ou deixar só
                          a linha. No texto puro: "---" ou "--- Comandos".
