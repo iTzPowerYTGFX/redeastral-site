@@ -229,7 +229,8 @@ footer a { color: var(--ink-dim); }
 .ed-status { margin: 0; min-height: 1.4em; font-size: .9375rem; color: var(--ink-dim); }
 .ed-status.ok { color: var(--teal); }
 .ed-status.err { color: var(--amber); }
-.ed-panes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; align-items: start; }
+.ed-panes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: .75rem; align-items: start; }
+.ed-panes .ed-prev { order: -1; }
 .ed textarea { width: 100%; min-height: 65vh; resize: vertical; background: var(--sky); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: .875rem; font: 500 .9375rem/1.6 var(--f-mono); }
 .ed textarea:focus { outline: none; border-color: var(--violet); }
 .ed-prev { border: 1px dashed var(--line); border-radius: 10px; padding: .25rem 1rem 1rem; max-height: 75vh; overflow: auto; min-width: 0; }
@@ -263,17 +264,47 @@ dialog.form.wide { width: min(94vw, 46rem); }
 .org-empty { margin: 0; padding: .25rem .5rem; font-size: .8125rem; color: var(--ink-dim); }
 .home-intro { max-width: 58ch; color: var(--ink-dim); }
 .home-intro > :last-child { margin-bottom: 0; }
+/* barra do modo editor (igual à da página inicial) */
+.wbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #1b1438; border-top: 2px solid #7c3aed;
+  padding: .625rem max(16px, env(safe-area-inset-right, 0px)) calc(.625rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: .4rem; font: 600 .9375rem var(--f-body); color: #f1eeff; }
+.wbar strong { font-family: var(--f-display); margin-right: .25rem; }
+.wbar-line { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.wbar .grow { flex: 1; min-width: 8rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
+.wbar .grow.ok { color: #5fd8cb; } .wbar .grow.err { color: #ffb547; }
+.wbar button, .wbar a { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font: 700 .875rem var(--f-body); cursor: pointer; text-decoration: none; }
+.wbar .acc { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+.wbar label { display: inline-flex; gap: .4rem; align-items: center; flex: 1 1 16rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
+.wbar input { min-width: 0; flex: 1; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font: 1rem var(--f-body); }
+body.wbar-on { padding-bottom: 8rem; }
+@media (max-width: 600px) {
+  .wbar { gap: .3rem; padding-top: .45rem; font-size: .8125rem; }
+  .wbar button, .wbar a { padding: .3rem .55rem; font-size: .8125rem; }
+  .wbar .grow { font-size: .8125rem; flex-basis: 100%; }
+}
+/* textos que dá para editar no modo editor */
+.wt-ed { outline: 1px dashed color-mix(in srgb, var(--violet-soft) 60%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
+.wt-ed:focus { outline: 2px solid var(--violet); }
+.wt-ph { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: -.25rem 0 1rem; font-size: .875rem; color: var(--ink-dim); }
+.wt-ph input { flex: 1 1 14rem; min-width: 0; background: var(--sky); color: var(--ink); border: 1px dashed var(--violet-soft); border-radius: 6px; padding: .4rem .6rem; font: .9375rem var(--f-body); }
+/* escrever direto na página (editor) */
+.ed-prev .ie { outline: 1px dashed color-mix(in srgb, var(--violet-soft) 50%, transparent); outline-offset: 2px; border-radius: 3px; cursor: text; }
+.ed-prev .ie:focus { outline: 2px solid var(--violet); background: color-mix(in srgb, var(--violet) 8%, transparent); }
+.ed-prev figcaption.ie:empty::before { content: "Legenda (opcional): clique para escrever"; opacity: .5; }
+.ed-prev figcaption.ie:empty { min-height: 1.2em; }
+.ed-prev .ie-blk-sel { box-shadow: -3px 0 0 var(--teal); }
+.ed-crumb { margin-bottom: .75rem; }
 </style>
 <script src="preferencias.js"></script>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small>Wiki</small></span></a>
+    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small data-wt="marca">Wiki</small></span></a>
     <nav aria-label="Site">
-      <a class="hide-sm" href="index.html">Início</a>
-      <a class="hide-sm" href="index.html#como-entrar">Como entrar</a>
-      <a class="btn accent" data-link="discord" href="#">Discord</a>
+      <a class="hide-sm" href="index.html" data-wt="menu-inicio" data-wt-href>Início</a>
+      <a class="hide-sm" href="index.html#como-entrar" data-wt="menu-entrar" data-wt-href>Como entrar</a>
+      <a class="btn accent" data-link="discord" href="#" data-wt="menu-discord">Discord</a>
     </nav>
   </div>
 </header>
@@ -281,7 +312,7 @@ dialog.form.wide { width: min(94vw, 46rem); }
 <div class="wrap layout">
   <aside class="side">
     <details id="side-box" open>
-      <summary>Todas as páginas</summary>
+      <summary><span data-wt="lista">Todas as páginas</span></summary>
       <nav class="toc" id="toc" aria-label="Páginas da wiki"></nav>
     </details>
   </aside>
@@ -289,8 +320,6 @@ dialog.form.wide { width: min(94vw, 46rem); }
   <main class="main">
     <div class="edbar" id="edbar" hidden>
       <strong>Modo editor</strong>
-      <button class="btn" type="button" id="ed-desk" data-desk-label>Modo computador</button>
-      <button class="btn" type="button" data-tp-label title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
       <a class="btn" href="index.html">Editar página inicial</a>
       <button class="btn" type="button" id="ed-home">Editar início da Wiki</button>
       <button class="btn" type="button" id="ed-org">Organizar páginas</button>
@@ -303,8 +332,11 @@ dialog.form.wide { width: min(94vw, 46rem); }
       <input id="q" type="search" placeholder="Pesquisar na wiki: rubi, orbe, renascer…" autocomplete="off" spellcheck="false" aria-label="Pesquisar na wiki" aria-controls="results">
       <kbd>/</kbd>
     </div>
+    <div class="wt-ph" id="wt-ph-row" hidden><label for="wt-ph">Texto dentro da caixa de pesquisa:</label><input id="wt-ph" autocomplete="off"></div>
     <div class="results" id="results" hidden></div>
     <div class="view" id="view"><p class="state">Carregando a wiki…</p></div>
+    <p class="help" id="wiki-ajuda" data-wt="ajuda" hidden>Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>
+    <div id="wiki-rotulos" hidden><span data-wt="trilha">Wiki</span><span data-wt="anterior">Anterior</span><span data-wt="proxima">Próxima</span><span data-wt="inicio-wiki">Início da wiki</span></div>
   </main>
 </div>
 
@@ -376,8 +408,20 @@ dialog.form.wide { width: min(94vw, 46rem); }
 </dialog>
 
 <footer>
-  <div class="wrap"><span>Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
+  <div class="wrap"><span data-wt="rodape">Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
 </footer>
+
+<div class="wbar" id="wbar" hidden>
+  <div class="wbar-line"><strong>Modo editor</strong>
+    <button type="button" id="wbar-desk" data-desk-label title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
+    <button type="button" data-tp-label title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
+    <a href="index.html">Ir para a página inicial</a></div>
+  <div class="wbar-line"><span class="grow" id="wbar-msg">Clique em "Editar esta página" para mudar textos, imagens e tudo da Wiki.</span>
+    <label id="wt-link" hidden>Link do botão: <input id="wt-href" spellcheck="false" placeholder="index.html, #pagina ou https://…"></label>
+    <button type="button" id="wt-cancel" hidden>Cancelar</button><button type="button" class="acc" id="wt-save" hidden>Salvar textos</button>
+    <button type="button" id="ed-stop" hidden>Parar de editar</button>
+    <button type="button" class="acc" id="ed-start">Editar esta página</button></div>
+</div>
 
 <script src="config.js"></script>
 <script>
@@ -402,6 +446,11 @@ const slug = s => norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 function toast(msg) { const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
 /* Sessão do editor: só existe no navegador de quem entrou com a chave do GitHub. */
 let GH = null; try { GH = JSON.parse(localStorage.getItem("astralGH") || "null"); } catch (e) {}
+/* Modo editor ligado (como na página inicial: "Editar esta página" na barra de baixo ou na engrenagem) */
+let EDON = false; try { EDON = !!GH && sessionStorage.getItem("astralWikiEd") === "1"; } catch (e) {}
+/* rótulos fixos (Wiki, Anterior, Próxima, Início da wiki): ficam escondidos no wiki.html e podem ser editados */
+const rot = k => { const el = document.querySelector(`#wiki-rotulos [data-wt="${k}"]`); return el ? el.textContent : ""; };
+const rotAttr = k => EDON ? ` data-wt-ref="${k}" contenteditable="true" class="wt-ed" spellcheck="false"` : "";
 const LOCAL_MEDIA = {}; // imagens/vídeos enviados agora, mostrados antes do site publicar
 
 /* ---------- leitor de texto (markdown simples) ---------- */
@@ -629,7 +678,7 @@ function indexPage(p) {
 }
 
 function buildToc() {
-  let h = `<a class="wiki-home" href="#">Início da wiki</a>`;
+  let h = `<a class="wiki-home" href="#"><span${rotAttr("inicio-wiki")}>${esc(rot("inicio-wiki"))}</span></a>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length) continue;
     h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`;
@@ -641,11 +690,12 @@ function buildToc() {
 function showHome() {
   document.title = HOME.title + " · Rede Astral";
   const rest = HOME.md.replace(/^\s*#\s+.+$/m, "");
-  const pen = (a, label, cls = "") => GH ? `<button type="button" class="ed-pen ${cls}" ${a}>✎ ${label}</button>` : "";
-  const grip = (a, cls = "") => GH ? `<button type="button" class="ed-grip ${cls}" ${a} title="Segure e arraste para mudar de lugar">✥ Mover</button>` : "";
+  $("#wiki-ajuda").hidden = true;
+  const pen = (a, label, cls = "") => EDON ? `<button type="button" class="ed-pen ${cls}" ${a}>✎ ${label}</button>` : "";
+  const grip = (a, cls = "") => EDON ? `<button type="button" class="ed-grip ${cls}" ${a} title="Segure e arraste para mudar de lugar">✥ Mover</button>` : "";
   let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div>${pen('data-pen="home"', "Editar título e texto", "inline")}</div>`;
   for (const c of CATS) {
-    const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !GH) continue;
+    const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
     h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
       <div class="card-wrap" data-id="${p.id}">${grip(`data-grip="card"`)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
@@ -654,19 +704,15 @@ function showHome() {
 }
 function showPage(p) {
   document.title = p.title + " · Wiki (Como funciona)";
-  const idx = PAGES.indexOf(p), prev = PAGES[idx - 1], next = PAGES[idx + 1];
-  const edit = GH ? `<button class="btn accent" type="button" id="edit-this">Editar esta página</button>` : "";
+  const edit = EDON ? `<button class="btn accent" type="button" id="edit-this">Editar esta página</button>` : "";
   const body = p.md === null
     ? `<h1>${esc(p.title)}</h1><p class="missing">O arquivo <code>wiki/${esc(p.file)}</code> está na lista do <code>paginas.txt</code>, mas não foi encontrado. Confira se o nome está escrito igual nos dois lugares.</p>`
     : md(p.md);
   view.innerHTML = `
-    <nav class="crumb" aria-label="Você está em"><a href="#">Wiki</a><span>›</span><span>${esc(p.cat)}</span>${edit}</nav>
+    ${crumbHtml(p, edit)}
     <article class="prose">${body}</article>
-    <nav class="pager" aria-label="Outras páginas">
-      ${prev ? `<a class="prev" href="#${prev.id}"><small>Anterior</small>${esc(prev.title)}</a>` : ""}
-      ${next ? `<a class="next" href="#${next.id}"><small>Próxima</small>${esc(next.title)}</a>` : ""}
-    </nav>
-    <p class="help">Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>`;
+    ${pagerHtml(p)}`;
+  $("#wiki-ajuda").hidden = false;
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada")
     view.querySelectorAll("video[loop]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
@@ -679,18 +725,28 @@ function showPage(p) {
     }, { once: true });
   });
 }
+function crumbHtml(p, extra = "", cls = "") {
+  return `<nav class="crumb${cls}" aria-label="Você está em"><a href="#"><span${rotAttr("trilha")}>${esc(rot("trilha"))}</span></a><span>›</span><span>${esc(p.cat)}</span>${extra}</nav>`;
+}
+function pagerHtml(p) {
+  const idx = PAGES.indexOf(p), prev = PAGES[idx - 1], next = PAGES[idx + 1];
+  return `<nav class="pager" aria-label="Outras páginas">
+      ${prev ? `<a class="prev" href="#${prev.id}"><small${rotAttr("anterior")}>${esc(rot("anterior"))}</small>${esc(prev.title)}</a>` : ""}
+      ${next ? `<a class="next" href="#${next.id}"><small${rotAttr("proxima")}>${esc(rot("proxima"))}</small>${esc(next.title)}</a>` : ""}
+    </nav>`;
+}
 function route() {
   const id = decodeURIComponent(location.hash.slice(1));
   EDIT = null;
   if (id === "modo-editor") {
     history.replaceState(null, "", location.pathname); showHome(); markToc("");
-    if (GH) toast("Você já está no modo editor"); else openLogin();
+    if (GH) { setEdOn(true); showHome(); toast("Modo editor ligado: clique nos textos para editar"); } else openLogin();
     return;
   }
   const p = PAGES.find(x => x.id === id);
   if (!id) showHome();
-  else if (p) showPage(p);
-  else view.innerHTML = `<div class="state"><h1>Página não encontrada</h1><p><a href="#">Voltar para o início da wiki</a></p></div>`;
+  else if (p) { if (EDON) openEditor(p); else showPage(p); }
+  else { view.innerHTML = `<div class="state"><h1>Página não encontrada</h1><p><a href="#">Voltar para o início da wiki</a></p></div>`; $("#wiki-ajuda").hidden = true; }
   markToc(id);
   if (id && !p) return;
   window.scrollTo({ top: 0 });
@@ -810,18 +866,133 @@ $("#login-form").addEventListener("submit", async e => {
     GH = { repo: d.full_name, token, branch: d.default_branch || "main" };
     try { localStorage.setItem("astralGH", JSON.stringify(GH)); localStorage.setItem("astralEditorDevice", "1"); } catch (err) {}
     document.querySelectorAll(".ed-link").forEach(el => { el.hidden = false; });
-    $("#login").close(); syncEditorUi(); route(); toast("Modo editor ligado neste navegador");
+    $("#login").close(); setEdOn(true); route(); toast("Modo editor ligado neste navegador");
   } catch (err) { setStatus($("#lg-status"), err.message, "err"); }
 });
-$("#ed-desk").addEventListener("click", () => { if (window.astralDesktop) window.astralDesktop.toggle(); });
+$("#wbar-desk").addEventListener("click", () => { if (window.astralDesktop) window.astralDesktop.toggle(); });
 $("#ed-logout").addEventListener("click", () => {
+  if (WT.dirty) wtCancel();
   GH = null; EDIT = null; try { localStorage.removeItem("astralGH"); } catch (e) {}
-  syncEditorUi(); route(); toast("Você saiu do modo editor");
+  setEdOn(false); route(); toast("Você saiu do modo editor");
 });
-function syncEditorUi() {
-  $("#edbar").hidden = !GH;
-  if (GH && !document.querySelector("script[data-tp]")) { const t = document.createElement("script"); t.src = "touchpad.js?v=" + Date.now(); t.dataset.tp = "1"; t.className = "ed-ui"; document.body.appendChild(t); }
+
+/* ---------- ligar / desligar o modo editor (barra de baixo e engrenagem) ---------- */
+const wmsg = (t, k) => { const m = $("#wbar-msg"); m.textContent = t; m.className = "grow" + (k ? " " + k : ""); };
+function setEdOn(on) {
+  EDON = !!on && !!GH;
+  try { sessionStorage.setItem("astralWikiEd", EDON ? "1" : "0"); } catch (e) {}
+  syncEditorUi();
 }
+function syncEditorUi() {
+  if (!GH) EDON = false;
+  $("#edbar").hidden = !EDON;
+  $("#wbar").hidden = !GH; document.body.classList.toggle("wbar-on", !!GH);
+  $("#ed-start").hidden = EDON; $("#ed-stop").hidden = !EDON;
+  if (GH && !document.querySelector("script[data-tp]")) { const t = document.createElement("script"); t.src = "touchpad.js?v=" + Date.now(); t.dataset.tp = "1"; t.className = "ed-ui"; document.body.appendChild(t); }
+  wtSync();
+  if (READY) { buildToc(); markToc(decodeURIComponent(location.hash.slice(1))); }
+  if (!WT.dirty) wmsg(EDON
+    ? "Clique em qualquer texto para escrever (menu, rodapé, páginas). Abra uma página para editar tudo nela."
+    : "Clique em \"Editar esta página\" para mudar textos, imagens e tudo da Wiki.");
+}
+$("#ed-start").addEventListener("click", () => {
+  const was = EDON; setEdOn(true);
+  if (!READY) return;
+  const id = decodeURIComponent(location.hash.slice(1)), p = PAGES.find(x => x.id === id);
+  if (p) { if (!EDIT || EDIT.p !== p) openEditor(p); else window.scrollTo({ top: 0 }); }
+  else if (!was || !id) showHome();
+  else route();
+});
+$("#ed-stop").addEventListener("click", () => {
+  if (WT.dirty) return wmsg("Os textos fixos mudaram: clique em Salvar textos ou em Cancelar antes de parar.", "err");
+  if (EDIT && EDIT.commit) EDIT.commit();
+  if (EDIT && EDIT.dirty) toast("A página tem mudanças não salvas: ficaram guardadas como rascunho.");
+  setEdOn(false); route();
+});
+
+/* ---------- textos fixos da Wiki (menu do topo, rodapé, rótulos, pesquisa) ---------- */
+const WT = { orig: new Map(), ph: null, dirty: false, foco: null };
+function wtSync() {
+  document.querySelectorAll("[data-wt]").forEach(el => {
+    if (EDON) {
+      if (!WT.orig.has(el)) WT.orig.set(el, { html: el.innerHTML, href: el.getAttribute("href") });
+      el.contentEditable = "true"; el.spellcheck = false; el.classList.add("wt-ed");
+    } else { el.removeAttribute("contenteditable"); el.classList.remove("wt-ed"); }
+  });
+  if (WT.ph === null) WT.ph = q.placeholder;
+  $("#wt-ph-row").hidden = !EDON; $("#wt-ph").value = q.placeholder;
+  if (!EDON) $("#wt-link").hidden = true;
+  wtButtons();
+}
+function wtButtons() { $("#wt-save").hidden = $("#wt-cancel").hidden = !WT.dirty; }
+function wtMark() { if (!WT.dirty) { WT.dirty = true; wtButtons(); wmsg("Textos fixos mudados. Clique em Salvar textos para gravar no site."); } }
+document.addEventListener("input", e => {
+  const t = e.target; if (!EDON || !t.closest) return;
+  const ref = t.closest("[data-wt-ref]");
+  if (ref) { const src = document.querySelector(`#wiki-rotulos [data-wt="${ref.dataset.wtRef}"]`); if (src) src.textContent = ref.textContent.replace(/\s+/g, " ").trim(); wtMark(); return; }
+  if (t.closest("[data-wt]")) wtMark();
+});
+// no modo editor, clicar num texto editável põe o cursor (não abre o link)
+document.addEventListener("click", e => {
+  if (!EDON || !e.target.closest) return;
+  const el = e.target.closest("[data-wt], [data-wt-ref]");
+  if (el && !el.closest(".wbar")) { e.preventDefault(); }
+}, true);
+document.addEventListener("keydown", e => {
+  if (!EDON || e.key !== "Enter" || !e.target.closest) return;
+  const el = e.target.closest("[data-wt], [data-wt-ref]");
+  if (el && el.dataset.wt !== "ajuda" && el.dataset.wt !== "rodape") { e.preventDefault(); el.blur(); }
+  else if (el) { e.preventDefault(); document.execCommand("insertLineBreak"); }
+});
+document.addEventListener("paste", e => {
+  if (!EDON || !e.target.closest || !e.target.closest("[data-wt], [data-wt-ref]")) return;
+  e.preventDefault(); document.execCommand("insertText", false, (e.clipboardData.getData("text/plain") || "").replace(/\s+/g, " "));
+});
+document.addEventListener("focusin", e => {
+  if (!EDON || !e.target.closest) return;
+  const el = e.target.closest("[data-wt]");
+  if (el && el.hasAttribute("data-wt-href")) { WT.foco = el; $("#wt-href").value = el.getAttribute("href") || ""; $("#wt-link").hidden = false; }
+  else if (el && el.dataset.link) { WT.foco = null; $("#wt-link").hidden = true; wmsg("O link deste botão muda em \"Links do site\" (barra de cima).", ""); }
+  else if (el || e.target.closest("[data-wt-ref]")) { WT.foco = null; $("#wt-link").hidden = true; }
+});
+$("#wt-href").addEventListener("input", () => { if (WT.foco) { WT.foco.setAttribute("href", $("#wt-href").value.trim()); wtMark(); } });
+$("#wt-ph").addEventListener("input", () => { q.placeholder = $("#wt-ph").value; wtMark(); });
+function wtClean(el) {
+  const c = el.cloneNode(true);
+  c.querySelectorAll("[contenteditable], .wt-ed, [spellcheck]").forEach(x => { x.removeAttribute("contenteditable"); x.classList.remove("wt-ed"); x.removeAttribute("spellcheck"); if (!x.getAttribute("class")) x.removeAttribute("class"); });
+  c.querySelectorAll("script, style, iframe").forEach(x => x.remove());
+  c.querySelectorAll("*").forEach(x => [...x.attributes].forEach(a => { if (/^on/i.test(a.name)) x.removeAttribute(a.name); }));
+  return c.innerHTML.replace(/(<br>\s*)+$/, "").replace(/&nbsp;/g, " ").trim();
+}
+function wtCancel() {
+  for (const [el, o] of WT.orig) { el.innerHTML = o.html; if (o.href !== null) el.setAttribute("href", o.href); }
+  q.placeholder = WT.ph; $("#wt-ph").value = WT.ph;
+  WT.dirty = false; wtButtons(); $("#wt-link").hidden = true;
+  syncEditorUi(); if (READY && !EDIT) route();
+}
+$("#wt-cancel").addEventListener("click", wtCancel);
+$("#wt-save").addEventListener("click", async () => {
+  const b = $("#wt-save"); b.disabled = true; wmsg("Salvando os textos…");
+  try {
+    const f = await getFile("wiki.html");
+    if (!f) throw new Error("O wiki.html não foi encontrado no repositório.");
+    const doc = new DOMParser().parseFromString(f.text, "text/html"), faltam = [];
+    document.querySelectorAll("[data-wt]").forEach(el => {
+      const d = doc.querySelector(`[data-wt="${el.dataset.wt}"]`);
+      if (!d) { faltam.push(el.dataset.wt); return; }
+      d.innerHTML = wtClean(el);
+      if (el.hasAttribute("data-wt-href")) d.setAttribute("href", el.getAttribute("href") || "#");
+    });
+    if (faltam.length) throw new Error("O wiki.html do GitHub é de uma versão antiga (falta: " + faltam.join(", ") + "). Recarregue a página.");
+    const dq = doc.querySelector("#q"); if (dq) dq.setAttribute("placeholder", q.placeholder);
+    const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
+    await putFile("wiki.html", encText(html), f.sha, "Wiki: editar textos fixos");
+    WT.orig.clear(); WT.ph = q.placeholder; WT.dirty = false; wtSync();
+    wmsg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
+  } catch (e) { wmsg(e.message, "err"); }
+  finally { b.disabled = false; }
+});
+addEventListener("beforeunload", e => { if (WT.dirty) { e.preventDefault(); e.returnValue = ""; } });
 syncEditorUi();
 
 /* ----- editor de página ----- */
@@ -864,6 +1035,7 @@ function tidyLado(lines) {
 async function openEditor(p) {
   results.hidden = true; view.hidden = false; q.value = "";
   view.innerHTML = `<p class="state">Abrindo <code>wiki/${esc(p.file)}</code> no GitHub…</p>`;
+  $("#wiki-ajuda").hidden = true;
   let file;
   try { file = await getFile("wiki/" + p.file); }
   catch (e) { view.innerHTML = `<div class="state"><h1>Não deu para abrir</h1><p>${esc(e.message)}</p></div>`; return; }
@@ -872,8 +1044,8 @@ async function openEditor(p) {
   const useDraft = draft !== null && draft !== original;
   EDIT = { p, sha: file ? file.sha : null, original, dirty: useDraft };
   const others = PAGES.filter(x => x !== p).map(x => `<option value="${x.id}.md">${esc(x.title)}</option>`).join("");
-  view.innerHTML = `
-  <div class="ed" data-pane="write">
+  view.innerHTML = `${p === HOME ? "" : crumbHtml(p, "", " ed-crumb")}
+  <div class="ed" data-pane="preview">
     <div class="ed-head">
       <div><small>Editando</small><strong>${esc(p.title)}</strong></div>
       <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><button class="btn accent" type="button" id="ed-save">Salvar</button></div>
@@ -905,16 +1077,17 @@ async function openEditor(p) {
       <input id="yt-url" placeholder="Cole o link do vídeo do YouTube" aria-label="Link do YouTube">
       <button class="btn accent" type="button" id="yt-ok">Inserir</button>
     </div>
-    <p class="ed-status" id="ed-status" role="status">Nada vai para o site até você clicar em Salvar.</p>
-    <div class="ed-switch"><button class="btn" type="button" data-pane="write" aria-pressed="true">Escrever</button><button class="btn" type="button" data-pane="preview" aria-pressed="false">Ver como fica</button></div>
+    <p class="ed-status" id="ed-status" role="status">Clique em qualquer texto da página para escrever. Os botões de cima colocam coisas logo depois do que você clicou. Nada vai para o site até você clicar em Salvar.</p>
+    <div class="ed-switch"><button class="btn" type="button" data-pane="preview" aria-pressed="true">Na página</button><button class="btn" type="button" data-pane="write" aria-pressed="false">Texto (avançado)</button></div>
     <div class="ed-panes">
       <textarea id="ed-text" spellcheck="true" aria-label="Texto da página"></textarea>
-      <div class="ed-prev prose" id="ed-prev" aria-label="Prévia"></div>
+      <div class="ed-prev prose" id="ed-prev" aria-label="Página (clique para escrever)"></div>
     </div>
-  </div>`;
+  </div>${p === HOME ? "" : pagerHtml(p)}`;
+  if (p !== HOME) $("#wiki-ajuda").hidden = false;
   const ta = $("#ed-text"), prev = $("#ed-prev"), st = $("#ed-status");
   ta.value = useDraft ? draft : original;
-  const renderPrev = () => { prev.innerHTML = md(ta.value); afterRender(); };
+  const renderPrev = () => { commit(); prev.innerHTML = md(ta.value); afterRender(); };
 
   /* ----- bolinha: arraste para os lados para aumentar/diminuir texto, imagem e vídeo ----- */
   const rz = document.createElement("div"); rz.className = "rz"; rz.hidden = true;
@@ -947,7 +1120,7 @@ async function openEditor(p) {
   prev.addEventListener("click", e => { const el = e.target.closest("[data-line]"); if (el) { rzLine = el.dataset.line; pick(el); } });
   prev.addEventListener("scroll", placeRz);
   rz.addEventListener("pointerdown", e => {
-    if (!rzEl) return; e.preventDefault(); try { rz.setPointerCapture(e.pointerId); } catch (err) {}
+    if (!rzEl) return; e.preventDefault(); commit(); try { rz.setPointerCapture(e.pointerId); } catch (err) {}
     const cs = getComputedStyle(prev), cw = prev.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const kind = rzEl.dataset.kind, w = rzEl.getBoundingClientRect().width;
     const start = +rzEl.dataset.size || (kind === "media" ? clamp(10, 100, Math.round(w / cw * 100)) : 100);
@@ -1017,7 +1190,7 @@ async function openEditor(p) {
     ind.hidden = tip.hidden = false;
   }
   mv.addEventListener("pointerdown", e => {
-    if (!mvEl) return; e.preventDefault(); try { mv.setPointerCapture(e.pointerId); } catch (err) {}
+    if (!mvEl) return; e.preventDefault(); commit(); try { mv.setPointerCapture(e.pointerId); } catch (err) {}
     mvDrag = { s: +mvEl.dataset.s, e: +mvEl.dataset.e, drop: null }; mvEl.classList.add("mv-src"); rz.hidden = true;
   });
   mv.addEventListener("pointermove", e => {
@@ -1043,7 +1216,147 @@ async function openEditor(p) {
   mv.addEventListener("pointerup", endMove);
   mv.addEventListener("pointercancel", endMove);
   const afterRender0 = afterRender;
-  afterRender = function () { afterRender0(); prev.append(mv, ind, tip); if (mvEl && !mvEl.isConnected) mvEl = null; placeMv(); };
+  afterRender = function () { afterRender0(); prev.append(mv, ind, tip); if (mvEl && !mvEl.isConnected) mvEl = null; placeMv(); marcarEditaveis(); };
+
+  /* ----- escrever direto na página: cada texto vira editável e volta para o texto da página ao sair dele ----- */
+  const IE_SEL = "h1[data-line],h2[data-line],h3[data-line],h4[data-line],p[data-line],ul[data-line]>li,ol[data-line]>li,.table[data-line] th,.table[data-line] td,figure[data-line]>figcaption";
+  let ieEl = null, ieMudou = false, selBlk = null, ultimo = "prev", ieRange = null;
+  function marcarEditaveis() {
+    prev.querySelectorAll("figure[data-line]").forEach(f => { if (!f.querySelector("figcaption")) f.appendChild(document.createElement("figcaption")); });
+    prev.querySelectorAll(IE_SEL).forEach(el => { el.contentEditable = "true"; el.spellcheck = true; el.classList.add("ie"); });
+    // caixas de Dica/Atenção: só quando têm apenas parágrafos
+    prev.querySelectorAll("aside.callout[data-line]").forEach(a => {
+      if ([...a.children].every(c => c.tagName === "P")) [...a.children].forEach(c => { c.contentEditable = "true"; c.spellcheck = true; c.classList.add("ie"); });
+    });
+    prev.querySelectorAll(".cards-grid[data-line]").forEach(c => { c.title = "Cartões de habilidades/atributos: mude em \"Texto (avançado)\"."; });
+    if (selBlk && !selBlk.isConnected) selBlk = null;
+    if (ieEl && !ieEl.isConnected) { ieEl = null; ieMudou = false; }
+  }
+  const blocoDe = el => el.closest("[data-line][data-s]");
+  const sufixo = n => n ? ` {${n}%}` : "";
+  function mdHref(h) {
+    const m = h.match(/^#([\w-]+)$/);
+    if (m && (PAGES.some(x => x.id === m[1]) || m[1] === "inicio")) return m[1] + ".md";
+    return h;
+  }
+  function mdSrc(src) {
+    for (const [k, v] of Object.entries(LOCAL_MEDIA)) if (v === src) { src = k; break; }
+    return src.replace(/^wiki\//, "");
+  }
+  function andar(node) {
+    let out = "";
+    for (const n of node.childNodes) {
+      if (n.nodeType === 3) { out += n.nodeValue; continue; }
+      if (n.nodeType !== 1) continue;
+      const t = n.tagName;
+      const envolve = (a, b) => { const x = andar(n), m = x.match(/^(\s*)([\s\S]*?)(\s*)$/); out += m[2] ? m[1] + a + m[2] + b + m[3] : x; };
+      if (t === "BR") out += " ";
+      else if (t === "STRONG" || t === "B") envolve("**", "**");
+      else if (t === "EM" || t === "I") envolve("*", "*");
+      else if (t === "CODE") out += "`" + n.textContent + "`";
+      else if (t === "A") {
+        const x = andar(n).trim(), raw = n.getAttribute("href") || "", h = mdHref(raw);
+        out += x && x !== raw ? `[${x.replace(/[\[\]]/g, "")}](${h.replace(/\s/g, "%20")})` : h;
+      }
+      else if (t === "IMG") out += `![${(n.getAttribute("alt") || "").replace(/[\[\]]/g, "")}](${mdSrc(n.getAttribute("src") || "")})`;
+      else if (t === "DIV" || t === "P") out += " " + andar(n) + " ";
+      else out += andar(n);
+    }
+    return out;
+  }
+  const mdInline = el => andar(el).replace(/[\s ]+/g, " ").trim();
+  function blocoMd(blk, old) {
+    const tag = blk.tagName;
+    if (/^H[1-4]$/.test(tag)) { const t = mdInline(blk); return t ? ["#".repeat(+tag[1]) + " " + t + sufixo(sizeOf(old[0]))] : []; }
+    if (tag === "P") { const t = mdInline(blk); return t ? [t + sufixo(sizeOf(old[old.length - 1]))] : []; }
+    if (tag === "UL" || tag === "OL") {
+      const start = tag === "OL" ? (+blk.getAttribute("start") || 1) : 0, mk = (stripSize(old[0]).match(/^\s*([-*+])/) || [, "-"])[1];
+      const its = [...blk.children].filter(li => li.tagName === "LI").map(mdInline).filter(Boolean);
+      return its.map((t, k) => (tag === "UL" ? mk + " " : (start + k) + ". ") + t + (k === 0 ? sufixo(sizeOf(old[0])) : ""));
+    }
+    if (blk.classList.contains("table")) {
+      const rows = [...blk.querySelectorAll("tr")].map(tr => [...tr.children].map(c => mdInline(c).replace(/\|/g, "/")));
+      if (!rows.length) return old;
+      const line = r => "| " + r.join(" | ") + " |";
+      return [line(rows[0]) + sufixo(sizeOf(old[0])), old[1] || "| " + rows[0].map(() => "---").join(" | ") + " |", ...rows.slice(1).map(line)];
+    }
+    if (tag === "ASIDE") {
+      const ps = [...blk.children].map(mdInline).filter(Boolean);
+      if (!ps.length) return [];
+      ps[0] = ps[0].replace(/^\*\*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:\s*\*\*\s*/i, "$1: ");
+      const out = []; ps.forEach((t, k) => { if (k) out.push(">"); out.push("> " + t); });
+      out[0] += sufixo(sizeOf(old[0])); return out;
+    }
+    if (tag === "FIGURE") {
+      const cap = (blk.querySelector("figcaption") ? blk.querySelector("figcaption").textContent : "").replace(/[\[\]\n]/g, " ").replace(/\s+/g, " ").trim();
+      return [old[0].replace(/!\[[^\]]*\]/, "![" + cap + "]")];
+    }
+    return old;
+  }
+  // grava o texto que foi escrito na página de volta no texto da página (sem redesenhar, para não perder o cursor)
+  function commit() {
+    if (!ieEl || !ieMudou) return;
+    ieMudou = false;
+    const blk = blocoDe(ieEl); if (!blk || !blk.isConnected) return;
+    const s0 = +blk.dataset.s, e0 = +blk.dataset.e, lines = ta.value.split("\n");
+    const novo = blocoMd(blk, lines.slice(s0, e0));
+    const antes = lines.slice(s0, e0).join("\n");
+    if (novo.join("\n") === antes) return;
+    lines.splice(s0, e0 - s0, ...novo);
+    const d = novo.length - (e0 - s0);
+    if (d) {
+      prev.querySelectorAll("[data-s]").forEach(x => {
+        if (x === blk) return;
+        const xs = +x.dataset.s, xe = +x.dataset.e;
+        if (xs >= e0) { x.dataset.s = xs + d; x.dataset.e = xe + d; if (x.dataset.line) x.dataset.line = +x.dataset.line + d; }
+        else if (xs <= s0 && xe >= e0) x.dataset.e = xe + d; // colunas em volta
+      });
+    }
+    blk.dataset.e = s0 + novo.length; if (blk.dataset.line) blk.dataset.line = blk.tagName === "P" ? s0 + Math.max(0, novo.length - 1) : s0;
+    ta.value = lines.join("\n");
+    EDIT.dirty = ta.value !== EDIT.original;
+    try { localStorage.setItem(draftKey(p), ta.value); } catch (e) {}
+    if (!novo.length) renderPrev();
+    setStatus(st, "Texto mudado. Clique em Salvar para gravar.", "ok");
+  }
+  EDIT.commit = commit;
+  prev.addEventListener("focusin", e => { const el = e.target.closest && e.target.closest(".ie"); if (el && el !== ieEl) { commit(); ieEl = el; ieMudou = false; } });
+  prev.addEventListener("focusout", e => {
+    const el = e.target.closest && e.target.closest(".ie"); if (!el) return;
+    commit();
+    if (!(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(".ie"))) ieEl = null;
+  });
+  prev.addEventListener("input", e => { if (e.target.closest && e.target.closest(".ie")) { ieMudou = true; EDIT.dirty = true; } });
+  prev.addEventListener("click", e => { const a = e.target.closest("a"); if (a && prev.contains(a)) e.preventDefault(); });
+  prev.addEventListener("pointerdown", e => {
+    if (e.target === mv || e.target === rz) return;
+    ultimo = "prev";
+    const b = e.target.closest("[data-s]:not([data-blk=col]):not([data-blk=cols])");
+    if (b && prev.contains(b)) { if (selBlk) selBlk.classList.remove("ie-blk-sel"); selBlk = b; b.classList.add("ie-blk-sel"); }
+  });
+  ta.addEventListener("focus", () => { ultimo = "ta"; });
+  prev.addEventListener("paste", e => {
+    if (!e.target.closest || !e.target.closest(".ie")) return;
+    e.preventDefault(); document.execCommand("insertText", false, (e.clipboardData.getData("text/plain") || "").replace(/\s+/g, " "));
+  });
+  prev.addEventListener("keydown", e => {
+    const el = e.target.closest && e.target.closest(".ie"); if (!el) return;
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (el.tagName === "LI") { // Enter na lista = item novo logo abaixo
+        const li = document.createElement("li"); li.contentEditable = "true"; li.className = "ie"; el.after(li);
+        ieMudou = true; li.focus(); return;
+      }
+      el.blur();
+    }
+    if (e.key === "Backspace" && el.tagName === "LI" && !el.textContent.trim() && el.parentElement.children.length > 1) {
+      e.preventDefault(); const pv = el.previousElementSibling || el.nextElementSibling; el.remove(); ieMudou = true; ieEl = pv;
+      pv.focus(); const r = document.createRange(); r.selectNodeContents(pv); r.collapse(false); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r);
+    }
+    if (e.key === "Escape") el.blur();
+  });
+  // os botões de cima não tiram o cursor do texto (para Negrito funcionar no que está selecionado)
+  view.querySelector(".ed-tools").addEventListener("mousedown", e => { if (e.target.closest("button") && ieEl) e.preventDefault(); });
   renderPrev();
   let t1;
   ta.addEventListener("input", () => {
@@ -1060,12 +1373,26 @@ async function openEditor(p) {
     ta.focus(); ta.dispatchEvent(new Event("input"));
   }
   function insertBlock(text) {
+    commit();
+    if (ultimo === "prev" && selBlk && selBlk.isConnected) {
+      // entra logo depois do bloco que foi clicado na página
+      const lines = ta.value.split("\n"), e0 = +selBlk.dataset.e;
+      lines.splice(e0, 0, "", ...text.split("\n"), "");
+      ta.value = lines.join("\n").replace(/\n{3,}/g, "\n\n");
+      selBlk = null; ta.dispatchEvent(new Event("input")); renderPrev();
+      return;
+    }
+    if (ultimo === "prev") { // nada clicado: vai para o fim da página
+      ta.value = ta.value.replace(/\s*$/, "") + "\n\n" + text + "\n"; ta.dispatchEvent(new Event("input")); renderPrev(); return;
+    }
     const s = ta.selectionEnd, v = ta.value;
     const pre = s === 0 || v.slice(0, s).endsWith("\n\n") ? "" : (v.slice(0, s).endsWith("\n") ? "\n" : "\n\n");
     ta.setRangeText(pre + text + "\n\n", s, s, "end"); ta.focus(); ta.dispatchEvent(new Event("input"));
   }
   view.querySelectorAll("[data-ins]").forEach(b => b.addEventListener("click", () => {
     const k = b.dataset.ins;
+    if (k === "b" && ieEl) { document.execCommand("bold"); ieMudou = true; EDIT.dirty = true; return; }
+    if (k === "b" && ultimo === "prev") return setStatus(st, "Clique num texto da página, selecione as palavras e clique em Negrito.", "err");
     if (k === "b") insert("**", "**", "texto em negrito");
     if (k === "h2") insertBlock("## Novo subtítulo");
     if (k === "list") insertBlock("- Primeiro item\n- Segundo item");
@@ -1078,7 +1405,12 @@ async function openEditor(p) {
   view.querySelectorAll("[data-panel]").forEach(b => b.addEventListener("click", () => {
     const pn = $("#pn-" + b.dataset.panel), open = pn.hidden;
     $("#pn-link").hidden = true; $("#pn-yt").hidden = true; pn.hidden = !open;
-    if (open && b.dataset.panel === "link") { $("#lnk-text").value = ta.value.slice(ta.selectionStart, ta.selectionEnd); $("#lnk-url").focus(); }
+    if (open && b.dataset.panel === "link") {
+      const sl = getSelection();
+      if (ieEl && sl.rangeCount && ieEl.contains(sl.anchorNode)) { ieRange = { el: ieEl, r: sl.getRangeAt(0).cloneRange() }; $("#lnk-text").value = sl.toString(); }
+      else { ieRange = null; $("#lnk-text").value = ta.value.slice(ta.selectionStart, ta.selectionEnd); }
+      $("#lnk-url").focus();
+    }
     if (open && b.dataset.panel === "yt") $("#yt-url").focus();
   }));
   $("#lnk-page").addEventListener("change", e => { if (e.target.value) { $("#lnk-url").value = e.target.value; if (!$("#lnk-text").value) $("#lnk-text").value = e.target.selectedOptions[0].textContent; } });
@@ -1086,6 +1418,14 @@ async function openEditor(p) {
     let url = $("#lnk-url").value.trim(); const text = $("#lnk-text").value.trim() || url;
     if (!url) return setStatus(st, "Escreva o endereço do link ou escolha uma página.", "err");
     if (!/^(https?:\/\/|[\w-]+\.md$|#)/i.test(url)) url = "https://" + url;
+    if (ieRange && ieRange.el.isConnected) { // link no texto da página
+      const { el, r } = ieRange; ieRange = null;
+      el.focus(); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r);
+      document.execCommand("insertHTML", false, `<a href="${esc(linkHref(url))}">${esc(text)}</a>`);
+      ieEl = el; ieMudou = true; commit();
+      $("#pn-link").hidden = true; $("#lnk-url").value = ""; $("#lnk-text").value = ""; $("#lnk-page").value = "";
+      return setStatus(st, "Link colocado. Clique em Salvar para gravar.", "ok");
+    }
     const s = ta.selectionStart, e = ta.selectionEnd;
     ta.setRangeText(`[${text.replace(/[\[\]]/g, "")}](${url.replace(/\s/g, "%20")})`, s, e, "end");
     ta.focus(); ta.dispatchEvent(new Event("input"));
@@ -1129,6 +1469,7 @@ async function openEditor(p) {
   }));
 
   $("#ed-save").addEventListener("click", async () => {
+    commit();
     const text = ta.value;
     if (!/^#\s+\S/m.test(text)) return setStatus(st, "A página precisa de um título na primeira linha, começando com # e espaço.", "err");
     $("#ed-save").disabled = true; setStatus(st, "Salvando…");
@@ -1144,6 +1485,7 @@ async function openEditor(p) {
     finally { $("#ed-save").disabled = false; }
   });
   $("#ed-close").addEventListener("click", () => {
+    commit();
     if (EDIT && EDIT.dirty) setStatus(st, "Há mudanças não salvas. Elas ficam guardadas como rascunho neste navegador.", "err");
     EDIT = null;
     if (p === HOME) { history.replaceState(null, "", location.pathname); showHome(); markToc(""); } else showPage(p);
@@ -1271,7 +1613,7 @@ function saveMenuOrder() {
   });
 }
 view.addEventListener("pointerdown", e => {
-  const g = e.target.closest(".ed-grip"); if (!g || !GH) return;
+  const g = e.target.closest(".ed-grip"); if (!g || !EDON) return;
   e.preventDefault(); try { g.setPointerCapture(e.pointerId); } catch (err) {}
   const el = g.dataset.grip === "card" ? g.closest(".card-wrap") : g.closest("section.cat");
   HM = { kind: g.dataset.grip, el, t: null }; el.classList.add("hm-src");
@@ -1475,7 +1817,12 @@ function openZoom(img) {
 zoom.addEventListener("click", e => { if (e.target === zoom || e.target.tagName === "IMG") zoom.close(); });
 $("#zoom-close").addEventListener("click", () => zoom.close());
 
-addEventListener("hashchange", () => { if (!READY) return; q.value = ""; search(); route(); });
+addEventListener("hashchange", () => {
+  if (!READY) return;
+  if (EDIT && EDIT.commit) EDIT.commit();
+  if (EDIT && EDIT.dirty) toast("A página anterior tem mudanças não salvas: ficaram guardadas como rascunho.");
+  q.value = ""; search(); route();
+});
 if (matchMedia("(max-width: 860px)").matches) $("#side-box").open = false;
 load();
 </script>
