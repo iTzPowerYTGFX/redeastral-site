@@ -81,6 +81,16 @@ MENU DO LADO (lista de páginas) — com a edição ligada
      menu e com a etiqueta "cópia" no cartão (só para você). O ✕ da cópia tira só a cópia.
   Tudo isso salva sozinho na hora (muda também a ordem dos cartões no início da Wiki).
 
+APAGAR PARTES FIXAS DA WIKI (com a edição ligada)
+  Passe o mouse (ou toque) em: "Anterior/Próxima" no fim das páginas, "Faltou alguma
+  coisa?", a trilha "Wiki › Categoria", a pesquisa, "Início"/"Como entrar"/"Discord" do
+  topo, o "Wiki" do logo, "Início da wiki" do menu do lado ou o rodapé.
+  Aparece o botão vermelho "✕ Apagar". Para você ele fica apagadinho (tracejado vermelho);
+  quem visita não vê mais. Errou? O mesmo botão vira "↺ Mostrar de novo".
+  Depois clique em "Salvar textos" (barra de baixo).
+  Páginas do menu do lado: ✕ ao lado da página (clique 2 vezes: "Tirar?") tira do menu.
+  O arquivo fica guardado: volta por Organizar páginas → Fora do menu.
+
 TEXTOS FIXOS DA WIKI (menu do topo, rodapé, rótulos)
   Com a edição ligada, também dá para escrever direto em: "Wiki" do logo, "Início" e
   "Como entrar" do menu, texto do botão do Discord, "Todas as páginas" (celular),
