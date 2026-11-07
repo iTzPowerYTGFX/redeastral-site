@@ -98,6 +98,8 @@
   .ed-insmenu[hidden] { display: none; }
   .ed-insmenu label { padding: .4rem .75rem; border-radius: 6px; border: 1px solid #2e2853; background: #151229; color: #f1eeff; font-size: .875rem; font-weight: 700; cursor: pointer; }
   .ed-insmenu input[type=file] { display: none; }
+  .ed-insmenu select { background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .3rem .4rem; font: inherit; font-size: .8125rem; }
+  body.ed-on .site-caixa:empty { min-height: 4rem; }
   .ed-ef { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .3rem .9rem; }
   .ed-ef[hidden], .ed-op[hidden] { display: none; }
   .ed-op { display: inline-flex; align-items: center; gap: .4rem; font-weight: 400; color: #b2abd3; }
@@ -143,6 +145,95 @@
     return n || null;
   }
   const listOf = el => el.closest("[data-ed-list]");
+  /* ---------- desfazer / refazer (Ctrl+Z, Ctrl+Y, botões ↶ ↷) ---------- */
+  const H = { voltar: [], frente: [], abertos: {}, texto: null };
+  function histPush(e) { H.voltar.push(e); if (H.voltar.length > 200) H.voltar.shift(); H.frente.length = 0; histBotoes(); }
+  function histBotoes() {
+    const u = document.getElementById("ed-undo"), r = document.getElementById("ed-redo");
+    if (u) u.disabled = !H.voltar.length; if (r) r.disabled = !H.frente.length;
+  }
+  // posição de vários nós (para mover, inserir, apagar)
+  const posDe = n => ({ n, pai: n.parentNode, prox: n.nextSibling });
+  function porPos(lista) { // repõe na ordem inversa (cada um volta antes do seu vizinho)
+    for (const p of [...lista].reverse()) {
+      if (!p.pai) { p.n.remove(); continue; }
+      const prox = p.prox && p.prox.parentNode === p.pai ? p.prox : null;
+      p.pai.insertBefore(p.n, prox);
+    }
+  }
+  function histPosicoes(nos) { return nos.map(posDe); }
+  function histPosFim(antes, nome, extra) {
+    const depois = antes.map(p => posDe(p.n));
+    histPush({ nome, desfazer() { porPos(antes); extra && extra.desfazer && extra.desfazer(); }, refazer() { porPos(depois); extra && extra.refazer && extra.refazer(); } });
+  }
+  // atributos (tamanho, efeitos, fundo, link): abre antes da mudança e fecha no fim do arraste
+  const IGN = new Set(["ed-sel", "ed-mv-src"]);
+  function fotoAttrs(el) {
+    const m = {};
+    for (const a of el.attributes) m[a.name] = a.name === "class" ? a.value.split(/\s+/).filter(c => c && !IGN.has(c)).join(" ") : a.value;
+    return m;
+  }
+  function porAttrs(el, m) {
+    const sel = el.classList.contains("ed-sel");
+    for (const a of [...el.attributes]) if (!(a.name in m)) el.removeAttribute(a.name);
+    for (const [k, v] of Object.entries(m)) el.setAttribute(k, v);
+    if (sel) el.classList.add("ed-sel");
+    if (el.tagName === "VIDEO") { el.muted = el.hasAttribute("muted"); if (el.hasAttribute("autoplay")) el.play && el.play().catch(() => {}); }
+  }
+  function histAbrir(chave, els) {
+    if (H.abertos[chave]) return;
+    els = els.filter(Boolean);
+    H.abertos[chave] = { els, antes: els.map(fotoAttrs) };
+  }
+  function histFechar(chave, nome) {
+    const a = H.abertos[chave]; if (!a) return; delete H.abertos[chave];
+    const depois = a.els.map(fotoAttrs);
+    if (JSON.stringify(depois) === JSON.stringify(a.antes)) return;
+    histPush({ nome, desfazer() { a.els.forEach((el, i) => porAttrs(el, a.antes[i])); }, refazer() { a.els.forEach((el, i) => porAttrs(el, depois[i])); } });
+  }
+  // textos: o Ctrl+Z do navegador desfaz a digitação; ao sair do texto, a edição inteira vira um passo
+  function gemeos(el) {
+    if (!el.matches(".top .nav a")) return [el];
+    const key = el.dataset.tab !== undefined ? `[data-tab="${el.dataset.tab}"]` : (el.classList.contains("wiki") ? ".wiki" : null);
+    return key ? [...document.querySelectorAll(".top .nav a" + key)] : [el];
+  }
+  const htmlLimpo = el => { const c = el.cloneNode(true); c.querySelectorAll(".ed-ui").forEach(x => x.remove()); return c.innerHTML; };
+  function porHtml(el, html) {
+    const ui = [...el.querySelectorAll(":scope > .ed-ui")];
+    el.innerHTML = html; ui.forEach(x => el.appendChild(x));
+    el.setAttribute("data-ed-changed", "1");
+  }
+  function textoInicio(el) {
+    if (H.texto && H.texto.el === el) return;
+    textoFim();
+    H.texto = { el, nos: gemeos(el), antes: gemeos(el).map(htmlLimpo) };
+  }
+  function textoFim() {
+    const t = H.texto; if (!t) return; H.texto = null;
+    const depois = t.nos.map(htmlLimpo);
+    if (JSON.stringify(depois) === JSON.stringify(t.antes)) return;
+    histPush({ nome: "texto", desfazer() { t.nos.forEach((n, i) => porHtml(n, t.antes[i])); }, refazer() { t.nos.forEach((n, i) => porHtml(n, depois[i])); } });
+  }
+  function desfazer() {
+    textoFim(); Object.keys(H.abertos).forEach(k => histFechar(k, k));
+    const e = H.voltar.pop(); if (!e) return msg("Nada para desfazer.", "err");
+    e.desfazer(); H.frente.push(e); depoisHist("Desfeito.");
+  }
+  function refazer() {
+    textoFim();
+    const e = H.frente.pop(); if (!e) return msg("Nada para refazer.", "err");
+    e.refazer(); H.voltar.push(e); depoisHist("Refeito.");
+  }
+  function depoisHist(m) {
+    dirty = true;
+    document.querySelectorAll(".ed-sel").forEach(x => { if (x !== hzEl) x.classList.remove("ed-sel"); });
+    if (hzEl && !hzEl.isConnected) hzEl = null;
+    if (hzEl) selectEl(hzEl); else placeHz();
+    if (window.astralAjustaMenu) window.astralAjustaMenu();
+    histBotoes(); msg(m + " (Ctrl+Z desfaz, Ctrl+Y refaz.) Clique em Salvar para gravar.", "ok");
+  }
+  function histLimpar() { H.voltar.length = 0; H.frente.length = 0; H.abertos = {}; H.texto = null; histBotoes(); }
+
   // cada elemento ganha um número fixo ao começar a editar; o salvar acha o mesmo elemento no
   // index.html do GitHub por esse número (assim dá para mover coisas de lugar)
   let ORIG = [];
@@ -206,7 +297,8 @@
     del.title = "Remover este item"; del.setAttribute("contenteditable", "false");
     del.addEventListener("click", e => { e.preventDefault(); e.stopPropagation();
       if (kids(list).length <= 1) return msg("Precisa sobrar pelo menos um item nesta lista.", "err");
-      item.remove(); dirty = true; msg("Item removido. Clique em Salvar para gravar.");
+      const antesIt = histPosicoes([item]); item.remove(); histPosFim(antesIt, "remover item");
+      dirty = true; msg("Item removido. Clique em Salvar para gravar. (Ctrl+Z desfaz)");
     });
     item.appendChild(del);
     if (item.matches("a.feat")) {
@@ -214,7 +306,8 @@
       box.className = "ed-href ed-ui"; box.setAttribute("contenteditable", "false");
       box.innerHTML = `Link:<input type="text" spellcheck="false">`;
       const inp = box.querySelector("input"); inp.value = item.getAttribute("href") || "";
-      inp.addEventListener("input", () => { item.setAttribute("href", inp.value.trim() || "wiki.html"); dirty = true; });
+      inp.addEventListener("input", () => { histAbrir("link-cartao", [item]); item.setAttribute("href", inp.value.trim() || "wiki.html"); dirty = true; });
+      inp.addEventListener("change", () => histFechar("link-cartao", "link"));
       inp.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); inp.focus(); });
       box.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); });
       item.appendChild(box);
@@ -236,7 +329,9 @@
         const last = kids(list).at(-1); if (!last) return;
         const copy = cleanClone(last);
         copy.querySelectorAll("*").forEach(el => el.removeAttribute("id"));
+        const antesAdd = histPosicoes([copy]);
         list.appendChild(copy);
+        histPosFim(antesAdd, "adicionar item");
         decorateItem(list, copy);
         let firstText = null;
         [copy, ...copy.querySelectorAll("[data-ed]")].filter(el => el.hasAttribute("data-ed")).forEach(el => {
@@ -275,6 +370,8 @@
       <button type="button" id="ed-ul" title="Tirar link do texto selecionado">Tirar link</button>
       <input type="text" id="ed-url" placeholder="Cole o endereço e aperte Enter (https://… ou wiki.html#pagina)" hidden>
       <span class="grow" id="ed-msg">Clique em qualquer texto marcado para editar.</span>
+      <button type="button" id="ed-undo" title="Desfazer (Ctrl+Z)" aria-label="Desfazer" disabled>↶</button>
+      <button type="button" id="ed-redo" title="Refazer (Ctrl+Y)" aria-label="Refazer" disabled>↷</button>
       <button type="button" id="ed-cancel">Cancelar</button>
       <button type="button" class="acc" id="ed-save">Salvar</button>`;
     const keep = e => e.preventDefault();
@@ -300,6 +397,9 @@
     });
     bar.querySelector("#ed-cancel").addEventListener("click", () => { dirty = false; location.reload(); });
     montarInserir();
+    bar.querySelector("#ed-undo").addEventListener("click", desfazer);
+    bar.querySelector("#ed-redo").addEventListener("click", refazer);
+    histBotoes();
     bar.querySelector("#ed-fundo").addEventListener("click", alternarFundo);
     const efBtn = bar.querySelector("#ed-ef-btn");
     efBtn.addEventListener("click", () => {
@@ -311,8 +411,8 @@
     bar.querySelectorAll("#ed-ef input[data-ef]").forEach(inp => {
       const nome = { op: "Opacidade", blur: "Desfoque", sombra: "Sombra", brilho: "Brilho" }[inp.dataset.ef];
       inp.addEventListener("input", () => mudarEfeito(inp.dataset.ef, +inp.value));
-      inp.addEventListener("change", () => msg(`${nome} ${inp.value}%. Clique em Salvar para gravar.`, "ok"));
-      inp.closest("label").addEventListener("dblclick", () => { mudarEfeito(inp.dataset.ef, inp.dataset.ef === "op" ? 100 : 0); msg(nome + " normal.", "ok"); });
+      inp.addEventListener("change", () => { histFechar("efeito", nome); msg(`${nome} ${inp.value}%. Clique em Salvar para gravar.`, "ok"); });
+      inp.closest("label").addEventListener("dblclick", () => { mudarEfeito(inp.dataset.ef, inp.dataset.ef === "op" ? 100 : 0); histFechar("efeito", nome); msg(nome + " normal.", "ok"); });
     });
     bar.querySelector("#ed-ef-fundo input").addEventListener("change", mostrarEfeitos);
     bar.querySelectorAll("#ed-ef input[data-cor]").forEach(cor => {
@@ -322,12 +422,14 @@
         const sl = bar.querySelector(`#ed-ef input[data-ef="${k}"]`);
         mudarEfeito(k, +sl.value > 0 ? +sl.value : 50); // ainda em 0%: liga em 50%
       });
-      cor.addEventListener("change", () => msg(`Cor ${k === "sombra" ? "da sombra" : "do brilho"} trocada. Clique em Salvar para gravar.`, "ok"));
+      cor.addEventListener("change", () => histFechar("efeito", "cor")); cor.addEventListener("change", () => msg(`Cor ${k === "sombra" ? "da sombra" : "do brilho"} trocada. Clique em Salvar para gravar.`, "ok"));
     });
     bar.querySelector("#ed-save").addEventListener("click", save);
     bar.querySelector("#ed-up").addEventListener("click", () => { if (hzEl && hzEl.parentElement) selectEl(hzEl.parentElement); });
+    bar.querySelector("#ed-href").addEventListener("change", () => histFechar("link-botao", "link"));
     bar.querySelector("#ed-href").addEventListener("input", e => {
       const a = linkTarget; if (!a || a.hasAttribute("data-link")) return;
+      histAbrir("link-botao", [a]);
       a.setAttribute("href", e.target.value.trim() || "#"); a.setAttribute("data-ed-href", "1"); dirty = true;
     });
     msg("Clique em qualquer coisa: texto marcado para escrever, bolinha para o tamanho, \"✥ Mover\" para mudar de lugar.");
@@ -347,6 +449,15 @@
     if (e.key === " " && el.matches("summary")) { e.preventDefault(); document.execCommand("insertText", false, " "); }
   }, true);
   document.addEventListener("keyup", e => { if (editing && e.key === " " && e.target.closest && e.target.closest("summary")) e.preventDefault(); }, true);
+  document.addEventListener("keydown", e => {
+    if (!editing || !(e.ctrlKey || e.metaKey) || e.altKey) return;
+    const k = e.key.toLowerCase();
+    const emTexto = e.target.closest && (e.target.closest("[contenteditable='true'], input, textarea, select"));
+    if (k === "z" && !e.shiftKey) { if (emTexto && emTexto.tagName !== "SELECT") { const el = e.target.closest("[data-ed]"); if (!el || htmlLimpo(el) !== (H.texto && H.texto.el === el ? H.texto.antes[0] : null)) return; } e.preventDefault(); desfazer(); }
+    else if (k === "y" || (k === "z" && e.shiftKey)) { if (emTexto) return; e.preventDefault(); refazer(); }
+  }, true);
+  document.addEventListener("focusin", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el) textoInicio(el); else textoFim(); });
+  document.addEventListener("focusout", e => { const el = editing && e.target.closest && e.target.closest("[data-ed]"); if (el && H.texto && H.texto.el === el) setTimeout(() => { if (!el.contains(document.activeElement)) textoFim(); }, 0); });
   document.addEventListener("paste", e => {
     if (!editing || !e.target.closest || !e.target.closest("[data-ed]")) return;
     e.preventDefault();
@@ -426,9 +537,12 @@
   const mvEnd = () => {
     if (!mvDrag) return; const { el, d } = mvDrag; mvDrag = null; mvShow(null); el.classList.remove("ed-mv-src");
     if (d) {
+      const nos = el.matches(".top .nav a") ? [...new Set([el, ...document.querySelectorAll(".top nav.nav > a")])] : [el];
+      const antesMv = histPosicoes(nos), flags = nos.map(n => n.hasAttribute("data-ed-moved"));
       d.t.parentElement.insertBefore(el, d.after ? d.t.nextSibling : d.t);
       el.setAttribute("data-ed-moved", "1"); dirty = true;
       if (el.matches(".top .nav a")) espelharMenu(el.closest(".nav"));
+      histPosFim(antesMv, "mover");
       if (window.astralAjustaMenu) window.astralAjustaMenu();
       msg("Movido. Clique em Salvar para gravar (Cancelar desfaz tudo).", "ok");
     }
@@ -475,6 +589,7 @@
   addEventListener("scroll", placeHz, { passive: true }); addEventListener("resize", placeHz);
   hz.addEventListener("pointerdown", e => {
     if (!hzEl) return; e.preventDefault(); try { hz.setPointerCapture(e.pointerId); } catch (err) {}
+    histAbrir("zoom", [hzEl]);
     hzDrag = { x: e.clientX, start: Math.round((parseFloat(hzEl.style.zoom) || 1) * 100), pct: 0 };
     hzDrag.pct = hzDrag.start;
   });
@@ -491,10 +606,10 @@
     hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1");
     dirty = true; hzLabel.hidden = true;
     msg(hzDrag.pct === 100 ? "Tamanho normal." : `Tamanho ${hzDrag.pct}%. Clique em Salvar para gravar.`, "ok");
-    hzDrag = null; placeHz();
+    hzDrag = null; placeHz(); histFechar("zoom", "tamanho");
   };
   hz.addEventListener("pointerup", hzEnd); hz.addEventListener("pointercancel", hzEnd);
-  hz.addEventListener("dblclick", () => { if (!hzEl) return; hzEl.style.removeProperty("zoom"); hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
+  hz.addEventListener("dblclick", () => { if (!hzEl) return; histAbrir("zoom2", [hzEl]); hzEl.style.removeProperty("zoom"); setTimeout(() => histFechar("zoom2", "tamanho"), 0); hzEl.setAttribute("data-ed-zoom", "1"); if (hzEl.hasAttribute("data-ed")) hzEl.setAttribute("data-ed-changed", "1"); dirty = true; placeHz(); msg("Tamanho normal.", "ok"); });
 
   /* imagem/vídeo como fundo do balão: acha a mídia do que está selecionado (ou do balão que tem mídia de fundo) */
   function midiaDe(el) {
@@ -544,6 +659,7 @@
   }
   function mudarEfeito(tipo, v) {
     const t = alvoEfeito(); if (!t) return;
+    histAbrir("efeito", [t]);
     if (tipo === "op") {
       v = Math.max(10, Math.min(100, Math.round(v)));
       if (v >= 100) t.style.removeProperty("opacity"); else t.style.opacity = (v / 100).toString();
@@ -561,11 +677,12 @@
   function alternarFundo() {
     const m = midiaDe(hzEl); if (!m) return;
     const on = !m.classList.contains("fundo");
+    histAbrir("fundo", [m, m.querySelector("video")]);
     m.classList.toggle("fundo", on);
     const v = m.querySelector("video");
     if (v && on) { v.removeAttribute("controls"); v.muted = true; ["autoplay", "muted", "loop", "playsinline"].forEach(a => v.setAttribute(a, "")); v.play && v.play().catch(() => {}); }
     m.setAttribute("data-ed-cls", "1"); if (v) v.setAttribute("data-ed-cls", "1");
-    dirty = true; placeHz(); mostrarFundo(hzEl);
+    dirty = true; histFechar("fundo", "fundo"); placeHz(); mostrarFundo(hzEl);
     msg(on ? "Agora é o fundo do balão. Para desfazer, selecione o balão e clique em Tirar do fundo. Depois, Salvar." : "Voltou a ser imagem/vídeo normal. Clique em Salvar.", "ok");
   }
 
@@ -584,28 +701,44 @@
   const apagados = [];
   const podeApagar = el => !!el && !outer(el) && !el.closest(".ed-ui") &&
     (el.matches("main > section.aba-extra") || !el.matches("main > section, .hero, .top, .top *, .wrap"));
+  // é uma "caixa" (algo que guarda outras coisas) e não um texto, imagem ou vídeo?
+  const ehCaixa = el => !el.hasAttribute("data-ed") && !el.matches("img, video, iframe, figure, .site-media, .site-yt, [data-ed-list], p, h1, h2, h3, h4, h5, h6, li, summary, button, input")
+    && [...el.children].some(c => !c.classList.contains("ed-ui"));
   function alvoInsercao() {
     let el = hzEl && hzEl.isConnected && !outer(hzEl) && !hzEl.closest(".ed-ui") ? hzEl : null;
+    const modoSel = document.getElementById("ed-onde"); let modo = modoSel ? modoSel.value : "auto";
     if (el) {
       const ed = el.closest("[data-ed]"); if (ed) el = ed;
       while (el && el.parentElement && !outer(el.parentElement) && getComputedStyle(el).display === "inline") el = el.parentElement;
-      if (el.matches("main > section")) { const w = el.querySelector(":scope > .wrap") || el; return { parent: w, before: null }; }
+      if (el.matches("main > section")) { const w = el.querySelector(":scope > .wrap") || el; return { parent: w, before: null, onde: "no fim da aba" }; }
       if (el.closest(".top")) el = null;
     }
-    if (el) return { parent: el.parentElement, before: el.nextSibling };
+    if (el) {
+      if (modo === "auto") modo = ehCaixa(el) ? "dentro-fim" : "depois";
+      // dentro de um texto não dá: vai depois dele
+      if ((modo === "dentro-fim" || modo === "dentro-inicio") && (el.hasAttribute("data-ed") || el.matches("img, video, iframe, p, h1, h2, h3, h4, h5, h6, li, summary"))) modo = "depois";
+      const primeiro = [...el.childNodes].find(n => !(n.nodeType === 1 && n.classList.contains("ed-ui"))) || null;
+      const ultimoUi = [...el.children].find(c => c.classList.contains("ed-ui")) || null; // ✕ e "Link:" dos cartões ficam no fim
+      if (modo === "dentro-fim") return { parent: el, before: ultimoUi, onde: "dentro, no fim" };
+      if (modo === "dentro-inicio") return { parent: el, before: primeiro, onde: "dentro, no começo" };
+      if (modo === "antes") return { parent: el.parentElement, before: el, onde: "antes" };
+      return { parent: el.parentElement, before: el.nextSibling, onde: "depois" };
+    }
     const sec = [...document.querySelectorAll("main > section")].find(x => !x.hidden && x.offsetParent !== null);
     return { parent: sec ? (sec.querySelector(":scope > .wrap") || sec) : null, before: null };
   }
   function inserir(node, msgTxt) {
     const a = alvoInsercao();
     if (!a.parent) return msg("Clique primeiro onde quer colocar (o novo entra logo depois).", "err");
+    const antesIns = histPosicoes([node]);
     a.parent.insertBefore(node, a.before);
+    histPosFim(antesIns, "inserir");
     node.setAttribute("data-ed-new", "1"); node.setAttribute("data-ed-moved", "1");
     node.querySelectorAll("[data-ed]").forEach(x => makeEditable(x, x.getAttribute("data-ed") === "1"));
     if (node.hasAttribute("data-ed")) makeEditable(node, node.getAttribute("data-ed") === "1");
     dirty = true; selectEl(node);
     node.scrollIntoView({ block: "center", behavior: "smooth" });
-    msg(msgTxt || "Colocado. Arraste com ✥ Mover, mude o tamanho com a bolinha e clique em Salvar.", "ok");
+    msg((msgTxt || "Colocado") + " (" + a.onde + " do que estava selecionado). Arraste com ✥ Mover, Ctrl+Z desfaz. Depois, Salvar.", "ok");
   }
   const slugify = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "arquivo";
   async function enviarArquivo(file) {
@@ -624,12 +757,15 @@
     const linha = document.createElement("div");
     linha.className = "ed-line ed-insmenu"; linha.id = "ed-insmenu"; linha.hidden = true;
     linha.innerHTML = `<strong>Inserir:</strong>
+      <label class="ed-op" title="Onde o novo entra em relação ao que está selecionado">Onde
+        <select id="ed-onde"><option value="auto">Automático</option><option value="dentro-fim">Dentro (no fim)</option><option value="dentro-inicio">Dentro (no começo)</option><option value="depois">Depois</option><option value="antes">Antes</option></select></label>
       <label>Imagem<input type="file" accept="image/png,image/jpeg,image/webp,image/gif" data-t="img"></label>
       <label>Vídeo .mp4<input type="file" accept="video/mp4,video/webm" data-t="vid"></label>
       <label title="Toca sozinho em loop, sem som, como um GIF">Animação (loop)<input type="file" accept="video/mp4,video/webm" data-t="anim"></label>
       <button type="button" data-t="yt">YouTube</button>
       <button type="button" data-t="txt">Texto</button>
       <button type="button" data-t="tit">Título</button>
+      <button type="button" data-t="caixa" title="Uma caixa para juntar coisas: imagem de fundo, textos, botões...">Caixa</button>
       <button type="button" data-t="aba" title="Cria uma aba nova no menu do topo">Nova aba</button>
       <input type="text" id="ed-yt" placeholder="Cole o link do YouTube e aperte Enter" hidden>
       <input type="text" id="ed-aba" placeholder="Nome da nova aba e Enter" hidden>
@@ -645,7 +781,7 @@
         if (t === "img") fig.innerHTML = `<img alt=""><figcaption data-ed="0"></figcaption>`;
         else fig.innerHTML = t === "anim" ? `<video autoplay muted loop playsinline></video>` : `<video controls preload="metadata" playsinline></video><figcaption data-ed="0"></figcaption>`;
         const m = fig.querySelector("img, video"); m.setAttribute("src", up.url); m.setAttribute("data-ed-src", up.caminho);
-        inserir(fig, f.name + " enviado e colocado. Clique em Salvar (o site público mostra em 1 a 2 minutos).");
+        inserir(fig, f.name + " enviado e colocado");
       } catch (e) { msg(e.message, "err"); }
     }));
     const yt = linha.querySelector("#ed-yt"), aba = linha.querySelector("#ed-aba");
@@ -658,6 +794,7 @@
       sec.className = "block aba-extra"; sec.id = id;
       sec.innerHTML = `<div class="wrap"><div class="block-head"><p class="eyebrow" data-ed="1"></p><h2 data-ed="1"></h2><p class="lead" data-ed="0">Escreva aqui o texto desta aba. Use + Inserir para colocar imagens, vídeos e mais textos.</p></div></div>`;
       sec.querySelector(".eyebrow").textContent = nome; sec.querySelector("h2").textContent = nome;
+      const novosAba = [sec];
       main.appendChild(sec);
       for (const el of [sec]) { el.setAttribute("data-ed-new", "1"); el.setAttribute("data-ed-moved", "1"); }
       sec.querySelectorAll("[data-ed]").forEach(x => makeEditable(x, x.getAttribute("data-ed") === "1"));
@@ -666,8 +803,10 @@
         a.href = "#" + id; a.dataset.tab = id; a.textContent = nome; a.setAttribute("data-ed", "1");
         a.setAttribute("data-ed-new", "1"); a.setAttribute("data-ed-moved", "1");
         nav.insertBefore(a, nav.querySelector("a.wiki"));
-        makeEditable(a, true);
+        makeEditable(a, true); novosAba.push(a);
       });
+      histPush((() => { const dep = novosAba.map(posDe), ant = novosAba.map(n => ({ n, pai: null, prox: null }));
+        return { nome: "nova aba", desfazer() { porPos(ant); if (location.hash === "#" + id) location.hash = ""; }, refazer() { porPos(dep); location.hash = id; } }; })());
       aba.value = ""; aba.hidden = true; dirty = true;
       location.hash = id;
       if (window.astralAjustaMenu) window.astralAjustaMenu();
@@ -681,6 +820,11 @@
       if (t === "aba") { aba.hidden = !aba.hidden; if (!aba.hidden) aba.focus(); return; }
       if (t === "txt") { const p = document.createElement("p"); p.className = "site-texto"; p.setAttribute("data-ed", "0"); p.textContent = "Escreva aqui."; inserir(p); }
       if (t === "tit") { const h = document.createElement("h3"); h.className = "site-titulo"; h.setAttribute("data-ed", "1"); h.textContent = "Novo título"; inserir(h); }
+      if (t === "caixa") {
+        const c = document.createElement("div"); c.className = "site-caixa";
+        c.innerHTML = `<h3 class="site-titulo" data-ed="1">Título da caixa</h3><p class="site-texto" data-ed="0">Escreva aqui. Para pôr imagem de fundo: selecione a caixa, + Inserir, Imagem, e depois "Usar como fundo".</p>`;
+        inserir(c, "Caixa colocada");
+      }
     });
     yt.addEventListener("keydown", e => {
       if (e.key !== "Enter") return; e.preventDefault();
@@ -695,6 +839,10 @@
       const el = hzEl; if (!podeApagar(el)) return;
       if (Date.now() - armado > 3000) { armado = Date.now(); rm.classList.add("armed"); rm.textContent = "Confirmar apagar"; return; }
       armado = 0; rm.classList.remove("armed"); rm.textContent = "Apagar";
+      const nosRm = [el];
+      if (el.matches("[data-ed-list]") && el.nextElementSibling && el.nextElementSibling.classList.contains("ed-add")) nosRm.push(el.nextElementSibling);
+      if (el.matches("main > section.aba-extra")) nosRm.push(...document.querySelectorAll(`.top .nav a[data-tab="${el.id}"]`));
+      const antesRm = histPosicoes(nosRm), lenAp = apagados.length;
       const naLista = el.parentElement && listOf(el.parentElement);
       if (!el.hasAttribute("data-ed-new") && !naLista) {
         el.querySelectorAll("[data-ed-moved]").forEach(x => x.removeAttribute("data-ed-moved"));
@@ -707,6 +855,8 @@
         a.remove();
       });
       el.remove(); hzEl = null; rm.hidden = true; placeHz(); dirty = true;
+      const idsRm = apagados.slice(lenAp);
+      histPosFim(antesRm, "apagar", { desfazer() { apagados.splice(apagados.length - idsRm.length, idsRm.length); }, refazer() { apagados.push(...idsRm); } });
       if (ehAba) location.hash = "";
       msg("Apagado. Clique em Salvar para gravar (Cancelar desfaz tudo).", "ok");
     });
@@ -798,7 +948,7 @@
         ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls", "data-ed-op"].forEach(k => el.removeAttribute(k));
       });
       apagados.length = 0;
-      tagIds();
+      tagIds(); histLimpar();
       msg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
     } catch (err) { msg(err.message, "err"); }
     finally { btn.disabled = false; }

@@ -145,8 +145,8 @@ LINKS DO DISCORD, DA LOJA, DO YOUTUBE E DO INSTAGRAM
   Barra roxa -> "Links do site" -> cole os links -> Salvar links.
   Vale para a página inicial e para a Wiki (botões do Discord e da loja e a aba Redes sociais).
   Enquanto um link estiver vazio, o botão/cartão mostra "Em breve".
-  Os ícones da aba Redes sociais ficam em img/redes/ (video.svg, camera.svg, chat.svg);
-  para trocar por outra imagem, suba um arquivo com o mesmo nome por cima.
+  Os ícones da aba Redes sociais ficam em img/redes/ (youtube.webp, instagram.webp, discord.webp);
+  para trocar, suba um arquivo .webp com o mesmo nome por cima.
 
 SAIR
   Barra roxa -> "Sair". Apaga a chave deste navegador.
@@ -180,12 +180,21 @@ EDITAR A PÁGINA INICIAL (início do site)
   -> pega o cartão inteiro).
 
 INSERIR IMAGEM, VÍDEO, TEXTO, TÍTULO E ABAS NOVAS (página inicial, qualquer aba)
-  Com "Editar esta página" ligado, clique onde quer colocar (o novo entra logo DEPOIS do que
-  estiver selecionado; sem nada selecionado, entra no fim da aba aberta) e clique em "+ Inserir":
+  Com "Editar esta página" ligado, clique onde quer colocar e clique em "+ Inserir".
+  ONDE (no topo do menu "+ Inserir"):
+    Automático     -> selecionou uma CAIXA (cartão, balão, pergunta, caixa nova): entra DENTRO dela,
+                      no fim. Selecionou um texto, título, imagem ou botão: entra logo DEPOIS dele.
+    Dentro (no fim) / Dentro (no começo) / Depois / Antes -> escolha você mesmo.
+    Sem nada selecionado, entra no fim da aba aberta. A barra diz onde o item entrou.
+    Dica: clicou no título de um cartão e quer pôr a imagem dentro do cartão? Use
+    "Selecionar o bloco de fora" antes (pega o cartão) ou escolha "Depois".
     Imagem / Vídeo .mp4 / Animação (loop)  -> escolha o arquivo (até 25 MB). Ele vai para a pasta
                                               midia/ do site. Imagem e vídeo têm legenda opcional.
     YouTube                                -> cole o link e aperte Enter
     Texto / Título                         -> escreva por cima de "Escreva aqui." / "Novo título"
+    Caixa                                  -> um balão novo com título e texto. Selecione a caixa
+                                              e insira imagem/vídeo: entra dentro dela. Com
+                                              "Usar como fundo" vira o fundo da caixa.
     Nova aba                               -> nome e Enter: a aba entra no menu do topo (computador
                                               e celular) com título e texto para editar
   Depois dá para arrastar com "✥ Mover" e mudar o tamanho com a bolinha. Clique em Salvar.
@@ -203,6 +212,11 @@ INSERIR IMAGEM, VÍDEO, TEXTO, TÍTULO E ABAS NOVAS (página inicial, qualquer a
   As abas que já vinham no site não podem ser apagadas, só o que está dentro delas.
   MENU: mover um item do menu do topo muda a ordem nos dois menus (computador e celular).
   Se as abas não cabem no topo, o site mostra o botão "Menu" sozinho.
+  VOLTAR E AVANÇAR: botões ↶ e ↷ na barra roxa, ou Ctrl+Z (voltar) e Ctrl+Y ou Ctrl+Shift+Z
+  (avançar). Voltam mover, inserir, apagar, efeitos, tamanho, fundo, links e o que você escreveu.
+  Escrevendo dentro de um texto, Ctrl+Z desfaz primeiro as letras; clique fora e o ↶ volta
+  o texto inteiro. Depois de Salvar a lista de voltar zera (o que foi salvo fica).
+  Quebrou tudo e não salvou? Clique em Cancelar (ou recarregue a página): volta como estava.
 
 EDITAR PELO CELULAR VENDO COMO NO COMPUTADOR
   Na barra roxa (página inicial ou Wiki): botão "Modo computador".
