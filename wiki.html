@@ -726,6 +726,7 @@ function buildToc() {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
     if (!EDON) { h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`; continue; }
     h += `<div class="toc-cat" data-cat="${esc(c)}"><div class="toc-cat-h">${grip("cat")}<h4 class="toc-cat-name wt-ed" contenteditable="true" spellcheck="false" title="Clique para mudar o nome da categoria">${esc(c)}</h4>`
+      + `<button type="button" class="toc-mini" data-ta="novapag" title="Criar uma página nova nesta categoria">+</button>`
       + `<button type="button" class="toc-mini" data-ta="az" title="Ordenar as páginas desta categoria de A a Z">A–Z</button>`
       + (ps.length ? "" : `<button type="button" class="toc-mini" data-ta="del" title="Apagar esta categoria (está vazia)">✕</button>`) + `</div>`
       + ps.map(p => `<div class="toc-row${p.alias ? " copia" : ""}" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`
@@ -733,7 +734,7 @@ function buildToc() {
         + (p.alias ? `<button type="button" class="toc-mini toc-row-b" data-ta="tirar" title="Tirar esta cópia (a página continua em ${esc(p.alias.cat)})">✕</button>` : "") + `</div>`).join("")
       + (ps.length ? "" : `<p class="toc-vazia">Vazia: arraste páginas para cá</p>`) + `</div>`;
   }
-  if (EDON) h += `<div class="toc-tools"><button type="button" class="toc-mini" data-ta="newcat">+ Nova categoria</button><button type="button" class="toc-mini" data-ta="azall" title="Ordena as páginas de A a Z dentro de cada categoria">Tudo de A a Z</button></div>`;
+  if (EDON) h += `<div class="toc-tools"><button type="button" class="toc-mini" data-ta="novapag">+ Nova página</button><button type="button" class="toc-mini" data-ta="newcat">+ Nova categoria</button><button type="button" class="toc-mini" data-ta="azall" title="Ordena as páginas de A a Z dentro de cada categoria">Tudo de A a Z</button></div>`;
   toc.innerHTML = h;
 }
 
@@ -747,7 +748,7 @@ function showHome() {
   let h = `<div class="home-head"><h1>${esc(HOME.title)}</h1><div class="prose home-intro">${md(rest, true)}</div>${pen('data-pen="home"', "Editar título e texto", "inline")}</div>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
-    h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
+    h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen(`data-pen="nova" data-cat="${esc(c)}"`, "Nova página aqui", "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
       <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
@@ -1676,6 +1677,8 @@ toc.addEventListener("click", e => {
   } else if (k === "del") {
     if (PAGES.some(p => p.cat === cat)) return toast("Tire as páginas da categoria antes de apagar.");
     CATS.splice(CATS.indexOf(cat), 1); aplicarMenu();
+  } else if (k === "novapag") {
+    abrirNovaPagina(cat);
   } else if (k === "copiar") {
     const row = b.closest(".toc-row"), e0 = PAGES.find(x => keyOf(x) === row.dataset.key); if (!e0) return;
     abrirCopiar(b, e0.alias || e0);
@@ -1868,6 +1871,7 @@ view.addEventListener("click", async e => {
   e.preventDefault(); e.stopPropagation();
   if (b.dataset.pen === "home") return $("#ed-home").click();
   if (b.dataset.pen === "org") return $("#ed-org").click();
+  if (b.dataset.pen === "nova") return abrirNovaPagina(b.dataset.cat);
   const p = pageById(b.dataset.id); if (!p) return;
   const dlg = $("#cardedit"); setStatus($("#ce-status"), "Lendo a página…");
   $("#ce-file").textContent = p.title; $("#ce-title").value = p.title; $("#ce-sum").value = p.summaryText || ""; dlg.showModal();
@@ -1926,12 +1930,14 @@ $("#ce-form").addEventListener("submit", async e => {
 });
 
 /* ----- nova página ----- */
-$("#ed-new").addEventListener("click", () => {
+function abrirNovaPagina(cat) {
   const sel = $("#np-cat");
   sel.innerHTML = CATS.map(c => `<option>${esc(c)}</option>`).join("") + `<option value="__nova">+ Nova categoria…</option>`;
+  if (cat && CATS.includes(cat)) sel.value = cat;
   $("#np-title").value = ""; $("#np-newcat").value = ""; $("#np-newcat-wrap").hidden = true; setStatus($("#np-status"), "");
-  $("#newpage").showModal();
-});
+  $("#newpage").showModal(); $("#np-title").focus();
+}
+$("#ed-new").addEventListener("click", () => abrirNovaPagina());
 $("#np-cat").addEventListener("change", e => { $("#np-newcat-wrap").hidden = e.target.value !== "__nova"; });
 $("#np-form").addEventListener("submit", async e => {
   e.preventDefault();
