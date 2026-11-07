@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-07T00:33:30Z",
+  "atualizado": "2026-11-07T01:33:39Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -12,11 +12,11 @@
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3200},
       {"nome": "_Maya06908", "valor": 2681},
-      {"nome": "_Flos7304", "valor": 2239},
+      {"nome": "_Flos7304", "valor": 2264},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 854},
+      {"nome": "_Flos7304", "valor": 879},
       {"nome": "_MitKan22", "valor": 363},
       {"nome": "TagaYato_", "valor": 344},
       {"nome": "_M_na_voz", "valor": 313},
@@ -166,7 +166,7 @@
       {"nome": "_Foxyismyname553", "valor": 25}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 6},
+      {"nome": "_Flos7304", "valor": 7},
       {"nome": "_Kroven_1611", "valor": 4},
       {"nome": "_Foxyismyname553", "valor": 2},
       {"nome": "_Maya06908", "valor": 2}
@@ -336,7 +336,7 @@
       {"nome": "_Kroven_1611", "valor": 86},
       {"nome": "_Foxyismyname553", "valor": 41},
       {"nome": "_Maya06908", "valor": 35},
-      {"nome": "_Flos7304", "valor": 28},
+      {"nome": "_Flos7304", "valor": 30},
       {"nome": "_Jpzin001", "valor": 19},
       {"nome": "_M_na_voz", "valor": 11},
       {"nome": "_Dxvi779974", "valor": 7}
@@ -365,15 +365,15 @@
       {"nome": "_MitKan22", "valor": 95},
       {"nome": "_Corvus8910", "valor": 63},
       {"nome": "_Kroven_1611", "valor": 58},
+      {"nome": "_Flos7304", "valor": 56},
       {"nome": "_OsiBloodMoon", "valor": 56},
       {"nome": "_Sayko_ax", "valor": 56},
-      {"nome": "_Flos7304", "valor": 55},
       {"nome": "_Maya06908", "valor": 51}
      ],
      "mes": [
       {"nome": "_Dxvi779974", "valor": 12},
       {"nome": "_Kroven_1611", "valor": 6},
-      {"nome": "_Flos7304", "valor": 3},
+      {"nome": "_Flos7304", "valor": 4},
       {"nome": "_Foxyismyname553", "valor": 2},
       {"nome": "_M_na_voz", "valor": 1},
       {"nome": "DullLucasdeolro", "valor": 1}
