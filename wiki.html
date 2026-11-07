@@ -312,6 +312,13 @@ dialog.form.wide { width: min(94vw, 46rem); }
 .wbar label { display: inline-flex; gap: .4rem; align-items: center; flex: 1 1 16rem; color: #b2abd3; font-weight: 400; font-size: .875rem; }
 .wbar input { min-width: 0; flex: 1; background: #0b0a1a; color: #f1eeff; border: 1px solid #2e2853; border-radius: 6px; padding: .4rem .6rem; font: 1rem var(--f-body); }
 body.wbar-on { padding-bottom: 8rem; }
+.wbar-tools { flex-wrap: nowrap; overflow-x: auto; gap: .35rem; padding-bottom: .4rem; border-bottom: 1px solid #2e2853; scrollbar-width: thin; }
+.wbar-tools::before { content: "Colocar:"; flex: none; color: #b2abd3; font-weight: 400; font-size: .8125rem; margin-right: .1rem; }
+.wbar .wbar-tools button { flex: none; padding: .3rem .6rem; font-size: .8125rem; }
+.wbar .wbar-tools button.sep { margin-left: .4rem; }
+@media (min-width: 1000px) { .wbar-tools { flex-wrap: wrap; overflow: visible; } }
+/* celular com o editor aberto: barra mais baixa (fica só "Colocar" + Salvar/Parar) */
+@media (max-width: 600px) { .wbar.tem-tools > .wbar-line:nth-child(2), .wbar.tem-tools #wbar-msg { display: none; } }
 @media (max-width: 600px) {
   .wbar { gap: .3rem; padding-top: .45rem; font-size: .8125rem; }
   .wbar button, .wbar a { padding: .3rem .55rem; font-size: .8125rem; }
@@ -451,6 +458,7 @@ body.wbar-on { padding-bottom: 8rem; }
 </footer>
 
 <div class="wbar" id="wbar" hidden="">
+  <div class="wbar-line wbar-tools" id="wbar-tools" role="toolbar" aria-label="Colocar na página" hidden></div>
   <div class="wbar-line"><strong>Modo editor</strong>
     <button type="button" id="wbar-desk" data-desk-label="" title="Para editar pelo celular vendo a página como no computador">Modo computador</button>
     <button type="button" data-tp-label="" title="Touchpad na tela com cursor de mouse, para editar pelo celular">Mouse virtual</button>
@@ -1047,6 +1055,8 @@ let avisoPag = false;
 setInterval(() => {
   if (!GH) return;
   wtButtons();
+  const bt = $("#wbar-tools"); if (!EDIT || !view.querySelector(".ed")) { if (!bt.hidden) { bt.hidden = true; bt.innerHTML = ""; $("#wbar").classList.remove("tem-tools"); } }
+  const wb = $("#wbar"); if (!wb.hidden) document.body.style.paddingBottom = (wb.offsetHeight + 24) + "px";
   const pag = !!(EDIT && EDIT.dirty);
   if (pag && !avisoPag) wmsg("Esta página tem mudanças que ainda NÃO estão no site. Clique em Salvar.", "err");
   if (!pag && avisoPag && !WT.dirty) wmsg("Tudo salvo.", "ok");
@@ -1656,6 +1666,23 @@ async function openEditor(p) {
     } catch (e) { setStatus(st, e.message, "err"); wmsg("Não salvou: " + e.message, "err"); }
     finally { $("#ed-save").disabled = false; }
   });
+  /* os mesmos botões de colocar ficam também na barra de baixo (sempre à mão) */
+  const bt = $("#wbar-tools"); bt.innerHTML = "";
+  view.querySelectorAll(".ed-tools > .btn, .ed-tools > .sep").forEach(o => {
+    if (o.classList.contains("sep")) { bt.dataset.sep = "1"; return; }
+    const c = document.createElement("button"); c.type = "button";
+    c.textContent = (o.tagName === "LABEL" ? o.childNodes[0].textContent : o.textContent).trim(); c.title = o.title || "";
+    if (bt.dataset.sep) { c.className = "sep"; delete bt.dataset.sep; }
+    c.addEventListener("mousedown", e => e.preventDefault()); // não tira o cursor do texto
+    c.addEventListener("click", () => {
+      if (o.tagName === "LABEL") { o.querySelector("input").click(); return; }
+      o.click();
+      const pn = o.dataset.panel && $("#pn-" + o.dataset.panel);
+      if (pn && !pn.hidden) pn.scrollIntoView({ block: "center", behavior: "smooth" });
+    });
+    bt.appendChild(c);
+  });
+  bt.hidden = false; $("#wbar").classList.add("tem-tools");
   $("#ed-close").addEventListener("click", () => {
     commit();
     if (EDIT && EDIT.dirty) setStatus(st, "Há mudanças não salvas. Elas ficam guardadas como rascunho neste navegador.", "err");
