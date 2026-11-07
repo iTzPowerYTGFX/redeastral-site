@@ -560,9 +560,9 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <p class="lead">Novidades, eventos, vídeos e a comunidade do servidor. Escolha onde quer acompanhar.</p>
       </div>
       <div class="redes">
-        <a class="rede rede-yt" data-link="youtube" href="#"><span class="rede-ic"><img src="img/redes/youtube.webp" alt="YouTube"></span><span class="rede-txt"><strong>YouTube</strong><small>Trailers, tutoriais e eventos do servidor em vídeo.</small></span><b class="rede-cta">Inscrever-se →</b></a>
+        <a class="rede rede-dc" data-link="discord" href="#"><span class="rede-ic"><img src="img/redes/discord.webp" alt="Discord"></span><span class="rede-txt"><strong>Discord</strong><small>A Principal rede da Rede Astral, Onde tem Calls, Atualizações, Avisos de ultima hora, Teasers e muito mais.</small></span><b class="rede-cta">Entrar →</b></a><a class="rede rede-yt" data-link="youtube" href="#"><span class="rede-ic"><img src="img/redes/youtube.webp" alt="YouTube"></span><span class="rede-txt"><strong>YouTube</strong><small>Trailers, tutoriais e eventos do servidor em vídeo.</small></span><b class="rede-cta">Inscrever-se →</b></a>
         <a class="rede rede-ig" data-link="instagram" href="#"><span class="rede-ic"><img src="img/redes/instagram.webp" alt="Instagram"></span><span class="rede-txt"><strong>Instagram</strong><small>Fotos das construções, prévias e avisos rápidos.</small></span><b class="rede-cta">Seguir →</b></a>
-        <a class="rede rede-dc" data-link="discord" href="#"><span class="rede-ic"><img src="img/redes/discord.webp" alt="Discord"></span><span class="rede-txt"><strong>Discord</strong><small>A Principal rede da Rede Astral, Onde tem Calls, Atualizações, Avisos de ultima hora, Teasers e muito mais.</small></span><b class="rede-cta">Entrar →</b></a>
+        
       </div>
     </div>
   </section>
@@ -899,6 +899,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
 try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
+
 
 
 
