@@ -80,6 +80,18 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .toc-mini:hover { color: var(--ink); border-color: var(--violet); }
 .toc-tools { display: flex; flex-wrap: wrap; gap: .4rem; }
 .toc-tools .toc-mini { font-size: .8125rem; padding: .4rem .65rem; }
+.toc-row-b { padding: .15rem .35rem; opacity: 0; transition: opacity .15s; }
+.toc-row:hover .toc-row-b, .toc-row:focus-within .toc-row-b, .toc-row.copia .toc-row-b { opacity: 1; }
+@media (hover: none) { .toc-row-b { opacity: 1; } }
+.toc-row.copia a::before { content: "↪ "; color: var(--teal); }
+.copia-tag { position: absolute; z-index: 3; right: .6rem; bottom: .6rem; font: 700 .6875rem var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--teal); background: var(--sky); border: 1px solid var(--teal); border-radius: 999px; padding: .1rem .5rem; pointer-events: none; }
+.copia-menu { position: fixed; z-index: 60; width: min(18rem, calc(100vw - 16px)); max-height: 60vh; overflow: auto; background: var(--sky-2); border: 1px solid var(--violet); border-radius: 10px; box-shadow: 0 12px 32px rgb(0 0 0 / .45); padding: .6rem; display: grid; gap: .3rem; }
+.copia-menu p { margin: 0 0 .2rem; font-size: .875rem; color: var(--ink-dim); }
+.copia-menu b { color: var(--ink); }
+.copia-menu button { text-align: left; border: 1px solid var(--line); background: var(--sky); color: var(--ink); border-radius: 6px; padding: .45rem .6rem; font: 600 .875rem var(--f-body); cursor: pointer; }
+.copia-menu button:hover { border-color: var(--teal); }
+.copia-menu .nova { color: var(--teal); }
+.copia-menu small { color: var(--ink-dim); font-size: .75rem; }
 .toc-vazia { margin: 0 0 0 1.6rem; padding: .35rem .625rem; font-size: .8125rem; color: var(--ink-dim); border: 1px dashed var(--line); border-radius: 6px; }
 
 .main { min-width: 0; }
@@ -462,6 +474,20 @@ let GH = null; try { GH = JSON.parse(localStorage.getItem("astralGH") || "null")
 let EDON = false; try { EDON = !!GH && sessionStorage.getItem("astralWikiEd") === "1"; } catch (e) {}
 /* rótulos fixos (Wiki, Anterior, Próxima, Início da wiki): ficam escondidos no wiki.html e podem ser editados */
 const rot = k => { const el = document.querySelector(`#wiki-rotulos [data-wt="${k}"]`); return el ? el.textContent : ""; };
+/* cópia de página em outra categoria: a mesma página aparece de novo (é um atalho; editar uma muda as duas) */
+const mkCopia = (p, cat) => { const a = Object.create(p); a.alias = p; a.cat = cat; return a; };
+const keyOf = p => p.alias ? p.alias.id + "@" + p.cat : p.id;
+const pageById = id => PAGES.find(x => x.id === id && !x.alias);
+const REAIS = () => PAGES.filter(x => !x.alias);
+function tirarRepetidos() {
+  const vistos = new Set();
+  for (let i = 0; i < PAGES.length; i++) {
+    const x = PAGES[i]; if (!x.alias) continue;
+    const k = x.alias.id + "|" + x.cat;
+    if (x.cat === x.alias.cat || vistos.has(k) || !PAGES.includes(x.alias)) { PAGES.splice(i--, 1); continue; }
+    vistos.add(k);
+  }
+}
 const rotAttr = k => EDON ? ` data-wt-ref="${k}" contenteditable="true" class="wt-ed" spellcheck="false"` : "";
 const LOCAL_MEDIA = {}; // imagens/vídeos enviados agora, mostrados antes do site publicar
 
@@ -651,15 +677,19 @@ async function load() {
     view.innerHTML = `<div class="state"><h1>Não deu para abrir a wiki</h1><p>O arquivo <code>wiki/paginas.txt</code> não foi encontrado. Se você abriu o <code>wiki.html</code> direto do computador, o navegador bloqueia a leitura das páginas: abra pelo site publicado.</p></div>`;
     return;
   }
-  let cat = "Geral";
+  let cat = "Geral"; const vistos = new Map();
   for (const raw of list.replace(/\r/g, "").split("\n")) {
     const line = raw.trim();
     if (!line || line.startsWith("#")) continue;
-    if (/\.md$/i.test(line)) PAGES.push({ file: line, id: line.replace(/\.md$/i, "").replace(/^.*\//, ""), cat });
+    if (/\.md$/i.test(line)) {
+      if (vistos.has(line)) PAGES.push(mkCopia(vistos.get(line), cat)); // a mesma página em outra categoria
+      else { const p = { file: line, id: line.replace(/\.md$/i, "").replace(/^.*\//, ""), cat }; vistos.set(line, p); PAGES.push(p); }
+    }
     else { cat = line; CATS.push(cat); }
   }
+  tirarRepetidos();
   if (!CATS.includes("Geral") && PAGES.some(p => p.cat === "Geral")) CATS.unshift("Geral");
-  await Promise.all(PAGES.map(async p => {
+  await Promise.all(REAIS().map(async p => {
     try {
       const r = await fetch("wiki/" + p.file, { cache: "no-cache" });
       if (!r.ok) throw new Error(r.status);
@@ -698,7 +728,9 @@ function buildToc() {
     h += `<div class="toc-cat" data-cat="${esc(c)}"><div class="toc-cat-h">${grip("cat")}<h4 class="toc-cat-name wt-ed" contenteditable="true" spellcheck="false" title="Clique para mudar o nome da categoria">${esc(c)}</h4>`
       + `<button type="button" class="toc-mini" data-ta="az" title="Ordenar as páginas desta categoria de A a Z">A–Z</button>`
       + (ps.length ? "" : `<button type="button" class="toc-mini" data-ta="del" title="Apagar esta categoria (está vazia)">✕</button>`) + `</div>`
-      + ps.map(p => `<div class="toc-row" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a></div>`).join("")
+      + ps.map(p => `<div class="toc-row${p.alias ? " copia" : ""}" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`
+        + `<button type="button" class="toc-mini toc-row-b" data-ta="copiar" title="Copiar para outra categoria (a mesma página aparece nas duas)">⧉</button>`
+        + (p.alias ? `<button type="button" class="toc-mini toc-row-b" data-ta="tirar" title="Tirar esta cópia (a página continua em ${esc(p.alias.cat)})">✕</button>` : "") + `</div>`).join("")
       + (ps.length ? "" : `<p class="toc-vazia">Vazia: arraste páginas para cá</p>`) + `</div>`;
   }
   if (EDON) h += `<div class="toc-tools"><button type="button" class="toc-mini" data-ta="newcat">+ Nova categoria</button><button type="button" class="toc-mini" data-ta="azall" title="Ordena as páginas de A a Z dentro de cada categoria">Tudo de A a Z</button></div>`;
@@ -716,7 +748,7 @@ function showHome() {
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
     h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
-      <div class="card-wrap" data-id="${p.id}">${grip(`data-grip="card"`)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+      <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
   view.innerHTML = h;
@@ -748,7 +780,7 @@ function crumbHtml(p, extra = "", cls = "") {
   return `<nav class="crumb${cls}" aria-label="Você está em"><a href="#"><span${rotAttr("trilha")}>${esc(rot("trilha"))}</span></a><span>›</span><span>${esc(p.cat)}</span>${extra}</nav>`;
 }
 function pagerHtml(p) {
-  const idx = PAGES.indexOf(p), prev = PAGES[idx - 1], next = PAGES[idx + 1];
+  const L = REAIS(), idx = L.indexOf(p.alias || p), prev = L[idx - 1], next = L[idx + 1];
   return `<nav class="pager" aria-label="Outras páginas">
       ${prev ? `<a class="prev" href="#${prev.id}"><small${rotAttr("anterior")}>${esc(rot("anterior"))}</small>${esc(prev.title)}</a>` : ""}
       ${next ? `<a class="next" href="#${next.id}"><small${rotAttr("proxima")}>${esc(rot("proxima"))}</small>${esc(next.title)}</a>` : ""}
@@ -762,7 +794,7 @@ function route() {
     if (GH) { setEdOn(true); showHome(); toast("Modo editor ligado: clique nos textos para editar"); } else openLogin();
     return;
   }
-  const p = PAGES.find(x => x.id === id);
+  const p = pageById(id);
   if (!id) showHome();
   else if (p) { if (EDON) openEditor(p); else showPage(p); }
   else { view.innerHTML = `<div class="state"><h1>Página não encontrada</h1><p><a href="#">Voltar para o início da wiki</a></p></div>`; $("#wiki-ajuda").hidden = true; }
@@ -794,7 +826,7 @@ function search() {
   const raw = q.value.trim();
   if (!raw) { results.hidden = true; results.innerHTML = ""; view.hidden = false; return; }
   const terms = norm(raw).split(/\s+/).filter(Boolean);
-  const hits = PAGES.filter(p => p.md !== null && terms.every(w => p.nText.includes(w) || p.nTitle.includes(w)))
+  const hits = REAIS().filter(p => p.md !== null && terms.every(w => p.nText.includes(w) || p.nTitle.includes(w)))
     .map(p => ({ p, score: terms.reduce((s, w) => s + (p.nTitle.includes(w) ? 20 : 0) + p.nText.split(w).length - 1, 0) }))
     .sort((a, b) => b.score - a.score);
   view.hidden = true; results.hidden = false;
@@ -917,7 +949,7 @@ function syncEditorUi() {
 $("#ed-start").addEventListener("click", () => {
   const was = EDON; setEdOn(true);
   if (!READY) return;
-  const id = decodeURIComponent(location.hash.slice(1)), p = PAGES.find(x => x.id === id);
+  const id = decodeURIComponent(location.hash.slice(1)), p = pageById(id);
   if (p) { if (!EDIT || EDIT.p !== p) openEditor(p); else window.scrollTo({ top: 0 }); }
   else if (!was || !id) showHome();
   else route();
@@ -1062,7 +1094,7 @@ async function openEditor(p) {
   let draft = null; try { draft = localStorage.getItem(draftKey(p)); } catch (e) {}
   const useDraft = draft !== null && draft !== original;
   EDIT = { p, sha: file ? file.sha : null, original, dirty: useDraft };
-  const others = PAGES.filter(x => x !== p).map(x => `<option value="${x.id}.md">${esc(x.title)}</option>`).join("");
+  const others = REAIS().filter(x => x !== p).map(x => `<option value="${x.id}.md">${esc(x.title)}</option>`).join("");
   view.innerHTML = `${p === HOME ? "" : crumbHtml(p, "", " ed-crumb")}
   <div class="ed" data-pane="preview">
     <div class="ed-head">
@@ -1518,14 +1550,14 @@ $("#ed-home").addEventListener("click", () => { history.replaceState(null, "", l
 
 /* ----- organizar páginas e categorias (wiki/paginas.txt) ----- */
 let ORG = null;
-const titleOf = f => { const p = PAGES.find(x => x.file === f); return p ? p.title : f.replace(/\.md$/i, ""); };
+const titleOf = f => { const p = PAGES.find(x => x.file === f && !x.alias); return p ? p.title : f.replace(/\.md$/i, ""); };
 function renderOrg() {
   const opts = ci => ORG.cats.map((c, k) => `<option value="${k}"${k === ci ? " selected" : ""}>${esc(c.name || "(sem nome)")}</option>`).join("");
   $("#org-list").innerHTML = ORG.cats.map((c, ci) => `
     <div class="org-cat" data-ci="${ci}">
       <div class="org-row head"><input class="org-name" value="${esc(c.name)}" aria-label="Nome da categoria">
         <button type="button" class="btn" data-a="cup" title="Subir categoria">↑</button><button type="button" class="btn" data-a="cdown" title="Descer categoria">↓</button><button type="button" class="btn" data-a="cdel" title="Apagar categoria (precisa estar vazia)">✕</button></div>
-      ${c.pages.map((f, pi) => `<div class="org-row" data-pi="${pi}"><span class="org-t">${esc(titleOf(f))}</span>
+      ${c.pages.map((f, pi) => `<div class="org-row" data-pi="${pi}"><span class="org-t">${esc(titleOf(f))}${ORG.cats.some((o, oi) => o.pages.includes(f) && (oi < ci || (oi === ci && o.pages.indexOf(f) < pi))) ? " <small>(cópia)</small>" : ""}</span>
         <select data-a="move" aria-label="Mover para a categoria">${opts(ci)}</select>
         <button type="button" class="btn" data-a="up" title="Subir">↑</button><button type="button" class="btn" data-a="down" title="Descer">↓</button><button type="button" class="btn" data-a="out" title="Tirar do menu">✕</button></div>`).join("") || `<p class="org-empty">Sem páginas. Mova uma para cá ou apague a categoria.</p>`}
     </div>`).join("") + (ORG.out.length ? `<div class="org-cat out"><div class="org-row head"><strong>Fora do menu</strong></div>${ORG.out.map((f, oi) => `<div class="org-row" data-oi="${oi}"><span class="org-t">${esc(titleOf(f))}</span><button type="button" class="btn" data-a="back">Voltar ao menu</button></div>`).join("")}</div>` : "");
@@ -1561,7 +1593,7 @@ $("#org-list").addEventListener("click", e => {
   if (a === "cup" || a === "cdown") swap(ORG.cats, ci, ci + (a === "cup" ? -1 : 1));
   if (a === "cdel") { if (ORG.cats[ci].pages.length) return setStatus($("#org-status"), "Mova ou tire as páginas dessa categoria antes de apagar.", "err"); ORG.cats.splice(ci, 1); }
   if (a === "up" || a === "down") { const pi = +row.dataset.pi; swap(ORG.cats[ci].pages, pi, pi + (a === "up" ? -1 : 1)); }
-  if (a === "out") ORG.out.push(...ORG.cats[ci].pages.splice(+row.dataset.pi, 1));
+  if (a === "out") { const f = ORG.cats[ci].pages.splice(+row.dataset.pi, 1)[0]; if (!ORG.cats.some(c => c.pages.includes(f))) ORG.out.push(f); }
   if (a === "back") { if (!ORG.cats.length) ORG.cats.push({ name: "Geral", pages: [] }); ORG.cats[0].pages.push(...ORG.out.splice(+row.dataset.oi, 1)); }
   setStatus($("#org-status"), ""); renderOrg();
 });
@@ -1578,13 +1610,14 @@ $("#org-save").addEventListener("click", async () => {
   try {
     const res = await putFile("wiki/paginas.txt", encText(text), ORG.sha, "Wiki: organizar páginas");
     ORG.sha = res.content.sha;
-    const fresh = [];
+    const fresh = [], usados = new Set();
     for (const c of ORG.cats) for (const f of c.pages) {
-      let p = PAGES.find(x => x.file === f);
+      let p = PAGES.find(x => x.file === f && !x.alias);
       if (!p) { const fl = await getFile("wiki/" + f); p = { file: f, id: f.replace(/\.md$/i, "").replace(/^.*\//, ""), md: fl ? fl.text : null }; indexPage(p); }
-      p.cat = c.name.trim(); fresh.push(p);
+      if (usados.has(p)) { fresh.push(mkCopia(p, c.name.trim())); continue; }
+      usados.add(p); p.cat = c.name.trim(); fresh.push(p);
     }
-    PAGES.length = 0; PAGES.push(...fresh);
+    PAGES.length = 0; PAGES.push(...fresh); tirarRepetidos();
     CATS.length = 0; CATS.push(...names);
     buildToc(); route(); $("#organize").close();
     toast("Menu salvo. O site público muda em 1 a 2 minutos.");
@@ -1622,13 +1655,14 @@ function hmShow(t) {
 }
 /* ----- menu do lado (modo editor): arrastar, renomear, criar categoria, A-Z. Salva sozinho. ----- */
 function aplicarMenu() {
+  tirarRepetidos();
   const ordered = CATS.flatMap(c => PAGES.filter(p => p.cat === c)), rest = PAGES.filter(p => !CATS.includes(p.cat));
   PAGES.length = 0; PAGES.push(...ordered, ...rest);
   buildToc(); markToc(decodeURIComponent(location.hash.slice(1)));
   if (!location.hash.slice(1) && !EDIT) showHome();
   saveMenuOrder();
 }
-const TM_ORDEM = () => CATS.join("|") + "#" + PAGES.map(p => p.cat + "/" + p.id).join("|");
+const TM_ORDEM = () => CATS.join("|") + "#" + PAGES.map(p => p.cat + "/" + keyOf(p)).join("|");
 const azTitulo = (a, b) => a.title.localeCompare(b.title, "pt", { sensitivity: "base", numeric: true });
 toc.addEventListener("click", e => {
   const b = e.target.closest("[data-ta]"); if (!b || !EDON) return;
@@ -1642,6 +1676,12 @@ toc.addEventListener("click", e => {
   } else if (k === "del") {
     if (PAGES.some(p => p.cat === cat)) return toast("Tire as páginas da categoria antes de apagar.");
     CATS.splice(CATS.indexOf(cat), 1); aplicarMenu();
+  } else if (k === "copiar") {
+    const row = b.closest(".toc-row"), e0 = PAGES.find(x => keyOf(x) === row.dataset.key); if (!e0) return;
+    abrirCopiar(b, e0.alias || e0);
+  } else if (k === "tirar") {
+    const e0 = PAGES.find(x => keyOf(x) === b.closest(".toc-row").dataset.key); if (!e0 || !e0.alias) return;
+    PAGES.splice(PAGES.indexOf(e0), 1); aplicarMenu();
   } else if (k === "newcat") {
     let n = "Nova categoria", i = 2; while (CATS.includes(n)) n = "Nova categoria " + i++;
     CATS.push(n); aplicarMenu();
@@ -1668,6 +1708,33 @@ toc.addEventListener("focusout", e => {
   CATS[CATS.indexOf(old)] = nome; PAGES.forEach(p => { if (p.cat === old) p.cat = nome; });
   setTimeout(aplicarMenu, 0);
 });
+/* menu "Copiar para…" */
+const copiaMenu = document.createElement("div"); copiaMenu.className = "copia-menu"; copiaMenu.hidden = true; document.body.appendChild(copiaMenu);
+function abrirCopiar(btn, p) {
+  const ja = new Set(PAGES.filter(x => (x.alias || x) === p).map(x => x.cat));
+  const livres = CATS.filter(c => !ja.has(c));
+  copiaMenu.innerHTML = `<p>Copiar <b>${esc(p.title)}</b> para:</p>`
+    + livres.map(c => `<button type="button" data-cc="${esc(c)}">${esc(c)}</button>`).join("")
+    + `<button type="button" data-cc="" class="nova">+ Nova categoria</button>`
+    + `<small>A cópia é a mesma página: editar uma muda as duas.</small>`;
+  const r = btn.getBoundingClientRect();
+  copiaMenu.hidden = false;
+  const w = copiaMenu.offsetWidth, h = copiaMenu.offsetHeight;
+  copiaMenu.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left)) + "px";
+  copiaMenu.style.top = Math.max(8, Math.min(innerHeight - h - 8, r.bottom + 4)) + "px";
+  copiaMenu._p = p;
+}
+copiaMenu.addEventListener("click", e => {
+  const b = e.target.closest("[data-cc]"); if (!b) return;
+  const p = copiaMenu._p; copiaMenu.hidden = true; if (!p) return;
+  let cat = b.dataset.cc;
+  if (!cat) { let n = "Nova categoria", i = 2; while (CATS.includes(n)) n = "Nova categoria " + i++; CATS.push(n); cat = n; }
+  PAGES.push(mkCopia(p, cat)); aplicarMenu();
+  toast(`"${p.title}" agora aparece também em ${cat}.`);
+});
+document.addEventListener("pointerdown", e => { if (!copiaMenu.hidden && !copiaMenu.contains(e.target) && !e.target.closest("[data-ta=copiar]")) copiaMenu.hidden = true; });
+addEventListener("keydown", e => { if (e.key === "Escape") copiaMenu.hidden = true; });
+
 let TM = null;
 function tmTarget(x, y) {
   const el = document.elementsFromPoint(x, y).find(n => n !== hmInd && !n.classList.contains("toc-grip"));
@@ -1709,20 +1776,21 @@ function tmEnd() {
   if (!t) return;
   const antes = TM_ORDEM();
   if (kind === "page") {
-    const p = PAGES.find(x => x.id === el.dataset.id); if (!p) return;
+    const p = PAGES.find(x => keyOf(x) === el.dataset.key); if (!p) return;
     PAGES.splice(PAGES.indexOf(p), 1);
     if (t.start || t.end) {
       p.cat = t.cat;
       const first = PAGES.find(x => x.cat === t.cat);
       if (t.start && first) PAGES.splice(PAGES.indexOf(first), 0, p); else PAGES.push(p);
     } else {
-      const q = PAGES.find(x => x.id === t.el.dataset.id); if (!q) { PAGES.push(p); return aplicarMenu(); }
+      const q = PAGES.find(x => keyOf(x) === t.el.dataset.key); if (!q) { PAGES.push(p); return aplicarMenu(); }
       p.cat = q.cat; PAGES.splice(PAGES.indexOf(q) + (t.after ? 1 : 0), 0, p);
     }
   } else {
     const a = el.dataset.cat, b = t.el.dataset.cat;
     CATS.splice(CATS.indexOf(a), 1); CATS.splice(CATS.indexOf(b) + (t.after ? 1 : 0), 0, a);
   }
+  tirarRepetidos();
   const ordered = CATS.flatMap(c => PAGES.filter(p => p.cat === c)), rest = PAGES.filter(p => !CATS.includes(p.cat));
   PAGES.length = 0; PAGES.push(...ordered, ...rest);
   if (TM_ORDEM() === antes) { buildToc(); markToc(decodeURIComponent(location.hash.slice(1))); return; }
@@ -1757,10 +1825,11 @@ function hmEnd() {
   if (!HM) return; const { kind, el, t } = HM; HM = null; hmShow(null); el.classList.remove("hm-src");
   if (!t) return;
   if (kind === "card") {
-    const p = PAGES.find(x => x.id === el.dataset.id); if (!p) return;
+    const p = PAGES.find(x => keyOf(x) === el.dataset.key); if (!p) return;
     PAGES.splice(PAGES.indexOf(p), 1);
     if (t.end) { p.cat = t.el.dataset.cat; PAGES.push(p); }
-    else { const q = PAGES.find(x => x.id === t.el.dataset.id); if (!q) { PAGES.push(p); return; } p.cat = q.cat; PAGES.splice(PAGES.indexOf(q) + (t.after ? 1 : 0), 0, p); }
+    else { const q = PAGES.find(x => keyOf(x) === t.el.dataset.key); if (!q) { PAGES.push(p); return; } p.cat = q.cat; PAGES.splice(PAGES.indexOf(q) + (t.after ? 1 : 0), 0, p); }
+    tirarRepetidos();
   } else {
     const a = el.dataset.cat, b = t.el.dataset.cat;
     CATS.splice(CATS.indexOf(a), 1); CATS.splice(CATS.indexOf(b) + (t.after ? 1 : 0), 0, a);
@@ -1799,7 +1868,7 @@ view.addEventListener("click", async e => {
   e.preventDefault(); e.stopPropagation();
   if (b.dataset.pen === "home") return $("#ed-home").click();
   if (b.dataset.pen === "org") return $("#ed-org").click();
-  const p = PAGES.find(x => x.id === b.dataset.id); if (!p) return;
+  const p = pageById(b.dataset.id); if (!p) return;
   const dlg = $("#cardedit"); setStatus($("#ce-status"), "Lendo a página…");
   $("#ce-file").textContent = p.title; $("#ce-title").value = p.title; $("#ce-sum").value = p.summaryText || ""; dlg.showModal();
   try {

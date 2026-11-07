@@ -72,6 +72,10 @@ MENU DO LADO (lista de páginas) — com a edição ligada
   "Tudo de A a Z" (no fim do menu): ordena as páginas de A a Z dentro de cada categoria.
   "+ Nova categoria": cria uma no fim; escreva o nome e arraste páginas para ela.
   ✕ aparece só em categoria vazia, para apagar.
+  ⧉ (aparece ao passar o mouse numa página; no celular fica sempre): COPIAR para outra
+     categoria. A mesma página passa a aparecer nas duas (ex.: um plugin em "Mecânicas" e
+     em "Comandos"). É a mesma página: editar uma muda as duas. A cópia aparece com ↪ no
+     menu e com a etiqueta "cópia" no cartão (só para você). O ✕ da cópia tira só a cópia.
   Tudo isso salva sozinho na hora (muda também a ordem dos cartões no início da Wiki).
 
 TEXTOS FIXOS DA WIKI (menu do topo, rodapé, rótulos)
