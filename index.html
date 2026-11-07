@@ -433,6 +433,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <li><div bis_skin_checked="1">Vá na aba <b>Servidores</b>, role até o fim e toque em <b>Adicionar servidor</b>.</div></li>
         <li><div bis_skin_checked="1">Nome: <b>Rede Astral</b>. Preencha o endereço e a porta acima.</div></li>
         <li><div bis_skin_checked="1">Salve e entre. Quando o jogo perguntar sobre o pacote de recursos, <b>aceite o download</b>.</div></li>
+        <li><div bis_skin_checked="1">Caso apareça uma aba dizendo se você confia neste servidor, você clique em confiar!</div></li>
       </ol>
         <p class="note">A porta do Bedrock é diferente da do Java. Com a porta do Java o Bedrock não entra.</p>
       </div>
@@ -452,9 +453,9 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         </div>
         <ol class="steps">
         <li><div bis_skin_checked="1">Troque o DNS como na tabela e reinicie o console.</div></li>
-        <li><div bis_skin_checked="1">No Minecraft, vá em <b>Servidores</b> e entre em um servidor em destaque (por exemplo The Hive).</div></li>
+        <li><div bis_skin_checked="1">No Minecraft, vá em <b>Servidores</b> e entre em um servidor em destaque (por exemplo The Hive, mas Lifeboat costuma funcionar melhor).</div></li>
         <li><div bis_skin_checked="1">Em vez do servidor, abre a lista do BedrockConnect. Escolha <b>Connect to a Server</b>.</div></li>
-        <li><div bis_skin_checked="1">Digite <span class="mono" data-cfg="bedrock">ultra-07.bedhosting.com.br</span>, porta <span class="mono" data-cfg="bedrockPorta">30380</span>, e envie.</div></li>
+        <li><div bis_skin_checked="1">Digite o IP:&nbsp;<span class="mono" data-cfg="bedrock">ultra-07.bedhosting.com.br</span>porta <span class="mono" data-cfg="bedrockPorta">30380</span>, e envie.</div></li>
       </ol>
         <p class="note">O BedrockConnect é um serviço gratuito de terceiros, não da Rede Astral. Para voltar ao normal, coloque o DNS do console em automático.</p>
       </div>
@@ -899,6 +900,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
 try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
+
 
 
 
