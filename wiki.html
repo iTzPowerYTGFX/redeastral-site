@@ -309,6 +309,9 @@ body.wbar-on { padding-bottom: 8rem; }
   .wbar button, .wbar a { padding: .3rem .55rem; font-size: .8125rem; }
   .wbar .grow { font-size: .8125rem; flex-basis: 100%; }
 }
+.parte-btn { position: fixed; z-index: 45; background: #ff6b81; color: #2a0710; border: 0; border-radius: 6px; padding: .15rem .5rem; font: 700 .75rem var(--f-body); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.45); }
+.parte-btn.mostrar { background: var(--teal); color: #06221f; }
+.toc-row-b.confirma { background: #ff6b81; color: #2a0710; border-color: #ff6b81; opacity: 1; }
 /* textos que dá para editar no modo editor */
 .wt-ed { outline: 1px dashed color-mix(in srgb, var(--violet-soft) 60%, transparent); outline-offset: 3px; border-radius: 3px; cursor: text; }
 .wt-ed:focus { outline: 2px solid var(--violet); }
@@ -324,14 +327,14 @@ body.wbar-on { padding-bottom: 8rem; }
 </style>
 <script src="preferencias.js"></script>
 </head>
-<body>
+<body data-esconder="">
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small data-wt="marca">Wiki</small></span></a>
+    <a class="brand" href="index.html"><img src="img/marca-clara.png" alt="" data-logo><span>Rede Astral<small data-wt="marca" data-parte="marca">Wiki</small></span></a>
     <nav aria-label="Site">
-      <a class="hide-sm" href="index.html" data-wt="menu-inicio" data-wt-href>Início</a>
-      <a class="hide-sm" href="index.html#como-entrar" data-wt="menu-entrar" data-wt-href>Como entrar</a>
-      <a class="btn accent" data-link="discord" href="#" data-wt="menu-discord">Discord</a>
+      <a class="hide-sm" href="index.html" data-wt="menu-inicio" data-wt-href data-parte="menu-inicio">Início</a>
+      <a class="hide-sm" href="index.html#como-entrar" data-wt="menu-entrar" data-wt-href data-parte="menu-entrar">Como entrar</a>
+      <a class="btn accent" data-link="discord" href="#" data-wt="menu-discord" data-parte="menu-discord">Discord</a>
     </nav>
   </div>
 </header>
@@ -354,7 +357,7 @@ body.wbar-on { padding-bottom: 8rem; }
       <button class="btn" type="button" id="ed-links">Links do site</button>
       <button class="btn" type="button" id="ed-logout">Sair</button>
     </div>
-    <div class="search" role="search">
+    <div class="search" role="search" data-parte="pesquisa">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Pesquisar na wiki: rubi, orbe, renascer…" autocomplete="off" spellcheck="false" aria-label="Pesquisar na wiki" aria-controls="results">
       <kbd>/</kbd>
@@ -362,7 +365,7 @@ body.wbar-on { padding-bottom: 8rem; }
     <div class="wt-ph" id="wt-ph-row" hidden><label for="wt-ph">Texto dentro da caixa de pesquisa:</label><input id="wt-ph" autocomplete="off"></div>
     <div class="results" id="results" hidden></div>
     <div class="view" id="view"><p class="state">Carregando a wiki…</p></div>
-    <p class="help" id="wiki-ajuda" data-wt="ajuda" hidden>Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>
+    <p class="help" id="wiki-ajuda" data-wt="ajuda" data-parte="ajuda" hidden>Faltou alguma coisa? Pergunte no Discord ou digite <code>/guia</code> no jogo.</p>
     <div id="wiki-rotulos" hidden><span data-wt="trilha">Wiki</span><span data-wt="anterior">Anterior</span><span data-wt="proxima">Próxima</span><span data-wt="inicio-wiki">Início da wiki</span></div>
   </main>
 </div>
@@ -435,7 +438,7 @@ body.wbar-on { padding-bottom: 8rem; }
 </dialog>
 
 <footer>
-  <div class="wrap"><span data-wt="rodape">Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
+  <div class="wrap"><span data-wt="rodape" data-parte="rodape">Não é um produto oficial do Minecraft. Não aprovado nem associado à Mojang ou Microsoft.</span><a class="ed-link" href="#modo-editor" hidden>Área do editor</a></div>
 </footer>
 
 <div class="wbar" id="wbar" hidden>
@@ -723,7 +726,7 @@ function indexPage(p) {
 }
 
 function buildToc() {
-  let h = `<a class="wiki-home" href="#"><span${rotAttr("inicio-wiki")}>${esc(rot("inicio-wiki"))}</span></a>`;
+  let h = `<a class="wiki-home" href="#" data-parte="inicio-wiki"><span${rotAttr("inicio-wiki")}>${esc(rot("inicio-wiki"))}</span></a>`;
   const grip = k => `<button type="button" class="toc-grip" data-tg="${k}" title="Segure e arraste para mudar de lugar" aria-label="Mover">⠿</button>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
@@ -734,7 +737,8 @@ function buildToc() {
       + (ps.length ? "" : `<button type="button" class="toc-mini" data-ta="del" title="Apagar esta categoria (está vazia)">✕</button>`) + `</div>`
       + ps.map(p => `<div class="toc-row${p.alias ? " copia" : ""}" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`
         + `<button type="button" class="toc-mini toc-row-b" data-ta="copiar" title="Copiar para outra categoria (a mesma página aparece nas duas)">⧉</button>`
-        + (p.alias ? `<button type="button" class="toc-mini toc-row-b" data-ta="tirar" title="Tirar esta cópia (a página continua em ${esc(p.alias.cat)})">✕</button>` : "") + `</div>`).join("")
+        + (p.alias ? `<button type="button" class="toc-mini toc-row-b" data-ta="tirar" title="Tirar esta cópia (a página continua em ${esc(p.alias.cat)})">✕</button>`
+          : `<button type="button" class="toc-mini toc-row-b" data-ta="tirarorig" title="Tirar esta página do menu (o arquivo fica guardado: volta por Organizar páginas)">✕</button>`) + `</div>`).join("")
       + (ps.length ? "" : `<p class="toc-vazia">Vazia: arraste páginas para cá</p>`) + `</div>`;
   }
   if (EDON) h += `<div class="toc-tools"><button type="button" class="toc-mini" data-ta="novapag">+ Nova página</button><button type="button" class="toc-mini" data-ta="newcat">+ Nova categoria</button><button type="button" class="toc-mini" data-ta="azall" title="Ordena as páginas de A a Z dentro de cada categoria">Tudo de A a Z</button></div>`;
@@ -781,11 +785,11 @@ function showPage(p) {
   });
 }
 function crumbHtml(p, extra = "", cls = "") {
-  return `<nav class="crumb${cls}" aria-label="Você está em"><a href="#"><span${rotAttr("trilha")}>${esc(rot("trilha"))}</span></a><span>›</span><span>${esc(p.cat)}</span>${extra}</nav>`;
+  return `<nav class="crumb${cls}" aria-label="Você está em" data-parte="trilha"><a href="#"><span${rotAttr("trilha")}>${esc(rot("trilha"))}</span></a><span>›</span><span>${esc(p.cat)}</span>${extra}</nav>`;
 }
 function pagerHtml(p) {
   const L = REAIS(), idx = L.indexOf(p.alias || p), prev = L[idx - 1], next = L[idx + 1];
-  return `<nav class="pager" aria-label="Outras páginas">
+  return `<nav class="pager" aria-label="Outras páginas" data-parte="pager">
       ${prev ? `<a class="prev" href="#${prev.id}"><small${rotAttr("anterior")}>${esc(rot("anterior"))}</small>${esc(prev.title)}</a>` : ""}
       ${next ? `<a class="next" href="#${next.id}"><small${rotAttr("proxima")}>${esc(rot("proxima"))}</small>${esc(next.title)}</a>` : ""}
     </nav>`;
@@ -940,6 +944,7 @@ function setEdOn(on) {
 }
 function syncEditorUi() {
   if (!GH) EDON = false;
+  document.body.classList.toggle("wiki-ed", EDON); if (!EDON) parteBtn.hidden = true;
   $("#edbar").hidden = !EDON;
   $("#wbar").hidden = !GH; document.body.classList.toggle("wbar-on", !!GH);
   $("#ed-start").hidden = EDON; $("#ed-stop").hidden = !EDON;
@@ -966,7 +971,45 @@ $("#ed-stop").addEventListener("click", () => {
 });
 
 /* ---------- textos fixos da Wiki (menu do topo, rodapé, rótulos, pesquisa) ---------- */
-const WT = { orig: new Map(), ph: null, dirty: false, foco: null };
+const WT = { orig: new Map(), ph: null, dirty: false, foco: null, esc: null };
+
+/* ---------- apagar partes fixas (Próxima/Anterior, trilha, ajuda, pesquisa, menu, rodapé...) ---------- */
+const ESCONDER = new Set((document.body.dataset.esconder || "").split(/\s+/).filter(Boolean));
+const escCss = document.createElement("style"); document.head.appendChild(escCss);
+function aplicaEsconder() {
+  document.body.dataset.esconder = [...ESCONDER].join(" ");
+  escCss.textContent = [...ESCONDER].filter(k => /^[\w-]+$/.test(k)).map(k =>
+    `body:not(.wiki-ed) [data-parte="${k}"]{display:none!important}body.wiki-ed [data-parte="${k}"]{opacity:.35;outline:2px dashed #ff6b81;outline-offset:2px}`).join("");
+}
+aplicaEsconder();
+const parteBtn = document.createElement("button"); parteBtn.type = "button"; parteBtn.className = "parte-btn"; parteBtn.hidden = true; document.body.appendChild(parteBtn);
+let parteEl = null;
+function placeParte() {
+  if (!EDON || !parteEl || !parteEl.isConnected) { parteBtn.hidden = true; return; }
+  const r = parteEl.getBoundingClientRect(); if (!r.width && !r.height) { parteBtn.hidden = true; return; }
+  const esc = ESCONDER.has(parteEl.dataset.parte);
+  parteBtn.textContent = esc ? "↺ Mostrar de novo" : "✕ Apagar";
+  parteBtn.title = esc ? "Isto está apagado para quem visita. Clique para voltar a mostrar." : "Apagar isto do site (dá para voltar com Mostrar de novo)";
+  parteBtn.classList.toggle("mostrar", esc); parteBtn.hidden = false;
+  const w = parteBtn.offsetWidth;
+  parteBtn.style.left = Math.max(4, Math.min(innerWidth - w - 4, r.right - w + 6)) + "px";
+  parteBtn.style.top = Math.max(4, r.top - 14) + "px";
+}
+document.addEventListener("pointerover", e => {
+  if (!EDON || !e.target.closest || e.target === parteBtn) return;
+  const el = e.target.closest("[data-parte]");
+  if (el) { parteEl = el; placeParte(); }
+  else if (parteEl && !e.target.closest(".parte-btn")) { const r = parteEl.getBoundingClientRect(); if (e.clientX < r.left - 30 || e.clientX > r.right + 30 || e.clientY < r.top - 30 || e.clientY > r.bottom + 30) { parteEl = null; placeParte(); } }
+});
+addEventListener("scroll", placeParte, true); addEventListener("resize", placeParte);
+parteBtn.addEventListener("pointerdown", e => e.preventDefault());
+parteBtn.addEventListener("click", () => {
+  if (!parteEl) return; const k = parteEl.dataset.parte;
+  if (WT.esc === null) WT.esc = [...ESCONDER].join(" ");
+  if (ESCONDER.has(k)) ESCONDER.delete(k); else ESCONDER.add(k);
+  aplicaEsconder(); wtMark(); placeParte();
+  wmsg(ESCONDER.has(k) ? "Apagado (fica apagadinho só para você ver). Clique em Salvar textos para gravar no site." : "Volta a aparecer. Clique em Salvar textos para gravar no site.");
+});
 function wtSync() {
   document.querySelectorAll("[data-wt]").forEach(el => {
     if (EDON) {
@@ -1022,6 +1065,7 @@ function wtClean(el) {
 function wtCancel() {
   for (const [el, o] of WT.orig) { el.innerHTML = o.html; if (o.href !== null) el.setAttribute("href", o.href); }
   q.placeholder = WT.ph; $("#wt-ph").value = WT.ph;
+  if (WT.esc !== null) { ESCONDER.clear(); WT.esc.split(/\s+/).filter(Boolean).forEach(k => ESCONDER.add(k)); WT.esc = null; aplicaEsconder(); }
   WT.dirty = false; wtButtons(); $("#wt-link").hidden = true;
   syncEditorUi(); if (READY && !EDIT) route();
 }
@@ -1040,9 +1084,10 @@ $("#wt-save").addEventListener("click", async () => {
     });
     if (faltam.length) throw new Error("O wiki.html do GitHub é de uma versão antiga (falta: " + faltam.join(", ") + "). Recarregue a página.");
     const dq = doc.querySelector("#q"); if (dq) dq.setAttribute("placeholder", q.placeholder);
+    doc.body.setAttribute("data-esconder", [...ESCONDER].join(" "));
     const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
     await putFile("wiki.html", encText(html), f.sha, "Wiki: editar textos fixos");
-    WT.orig.clear(); WT.ph = q.placeholder; WT.dirty = false; wtSync();
+    WT.orig.clear(); WT.ph = q.placeholder; WT.esc = null; WT.dirty = false; wtSync();
     wmsg("Salvo. O site público mostra a mudança em 1 a 2 minutos.", "ok");
   } catch (e) { wmsg(e.message, "err"); }
   finally { b.disabled = false; }
@@ -1702,6 +1747,19 @@ toc.addEventListener("click", e => {
   } else if (k === "copiar") {
     const row = b.closest(".toc-row"), e0 = PAGES.find(x => keyOf(x) === row.dataset.key); if (!e0) return;
     abrirCopiar(b, e0.alias || e0);
+  } else if (k === "tirarorig") {
+    if (!b.classList.contains("confirma")) {
+      b.classList.add("confirma"); b.textContent = "Tirar?"; b.title = "Clique de novo para tirar do menu";
+      setTimeout(() => { if (b.isConnected) { b.classList.remove("confirma"); b.textContent = "✕"; } }, 3000);
+      return;
+    }
+    const p = PAGES.find(x => keyOf(x) === b.closest(".toc-row").dataset.key); if (!p || p.alias) return;
+    const i = PAGES.indexOf(p), copia = PAGES.find(x => x.alias === p);
+    if (copia) { p.cat = copia.cat; PAGES[PAGES.indexOf(copia)] = p; PAGES.splice(i, 1); } // a cópia vira a página principal
+    else PAGES.splice(i, 1);
+    if (EDIT && EDIT.p === p && !copia) { EDIT = null; history.replaceState(null, "", "#"); }
+    aplicarMenu(); if (!copia && decodeURIComponent(location.hash.slice(1)) === p.id) { history.replaceState(null, "", "#"); route(); }
+    toast(`"${p.title}" saiu do menu${copia ? " desta categoria" : ". Para voltar: Organizar páginas → Fora do menu"}.`);
   } else if (k === "tirar") {
     const e0 = PAGES.find(x => keyOf(x) === b.closest(".toc-row").dataset.key); if (!e0 || !e0.alias) return;
     PAGES.splice(PAGES.indexOf(e0), 1); aplicarMenu();
