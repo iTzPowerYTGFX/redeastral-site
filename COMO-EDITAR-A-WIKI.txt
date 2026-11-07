@@ -56,8 +56,10 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
     Negrito           -> selecione as palavras e clique em Negrito.
     Link              -> selecione as palavras, clique em Link, cole o endereço ou escolha
                          uma página da Wiki e clique em Inserir.
-    Título, Lista, Dica, Imagem, Vídeo, YouTube... -> entram logo DEPOIS do que você
-                         clicou por último na página (sem nada clicado, vão para o fim).
+    Texto, Título, Título pequeno, Lista, Dica, Imagem, Vídeo, YouTube... -> entram logo
+                         DEPOIS do que você clicou por último na página (sem nada clicado,
+                         vão para o fim). Texto e títulos novos já ficam selecionados:
+                         é só escrever por cima.
   Clique em SALVAR. Até salvar, nada muda no site.
   Se sair sem salvar, o texto fica guardado como rascunho neste navegador.
   "Texto (avançado)": no computador fica do lado direito; no celular é o botão de cima.

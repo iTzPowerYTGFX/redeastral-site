@@ -1151,7 +1151,9 @@ async function openEditor(p) {
     </div>
     ${useDraft ? `<p class="draft">Recuperamos um rascunho que não foi salvo. <button class="btn" type="button" id="ed-drop">Descartar rascunho</button></p>` : ""}
     <div class="ed-tools" role="toolbar" aria-label="Formatação">
+      <button class="btn" type="button" data-ins="p">Texto</button>
       <button class="btn" type="button" data-ins="h2">Título</button>
+      <button class="btn" type="button" data-ins="h3">Título pequeno</button>
       <button class="btn" type="button" data-ins="b">Negrito</button>
       <button class="btn" type="button" data-ins="list">Lista</button>
       <button class="btn" type="button" data-ins="tip">Dica</button>
@@ -1186,7 +1188,8 @@ async function openEditor(p) {
   if (p !== HOME) $("#wiki-ajuda").hidden = false;
   const ta = $("#ed-text"), prev = $("#ed-prev"), st = $("#ed-status");
   ta.value = useDraft ? draft : original;
-  const renderPrev = () => { commit(); prev.innerHTML = md(ta.value); afterRender(); };
+  let jaDesenhado = null;
+  const renderPrev = () => { commit(); prev.innerHTML = md(ta.value); jaDesenhado = ta.value; afterRender(); };
 
   /* ----- bolinha: arraste para os lados para aumentar/diminuir texto, imagem e vídeo ----- */
   const rz = document.createElement("div"); rz.className = "rz"; rz.hidden = true;
@@ -1429,7 +1432,7 @@ async function openEditor(p) {
       });
     }
     blk.dataset.e = s0 + novo.length; if (blk.dataset.line) blk.dataset.line = blk.tagName === "P" ? s0 + Math.max(0, novo.length - 1) : s0;
-    ta.value = lines.join("\n");
+    ta.value = lines.join("\n"); jaDesenhado = ta.value;
     EDIT.dirty = ta.value !== EDIT.original;
     try { localStorage.setItem(draftKey(p), ta.value); } catch (e) {}
     if (!novo.length) renderPrev();
@@ -1477,7 +1480,7 @@ async function openEditor(p) {
   let t1;
   ta.addEventListener("input", () => {
     EDIT.dirty = ta.value !== EDIT.original;
-    clearTimeout(t1); t1 = setTimeout(() => { renderPrev(); try { localStorage.setItem(draftKey(p), ta.value); } catch (e) {} }, 200);
+    clearTimeout(t1); t1 = setTimeout(() => { if (ta.value !== jaDesenhado) renderPrev(); try { localStorage.setItem(draftKey(p), ta.value); } catch (e) {} }, 200);
   });
   const dropBtn = $("#ed-drop");
   if (dropBtn) dropBtn.addEventListener("click", () => { ta.value = EDIT.original; EDIT.dirty = false; try { localStorage.removeItem(draftKey(p)); } catch (e) {} renderPrev(); dropBtn.closest(".draft").remove(); });
@@ -1492,25 +1495,39 @@ async function openEditor(p) {
     commit();
     if (ultimo === "prev" && selBlk && selBlk.isConnected) {
       // entra logo depois do bloco que foi clicado na página
-      const lines = ta.value.split("\n"), e0 = +selBlk.dataset.e;
-      lines.splice(e0, 0, "", ...text.split("\n"), "");
-      ta.value = lines.join("\n").replace(/\n{3,}/g, "\n\n");
-      selBlk = null; ta.dispatchEvent(new Event("input")); renderPrev();
+      const lines = ta.value.split("\n"), e0 = +selBlk.dataset.e, ins = [];
+      if (e0 > 0 && lines[e0 - 1].trim()) ins.push("");
+      const ini = e0 + ins.length; ins.push(...text.split("\n"));
+      if (e0 >= lines.length || lines[e0].trim()) ins.push("");
+      lines.splice(e0, 0, ...ins); ta.value = lines.join("\n");
+      selBlk = null; ta.dispatchEvent(new Event("input")); renderPrev(); focoNovo(ini);
       return;
     }
     if (ultimo === "prev") { // nada clicado: vai para o fim da página
-      ta.value = ta.value.replace(/\s*$/, "") + "\n\n" + text + "\n"; ta.dispatchEvent(new Event("input")); renderPrev(); return;
+      const base = ta.value.replace(/\s*$/, ""), ini = base.split("\n").length + 1;
+      ta.value = base + "\n\n" + text + "\n"; ta.dispatchEvent(new Event("input")); renderPrev(); focoNovo(ini); return;
     }
     const s = ta.selectionEnd, v = ta.value;
     const pre = s === 0 || v.slice(0, s).endsWith("\n\n") ? "" : (v.slice(0, s).endsWith("\n") ? "\n" : "\n\n");
     ta.setRangeText(pre + text + "\n\n", s, s, "end"); ta.focus(); ta.dispatchEvent(new Event("input"));
+  }
+  // o que acabou de entrar já fica pronto para escrever por cima (texto selecionado)
+  function focoNovo(linha) {
+    const b = prev.querySelector(`[data-s="${linha}"]`); if (!b) return;
+    const el = b.classList.contains("ie") ? b : b.querySelector(".ie"); if (!el) return;
+    b.scrollIntoView({ block: "nearest" });
+    if (selBlk) selBlk.classList.remove("ie-blk-sel"); selBlk = b; b.classList.add("ie-blk-sel"); ultimo = "prev";
+    el.focus(); const r = document.createRange(); r.selectNodeContents(el); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r);
+    setStatus(st, "Escreva por cima. Clique em Salvar quando terminar.", "ok");
   }
   view.querySelectorAll("[data-ins]").forEach(b => b.addEventListener("click", () => {
     const k = b.dataset.ins;
     if (k === "b" && ieEl) { document.execCommand("bold"); ieMudou = true; EDIT.dirty = true; return; }
     if (k === "b" && ultimo === "prev") return setStatus(st, "Clique num texto da página, selecione as palavras e clique em Negrito.", "err");
     if (k === "b") insert("**", "**", "texto em negrito");
-    if (k === "h2") insertBlock("## Novo subtítulo");
+    if (k === "p") insertBlock("Escreva aqui o seu texto.");
+    if (k === "h2") insertBlock("## Novo título");
+    if (k === "h3") insertBlock("### Novo título pequeno");
     if (k === "list") insertBlock("- Primeiro item\n- Segundo item");
     if (k === "tip") insertBlock("> Dica: escreva a dica aqui.");
     if (k === "warn") insertBlock("> Atenção: escreva o aviso aqui.");
