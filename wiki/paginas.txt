@@ -5,6 +5,7 @@
 # A ordem aqui é a ordem em que aparece no site.
 
 Comandos
+sethome-home-criar-homes.md
 
 Sistemas do servidor
 primeiros-passos.md
@@ -31,3 +32,4 @@ saque.md
 arena-astral.md
 limpeza.md
 correio.md
+
