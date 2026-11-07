@@ -4,6 +4,8 @@
 # Linha COM ".md" no fim = uma página (o arquivo fica nesta mesma pasta "wiki").
 # A ordem aqui é a ordem em que aparece no site.
 
+Comandos
+
 Sistemas do servidor
 primeiros-passos.md
 essenciais.md
@@ -29,5 +31,3 @@ saque.md
 arena-astral.md
 limpeza.md
 correio.md
-
-Comandos
