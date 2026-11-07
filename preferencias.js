@@ -104,8 +104,8 @@
       if (edBox.hidden) return;
       const naWiki = /wiki\.html$/i.test(location.pathname);
       if (!logado) edBox.innerHTML = `<span>Modo editor</span><a href="${naWiki ? "#modo-editor" : "wiki.html#modo-editor"}">Entrar no modo editor</a>`;
-      else if (naWiki) edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><a class="sec" href="index.html">Editar a página inicial</a>`;
-      else edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><button type="button" data-ed-start>Editar esta página</button><a class="sec" href="wiki.html">Editar a Wiki</a>`;
+      else if (naWiki) edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><button type="button" data-ed-start>Editar esta página</button><a class="sec" href="index.html">Editar a página inicial</a>`;
+      else edBox.innerHTML = `<span>Modo editor: <b>ligado</b> neste aparelho</span><button type="button" data-ed-start>Editar esta página</button><a class="sec" href="wiki.html#modo-editor">Editar a Wiki</a>`;
     }
     let toques = 0, toqueT = 0;
     panel.querySelector(".pref-h").addEventListener("click", () => {

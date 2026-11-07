@@ -28,7 +28,8 @@ ENTRAR NO MODO EDITOR
     Nos aparelhos onde você já entrou como editor, ele aparece sozinho. Num aparelho novo,
     clique na chavezinha bem pequena no canto de baixo do painel (ao lado de
     "Fica salvo só neste aparelho") ou toque 5 vezes na palavra "Configurações".
-    Já logado, a engrenagem mostra "Editar esta página" (página inicial) e "Editar a Wiki".
+    Já logado, a engrenagem mostra "Editar esta página" em QUALQUER página do site
+    (página inicial e Wiki), igual nas duas.
   Ou:
   1. Abra o endereço direto (salve nos favoritos):
         https://itzpowerytgfx.github.io/redeastral-site/wiki.html#modo-editor
@@ -36,16 +37,40 @@ ENTRAR NO MODO EDITOR
      nos aparelhos onde você já entrou como editor pelo menos uma vez.
   2. Repositório: SEU-USUARIO/redeastral-site
      Chave: cole o ghp_...
-  3. Entrar. Aparece a barra roxa "Modo editor" no topo da Wiki.
+  3. Entrar. O modo editor já liga.
   Fica salvo só neste navegador. Em outro celular ou PC, entre de novo com a mesma chave.
   Jogadores não veem nada disso; sem a chave ninguém edita.
 
-EDITAR UMA PÁGINA
-  Abra a página -> botão "Editar esta página".
-  Escreva no quadro da esquerda; o lado direito mostra como vai ficar.
-  (no celular, use os botões "Escrever" / "Ver como fica")
+LIGAR E DESLIGAR A EDIÇÃO NA WIKI (igual à página inicial)
+  Logado, a Wiki mostra a barra roxa embaixo. Para editar: "Editar esta página" na barra
+  de baixo OU na engrenagem. Aí aparecem a barra de cima (Organizar, Nova página, Links...),
+  os lápis e o "✥ Mover", e tudo fica com contorno tracejado.
+  Com a edição ligada, toda página da Wiki que você abrir já abre editável.
+  "Parar de editar" (barra de baixo) volta a mostrar a Wiki normal.
+
+EDITAR UMA PÁGINA (escrevendo direto nela)
+  Com a edição ligada, abra a página. Clique em qualquer texto e escreva:
+  títulos, parágrafos, itens de lista, células de tabela, caixas de Dica/Atenção e
+  legendas de imagem.
+    Enter numa lista  -> item novo embaixo. Apagar tudo de um item vazio -> some.
+    Negrito           -> selecione as palavras e clique em Negrito.
+    Link              -> selecione as palavras, clique em Link, cole o endereço ou escolha
+                         uma página da Wiki e clique em Inserir.
+    Título, Lista, Dica, Imagem, Vídeo, YouTube... -> entram logo DEPOIS do que você
+                         clicou por último na página (sem nada clicado, vão para o fim).
   Clique em SALVAR. Até salvar, nada muda no site.
-  Se fechar sem salvar, o texto fica guardado como rascunho neste navegador.
+  Se sair sem salvar, o texto fica guardado como rascunho neste navegador.
+  "Texto (avançado)": no computador fica do lado direito; no celular é o botão de cima.
+  É o texto puro da página. Cartões de classe/habilidade se mudam por ali.
+
+TEXTOS FIXOS DA WIKI (menu do topo, rodapé, rótulos)
+  Com a edição ligada, também dá para escrever direto em: "Wiki" do logo, "Início" e
+  "Como entrar" do menu, texto do botão do Discord, "Todas as páginas" (celular),
+  "Início da wiki" do menu do lado, "Wiki" da trilha em cima do título, "Anterior" e
+  "Próxima", "Faltou alguma coisa?..." e o rodapé. Também o texto dentro da pesquisa
+  (campo "Texto dentro da caixa de pesquisa").
+  Clicando em "Início" ou "Como entrar", aparece "Link do botão:" na barra de baixo.
+  Depois clique em "Salvar textos" (barra de baixo). "Cancelar" desfaz.
 
 BOTÕES DO EDITOR
   Título      -> subtítulo de seção
@@ -84,14 +109,14 @@ CARTÕES COM ÍCONES (classes, raças, habilidades, atributos)
   As imagens dos ícones ficam em img/icones/ (um arquivo .svg para cada).
 
 MOVER E COLOCAR LADO A LADO (botão verde "✥ Mover")
-  No quadro "como vai ficar", passe o mouse (ou toque) em qualquer coisa: texto, título,
+  Na página (editor aberto), passe o mouse (ou toque) em qualquer coisa: texto, título,
   imagem, vídeo, lista, tabela, cartão. Aparece o botão verde "✥ Mover" no canto de cima.
   Segure e arraste. Uma linha verde mostra onde vai cair:
   - em cima ou embaixo de outra coisa  -> muda a ordem;
   - na beirada ESQUERDA ou DIREITA de outra coisa -> fica uma do lado da outra (colunas).
     Dá para pôr 3 ou mais lado a lado: é só soltar na beirada de uma coluna.
   Para tirar do lado a lado, arraste para cima ou para baixo de algo fora das colunas.
-  Depois clique em SALVAR. Errou? Ctrl+Z no quadro de texto desfaz.
+  Depois clique em SALVAR. Errou? Ctrl+Z no "Texto (avançado)" desfaz.
   No celular as colunas ficam uma embaixo da outra quando não cabem na tela.
 
   No texto, o lado a lado fica assim (o botão "Lado a lado" escreve isto pronto):
@@ -103,7 +128,7 @@ MOVER E COLOCAR LADO A LADO (botão verde "✥ Mover")
   Cada +++ separa uma coluna. Dentro de uma coluna pode ter texto, imagem, vídeo, lista...
 
 AUMENTAR / DIMINUIR (bolinha roxa)
-  No quadro "como vai ficar", passe o mouse (ou toque) em um título, parágrafo, lista, tabela,
+  Na página (editor aberto), passe o mouse (ou toque) em um título, parágrafo, lista, tabela,
   caixa de dica, imagem ou vídeo.
   Aparece uma bolinha roxa no canto: arraste para a DIREITA para aumentar e para a ESQUERDA para diminuir.
   Texto: de 50% a 300%. Imagem e vídeo: de 10% a 100% da largura da página.
@@ -111,7 +136,7 @@ AUMENTAR / DIMINUIR (bolinha roxa)
   (No texto aparece no fim da linha algo como {70%}. Pode apagar para voltar ao normal.)
 
 LÁPIS E "MOVER" NA PÁGINA INICIAL DA WIKI (cartões)
-  Logado como editor, a página inicial da Wiki mostra botões verdes "✥ Mover" e roxos com lápis.
+  Com a edição ligada, a página inicial da Wiki mostra botões verdes "✥ Mover" e roxos com lápis.
   "✥ Mover" num cartão: segure e arraste para o lado de outro cartão (muda a ordem) ou para
     outra categoria (o cartão vai para o fim dela). Salva sozinho na hora.
   "✥ Mover" ao lado do nome da categoria: arraste para cima ou para baixo de outra categoria.
