@@ -1,12 +1,12 @@
 {
-  "atualizado": "2026-11-07T07:57:09Z",
+  "atualizado": "2026-11-07T08:27:09Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 13186},
-      {"nome": "TagaYato_", "valor": 12546},
-      {"nome": "_MitKan22", "valor": 11648},
+      {"nome": "TagaYato_", "valor": 12576},
+      {"nome": "_MitKan22", "valor": 11667},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 5860},
       {"nome": "Shen_Kaizhang", "valor": 3974},
@@ -17,8 +17,8 @@
      ],
      "mes": [
       {"nome": "_Flos7304", "valor": 906},
-      {"nome": "TagaYato_", "valor": 617},
-      {"nome": "_MitKan22", "valor": 584},
+      {"nome": "TagaYato_", "valor": 647},
+      {"nome": "_MitKan22", "valor": 603},
       {"nome": "_M_na_voz", "valor": 313},
       {"nome": "_Maya06908", "valor": 298},
       {"nome": "_Foxyismyname553", "valor": 223},
@@ -50,7 +50,8 @@
       {"nome": "_M_na_voz", "valor": 13776.67},
       {"nome": "_Heisenberg22194", "valor": 3300.00},
       {"nome": "_TioDoPave9665", "valor": 3279.92},
-      {"nome": "_Jpzin001", "valor": 2500}
+      {"nome": "_Jpzin001", "valor": 2500},
+      {"nome": "_TagaYato5234", "valor": 2500}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "rank", "titulo": "Rank", "formato": "nivel", "descricao": "Rank do /rank (AstralSkills).",
@@ -324,7 +325,7 @@
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 163948},
-      {"nome": "TagaYato_", "valor": 69049},
+      {"nome": "TagaYato_", "valor": 69097},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 25302},
       {"nome": "_Jpzin001", "valor": 5619},
@@ -335,7 +336,7 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
-      {"nome": "TagaYato_", "valor": 18176},
+      {"nome": "TagaYato_", "valor": 18224},
       {"nome": "DullLucasdeolro", "valor": 4214},
       {"nome": "_MitKan22", "valor": 3646},
       {"nome": "_Kroven_1611", "valor": 86},
