@@ -6,7 +6,7 @@ Aqui vamos te explicar como desencantar suas ferramentas e armaduras, e ainda re
 
 ## Como craftar?
 
-Você vai precisar juntar estes itens.
+Você vai precisar juntar estes itens. `x2 Ametistas` `x1 Fragmento de Eco` `x2 Obsidiana Chorona` `x3 Obsidiana` `x1 Mesa de Encantamento`
 
 ---
 ## Como usar?
