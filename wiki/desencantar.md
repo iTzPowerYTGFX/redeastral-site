@@ -11,6 +11,22 @@ Você vai precisar juntar estes itens. `x2 Ametistas` `x1 Fragmento de Eco` `x2 
 ---
 ## Como usar?
 
+Ao Craftar sua mesa de Desencantamento, coloque ela aonde quiser.
+
 ---
 
 ## Custos para desencantar
+
+Dependendo do nivel do encantamento e a Raridade dela, os custos vão mudando e ficando mais caro.
+
+- Encantamentos Vanilla
+
+| Dinheiro $ | xp |
+| --- | --- |
+| $4.000 por nível | 2 por nível |
+
+- Encantamentos Customizados (AstralEncantamentos)
+
+| dinheiro | XP |
+| --- | --- |
+| Comum: $8.000 Lendario: $120,000 Divino: $250,000 | 3 16 22 |
