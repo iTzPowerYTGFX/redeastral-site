@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-07T22:32:01Z",
+  "atualizado": "2026-11-08T01:02:20Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -23,9 +23,9 @@
       {"nome": "_M_na_voz", "valor": 325},
       {"nome": "_Maya06908", "valor": 314},
       {"nome": "_Foxyismyname553", "valor": 287},
+      {"nome": "_Kroven_1611", "valor": 70},
       {"nome": "_Jpzin001", "valor": 64},
-      {"nome": "_TioDoPave9665", "valor": 59},
-      {"nome": "_Kroven_1611", "valor": 55}
+      {"nome": "_TioDoPave9665", "valor": 59}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
@@ -68,8 +68,8 @@
      "mes": [
       {"nome": "TagaYato_", "valor": 20},
       {"nome": "_Flos7304", "valor": 7},
+      {"nome": "_Kroven_1611", "valor": 5},
       {"nome": "_Foxyismyname553", "valor": 3},
-      {"nome": "_Kroven_1611", "valor": 3},
       {"nome": "_Dxvi779974", "valor": 1},
       {"nome": "_M_na_voz", "valor": 1},
       {"nome": "_Maya06908", "valor": 1}
@@ -171,11 +171,11 @@
       {"nome": "_Sayko_ax", "valor": 62},
       {"nome": "sorae_dz", "valor": 49},
       {"nome": "_Jpzin001", "valor": 39},
-      {"nome": "_Foxyismyname553", "valor": 26}
+      {"nome": "_Kroven_1611", "valor": 32}
      ],
      "mes": [
+      {"nome": "_Kroven_1611", "valor": 11},
       {"nome": "_Flos7304", "valor": 9},
-      {"nome": "_Kroven_1611", "valor": 4},
       {"nome": "_Foxyismyname553", "valor": 3},
       {"nome": "_Maya06908", "valor": 2},
       {"nome": "_M_na_voz", "valor": 1}
@@ -290,10 +290,11 @@
       {"nome": "_MitKan22", "valor": 10},
       {"nome": "TagaYato_", "valor": 4},
       {"nome": "_Corvus8910", "valor": 2},
-      {"nome": "_OsiBloodMoon", "valor": 2},
-      {"nome": "_Kroven_1611", "valor": 1}
+      {"nome": "_Kroven_1611", "valor": 2},
+      {"nome": "_OsiBloodMoon", "valor": 2}
      ],
      "mes": [
+      {"nome": "_Kroven_1611", "valor": 1},
       {"nome": "DullLucasdeolro", "valor": 1}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
@@ -352,8 +353,8 @@
       {"nome": "TagaYato_", "valor": 18739},
       {"nome": "_MitKan22", "valor": 3669},
       {"nome": "_Jpzin001", "valor": 576},
+      {"nome": "_Kroven_1611", "valor": 302},
       {"nome": "_Foxyismyname553", "valor": 96},
-      {"nome": "_Kroven_1611", "valor": 86},
       {"nome": "_Flos7304", "valor": 42},
       {"nome": "_Maya06908", "valor": 38},
       {"nome": "_M_na_voz", "valor": 13},
@@ -382,7 +383,7 @@
       {"nome": "_Heisenberg22194", "valor": 105},
       {"nome": "_MitKan22", "valor": 95},
       {"nome": "_Corvus8910", "valor": 63},
-      {"nome": "_Kroven_1611", "valor": 58},
+      {"nome": "_Kroven_1611", "valor": 60},
       {"nome": "_Flos7304", "valor": 57},
       {"nome": "_OsiBloodMoon", "valor": 56},
       {"nome": "_Sayko_ax", "valor": 56},
@@ -390,7 +391,7 @@
      ],
      "mes": [
       {"nome": "_Dxvi779974", "valor": 12},
-      {"nome": "_Kroven_1611", "valor": 6},
+      {"nome": "_Kroven_1611", "valor": 8},
       {"nome": "_Flos7304", "valor": 5},
       {"nome": "_Foxyismyname553", "valor": 2},
       {"nome": "_Jpzin001", "valor": 2},
@@ -402,7 +403,7 @@
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
       {"nome": "_Alcateia_", "valor": 75.07, "texto": "Nv. 75 · 7 membros"},
-      {"nome": "cyber_doom", "valor": 42.03, "texto": "Nv. 42 · 5 membros"},
+      {"nome": "cyber_doom", "valor": 42.04, "texto": "Nv. 42 · 5 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 5.00, "texto": "Nv. 5 · 1 membro"},
       {"nome": "VVs", "valor": 2.00, "texto": "Nv. 2 · 1 membro"},
