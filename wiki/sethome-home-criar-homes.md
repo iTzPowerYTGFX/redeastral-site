@@ -1,4 +1,5 @@
 # /sethome & /home (criar homes)
+<!-- capa: midia/img-6894d44c0b7c6.jpg -->
 
 Aqui vamos te explicar como funciona o sistema de criar casas e teleportar para elas sempre que quiser!
 
