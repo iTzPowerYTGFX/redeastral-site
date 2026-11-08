@@ -6,6 +6,7 @@
 
 Comandos
 sethome-home-criar-homes.md
+essenciais.md
 
 Encantamentos
 encantamentos.md
@@ -13,7 +14,6 @@ desencantar.md
 
 Sistemas do servidor
 primeiros-passos.md
-essenciais.md
 viajar.md
 captura.md
 waifus.md
@@ -35,4 +35,3 @@ saque.md
 arena-astral.md
 limpeza.md
 correio.md
-
