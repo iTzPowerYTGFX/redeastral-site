@@ -14,11 +14,9 @@ Perdeu algo? Os itens vão para a `/lixeira` por alguns minutos.
 
 - `/limpar`: mostra quanto falta para a próxima limpeza.
 
-A limpeza também tira os **mobs de spawner** (as pilhas "Zumbi x40" e os animais de spawner). Animais normais do mundo nunca são tirados.
+## Mobs em pilha (spawners)
 
 Cada spawner segura no máximo **100 mobs** perto dele (somando as pilhas). Spawner empilhado x3 = 300. Chegou no limite, ele para de soltar até você matar.
-
-## Mobs em pilha (spawners)
 
 Mobs de spawner se juntam num mob só com o nome **"Zumbi x12"**.
 
