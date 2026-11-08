@@ -13,6 +13,7 @@ encantamentos.md
 desencantar.md
 
 Sobre o mundo
+saque.md
 
 Sistemas do servidor
 primeiros-passos.md
@@ -33,7 +34,6 @@ torretas.md
 loja.md
 historia.md
 mimicos.md
-saque.md
 correio.md
 arena-astral.md
 limpeza.md
