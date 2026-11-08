@@ -1,7 +1,7 @@
 # Limpeza e lixeira
 <!-- capa: midia/30335004-pixel-arte-ilustracao-lixo-pode-pixelizad.jpg -->
 
-Limpeza do chão, lixeira e mobs em pilha.
+Aqui iremos te explicar como funciona a lixeira do servidor, itens no chão, limpeza de mobs e etc
 
 <!-- busca: astralclean, lixeira, limpar, lag -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
