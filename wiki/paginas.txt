@@ -25,7 +25,6 @@ captura.md
 waifus.md
 skills.md
 quests.md
-aura.md
 boosts.md
 minerios.md
 mochilas.md
@@ -39,4 +38,4 @@ historia.md
 mimicos.md
 correio.md
 arena-astral.md
-
+aura.md
