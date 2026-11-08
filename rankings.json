@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-08T11:12:53Z",
+  "atualizado": "2026-11-08T11:42:53Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 13560},
+      {"nome": "DullLucasdeolro", "valor": 13585},
       {"nome": "TagaYato_", "valor": 13194},
       {"nome": "_MitKan22", "valor": 11997},
       {"nome": "_Heisenberg22194", "valor": 7786},
@@ -19,18 +19,18 @@
       {"nome": "TagaYato_", "valor": 1265},
       {"nome": "_Flos7304", "valor": 989},
       {"nome": "_MitKan22", "valor": 933},
-      {"nome": "DullLucasdeolro", "valor": 553},
+      {"nome": "DullLucasdeolro", "valor": 578},
       {"nome": "_Maya06908", "valor": 332},
       {"nome": "_M_na_voz", "valor": 325},
       {"nome": "_Foxyismyname553", "valor": 298},
-      {"nome": "_Jpzin001", "valor": 124},
+      {"nome": "_Jpzin001", "valor": 154},
       {"nome": "_Kroven_1611", "valor": 78},
       {"nome": "_TioDoPave9665", "valor": 59}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 48198881.62},
+      {"nome": "DullLucasdeolro", "valor": 48227311.93},
       {"nome": "TagaYato_", "valor": 5823115.47},
       {"nome": "_Afton2460", "valor": 4582098.82},
       {"nome": "_OsiBloodMoon", "valor": 3518609.64},
@@ -39,11 +39,11 @@
       {"nome": "_Corvus8910", "valor": 1226854.18},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
-      {"nome": "_Jpzin001", "valor": 301165.30}
+      {"nome": "_Jpzin001", "valor": 298461.30}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 39864747.99},
-      {"nome": "_Jpzin001", "valor": 197142.93},
+      {"nome": "DullLucasdeolro", "valor": 39893178.30},
+      {"nome": "_Jpzin001", "valor": 194438.93},
       {"nome": "_Foxyismyname553", "valor": 43022.01},
       {"nome": "_Dxvi779974", "valor": 41950},
       {"nome": "_M_na_voz", "valor": 21476.67},
@@ -77,7 +77,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "hab-mineracao", "titulo": "Mineração", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 185},
+      {"nome": "DullLucasdeolro", "valor": 186},
       {"nome": "TagaYato_", "valor": 100},
       {"nome": "_Kroven_1611", "valor": 44},
       {"nome": "_MitKan22", "valor": 25},
@@ -85,15 +85,16 @@
       {"nome": "_Corvus8910", "valor": 6},
       {"nome": "_Flos7304", "valor": 5},
       {"nome": "_Sayko_ax", "valor": 3},
-      {"nome": "_Jpzin001", "valor": 1},
+      {"nome": "_Jpzin001", "valor": 2},
       {"nome": "_M_na_voz", "valor": 1}
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 18},
-      {"nome": "DullLucasdeolro", "valor": 12},
+      {"nome": "DullLucasdeolro", "valor": 13},
       {"nome": "_Kroven_1611", "valor": 6},
       {"nome": "_MitKan22", "valor": 6},
       {"nome": "_Flos7304", "valor": 1},
+      {"nome": "_Jpzin001", "valor": 1},
       {"nome": "_M_na_voz", "valor": 1}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
@@ -237,7 +238,7 @@
       {"nome": "DullLucasdeolro", "valor": 136},
       {"nome": "_MitKan22", "valor": 53},
       {"nome": "TagaYato_", "valor": 52},
-      {"nome": "_Jpzin001", "valor": 23},
+      {"nome": "_Jpzin001", "valor": 24},
       {"nome": "_Heisenberg22194", "valor": 9},
       {"nome": "_Maya06908", "valor": 9},
       {"nome": "_Flos7304", "valor": 8},
@@ -246,7 +247,7 @@
       {"nome": "_Foxyismyname553", "valor": 3}
      ],
      "mes": [
-      {"nome": "_Jpzin001", "valor": 17},
+      {"nome": "_Jpzin001", "valor": 18},
       {"nome": "_Flos7304", "valor": 3},
       {"nome": "_MitKan22", "valor": 3},
       {"nome": "TagaYato_", "valor": 3},
@@ -338,11 +339,11 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 180271},
+      {"nome": "DullLucasdeolro", "valor": 180275},
       {"nome": "TagaYato_", "valor": 69977},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 26073},
-      {"nome": "_Jpzin001", "valor": 6514},
+      {"nome": "_Jpzin001", "valor": 6522},
       {"nome": "Shen_Kaizhang", "valor": 4402},
       {"nome": "_Afton2460", "valor": 3805},
       {"nome": "_Corvus8910", "valor": 3031},
@@ -350,10 +351,10 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 20537},
+      {"nome": "DullLucasdeolro", "valor": 20541},
       {"nome": "TagaYato_", "valor": 19104},
       {"nome": "_MitKan22", "valor": 4417},
-      {"nome": "_Jpzin001", "valor": 914},
+      {"nome": "_Jpzin001", "valor": 922},
       {"nome": "_Kroven_1611", "valor": 593},
       {"nome": "_Foxyismyname553", "valor": 109},
       {"nome": "_Flos7304", "valor": 42},
