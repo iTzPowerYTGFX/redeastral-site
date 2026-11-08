@@ -1,4 +1,5 @@
 # Desencantar
+<!-- capa: midia/img-4268.gif -->
 
 Aqui vamos te explicar como desencantar suas ferramentas e armaduras, e ainda receber os encantamentos de volta sem precisar usar o rebolo!
 
