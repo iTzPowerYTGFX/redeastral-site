@@ -32,8 +32,8 @@ loja.md
 historia.md
 mimicos.md
 saque.md
+correio.md
 arena-astral.md
 limpeza.md
 
 Sobre o mundo
-correio.md
