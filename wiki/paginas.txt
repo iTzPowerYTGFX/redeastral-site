@@ -34,6 +34,6 @@ mimicos.md
 saque.md
 arena-astral.md
 limpeza.md
-correio.md
 
 Sobre o mundo
+correio.md
