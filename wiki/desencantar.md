@@ -29,4 +29,4 @@ Dependendo do nivel do encantamento e a Raridade dela, os custos vão mudando e 
 
 | dinheiro | XP |
 | --- | --- |
-| Comum: $8.000 Lendario: $120,000 Divino: $250,000 | 3 16 22 |
+| Comum: $8.000 Lendário: $120,000 Divino: $250,000 | 3 16 22 |
