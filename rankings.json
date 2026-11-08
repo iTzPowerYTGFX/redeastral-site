@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-08T15:43:04Z",
+  "atualizado": "2026-11-08T16:13:06Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 13800},
+      {"nome": "DullLucasdeolro", "valor": 13806},
       {"nome": "TagaYato_", "valor": 13194},
       {"nome": "_MitKan22", "valor": 11997},
       {"nome": "_Heisenberg22194", "valor": 7786},
@@ -12,18 +12,18 @@
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3200},
       {"nome": "_Maya06908", "valor": 2715},
-      {"nome": "_Flos7304", "valor": 2379},
+      {"nome": "_Flos7304", "valor": 2409},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 1265},
-      {"nome": "_Flos7304", "valor": 994},
+      {"nome": "_Flos7304", "valor": 1024},
       {"nome": "_MitKan22", "valor": 933},
-      {"nome": "DullLucasdeolro", "valor": 793},
+      {"nome": "DullLucasdeolro", "valor": 799},
       {"nome": "_Maya06908", "valor": 332},
       {"nome": "_M_na_voz", "valor": 325},
       {"nome": "_Foxyismyname553", "valor": 298},
-      {"nome": "_Jpzin001", "valor": 231},
+      {"nome": "_Jpzin001", "valor": 234},
       {"nome": "_Kroven_1611", "valor": 82},
       {"nome": "_TioDoPave9665", "valor": 59}
      ],
@@ -36,7 +36,7 @@
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
       {"nome": "_MitKan22", "valor": 1490447.29},
-      {"nome": "_Corvus8910", "valor": 1226854.18},
+      {"nome": "_Corvus8910", "valor": 1229354.18},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
       {"nome": "_Sayko_ax", "valor": 286049.33}
@@ -49,6 +49,7 @@
       {"nome": "_OsiBloodMoon", "valor": 16000},
       {"nome": "_Heisenberg22194", "valor": 3300.00},
       {"nome": "_TioDoPave9665", "valor": 3279.92},
+      {"nome": "_Corvus8910", "valor": 2500},
       {"nome": "_TagaYato5234", "valor": 2500}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
@@ -341,7 +342,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 199482},
+      {"nome": "DullLucasdeolro", "valor": 200718},
       {"nome": "TagaYato_", "valor": 69977},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 26073},
@@ -353,13 +354,13 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 39748},
+      {"nome": "DullLucasdeolro", "valor": 40984},
       {"nome": "TagaYato_", "valor": 19104},
       {"nome": "_MitKan22", "valor": 4417},
       {"nome": "_Jpzin001", "valor": 1174},
       {"nome": "_Kroven_1611", "valor": 593},
       {"nome": "_Foxyismyname553", "valor": 109},
-      {"nome": "_Flos7304", "valor": 42},
+      {"nome": "_Flos7304", "valor": 44},
       {"nome": "_Maya06908", "valor": 40},
       {"nome": "_Dxvi779974", "valor": 16},
       {"nome": "_M_na_voz", "valor": 13}
@@ -407,7 +408,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
-      {"nome": "_Alcateia_", "valor": 78.04, "texto": "Nv. 78 · 7 membros"},
+      {"nome": "_Alcateia_", "valor": 78.05, "texto": "Nv. 78 · 7 membros"},
       {"nome": "cyber_doom", "valor": 43.01, "texto": "Nv. 43 · 5 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.00, "texto": "Nv. 6 · 1 membro"},
