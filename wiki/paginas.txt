@@ -14,6 +14,7 @@ desencantar.md
 
 Sobre o mundo
 saque.md
+limpeza.md
 
 Sistemas do servidor
 primeiros-passos.md
@@ -36,4 +37,3 @@ historia.md
 mimicos.md
 correio.md
 arena-astral.md
-limpeza.md
