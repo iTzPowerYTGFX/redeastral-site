@@ -1,5 +1,5 @@
 # Encantamentos
-<!-- capa: midia/638563280856815892-2.png -->
+<!-- capa: midia/img-4271.gif -->
 
 Os encantamentos novos do servidor: como encantar, chance, custo e Trevo.
 
