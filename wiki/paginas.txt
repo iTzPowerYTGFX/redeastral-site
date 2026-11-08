@@ -9,6 +9,7 @@ sethome-home-criar-homes.md
 
 Encantamentos
 encantamentos.md
+desencantar.md
 
 Sistemas do servidor
 primeiros-passos.md
@@ -34,3 +35,4 @@ saque.md
 arena-astral.md
 limpeza.md
 correio.md
+
