@@ -8,6 +8,7 @@ Comandos
 sethome-home-criar-homes.md
 
 Encantamentos
+encantamentos.md
 
 Sistemas do servidor
 primeiros-passos.md
@@ -19,7 +20,6 @@ skills.md
 quests.md
 aura.md
 boosts.md
-encantamentos.md
 minerios.md
 mochilas.md
 comidas.md
