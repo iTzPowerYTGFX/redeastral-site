@@ -1,5 +1,5 @@
 # Comandos essenciais
-<!-- capa: nenhuma -->
+<!-- capa: midia/minecraft-teleport.jpg -->
 
 comandos que você usará frequentemente.
 
