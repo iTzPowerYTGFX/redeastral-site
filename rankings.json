@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-08T12:12:54Z",
+  "atualizado": "2026-11-08T12:42:54Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 13615},
+      {"nome": "DullLucasdeolro", "valor": 13645},
       {"nome": "TagaYato_", "valor": 13194},
       {"nome": "_MitKan22", "valor": 11997},
       {"nome": "_Heisenberg22194", "valor": 7786},
@@ -19,7 +19,7 @@
       {"nome": "TagaYato_", "valor": 1265},
       {"nome": "_Flos7304", "valor": 989},
       {"nome": "_MitKan22", "valor": 933},
-      {"nome": "DullLucasdeolro", "valor": 608},
+      {"nome": "DullLucasdeolro", "valor": 638},
       {"nome": "_Maya06908", "valor": 332},
       {"nome": "_M_na_voz", "valor": 325},
       {"nome": "_Foxyismyname553", "valor": 298},
@@ -339,7 +339,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 180275},
+      {"nome": "DullLucasdeolro", "valor": 180317},
       {"nome": "TagaYato_", "valor": 69977},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "_MitKan22", "valor": 26073},
@@ -351,7 +351,7 @@
       {"nome": "xmatheusgmr", "valor": 1675}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 20541},
+      {"nome": "DullLucasdeolro", "valor": 20583},
       {"nome": "TagaYato_", "valor": 19104},
       {"nome": "_MitKan22", "valor": 4417},
       {"nome": "_Jpzin001", "valor": 923},
