@@ -1,4 +1,5 @@
 # Limpeza e lixeira
+<!-- capa: midia/30335004-pixel-arte-ilustracao-lixo-pode-pixelizad.jpg -->
 
 Limpeza do chão, lixeira e mobs em pilha.
 
