@@ -1,4 +1,5 @@
 # Sistema dos Spawners
+<!-- capa: midia/638601262990232963.png -->
 
 Aqui vamos te explicar como funcionam os Spawners da Rede Astral.
 
