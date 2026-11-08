@@ -7,6 +7,7 @@
 Comandos
 sethome-home-criar-homes.md
 essenciais.md
+limpeza.md
 
 Encantamentos
 encantamentos.md
