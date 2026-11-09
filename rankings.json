@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-09T16:05:11Z",
+  "atualizado": "2026-11-09T16:35:13Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -8,20 +8,20 @@
       {"nome": "TagaYato_", "valor": 13837},
       {"nome": "_MitKan22", "valor": 12480},
       {"nome": "_Heisenberg22194", "valor": 7786},
-      {"nome": "_M_na_voz", "valor": 5976},
+      {"nome": "_M_na_voz", "valor": 6006},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3364},
-      {"nome": "_Flos7304", "valor": 3083},
+      {"nome": "_Flos7304", "valor": 3112},
       {"nome": "_Maya06908", "valor": 2722},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 1908},
-      {"nome": "_Flos7304", "valor": 1698},
+      {"nome": "_Flos7304", "valor": 1727},
       {"nome": "DullLucasdeolro", "valor": 1530},
       {"nome": "_MitKan22", "valor": 1416},
       {"nome": "_Jpzin001", "valor": 538},
-      {"nome": "_M_na_voz", "valor": 429},
+      {"nome": "_M_na_voz", "valor": 459},
       {"nome": "_Foxyismyname553", "valor": 410},
       {"nome": "_Maya06908", "valor": 339},
       {"nome": "_Sayko_ax", "valor": 164},
@@ -271,10 +271,10 @@
       {"nome": "_Foxyismyname553", "valor": 5},
       {"nome": "_MitKan22", "valor": 4},
       {"nome": "TagaYato_", "valor": 4},
+      {"nome": "_M_na_voz", "valor": 2},
       {"nome": "_Maya06908", "valor": 2},
       {"nome": "_Sayko_ax", "valor": 2},
-      {"nome": "_Kroven_1611", "valor": 1},
-      {"nome": "_M_na_voz", "valor": 1}
+      {"nome": "_Kroven_1611", "valor": 1}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-acrobacia", "titulo": "Acrobacia", "formato": "nivel", "grupo": "Habilidades",
@@ -386,12 +386,12 @@
       {"nome": "TagaYato_", "valor": 53081},
       {"nome": "_Jpzin001", "valor": 12790},
       {"nome": "_MitKan22", "valor": 8816},
-      {"nome": "_Kroven_1611", "valor": 635},
+      {"nome": "_Kroven_1611", "valor": 643},
       {"nome": "_Foxyismyname553", "valor": 227},
-      {"nome": "_Flos7304", "valor": 127},
+      {"nome": "_Flos7304", "valor": 143},
       {"nome": "_Sayko_ax", "valor": 68},
       {"nome": "_Maya06908", "valor": 42},
-      {"nome": "_M_na_voz", "valor": 19}
+      {"nome": "_M_na_voz", "valor": 20}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "pvp", "titulo": "Abates de jogadores", "formato": "numero",
