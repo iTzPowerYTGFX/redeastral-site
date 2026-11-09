@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-09T11:16:33Z",
+  "atualizado": "2026-11-09T11:50:42Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -25,7 +25,7 @@
       {"nome": "_M_na_voz", "valor": 374},
       {"nome": "_Maya06908", "valor": 339},
       {"nome": "_Sayko_ax", "valor": 153},
-      {"nome": "_Kroven_1611", "valor": 86}
+      {"nome": "_Kroven_1611", "valor": 89}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
@@ -180,11 +180,11 @@
       {"nome": "_Sayko_ax", "valor": 64},
       {"nome": "_OsiBloodMoon", "valor": 62},
       {"nome": "sorae_dz", "valor": 49},
-      {"nome": "_Kroven_1611", "valor": 45},
+      {"nome": "_Kroven_1611", "valor": 46},
       {"nome": "_Jpzin001", "valor": 39}
      ],
      "mes": [
-      {"nome": "_Kroven_1611", "valor": 24},
+      {"nome": "_Kroven_1611", "valor": 25},
       {"nome": "_Flos7304", "valor": 12},
       {"nome": "_Foxyismyname553", "valor": 9},
       {"nome": "_Maya06908", "valor": 2},
@@ -383,7 +383,7 @@
       {"nome": "TagaYato_", "valor": 53053},
       {"nome": "_MitKan22", "valor": 8721},
       {"nome": "_Jpzin001", "valor": 2495},
-      {"nome": "_Kroven_1611", "valor": 593},
+      {"nome": "_Kroven_1611", "valor": 629},
       {"nome": "_Foxyismyname553", "valor": 227},
       {"nome": "_Sayko_ax", "valor": 67},
       {"nome": "_Flos7304", "valor": 66},
