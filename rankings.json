@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-10T15:29:12Z",
+  "atualizado": "2026-11-10T15:59:12Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -10,14 +10,14 @@
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6145},
       {"nome": "Shen_Kaizhang", "valor": 3974},
-      {"nome": "_Flos7304", "valor": 3636},
+      {"nome": "_Flos7304", "valor": 3666},
       {"nome": "_Sayko_ax", "valor": 3364},
       {"nome": "_Maya06908", "valor": 2809},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 2520},
-      {"nome": "_Flos7304", "valor": 2251},
+      {"nome": "_Flos7304", "valor": 2281},
       {"nome": "DullLucasdeolro", "valor": 2040},
       {"nome": "_MitKan22", "valor": 1829},
       {"nome": "_Jpzin001", "valor": 736},
@@ -88,8 +88,8 @@
       {"nome": "_MitKan22", "valor": 37},
       {"nome": "_Jpzin001", "valor": 23},
       {"nome": "_Heisenberg22194", "valor": 13},
+      {"nome": "_Flos7304", "valor": 7},
       {"nome": "_Corvus8910", "valor": 6},
-      {"nome": "_Flos7304", "valor": 6},
       {"nome": "_Sayko_ax", "valor": 3},
       {"nome": "_M_na_voz", "valor": 1}
      ],
@@ -99,7 +99,7 @@
       {"nome": "_Jpzin001", "valor": 22},
       {"nome": "_MitKan22", "valor": 18},
       {"nome": "_Kroven_1611", "valor": 9},
-      {"nome": "_Flos7304", "valor": 2},
+      {"nome": "_Flos7304", "valor": 3},
       {"nome": "_M_na_voz", "valor": 1}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
@@ -397,7 +397,7 @@
       {"nome": "_MitKan22", "valor": 9086},
       {"nome": "_Kroven_1611", "valor": 2043},
       {"nome": "_Foxyismyname553", "valor": 290},
-      {"nome": "_Flos7304", "valor": 257},
+      {"nome": "_Flos7304", "valor": 258},
       {"nome": "_Maya06908", "valor": 93},
       {"nome": "_Sayko_ax", "valor": 68},
       {"nome": "_M_na_voz", "valor": 21}
