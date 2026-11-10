@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-10T15:59:12Z",
+  "atualizado": "2026-11-10T16:29:12Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -10,14 +10,14 @@
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6145},
       {"nome": "Shen_Kaizhang", "valor": 3974},
-      {"nome": "_Flos7304", "valor": 3666},
+      {"nome": "_Flos7304", "valor": 3687},
       {"nome": "_Sayko_ax", "valor": 3364},
       {"nome": "_Maya06908", "valor": 2809},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 2520},
-      {"nome": "_Flos7304", "valor": 2281},
+      {"nome": "_Flos7304", "valor": 2302},
       {"nome": "DullLucasdeolro", "valor": 2040},
       {"nome": "_MitKan22", "valor": 1829},
       {"nome": "_Jpzin001", "valor": 736},
@@ -63,12 +63,12 @@
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
       {"nome": "_OsiBloodMoon", "valor": 57.00, "texto": "Rank 57"},
-      {"nome": "_Flos7304", "valor": 38.00, "texto": "Rank 38"},
+      {"nome": "_Flos7304", "valor": 39.00, "texto": "Rank 39"},
       {"nome": "_Kroven_1611", "valor": 35.00, "texto": "Rank 35"},
       {"nome": "_Foxyismyname553", "valor": 32.00, "texto": "Rank 32"}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 24},
+      {"nome": "_Flos7304", "valor": 25},
       {"nome": "_Kroven_1611", "valor": 24},
       {"nome": "TagaYato_", "valor": 20},
       {"nome": "_Foxyismyname553", "valor": 12},
@@ -129,7 +129,7 @@
       {"nome": "_OsiBloodMoon", "valor": 20},
       {"nome": "_Foxyismyname553", "valor": 17},
       {"nome": "_Maya06908", "valor": 15},
-      {"nome": "_Flos7304", "valor": 11},
+      {"nome": "_Flos7304", "valor": 12},
       {"nome": "_TioDoPave9665", "valor": 7},
       {"nome": "_MitKan22", "valor": 3},
       {"nome": "_Heisenberg22194", "valor": 1}
@@ -138,6 +138,7 @@
       {"nome": "TagaYato_", "valor": 33},
       {"nome": "_TioDoPave9665", "valor": 3},
       {"nome": "_M_na_voz", "valor": 2},
+      {"nome": "_Flos7304", "valor": 1},
       {"nome": "_Foxyismyname553", "valor": 1},
       {"nome": "_Maya06908", "valor": 1}
      ],
@@ -291,7 +292,7 @@
       {"nome": "DullLucasdeolro", "valor": 252},
       {"nome": "TagaYato_", "valor": 80},
       {"nome": "_Corvus8910", "valor": 12},
-      {"nome": "_Flos7304", "valor": 7},
+      {"nome": "_Flos7304", "valor": 8},
       {"nome": "_Heisenberg22194", "valor": 6},
       {"nome": "_M_na_voz", "valor": 6},
       {"nome": "_MitKan22", "valor": 6},
@@ -302,7 +303,7 @@
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 7},
       {"nome": "TagaYato_", "valor": 7},
-      {"nome": "_Flos7304", "valor": 5},
+      {"nome": "_Flos7304", "valor": 6},
       {"nome": "_Jpzin001", "valor": 4},
       {"nome": "_M_na_voz", "valor": 2},
       {"nome": "_MitKan22", "valor": 1}
@@ -430,7 +431,7 @@
       {"nome": "_MitKan22", "valor": 100},
       {"nome": "_Flos7304", "valor": 75},
       {"nome": "_Corvus8910", "valor": 64},
-      {"nome": "_Kroven_1611", "valor": 61},
+      {"nome": "_Kroven_1611", "valor": 62},
       {"nome": "_Jpzin001", "valor": 60},
       {"nome": "_Sayko_ax", "valor": 59},
       {"nome": "_OsiBloodMoon", "valor": 56}
@@ -439,7 +440,7 @@
       {"nome": "_Jpzin001", "valor": 24},
       {"nome": "_Flos7304", "valor": 23},
       {"nome": "_Dxvi779974", "valor": 14},
-      {"nome": "_Kroven_1611", "valor": 9},
+      {"nome": "_Kroven_1611", "valor": 10},
       {"nome": "_Foxyismyname553", "valor": 7},
       {"nome": "_MitKan22", "valor": 5},
       {"nome": "_TioDoPave9665", "valor": 5},
