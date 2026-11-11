@@ -1,11 +1,11 @@
 {
-  "atualizado": "2026-11-11T06:30:23Z",
+  "atualizado": "2026-11-11T07:00:23Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 15591},
-      {"nome": "TagaYato_", "valor": 14902},
+      {"nome": "DullLucasdeolro", "valor": 15621},
+      {"nome": "TagaYato_", "valor": 14932},
       {"nome": "_MitKan22", "valor": 13300},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6198},
@@ -16,9 +16,9 @@
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
-      {"nome": "TagaYato_", "valor": 2973},
+      {"nome": "TagaYato_", "valor": 3003},
       {"nome": "_Flos7304", "valor": 2834},
-      {"nome": "DullLucasdeolro", "valor": 2584},
+      {"nome": "DullLucasdeolro", "valor": 2614},
       {"nome": "_MitKan22", "valor": 2236},
       {"nome": "_Jpzin001", "valor": 951},
       {"nome": "_M_na_voz", "valor": 651},
@@ -295,7 +295,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-acrobacia", "titulo": "Acrobacia", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 260},
+      {"nome": "DullLucasdeolro", "valor": 262},
       {"nome": "TagaYato_", "valor": 81},
       {"nome": "_Corvus8910", "valor": 12},
       {"nome": "_Flos7304", "valor": 8},
@@ -307,7 +307,7 @@
       {"nome": "_Sayko_ax", "valor": 3}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 15},
+      {"nome": "DullLucasdeolro", "valor": 17},
       {"nome": "TagaYato_", "valor": 8},
       {"nome": "_Flos7304", "valor": 6},
       {"nome": "_Jpzin001", "valor": 4},
@@ -389,7 +389,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 348065},
+      {"nome": "DullLucasdeolro", "valor": 352919},
       {"nome": "TagaYato_", "valor": 146515},
       {"nome": "_Jpzin001", "valor": 43231},
       {"nome": "_Heisenberg22194", "valor": 33167},
@@ -401,7 +401,7 @@
       {"nome": "_OsiBloodMoon", "valor": 2239}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 188331},
+      {"nome": "DullLucasdeolro", "valor": 193185},
       {"nome": "TagaYato_", "valor": 95642},
       {"nome": "_Jpzin001", "valor": 37631},
       {"nome": "_MitKan22", "valor": 9444},
@@ -460,7 +460,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
-      {"nome": "_Alcateia_", "valor": 96.01, "texto": "Nv. 96 · 7 membros"},
+      {"nome": "_Alcateia_", "valor": 96.06, "texto": "Nv. 96 · 7 membros"},
       {"nome": "cyber_doom", "valor": 60.01, "texto": "Nv. 60 · 6 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.00, "texto": "Nv. 6 · 1 membro"},
