@@ -4,7 +4,7 @@ Uma nova dimensão escura e perigosa: portal de Netherite, mobs de terror, o Cav
 
 <!-- oculta -->
 <!-- capa: midia/abismo/capa.png -->
-<!-- busca: abismo, dimensao, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal antigo, alma azul, sangue, solar, mitico, especial, unico, espacial, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
+<!-- busca: abismo, dimensao, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
 
 ![Os mobs de terror e o Cavaleiro Sombrio](midia/abismo/capa.png)
 
@@ -94,13 +94,13 @@ Sete minérios que **só existem no Abismo**, espalhados na escada de força do 
 
 | Minério | Força | Picareta | Tem |
 | --- | --- | --- | --- |
-| Cristal Antigo | entre Esmeralda e Diamante | Diamante | armadura e espada |
-| Alma Azul | entre Diamante e Rubi | Diamante | armadura |
-| Sangue | entre Rubi e Safira | Diamante | armadura e espada |
-| Solar | entre Safira e Netherite (perto do teto) | Diamante | armadura e espada |
-| Mítico | entre Titânio e Urânio | Netherite | armadura |
-| Especial | entre Urânio e Netherite Vermelho | Netherite | armadura e espada |
-| Único | **acima do Netherite Vermelho** (perto da lava) | Netherite | armadura e espada **Espacial** |
+| Cristal do Eco | entre Esmeralda e Diamante | Diamante | armadura e espada |
+| Alma Errante | entre Diamante e Rubi | Diamante | armadura |
+| Hematita | entre Rubi e Safira | Diamante | armadura e espada |
+| Sol Negro | entre Safira e Netherite (perto do teto) | Diamante | armadura e espada |
+| Ônix Sombrio | entre Titânio e Urânio | Netherite | armadura |
+| Rosa Abissal | entre Urânio e Netherite Vermelho | Netherite | armadura e espada |
+| **Abissita** | **acima do Netherite Vermelho** (perto da lava) | Netherite | armadura e espada |
 
 Minério → **Bruto** → fornalha → **Lingote**. 9 lingotes = 1 bloco. Fortuna aumenta, Toque de Seda pega o minério. Com picareta fraca ele quebra devagar e não solta nada.
 
@@ -181,9 +181,9 @@ Todos na **bancada** (ou no `/forjaabismo`):
 | Fragmento do Terror | Núcleo Espectral | Essências do Caçador, Carrasco, Encapuzado, Palhaço e Predador |
 | Fragmento dos Mortos | Núcleo Espectral | Essências do Zumbi e do Esqueleto Instável, Wither, Servo e Cavaleiro Sombrio |
 | Núcleo Espectral | traje na bancada | Fragmento do Terror em cima do Fragmento dos Mortos |
-| Lanterna Abissal | na mão secundária, a sanidade cai bem mais devagar | 4 lingotes de Cristal Antigo, 2 de Alma Azul, 2 Essências do Encapuzado e 1 Lanterna das Almas no meio |
+| Lanterna Abissal | na mão secundária, a sanidade cai bem mais devagar | 4 lingotes de Cristal do Eco, 2 de Alma Errante, 2 Essências do Encapuzado e 1 Lanterna das Almas no meio |
 | Tônico da Lucidez (faz 2) | clique direito: +50 de sanidade e visão no escuro | Bagas Brilhantes, 2 Fragmentos de Ametista, Essência do Palhaço e Frasco de Vidro |
-| Selo do Cavaleiro | clique direito no Abismo: chama o Cavaleiro Sombrio | 4 Essências Wither, 2 lingotes de Sangue, 2 Corações do Abismo e 1 Bloco de Netherite no meio |
+| Selo do Cavaleiro | clique direito no Abismo: chama o Cavaleiro Sombrio | 4 Essências Wither, 2 lingotes de Hematita, 2 Corações do Abismo e 1 Bloco de Netherite no meio |
 
 > Atenção: o Selo não funciona se o Cavaleiro já estiver vivo, e há uma espera de 20 minutos entre um selo e outro.
 
