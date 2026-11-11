@@ -30,7 +30,7 @@ Na bancada: **Sculk, Fragmento de Eco, Sculk / Eco, Olho do Ender, Eco / Sculk, 
 ## Montar o portal
 
 ::: lado
-![Moldura do portal](midia/abismo/portal.png) {70%}
+![Moldura do portal com o véu negro](midia/abismo/portal.gif) {70%}
 +++
 Moldura **em pé**, de **4 de largura por 5 de altura**:
 
@@ -38,7 +38,7 @@ Moldura **em pé**, de **4 de largura por 5 de altura**:
 - **Bloco de Netherite Vermelho** nos **outros 10** blocos da borda.
 - O meio fica vazio.
 
-Clique na moldura com o **Coração do Abismo** na mão e o portal desperta.
+Clique na moldura com o **Coração do Abismo** na mão e o portal desperta, com um **véu negro** que se mexe.
 
 Lá dentro aparece um portal de **Obsidiana Chorona**: é a volta, de graça.
 :::
@@ -131,11 +131,13 @@ Com as **4 peças** vestidas e a **Varinha Mágica** na mão:
 
 **Na bancada:** **Liga Abissal** + **Núcleo Espectral** + **Coração do Abismo**. Chapéu e botas: 2 Ligas. Peitoral: 4. Calça: 3. Sempre 1 Núcleo e 1 Coração.
 
+O **Núcleo Espectral** é feito em 2 etapas: **Fragmento do Terror** + **Fragmento dos Mortos** (um em cima do outro na bancada).
+
 Ou no `/forjaabismo`, direto com os lingotes, as essências e o Coração (mesmo custo).
 
 ![Essências](midia/abismo/essencias.png)
 
-**Essências:** caem dos mobs do Abismo mortos por jogador (Caçador, Carrasco, Encapuzado, Palhaço, Predador, Zumbi e Esqueleto Instável, Esqueleto Wither). O **Cavaleiro Sombrio** sempre solta a dele.
+**Essências:** cada mob do Abismo solta a sua quando morto por jogador: Caçador, Carrasco, Encapuzado, Palhaço, Predador, Zumbi e Esqueleto Instável, Esqueleto Wither, Servo do Cavaleiro e Cavaleiro Sombrio (esse sempre solta).
 
 ## Sanidade
 
@@ -169,14 +171,16 @@ Durante a Maré:
 
 ## Itens do Abismo
 
-![Liga Abissal, Núcleo Espectral, Lanterna Abissal, Tônico da Lucidez e Selo do Cavaleiro](midia/abismo/itens.png)
+![Liga Abissal, Fragmento do Terror, Fragmento dos Mortos, Núcleo Espectral, Lanterna Abissal, Tônico da Lucidez e Selo do Cavaleiro](midia/abismo/itens.png)
 
 Todos na **bancada** (ou no `/forjaabismo`):
 
 | Item | Para que serve | Receita |
 | --- | --- | --- |
 | Liga Abissal | traje na bancada | 1 lingote de cada um dos 7 minérios do Abismo |
-| Núcleo Espectral | traje na bancada | as 9 essências |
+| Fragmento do Terror | Núcleo Espectral | Essências do Caçador, Carrasco, Encapuzado, Palhaço e Predador |
+| Fragmento dos Mortos | Núcleo Espectral | Essências do Zumbi e do Esqueleto Instável, Wither, Servo e Cavaleiro Sombrio |
+| Núcleo Espectral | traje na bancada | Fragmento do Terror em cima do Fragmento dos Mortos |
 | Lanterna Abissal | na mão secundária, a sanidade cai bem mais devagar | 4 lingotes de Cristal Antigo, 2 de Alma Azul, 2 Essências do Encapuzado e 1 Lanterna das Almas no meio |
 | Tônico da Lucidez (faz 2) | clique direito: +50 de sanidade e visão no escuro | Bagas Brilhantes, 2 Fragmentos de Ametista, Essência do Palhaço e Frasco de Vidro |
 | Selo do Cavaleiro | clique direito no Abismo: chama o Cavaleiro Sombrio | 4 Essências Wither, 2 lingotes de Sangue, 2 Corações do Abismo e 1 Bloco de Netherite no meio |
