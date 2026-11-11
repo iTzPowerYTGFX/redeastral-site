@@ -1,16 +1,47 @@
 # Abismo Sombrio
 
-Uma nova dimensão escura e perigosa: portal de Netherite, mobs de terror, o Cavaleiro Sombrio, masmorras com os melhores baús do servidor, 7 minérios novos e o traje mágico SpectreBound.
+Uma nova dimensão escura e perigosa: ilhas flutuantes sobre um mar de lava, portal de Netherite, mobs de terror, o Cavaleiro Sombrio, masmorras com os melhores baús do servidor, 7 minérios novos e o traje mágico SpectreBound.
 
 <!-- oculta -->
 <!-- capa: midia/abismo/capa.png -->
-<!-- busca: abismo, dimensao, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
+<!-- busca: abismo, dimensao, ilhas flutuantes, floresta abissal, vale dos ossos, jardim de cristal, deltas negros, mar de lava, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
 
 ![Os mobs de terror e o Cavaleiro Sombrio](midia/abismo/capa.png)
 
 ## O que é o Abismo
 
-O Abismo é um mundo só de cavernas, frio e escuro, cheio de estruturas antigas. É o lugar **mais perigoso** do servidor:
+O Abismo **não é caverna**. É um **vão gigante** e escuro, sem céu:
+
+- **ilhas flutuantes** em várias alturas, ligadas por nada (leve blocos para atravessar);
+- **pilares colossais** do chão até o teto;
+- pontas de pedra e **correntes com lanternas de alma** penduradas no teto;
+- lá embaixo, um **mar de lava** com colunas de basalto. Cair da ilha é morte.
+
+![O mar de lava e os pilares](midia/abismo/mar-de-lava.jpg)
+
+### As 4 regiões
+
+Cada região tem névoa, partículas no ar e sons próprios.
+
+::: lado
+![Floresta Abissal](midia/abismo/regiao-floresta.jpg)
+**Floresta Abissal**: chão turquesa e árvores gigantes de fungo com luzes roxas.
++++
+![Vale dos Ossos](midia/abismo/regiao-vale.jpg)
+**Vale dos Ossos**: areia das almas, fósseis gigantes e fogo azul.
+:::
+
+::: lado
+![Jardim de Cristal](midia/abismo/regiao-cristal.jpg)
+**Jardim de Cristal**: calcita, ametista e espinhos de cristal enormes.
++++
+![Deltas Negros](midia/abismo/regiao-deltas.jpg)
+**Deltas Negros**: basalto, magma e poças de lava.
+:::
+
+> Dica: as imagens são uma prévia do gerador do mundo, sem as texturas do jogo.
+
+É o lugar **mais perigoso** do servidor:
 
 - **PvP ligado**.
 - **Morreu, perdeu os itens.**
@@ -79,7 +110,7 @@ Golpes em área, corte que faz o chão tremer, estocada, giro e servos esqueleto
 
 ## Masmorras e tesouros
 
-Espalhadas pelo Abismo: **masmorras** (5 a 9 salas e uma sala do tesouro), **criptas**, **santuários**, **torres** e **ruínas**, com geradores de monstros.
+Espalhadas pelo Abismo: **masmorras** (5 a 9 salas e uma sala do tesouro, escondidas dentro da rocha das ilhas, dos pilares e do teto), **criptas**, **santuários**, **torres** e **ruínas**, com geradores de monstros.
 
 - Os baús têm **o melhor loot do servidor**, com itens Astral.
 - O loot é **só seu**: cada jogador abre o próprio.
