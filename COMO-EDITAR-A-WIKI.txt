@@ -73,6 +73,14 @@ EDITAR UMA PÁGINA (escrevendo direto nela)
   "Texto (avançado)": no computador fica do lado direito; no celular é o botão de cima.
   É o texto puro da página. Cartões de classe/habilidade se mudam por ali.
 
+PÁGINA ESCONDIDA (só editores veem) — para preparar algo antes de anunciar
+  No editor da página: botão "Esconder do público" (do lado do Salvar) -> Salvar.
+  A página some do menu, dos cartões, da busca e do Anterior/Próxima para os jogadores.
+  Quem entrou como editor continua vendo, com a etiqueta laranja "🔒 oculta".
+  Para mostrar a todos: abra a página no editor -> "🔒 Escondida · Publicar" -> Salvar.
+  (No texto puro é a linha <!-- oculta -->. O arquivo .md fica no GitHub, que é público: quem
+  procurar o arquivo direto no GitHub consegue ler. Não guarde segredo de verdade em página escondida.)
+
 MENU DO LADO (lista de páginas) — com a edição ligada
   ⠿ (pontinhos verdes) do lado de uma página: segure e arraste para cima/baixo ou para
      outra categoria (solte no nome dela = vai para o começo; embaixo dela = vai para o fim).
