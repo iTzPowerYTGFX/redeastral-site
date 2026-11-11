@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-11T12:23:38Z",
+  "atualizado": "2026-11-11T13:20:56Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -12,7 +12,7 @@
       {"nome": "_Flos7304", "valor": 4219},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3364},
-      {"nome": "_Maya06908", "valor": 2879},
+      {"nome": "_Maya06908", "valor": 2886},
       {"nome": "_Afton2460", "valor": 2207}
      ],
      "mes": [
@@ -23,7 +23,7 @@
       {"nome": "_Jpzin001", "valor": 959},
       {"nome": "_M_na_voz", "valor": 651},
       {"nome": "_Foxyismyname553", "valor": 608},
-      {"nome": "_Maya06908", "valor": 496},
+      {"nome": "_Maya06908", "valor": 503},
       {"nome": "_Kroven_1611", "valor": 248},
       {"nome": "_Sayko_ax", "valor": 164}
      ],
@@ -48,8 +48,8 @@
       {"nome": "_Flos7304", "valor": 62127.55},
       {"nome": "_M_na_voz", "valor": 61722.76},
       {"nome": "_Dxvi779974", "valor": 41950},
+      {"nome": "_TioDoPave9665", "valor": 30892.59},
       {"nome": "_OsiBloodMoon", "valor": 16000},
-      {"nome": "_TioDoPave9665", "valor": 14892.59},
       {"nome": "_Corvus_1144", "valor": 14050},
       {"nome": "_Sayko_ax", "valor": 10874}
      ],
