@@ -54,7 +54,7 @@ Cada região tem bioma próprio: cor da névoa, partículas no ar e sons. Nada l
 
 ![Coração do Abismo](midia/abismo/coracao.png) {15%}
 
-A chave do Abismo. **Cada viagem para dentro gasta 1 Coração.** A volta é de graça.
+A chave do Abismo. **Abrir o portal gasta 1 Coração.** Quando o primeiro jogador atravessa, o portal fica **aberto por 5 minutos** para todo mundo (os amigos entram de graça) e depois se fecha: para abrir de novo, outro Coração. A volta é sempre de graça.
 
 Na bancada: **Sculk, Fragmento de Eco, Sculk / Eco, Olho do Ender, Eco / Sculk, Eco, Sculk**. Também aparece nos baús do Abismo.
 
