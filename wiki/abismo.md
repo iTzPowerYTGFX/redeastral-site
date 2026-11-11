@@ -1,10 +1,10 @@
 # Abismo Sombrio
 
-Uma nova dimensão escura e perigosa: ilhas flutuantes sobre um mar de lava, portal de Netherite, mobs de terror, o Cavaleiro Sombrio, masmorras com os melhores baús do servidor, 7 minérios novos e o traje mágico SpectreBound.
+Uma nova dimensão escura e perigosa: ilhas flutuantes sobre um mar de trevas, portal de Netherite, mobs de terror, o Cavaleiro Sombrio, masmorras com os melhores baús do servidor, 7 minérios novos e o traje mágico SpectreBound.
 
 <!-- oculta -->
 <!-- capa: midia/abismo/capa.png -->
-<!-- busca: abismo, dimensao, ritual, rituais, altar, invasao, estagios, ilhas flutuantes, floresta abissal, vale dos ossos, jardim de cristal, deltas negros, mar de lava, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
+<!-- busca: abismo, dimensao, ritual, rituais, altar, invasao, estagios, ilhas flutuantes, floresta palida, vale dos ossos, jardim de cristal, trevas profundas, mar de trevas, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
 
 ![Os mobs de terror e o Cavaleiro Sombrio](midia/abismo/capa.png)
 
@@ -15,28 +15,28 @@ O Abismo **não é caverna**. É um **vão gigante** e escuro, sem céu:
 - **ilhas flutuantes** em várias alturas, ligadas por nada (leve blocos para atravessar);
 - **pilares colossais** do chão até o teto;
 - pontas de pedra e **correntes com lanternas de alma** penduradas no teto;
-- lá embaixo, um **mar de lava** com colunas de basalto. Cair da ilha é morte.
+- lá embaixo, o **Mar de Trevas**: água negra com colunas de obsidiana. Lá dentro você não enxerga e a sanidade despenca.
 
-![O mar de lava e os pilares](midia/abismo/mar-de-lava.jpg)
+![O Mar de Trevas e os pilares](midia/abismo/mar-de-trevas.jpg)
 
 ### As 4 regiões
 
-Cada região tem névoa, partículas no ar e sons próprios.
+Cada região tem bioma próprio: cor da névoa, partículas no ar e sons. Nada lembra o Nether.
 
 ::: lado
-![Floresta Abissal](midia/abismo/regiao-floresta.jpg)
-**Floresta Abissal**: chão turquesa e árvores gigantes de fungo com luzes roxas.
+![Floresta Pálida](midia/abismo/regiao-floresta.jpg)
+**Floresta Pálida**: musgo pálido, carvalhos pálidos gigantes, musgo pendurado e olhos-flor brilhando no escuro. Silêncio total.
 +++
 ![Vale dos Ossos](midia/abismo/regiao-vale.jpg)
-**Vale dos Ossos**: areia das almas, fósseis gigantes e fogo azul.
+**Vale dos Ossos**: calcita, fósseis gigantes, crânios, fogo azul e sussurros de almas.
 :::
 
 ::: lado
 ![Jardim de Cristal](midia/abismo/regiao-cristal.jpg)
-**Jardim de Cristal**: calcita, ametista e espinhos de cristal enormes.
+**Jardim de Cristal**: espinhos enormes de ametista (roxos) e de cristal azul com luz por dentro (ciano).
 +++
-![Deltas Negros](midia/abismo/regiao-deltas.jpg)
-**Deltas Negros**: basalto, magma e poças de lava.
+![Trevas Profundas](midia/abismo/regiao-deltas.jpg)
+**Trevas Profundas**: quase preto. Sculk, obsidiana, poças de trevas e velas pretas acesas.
 :::
 
 > Dica: as imagens são uma prévia do gerador do mundo, sem as texturas do jogo.
@@ -155,7 +155,7 @@ Sete minérios que **só existem no Abismo**, espalhados na escada de força do 
 | Sol Negro | entre Safira e Netherite (perto do teto) | Diamante | armadura e espada |
 | Ônix Sombrio | entre Titânio e Urânio | Netherite | armadura |
 | Rosa Abissal | entre Urânio e Netherite Vermelho | Netherite | armadura e espada |
-| **Abissita** | **acima do Netherite Vermelho** (perto da lava) | Netherite | armadura e espada |
+| **Abissita** | **acima do Netherite Vermelho** (perto do mar de trevas) | Netherite | armadura e espada |
 
 Minério → **Bruto** → fornalha → **Lingote**. 9 lingotes = 1 bloco. Fortuna aumenta, Toque de Seda pega o minério. Com picareta fraca ele quebra devagar e não solta nada.
 
