@@ -130,7 +130,8 @@ Clique no altar com **qualquer Essência do Abismo** (gasta 1) e começa uma **i
 - Os mobs do ritual **não soltam nada**. A recompensa vem no fim, e **quanto mais estágios vencer, melhor**.
 - Quer parar? **Saia do círculo** (raio de 20 blocos): o ritual termina e paga pelos estágios que você venceu.
 - No fim, uma **espiral de almas** sobe do altar e faz aparecer no chão **blocos de ouro, esmeralda, diamante e netherite**, e **baús** com o loot do Abismo (o seu loot, com a sua patente).
-- Os baús somem em **10 minutos**, e o altar descansa **6 horas** depois de usado.
+- Os baús somem em **10 minutos**. O loot é **individual**: cada jogador que abre o baú recebe o seu.
+- O altar descansa **20 minutos** depois de usado. Aí o círculo volta a ser como era: os prêmios que ninguém pegou somem.
 
 | Estágios vencidos | Recompensa |
 | --- | --- |
