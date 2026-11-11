@@ -4,7 +4,7 @@ Uma nova dimensão escura e perigosa: ilhas flutuantes sobre um mar de lava, por
 
 <!-- oculta -->
 <!-- capa: midia/abismo/capa.png -->
-<!-- busca: abismo, dimensao, ilhas flutuantes, floresta abissal, vale dos ossos, jardim de cristal, deltas negros, mar de lava, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
+<!-- busca: abismo, dimensao, ritual, rituais, altar, invasao, estagios, ilhas flutuantes, floresta abissal, vale dos ossos, jardim de cristal, deltas negros, mar de lava, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
 
 ![Os mobs de terror e o Cavaleiro Sombrio](midia/abismo/capa.png)
 
@@ -116,6 +116,28 @@ Espalhadas pelo Abismo: **masmorras** (5 a 9 salas e uma sala do tesouro, escond
 - O loot é **só seu**: cada jogador abre o próprio.
 - A sua **patente (Rank)** aumenta o que vem.
 - Os baús **enchem de novo** sozinhos (tesouros e santuários demoram mais).
+
+## Rituais do Abismo
+
+::: lado
+![Círculo de ritual](midia/abismo/ritual.jpg)
++++
+Pelo Abismo existem **círculos de ritual**: estrela de obsidiana chorona, 5 obeliscos com fogo azul e um **altar de pedra-ímã** no meio.
+
+Clique no altar com **qualquer Essência do Abismo** (gasta 1) e começa uma **invasão de 10 estágios**, cada um mais forte.
+:::
+
+- Os mobs do ritual **não soltam nada**. A recompensa vem no fim, e **quanto mais estágios vencer, melhor**.
+- Quer parar? **Saia do círculo** (raio de 20 blocos): o ritual termina e paga pelos estágios que você venceu.
+- No fim, uma **espiral de almas** sobe do altar e faz aparecer no chão **blocos de ouro, esmeralda, diamante e netherite**, e **baús** com o loot do Abismo (o seu loot, com a sua patente).
+- Os baús somem em **10 minutos**, e o altar descansa **6 horas** depois de usado.
+
+| Estágios vencidos | Recompensa |
+| --- | --- |
+| 1 a 3 | blocos de ouro e esmeralda, baús de ruína |
+| 4 a 6 | + blocos de diamante, baús de masmorra |
+| 7 a 9 | + blocos de netherite, baús de santuário |
+| 10 | 10 ouro, 6 esmeralda, 8 diamante, 3 netherite e 4 baús (2 de tesouro) |
 
 ## Minérios do Abismo
 
