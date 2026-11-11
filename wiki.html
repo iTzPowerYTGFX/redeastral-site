@@ -83,6 +83,9 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .toc-row:hover .toc-row-b, .toc-row:focus-within .toc-row-b, .toc-row.copia .toc-row-b { opacity: 1; }
 @media (hover: none) { .toc-row-b { opacity: 1; } }
 .toc-row.copia a::before { content: "↪ "; color: var(--teal); }
+.oculta-tag { display: inline-block; margin-left: .4rem; font: 700 .6875rem var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--amber); background: var(--sky); border: 1px solid var(--amber); border-radius: 999px; padding: .05rem .45rem; vertical-align: middle; white-space: nowrap; }
+.card-wrap > .oculta-tag { position: absolute; z-index: 3; left: .6rem; top: .6rem; margin: 0; pointer-events: none; }
+.oculta-aviso { margin: 0 0 1rem; padding: .625rem .875rem; border-radius: 8px; border: 1px dashed var(--amber); color: var(--ink); font-size: .9375rem; }
 .copia-tag { position: absolute; z-index: 3; right: .6rem; bottom: .6rem; font: 700 .6875rem var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--teal); background: var(--sky); border: 1px solid var(--teal); border-radius: 999px; padding: .1rem .5rem; pointer-events: none; }
 .copia-menu { position: fixed; z-index: 60; width: min(18rem, calc(100vw - 16px)); max-height: 60vh; overflow: auto; background: var(--sky-2); border: 1px solid var(--violet); border-radius: 10px; box-shadow: 0 12px 32px rgb(0 0 0 / .45); padding: .6rem; display: grid; gap: .3rem; }
 .copia-menu p { margin: 0 0 .2rem; font-size: .875rem; color: var(--ink-dim); }
@@ -502,6 +505,7 @@ const mkCopia = (p, cat) => { const a = Object.create(p); a.alias = p; a.cat = c
 const keyOf = p => p.alias ? p.alias.id + "@" + p.cat : p.id;
 const pageById = id => PAGES.find(x => x.id === id && !x.alias);
 const REAIS = () => PAGES.filter(x => !x.alias);
+const ocTag = p => (p.alias || p).oculta ? `<span class="oculta-tag" title="Escondida do público: só quem entrou como editor vê">🔒 oculta</span>` : "";
 function tirarRepetidos() {
   const vistos = new Set();
   for (let i = 0; i < PAGES.length; i++) {
@@ -727,6 +731,7 @@ async function load() {
   }));
   try { const r = await fetch("wiki/inicio.md", { cache: "no-cache" }); if (r.ok) HOME.md = (await r.text()).replace(/^\uFEFF/, ""); } catch (e) {}
   indexPage(HOME);
+  if (!GH) for (let i = PAGES.length - 1; i >= 0; i--) if ((PAGES[i].alias || PAGES[i]).oculta) PAGES.splice(i, 1);
   READY = true; buildToc(); route();
   let pending = null; try { pending = sessionStorage.getItem("wikiBusca"); sessionStorage.removeItem("wikiBusca"); } catch (e) {}
   if (pending) { q.value = pending; search(); }
@@ -743,6 +748,7 @@ function indexPage(p) {
   const capa = (src.match(/<!--\s*capa:\s*(\S+?)\s*-->/i) || [])[1];
   p.cover = capa ? (/^nenhuma$/i.test(capa) ? null : resolveSrc(capa)) : img ? resolveSrc(img[1]) : null;
   p.text = plain(src);
+  p.oculta = /<!--\s*oculta\s*-->/i.test(src); // página escondida: só quem entrou como editor vê
   const kw = (src.match(/<!--\s*busca:([\s\S]*?)-->/i) || [])[1] || "";
   p.nText = norm(p.text + " " + kw.replace(/,/g, " ")); p.nTitle = norm(p.title);
 }
@@ -752,12 +758,12 @@ function buildToc() {
   const grip = k => `<button type="button" class="toc-grip" data-tg="${k}" title="Segure e arraste para mudar de lugar" aria-label="Mover">⠿</button>`;
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
-    if (!EDON) { h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`).join("")}</div>`; continue; }
+    if (!EDON) { h += `<div><h4>${esc(c)}</h4>${ps.map(p => `<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}${ocTag(p)}</a>`).join("")}</div>`; continue; }
     h += `<div class="toc-cat" data-cat="${esc(c)}"><div class="toc-cat-h">${grip("cat")}<h4 class="toc-cat-name wt-ed" contenteditable="true" spellcheck="false" title="Clique para mudar o nome da categoria">${esc(c)}</h4>`
       + `<button type="button" class="toc-mini" data-ta="novapag" title="Criar uma página nova nesta categoria">+</button>`
       + `<button type="button" class="toc-mini" data-ta="az" title="Ordenar as páginas desta categoria de A a Z">A–Z</button>`
       + (ps.length ? "" : `<button type="button" class="toc-mini" data-ta="del" title="Apagar esta categoria (está vazia)">✕</button>`) + `</div>`
-      + ps.map(p => `<div class="toc-row${p.alias ? " copia" : ""}" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}</a>`
+      + ps.map(p => `<div class="toc-row${p.alias ? " copia" : ""}" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip("page")}<a href="#${p.id}" data-id="${p.id}">${esc(p.title)}${ocTag(p)}</a>`
         + `<button type="button" class="toc-mini toc-row-b" data-ta="copiar" title="Copiar para outra categoria (a mesma página aparece nas duas)">⧉</button>`
         + (p.alias ? `<button type="button" class="toc-mini toc-row-b" data-ta="tirar" title="Tirar esta cópia (a página continua em ${esc(p.alias.cat)})">✕</button>`
           : `<button type="button" class="toc-mini toc-row-b" data-ta="tirarorig" title="Tirar esta página do menu (o arquivo fica guardado: volta por Organizar páginas)">✕</button>`) + `</div>`).join("")
@@ -778,7 +784,7 @@ function showHome() {
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
     h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen(`data-pen="nova" data-cat="${esc(c)}"`, "Nova página aqui", "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
-      <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+      <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}${ocTag(p)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
   view.innerHTML = h;
@@ -789,9 +795,10 @@ function showPage(p) {
   const body = p.md === null
     ? `<h1>${esc(p.title)}</h1><p class="missing">O arquivo <code>wiki/${esc(p.file)}</code> está na lista do <code>paginas.txt</code>, mas não foi encontrado. Confira se o nome está escrito igual nos dois lugares.</p>`
     : md(p.md);
+  const aviso = (p.alias || p).oculta ? `<p class="oculta-aviso">🔒 <strong>Página escondida.</strong> Só quem entrou como editor vê. Para mostrar a todos: Editar esta página → <strong>🔒 Escondida · Publicar</strong> → Salvar.</p>` : "";
   view.innerHTML = `
     ${crumbHtml(p, edit)}
-    <article class="prose">${body}</article>
+    ${aviso}<article class="prose">${body}</article>
     ${pagerHtml(p)}`;
   $("#wiki-ajuda").hidden = false;
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
@@ -1192,7 +1199,7 @@ async function openEditor(p) {
   <div class="ed" data-pane="preview">
     <div class="ed-head">
       <div><small>Editando</small><strong>${esc(p.title)}</strong></div>
-      <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><span class="ed-naosalvo" hidden>● Não salvo</span><button class="btn accent" type="button" id="ed-save">Salvar</button></div>
+      <div class="ed-actions"><button class="btn" type="button" id="ed-close">Fechar editor</button><span class="ed-naosalvo" hidden>● Não salvo</span>${p === HOME ? "" : `<button class="btn" type="button" id="ed-oculta"></button>`}<button class="btn accent" type="button" id="ed-save">Salvar</button></div>
     </div>
     ${useDraft ? `<p class="draft">Recuperamos um rascunho que não foi salvo. <button class="btn" type="button" id="ed-drop">Descartar rascunho</button></p>` : ""}
     <div class="ed-tools" role="toolbar" aria-label="Formatação">
@@ -1666,6 +1673,25 @@ async function openEditor(p) {
     } catch (e) { setStatus(st, e.message, "err"); wmsg("Não salvou: " + e.message, "err"); }
     finally { $("#ed-save").disabled = false; }
   });
+  /* esconder do público / publicar: só muda a marca <!-- oculta --> no texto; vale depois de Salvar */
+  const ocBtn = $("#ed-oculta");
+  if (ocBtn) {
+    const OC_RX = /<!--\s*oculta\s*-->/i;
+    const ocLabel = () => {
+      const on = OC_RX.test(ta.value);
+      ocBtn.textContent = on ? "🔒 Escondida · Publicar" : "Esconder do público";
+      ocBtn.title = on ? "Esta página só aparece para quem entrou como editor. Clique para mostrar a todos (depois Salvar)." : "Esconde esta página do público: só quem entrou como editor vê (depois Salvar).";
+    };
+    ocLabel();
+    ocBtn.addEventListener("click", () => {
+      commit();
+      if (OC_RX.test(ta.value)) ta.value = ta.value.replace(/^[ \t]*<!--\s*oculta\s*-->[ \t]*\n?/gim, "").replace(/<!--\s*oculta\s*-->/gi, "");
+      else ta.value = ta.value.replace(/\s*$/, "") + "\n\n<!-- oculta -->\n";
+      ta.dispatchEvent(new Event("input")); renderPrev(); ocLabel();
+      setStatus(st, OC_RX.test(ta.value) ? "Página escondida do público. Clique em Salvar para gravar." : "A página vai aparecer para todos. Clique em Salvar para gravar.", "ok");
+    });
+    ta.addEventListener("input", ocLabel);
+  }
   /* os mesmos botões de colocar ficam também na barra de baixo (sempre à mão) */
   const bt = $("#wbar-tools"); bt.innerHTML = "";
   view.querySelectorAll(".ed-tools > .btn, .ed-tools > .sep").forEach(o => {
