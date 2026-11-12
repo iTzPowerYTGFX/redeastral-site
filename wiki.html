@@ -731,10 +731,24 @@ async function load() {
   }));
   try { const r = await fetch("wiki/inicio.md", { cache: "no-cache" }); if (r.ok) HOME.md = (await r.text()).replace(/^\uFEFF/, ""); } catch (e) {}
   indexPage(HOME);
-  if (!GH) for (let i = PAGES.length - 1; i >= 0; i--) if ((PAGES[i].alias || PAGES[i]).oculta) PAGES.splice(i, 1);
+  esconderOcultas();
   READY = true; buildToc(); route();
   let pending = null; try { pending = sessionStorage.getItem("wikiBusca"); sessionStorage.removeItem("wikiBusca"); } catch (e) {}
   if (pending) { q.value = pending; search(); }
+}
+
+/* páginas escondidas: tiradas da lista de quem não é editor; voltam quando a pessoa entra como editor
+   (antes só voltavam recarregando a página depois de entrar) */
+let OCULTAS = [];
+function esconderOcultas() {
+  if (GH) return;
+  for (let i = PAGES.length - 1; i >= 0; i--) if ((PAGES[i].alias || PAGES[i]).oculta) OCULTAS.unshift({ p: PAGES.splice(i, 1)[0], i });
+}
+function mostrarOcultas() {
+  if (!OCULTAS.length) return;
+  for (const o of OCULTAS) PAGES.splice(Math.min(o.i, PAGES.length), 0, o.p);
+  OCULTAS = [];
+  if (READY) buildToc();
 }
 
 function indexPage(p) {
@@ -954,6 +968,7 @@ $("#login-form").addEventListener("submit", async e => {
     GH = { repo: d.full_name, token, branch: d.default_branch || "main" };
     try { localStorage.setItem("astralGH", JSON.stringify(GH)); localStorage.setItem("astralEditorDevice", "1"); } catch (err) {}
     document.querySelectorAll(".ed-link").forEach(el => { el.hidden = false; });
+    mostrarOcultas();
     $("#login").close(); setEdOn(true); route(); toast("Modo editor ligado neste navegador");
   } catch (err) { setStatus($("#lg-status"), err.message, "err"); }
 });
@@ -961,6 +976,7 @@ $("#wbar-desk").addEventListener("click", () => { if (window.astralDesktop) wind
 $("#ed-logout").addEventListener("click", () => {
   if (WT.dirty) wtCancel();
   GH = null; EDIT = null; try { localStorage.removeItem("astralGH"); } catch (e) {}
+  esconderOcultas(); if (READY) buildToc();
   setEdOn(false); route(); toast("Você saiu do modo editor");
 });
 
