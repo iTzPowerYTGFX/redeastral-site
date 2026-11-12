@@ -194,6 +194,14 @@ Ou no `/forjaabismo`, direto com os lingotes, as essências e o Coração (mesmo
 
 **Essências:** cada mob do Abismo solta a sua quando morto por jogador: Caçador, Carrasco, Encapuzado, Palhaço, Predador, Zumbi e Esqueleto Instável, Esqueleto Wither, Servo do Cavaleiro e Cavaleiro Sombrio (esse sempre solta).
 
+## Escuridão e Visão Abissal
+
+No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a visão pulsando e sumindo ao longe.
+
+- Só o encantamento de capacete **Visão Abissal** anula. Com ele, nada de Escuridão no Abismo (nem a da sanidade ou do Mar de Trevas) **e nem a do Warden**, em qualquer mundo.
+- Outros encantamentos que limpam efeitos (como **Clareza**) não funcionam contra a Escuridão do Abismo. Leite tira, mas ela volta em 1 segundo.
+- **Visão Abissal** é **Raro**: vem em baús (inclusive os do Abismo) e na pesca. Coloca no capacete arrastando o livro, como os outros encantamentos.
+
 ## Sanidade
 
 No Abismo aparece a barra **Sanidade** no topo da tela.
