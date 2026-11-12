@@ -196,6 +196,13 @@ Ou no `/forjaabismo`, direto com os lingotes, as essências e o Coração (mesmo
 
 **Essências:** cada mob do Abismo solta a sua quando morto por jogador: Caçador, Carrasco, Encapuzado, Palhaço, Predador, Zumbi e Esqueleto Instável, Esqueleto Wither, Servo do Cavaleiro e Cavaleiro Sombrio (esse sempre solta).
 
+## Lasers Abissais
+
+De vez em quando uma **runa roxa acende no chão** perto de você: em 1 segundo um **feixe sai da terra** e fica 2 segundos. Quem estiver em cima toma dano a cada meio segundo, então **saia da runa**.
+
+- Com a sanidade baixa os lasers aparecem mais.
+- Nos rituais eles saem durante as ondas: um no pé de cada jogador e mais em volta do altar, mais ainda nos estágios altos e com Mau Presságio (que também aumenta o dano).
+
 ## Escuridão e Visão Abissal
 
 No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a visão pulsando e sumindo ao longe.
