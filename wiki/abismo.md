@@ -112,6 +112,8 @@ Golpes em área, corte que faz o chão tremer, estocada, giro e servos esqueleto
 
 Espalhadas pelo Abismo: **masmorras** (5 a 9 salas e uma sala do tesouro, escondidas dentro da rocha das ilhas, dos pilares e do teto), **criptas**, **santuários**, **torres** e **ruínas**, com geradores de monstros.
 
+- Os geradores de monstros soltam **mobs fortes do Abismo** (Carrasco, Caçador, Predador, Esqueleto Wither do Abismo...), com mais força e resistência. No máximo 6 por gerador.
+- Às vezes um gerador **acorda um Warden** (no máximo 1 por perto). A Visão Abissal protege da Escuridão dele.
 - Os baús têm **o melhor loot do servidor**, com itens Astral.
 - O loot é **só seu**: cada jogador abre o próprio.
 - A sua **patente (Rank)** aumenta o que vem.
