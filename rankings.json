@@ -1,25 +1,25 @@
 {
-  "atualizado": "2026-11-12T16:36:35Z",
+  "atualizado": "2026-11-12T17:06:35Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 16267},
       {"nome": "TagaYato_", "valor": 15377},
-      {"nome": "_MitKan22", "valor": 13803},
+      {"nome": "_MitKan22", "valor": 13828},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6234},
-      {"nome": "_Flos7304", "valor": 5095},
+      {"nome": "_Flos7304", "valor": 5125},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3372},
       {"nome": "_Maya06908", "valor": 3025},
       {"nome": "_Jpzin001", "valor": 2236}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 3710},
+      {"nome": "_Flos7304", "valor": 3740},
       {"nome": "TagaYato_", "valor": 3448},
       {"nome": "DullLucasdeolro", "valor": 3260},
-      {"nome": "_MitKan22", "valor": 2739},
+      {"nome": "_MitKan22", "valor": 2764},
       {"nome": "_Jpzin001", "valor": 993},
       {"nome": "_M_na_voz", "valor": 687},
       {"nome": "_Maya06908", "valor": 642},
@@ -39,7 +39,7 @@
       {"nome": "_Jpzin001", "valor": 876625.95},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
-      {"nome": "_MitKan22", "valor": 488485.58}
+      {"nome": "_MitKan22", "valor": 489183.70}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 17181664.89},
@@ -62,14 +62,14 @@
       {"nome": "_Jpzin001", "valor": 189.00, "texto": "Rank 189"},
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
-      {"nome": "_Flos7304", "valor": 68.00, "texto": "Rank 68"},
+      {"nome": "_Flos7304", "valor": 69.00, "texto": "Rank 69"},
       {"nome": "_OsiBloodMoon", "valor": 57.00, "texto": "Rank 57"},
       {"nome": "_Kroven_1611", "valor": 36.00, "texto": "Rank 36"},
       {"nome": "_Foxyismyname553", "valor": 33.00, "texto": "Rank 33"}
      ],
      "mes": [
       {"nome": "_Jpzin001", "valor": 89},
-      {"nome": "_Flos7304", "valor": 54},
+      {"nome": "_Flos7304", "valor": 55},
       {"nome": "_Kroven_1611", "valor": 25},
       {"nome": "TagaYato_", "valor": 20},
       {"nome": "_Foxyismyname553", "valor": 13},
@@ -148,7 +148,7 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 60},
       {"nome": "TagaYato_", "valor": 35},
-      {"nome": "_MitKan22", "valor": 25},
+      {"nome": "_MitKan22", "valor": 30},
       {"nome": "_Foxyismyname553", "valor": 9},
       {"nome": "_Kroven_1611", "valor": 9},
       {"nome": "_Maya06908", "valor": 4},
@@ -158,7 +158,7 @@
       {"nome": "_Sayko_ax", "valor": 1}
      ],
      "mes": [
-      {"nome": "_MitKan22", "valor": 20},
+      {"nome": "_MitKan22", "valor": 25},
       {"nome": "DullLucasdeolro", "valor": 12},
       {"nome": "TagaYato_", "valor": 6},
       {"nome": "_Flos7304", "valor": 2},
@@ -189,7 +189,7 @@
       {"nome": "_MitKan22", "valor": 200},
       {"nome": "TagaYato_", "valor": 200},
       {"nome": "_Heisenberg22194", "valor": 100},
-      {"nome": "_Flos7304", "valor": 94},
+      {"nome": "_Flos7304", "valor": 95},
       {"nome": "_Kroven_1611", "valor": 86},
       {"nome": "_Corvus8910", "valor": 84},
       {"nome": "_Sayko_ax", "valor": 65},
@@ -197,7 +197,7 @@
      ],
      "mes": [
       {"nome": "_Jpzin001", "valor": 161},
-      {"nome": "_Flos7304", "valor": 94},
+      {"nome": "_Flos7304", "valor": 95},
       {"nome": "_Kroven_1611", "valor": 65},
       {"nome": "_Foxyismyname553", "valor": 12},
       {"nome": "_Maya06908", "valor": 8},
@@ -250,12 +250,12 @@
       {"nome": "DullLucasdeolro", "valor": 196},
       {"nome": "_Jpzin001", "valor": 101},
       {"nome": "TagaYato_", "valor": 79},
-      {"nome": "_MitKan22", "valor": 18},
+      {"nome": "_MitKan22", "valor": 19},
       {"nome": "_Maya06908", "valor": 13},
       {"nome": "_Sayko_ax", "valor": 3}
      ],
      "mes": [
-      {"nome": "_MitKan22", "valor": 11},
+      {"nome": "_MitKan22", "valor": 12},
       {"nome": "_Jpzin001", "valor": 1},
       {"nome": "TagaYato_", "valor": 1}
      ],
@@ -274,7 +274,7 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 171},
       {"nome": "_Jpzin001", "valor": 103},
-      {"nome": "_MitKan22", "valor": 70},
+      {"nome": "_MitKan22", "valor": 72},
       {"nome": "_Flos7304", "valor": 57},
       {"nome": "TagaYato_", "valor": 56},
       {"nome": "_Maya06908", "valor": 23},
@@ -287,7 +287,7 @@
       {"nome": "_Jpzin001", "valor": 97},
       {"nome": "_Flos7304", "valor": 52},
       {"nome": "DullLucasdeolro", "valor": 37},
-      {"nome": "_MitKan22", "valor": 20},
+      {"nome": "_MitKan22", "valor": 22},
       {"nome": "_Maya06908", "valor": 16},
       {"nome": "_Foxyismyname553", "valor": 7},
       {"nome": "TagaYato_", "valor": 7},
@@ -397,7 +397,7 @@
       {"nome": "DullLucasdeolro", "valor": 398288},
       {"nome": "TagaYato_", "valor": 149103},
       {"nome": "_Jpzin001", "valor": 43231},
-      {"nome": "_MitKan22", "valor": 37266},
+      {"nome": "_MitKan22", "valor": 37437},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "Shen_Kaizhang", "valor": 4402},
       {"nome": "_Afton2460", "valor": 3805},
@@ -409,9 +409,9 @@
       {"nome": "DullLucasdeolro", "valor": 238554},
       {"nome": "TagaYato_", "valor": 98230},
       {"nome": "_Jpzin001", "valor": 37631},
-      {"nome": "_MitKan22", "valor": 15610},
+      {"nome": "_MitKan22", "valor": 15781},
       {"nome": "_Kroven_1611", "valor": 2056},
-      {"nome": "_Flos7304", "valor": 1204},
+      {"nome": "_Flos7304", "valor": 1235},
       {"nome": "_Foxyismyname553", "valor": 293},
       {"nome": "_Maya06908", "valor": 216},
       {"nome": "_Sayko_ax", "valor": 68},
@@ -441,8 +441,8 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 129},
       {"nome": "TagaYato_", "valor": 114},
+      {"nome": "_MitKan22", "valor": 106},
       {"nome": "_Heisenberg22194", "valor": 105},
-      {"nome": "_MitKan22", "valor": 105},
       {"nome": "_Flos7304", "valor": 78},
       {"nome": "_Corvus8910", "valor": 64},
       {"nome": "_Kroven_1611", "valor": 63},
@@ -455,8 +455,8 @@
       {"nome": "_Jpzin001", "valor": 25},
       {"nome": "_Dxvi779974", "valor": 14},
       {"nome": "_Kroven_1611", "valor": 11},
+      {"nome": "_MitKan22", "valor": 11},
       {"nome": "_Foxyismyname553", "valor": 10},
-      {"nome": "_MitKan22", "valor": 10},
       {"nome": "_M_na_voz", "valor": 6},
       {"nome": "_TioDoPave9665", "valor": 6},
       {"nome": "_Maya06908", "valor": 4},
