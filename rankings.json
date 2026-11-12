@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-12T07:13:17Z",
+  "atualizado": "2026-11-12T09:43:20Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 16188},
+      {"nome": "DullLucasdeolro", "valor": 16203},
       {"nome": "TagaYato_", "valor": 15377},
       {"nome": "_MitKan22", "valor": 13721},
       {"nome": "_Heisenberg22194", "valor": 7786},
@@ -18,7 +18,7 @@
      "mes": [
       {"nome": "_Flos7304", "valor": 3529},
       {"nome": "TagaYato_", "valor": 3448},
-      {"nome": "DullLucasdeolro", "valor": 3181},
+      {"nome": "DullLucasdeolro", "valor": 3196},
       {"nome": "_MitKan22", "valor": 2657},
       {"nome": "_Jpzin001", "valor": 993},
       {"nome": "_M_na_voz", "valor": 687},
@@ -169,14 +169,14 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-pesca", "titulo": "Pesca", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 109},
+      {"nome": "DullLucasdeolro", "valor": 112},
       {"nome": "_Heisenberg22194", "valor": 13},
       {"nome": "TagaYato_", "valor": 8},
       {"nome": "_Foxyismyname553", "valor": 1},
       {"nome": "_MitKan22", "valor": 1}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 8},
+      {"nome": "DullLucasdeolro", "valor": 11},
       {"nome": "_Foxyismyname553", "valor": 1},
       {"nome": "_MitKan22", "valor": 1},
       {"nome": "TagaYato_", "valor": 1}
