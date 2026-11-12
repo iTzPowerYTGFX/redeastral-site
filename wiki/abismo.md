@@ -202,6 +202,16 @@ No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a v
 - É o único encantamento contra Escuridão: a **Clareza** agora protege só de Cegueira e Náusea. Leite tira, mas no Abismo ela volta em 1 segundo.
 - **Visão Abissal** é **Épico**: só sai de caixas e missões (não vende na loja). Coloca no capacete arrastando o livro, como os outros encantamentos.
 
+## Encantamentos do Abismo
+
+| Encantamento | Item | Raridade | O que faz |
+|---|---|---|---|
+| **Visão Abissal** | Capacete | Épico | Anula a Escuridão do Abismo e a do Warden. |
+| **Mente Inabalável** I-III | Capacete | Épico | A sanidade cai 20/35/50% mais devagar. |
+| **Ceifador Abissal** I-V | Armas corpo a corpo | Raro | +6% de dano por nível nos mobs do Abismo e +1% por nível de chance de essência. |
+| **Caminhante das Trevas** | Bota | Raro | No Mar de Trevas você não fica lento nem cego e nada mais rápido. |
+| **Maldição da Loucura** | Capacete | Maldição | A sanidade cai 1,5x mais rápido. |
+
 ## Sanidade
 
 No Abismo aparece a barra **Sanidade** no topo da tela.
@@ -215,6 +225,8 @@ Quanto mais baixa, pior:
 - **Abaixo de 35%:** Escuridão.
 - **Abaixo de 15%:** Fraqueza e Náusea.
 - **Em 0%:** você toma dano até achar luz.
+
+E o Abismo te caça: com a sanidade baixa aparecem **mais mobs** (até o dobro, com 0%), nascendo de mais longe, e eles **batem mais forte** (até +50%).
 
 Saiu do Abismo ou morreu: volta a 100%. Sair do jogo lá dentro **não zera**.
 
