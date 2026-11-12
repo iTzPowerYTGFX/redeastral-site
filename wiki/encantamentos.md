@@ -120,6 +120,17 @@ Com **Indestrutível** a Varinha não gasta durabilidade.
 
 - `/varinha`: escolhe a magia num menu.
 
+## Encantamentos novos: pets, saque, guildas, escudo e maça
+
+| Encantamento | Item | Raridade | O que faz |
+|---|---|---|---|
+| **Laço Astral** I-III | Peitoral | Épico | Seus pets e waifus ativos causam +10% de dano por nível. |
+| **Olhar do Domador** I-III | Capacete | Épico | A orbe de captura fica cerca de +5% mais forte por nível. |
+| **Sorte do Explorador** I-III | Calça | Épico | +5 de Sorte por nível: loot melhor nos baús individuais. |
+| **Estandarte** | Peitoral | Épico | A cada 10s, aliados da guilda a 8 blocos ganham Regeneração I e Força I. |
+| **Espelho** I-III | Escudo | Raro | Projéteis bloqueados devolvem 30/60/90% do dano a quem atirou. |
+| **Sismo** | Maça | Épico | Acertar caindo atordoa os inimigos a 4 blocos do alvo por 2s (recarga 8s). |
+
 ## Comandos
 
 - `/encantar`: Mesa Astral (encantar ou usar o Trevo)
