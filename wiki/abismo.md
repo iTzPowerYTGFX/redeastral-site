@@ -200,7 +200,7 @@ No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a v
 
 - Só o encantamento de capacete **Visão Abissal** anula. Com ele, nada de Escuridão no Abismo (nem a da sanidade ou do Mar de Trevas) **e nem a do Warden**, em qualquer mundo.
 - É o único encantamento contra Escuridão: a **Clareza** agora protege só de Cegueira e Náusea. Leite tira, mas no Abismo ela volta em 1 segundo.
-- **Visão Abissal** é **Raro**: vem em baús (inclusive os do Abismo) e na pesca. Coloca no capacete arrastando o livro, como os outros encantamentos.
+- **Visão Abissal** é **Épico**: só sai de caixas e missões (não vende na loja). Coloca no capacete arrastando o livro, como os outros encantamentos.
 
 ## Sanidade
 
