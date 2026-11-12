@@ -1,25 +1,25 @@
 {
-  "atualizado": "2026-11-12T17:53:25Z",
+  "atualizado": "2026-11-12T18:23:25Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 16267},
       {"nome": "TagaYato_", "valor": 15377},
-      {"nome": "_MitKan22", "valor": 13846},
+      {"nome": "_MitKan22", "valor": 13857},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6234},
-      {"nome": "_Flos7304", "valor": 5170},
+      {"nome": "_Flos7304", "valor": 5200},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3372},
       {"nome": "_Maya06908", "valor": 3025},
       {"nome": "_Jpzin001", "valor": 2236}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 3785},
+      {"nome": "_Flos7304", "valor": 3815},
       {"nome": "TagaYato_", "valor": 3448},
       {"nome": "DullLucasdeolro", "valor": 3260},
-      {"nome": "_MitKan22", "valor": 2782},
+      {"nome": "_MitKan22", "valor": 2793},
       {"nome": "_Jpzin001", "valor": 993},
       {"nome": "_M_na_voz", "valor": 687},
       {"nome": "_Maya06908", "valor": 642},
@@ -39,7 +39,7 @@
       {"nome": "_Jpzin001", "valor": 876625.95},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
-      {"nome": "_MitKan22", "valor": 489183.70}
+      {"nome": "_MitKan22", "valor": 503888.98}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 17181664.89},
@@ -129,7 +129,7 @@
       {"nome": "_Maya06908", "valor": 20},
       {"nome": "_OsiBloodMoon", "valor": 20},
       {"nome": "_Foxyismyname553", "valor": 17},
-      {"nome": "_Flos7304", "valor": 13},
+      {"nome": "_Flos7304", "valor": 16},
       {"nome": "_TioDoPave9665", "valor": 7},
       {"nome": "_MitKan22", "valor": 3},
       {"nome": "_Heisenberg22194", "valor": 1}
@@ -137,8 +137,8 @@
      "mes": [
       {"nome": "TagaYato_", "valor": 36},
       {"nome": "_Maya06908", "valor": 6},
+      {"nome": "_Flos7304", "valor": 5},
       {"nome": "_TioDoPave9665", "valor": 3},
-      {"nome": "_Flos7304", "valor": 2},
       {"nome": "_M_na_voz", "valor": 2},
       {"nome": "_Foxyismyname553", "valor": 1},
       {"nome": "DullLucasdeolro", "valor": 1}
@@ -397,7 +397,7 @@
       {"nome": "DullLucasdeolro", "valor": 398288},
       {"nome": "TagaYato_", "valor": 149103},
       {"nome": "_Jpzin001", "valor": 43231},
-      {"nome": "_MitKan22", "valor": 38019},
+      {"nome": "_MitKan22", "valor": 38801},
       {"nome": "_Heisenberg22194", "valor": 33167},
       {"nome": "Shen_Kaizhang", "valor": 4402},
       {"nome": "_Afton2460", "valor": 3805},
@@ -409,9 +409,9 @@
       {"nome": "DullLucasdeolro", "valor": 238554},
       {"nome": "TagaYato_", "valor": 98230},
       {"nome": "_Jpzin001", "valor": 37631},
-      {"nome": "_MitKan22", "valor": 16363},
+      {"nome": "_MitKan22", "valor": 17145},
       {"nome": "_Kroven_1611", "valor": 2056},
-      {"nome": "_Flos7304", "valor": 1351},
+      {"nome": "_Flos7304", "valor": 1356},
       {"nome": "_Foxyismyname553", "valor": 293},
       {"nome": "_Maya06908", "valor": 216},
       {"nome": "_Sayko_ax", "valor": 68},
@@ -466,7 +466,7 @@
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
       {"nome": "_Alcateia_", "valor": 101.04, "texto": "Nv. 101 · 7 membros"},
-      {"nome": "cyber_doom", "valor": 61.04, "texto": "Nv. 61 · 6 membros"},
+      {"nome": "cyber_doom", "valor": 61.05, "texto": "Nv. 61 · 6 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.00, "texto": "Nv. 6 · 1 membro"},
       {"nome": "VVs", "valor": 2.00, "texto": "Nv. 2 · 1 membro"},
