@@ -71,6 +71,8 @@ Moldura **em pé**, de **4 de largura por 5 de altura**:
 
 Clique na moldura com o **Coração do Abismo** na mão e o portal desperta, com um **véu negro** que se mexe.
 
+O véu é igual no **Java e no Bedrock** (a mesma textura negra animada) e dá para atravessar andando nos dois.
+
 Lá dentro aparece um portal de **Obsidiana Chorona**: é a volta, de graça.
 :::
 
