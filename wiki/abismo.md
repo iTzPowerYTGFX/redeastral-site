@@ -212,6 +212,7 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Gasta **40 de mana** (a mesma da Varinha Mágica) e recarrega em **12 segundos**.
 - Receita na bancada (ou na /forjaabismo): **Liga Abissal** no cabo, **Núcleo Espectral** na ponta e **2 Essências do Cavaleiro Sombrio**.
 - Onde o PvP está desligado, ela não machuca jogadores.
+- Encantamento **lendário Laser I-III**: os lasers dão **+25% de dano** por nível.
 
 ## Varinha Radioativa
 
@@ -222,6 +223,10 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Gasta **50 de mana** e recarrega em **15 segundos**.
 - Receita na bancada (ou na /forjaabismo): **2 Essências do Carrasco** e o **Núcleo Espectral** em cima, **Liga Abissal** no cabo.
 - Onde o PvP está desligado, ela não machuca jogadores.
+- **Na mão (principal ou secundária) ela te deixa imune à radiação**: a radiação não sobe e os efeitos dela não pegam.
+- Encantamento **lendário Mira no Alvo I-V**: **+1 mira** e **+15% de dano** por nível (no V são 10 miras).
+
+Os livros de **Laser** e **Mira no Alvo** só servem na varinha certa: arraste o livro em cima dela. Como todo lendário, o livro pode falhar (e, se falhar, só o livro pode quebrar).
 
 ## Escuridão e Visão Abissal
 
