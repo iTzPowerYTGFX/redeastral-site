@@ -205,6 +205,14 @@ De vez em quando uma **runa roxa acende no chão** perto de você: em 1 segundo 
 - Com a sanidade baixa os lasers aparecem mais.
 - Nos rituais eles saem durante as ondas: um no pé de cada jogador e mais em volta do altar, mais ainda nos estágios altos e com Mau Presságio (que também aumenta o dano).
 
+## Varinha Abissal
+
+Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando num jogador ou mob** (até 30 blocos): saem **3 lasers do Abismo** da terra no pé dele, um atrás do outro. Os lasers **seguem o alvo e acertam sempre** (3❤ cada).
+
+- Gasta **40 de mana** (a mesma da Varinha Mágica) e recarrega em **12 segundos**.
+- Receita na bancada (ou na /forjaabismo): **Liga Abissal** no cabo, **Núcleo Espectral** na ponta e **2 Essências do Cavaleiro Sombrio**.
+- Onde o PvP está desligado, ela não machuca jogadores.
+
 ## Escuridão e Visão Abissal
 
 No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a visão pulsando e sumindo ao longe.
