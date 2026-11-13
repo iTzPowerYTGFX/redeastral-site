@@ -213,6 +213,16 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Receita na bancada (ou na /forjaabismo): **Liga Abissal** no cabo, **Núcleo Espectral** na ponta e **2 Essências do Cavaleiro Sombrio**.
 - Onde o PvP está desligado, ela não machuca jogadores.
 
+## Varinha Radioativa
+
+**Clique direito**: aparecem **5 miras no chão** (a mesma mira da Abominação), nos **5 alvos mais perto** (jogadores e mobs, até 16 blocos). Seus pets e waifus ficam de fora.
+
+- As miras **seguem o alvo** e explodem em 2 segundos (2❤ cada).
+- Com menos alvos as miras se repetem neles: **só 1 alvo = as 5 miras nele** (o dano vale por 5).
+- Gasta **50 de mana** e recarrega em **15 segundos**.
+- Receita na bancada (ou na /forjaabismo): **2 Essências do Carrasco** e o **Núcleo Espectral** em cima, **Liga Abissal** no cabo.
+- Onde o PvP está desligado, ela não machuca jogadores.
+
 ## Escuridão e Visão Abissal
 
 No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a visão pulsando e sumindo ao longe.
