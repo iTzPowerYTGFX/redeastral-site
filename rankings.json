@@ -1,31 +1,31 @@
 {
-  "atualizado": "2026-11-13T17:54:27Z",
+  "atualizado": "2026-11-13T18:24:27Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 16813},
       {"nome": "TagaYato_", "valor": 15772},
-      {"nome": "_MitKan22", "valor": 14313},
+      {"nome": "_MitKan22", "valor": 14343},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6324},
-      {"nome": "_Flos7304", "valor": 5892},
+      {"nome": "_Flos7304", "valor": 5922},
       {"nome": "Shen_Kaizhang", "valor": 3974},
-      {"nome": "_Sayko_ax", "valor": 3465},
+      {"nome": "_Sayko_ax", "valor": 3471},
       {"nome": "_Maya06908", "valor": 3140},
       {"nome": "_Jpzin001", "valor": 2352}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 4507},
+      {"nome": "_Flos7304", "valor": 4537},
       {"nome": "TagaYato_", "valor": 3843},
       {"nome": "DullLucasdeolro", "valor": 3806},
-      {"nome": "_MitKan22", "valor": 3249},
+      {"nome": "_MitKan22", "valor": 3279},
       {"nome": "_Jpzin001", "valor": 1109},
       {"nome": "_M_na_voz", "valor": 777},
       {"nome": "_Maya06908", "valor": 757},
       {"nome": "_Foxyismyname553", "valor": 614},
       {"nome": "_Kroven_1611", "valor": 457},
-      {"nome": "_Sayko_ax", "valor": 265}
+      {"nome": "_Sayko_ax", "valor": 271}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
@@ -392,11 +392,11 @@
     {"id": "hab-culinaria", "titulo": "Culinária", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 6},
-      {"nome": "_MitKan22", "valor": 3}
+      {"nome": "_MitKan22", "valor": 4}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 6},
-      {"nome": "_MitKan22", "valor": 3}
+      {"nome": "_MitKan22", "valor": 4}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
