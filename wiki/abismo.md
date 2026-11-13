@@ -80,6 +80,20 @@ Lá dentro aparece um portal de **Obsidiana Chorona**: é a volta, de graça.
 
 No Abismo aparecem 5 criaturas de terror, além de **esqueletos wither**, **mobs radioativos** e **zumbis e esqueletos instáveis**, que explodem como creeper (sem quebrar blocos).
 
+| Mob | Vida |
+|---|---|
+| Predador | 78 |
+| Encapuzado | 90 |
+| Caçador | 96 |
+| Carrasco | 114 |
+| Palhaço | 195 |
+| Zumbi Instável | 42 |
+| Esqueleto Instável | 35 |
+| Esqueleto Wither do Abismo | 63 |
+| Servo do Cavaleiro | 49 |
+
+Perto de cada jogador nasce **1 mob a cada 25 segundos**, até **6 por perto** (com a sanidade no zero, até 9).
+
 ::: lado
 ![Caçador do Abismo](midia/abismo/mob-cacador.png)
 +++
@@ -207,6 +221,8 @@ De vez em quando uma **runa roxa acende no chão** perto de você: em 1 segundo 
 
 ## Varinha Abissal
 
+![Varinha Abissal e Varinha Radioativa](midia/abismo/varinhas.png)
+
 Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando num jogador ou mob** (até 30 blocos): saem **3 lasers do Abismo** da terra no pé dele, um atrás do outro. Os lasers **seguem o alvo e acertam sempre** (3❤ cada).
 
 - Gasta **40 de mana** (a mesma da Varinha Mágica) e recarrega em **12 segundos**.
@@ -245,6 +261,8 @@ No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a v
 | **Ceifador Abissal** I-V | Armas corpo a corpo | Raro | +6% de dano por nível nos mobs do Abismo e +1% por nível de chance de essência. |
 | **Caminhante das Trevas** | Bota | Raro | No Mar de Trevas você não fica lento nem cego e nada mais rápido. |
 | **Maldição da Loucura** | Capacete | Maldição | A sanidade cai 1,5x mais rápido. |
+| **Laser** I-III | Varinha Abissal | Lendário | Os lasers dão +25% de dano por nível. |
+| **Alvo na Mira** I-V | Varinha Radioativa | Lendário | +1 mira e +15% de dano por nível (no V são 10 miras). |
 
 ## Sanidade
 
@@ -293,6 +311,8 @@ Todos na **bancada** (ou no `/forjaabismo`):
 | Lanterna Abissal | na mão secundária, a sanidade cai bem mais devagar | 4 lingotes de Cristal do Eco, 2 de Alma Errante, 2 Essências do Encapuzado e 1 Lanterna das Almas no meio |
 | Tônico da Lucidez (faz 2) | clique direito: +50 de sanidade e visão no escuro | Bagas Brilhantes, 2 Fragmentos de Ametista, Essência do Palhaço e Frasco de Vidro |
 | Selo do Cavaleiro | clique direito no Abismo: chama o Cavaleiro Sombrio | 4 Essências Wither, 2 lingotes de Hematita, 2 Corações do Abismo e 1 Bloco de Netherite no meio |
+| Varinha Abissal | 3 lasers que seguem o alvo e acertam sempre | Liga Abissal no cabo, Núcleo Espectral na ponta e 2 Essências do Cavaleiro Sombrio |
+| Varinha Radioativa | 5 miras nos alvos mais perto; na mão, imune à radiação | Liga Abissal no cabo, Núcleo Espectral no meio de cima e 2 Essências do Carrasco dos lados |
 
 > Atenção: o Selo não funciona se o Cavaleiro já estiver vivo, e há uma espera de 20 minutos entre um selo e outro.
 
