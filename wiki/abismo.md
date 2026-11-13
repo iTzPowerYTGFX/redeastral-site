@@ -224,9 +224,9 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Receita na bancada (ou na /forjaabismo): **2 Essências do Carrasco** e o **Núcleo Espectral** em cima, **Liga Abissal** no cabo.
 - Onde o PvP está desligado, ela não machuca jogadores.
 - **Na mão (principal ou secundária) ela te deixa imune à radiação**: a radiação não sobe e os efeitos dela não pegam.
-- Encantamento **lendário Mira no Alvo I-V**: **+1 mira** e **+15% de dano** por nível (no V são 10 miras).
+- Encantamento **lendário Alvo na Mira I-V**: **+1 mira** e **+15% de dano** por nível (no V são 10 miras).
 
-Os livros de **Laser** e **Mira no Alvo** só servem na varinha certa: arraste o livro em cima dela. Como todo lendário, o livro pode falhar (e, se falhar, só o livro pode quebrar).
+Os livros de **Laser** e **Alvo na Mira** só servem na varinha certa: arraste o livro em cima dela. Como todo lendário, o livro pode falhar (e, se falhar, só o livro pode quebrar).
 
 ## Escuridão e Visão Abissal
 
