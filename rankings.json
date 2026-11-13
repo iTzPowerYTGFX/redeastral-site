@@ -1,27 +1,27 @@
 {
-  "atualizado": "2026-11-13T21:54:36Z",
+  "atualizado": "2026-11-13T22:24:36Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 16838},
+      {"nome": "DullLucasdeolro", "valor": 16842},
       {"nome": "TagaYato_", "valor": 15772},
       {"nome": "_MitKan22", "valor": 14472},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6324},
-      {"nome": "_Flos7304", "valor": 6132},
+      {"nome": "_Flos7304", "valor": 6162},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3595},
-      {"nome": "_Maya06908", "valor": 3223},
+      {"nome": "_Maya06908", "valor": 3253},
       {"nome": "_Jpzin001", "valor": 2355}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 4747},
+      {"nome": "_Flos7304", "valor": 4777},
       {"nome": "TagaYato_", "valor": 3843},
-      {"nome": "DullLucasdeolro", "valor": 3831},
+      {"nome": "DullLucasdeolro", "valor": 3835},
       {"nome": "_MitKan22", "valor": 3408},
       {"nome": "_Jpzin001", "valor": 1112},
-      {"nome": "_Maya06908", "valor": 840},
+      {"nome": "_Maya06908", "valor": 870},
       {"nome": "_M_na_voz", "valor": 777},
       {"nome": "_Foxyismyname553", "valor": 614},
       {"nome": "_Kroven_1611", "valor": 457},
@@ -171,14 +171,14 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-pesca", "titulo": "Pesca", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 147},
+      {"nome": "DullLucasdeolro", "valor": 148},
       {"nome": "_Heisenberg22194", "valor": 13},
       {"nome": "TagaYato_", "valor": 9},
       {"nome": "_MitKan22", "valor": 2},
       {"nome": "_Foxyismyname553", "valor": 1}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 46},
+      {"nome": "DullLucasdeolro", "valor": 47},
       {"nome": "_MitKan22", "valor": 2},
       {"nome": "TagaYato_", "valor": 2},
       {"nome": "_Foxyismyname553", "valor": 1}
@@ -279,7 +279,7 @@
       {"nome": "_Flos7304", "valor": 100},
       {"nome": "_MitKan22", "valor": 80},
       {"nome": "TagaYato_", "valor": 57},
-      {"nome": "_Maya06908", "valor": 31},
+      {"nome": "_Maya06908", "valor": 32},
       {"nome": "_Sayko_ax", "valor": 11},
       {"nome": "_Foxyismyname553", "valor": 9},
       {"nome": "_Heisenberg22194", "valor": 9},
@@ -290,7 +290,7 @@
       {"nome": "_Flos7304", "valor": 95},
       {"nome": "DullLucasdeolro", "valor": 47},
       {"nome": "_MitKan22", "valor": 30},
-      {"nome": "_Maya06908", "valor": 24},
+      {"nome": "_Maya06908", "valor": 25},
       {"nome": "TagaYato_", "valor": 8},
       {"nome": "_Foxyismyname553", "valor": 7},
       {"nome": "_Sayko_ax", "valor": 7},
@@ -401,7 +401,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 401898},
+      {"nome": "DullLucasdeolro", "valor": 401900},
       {"nome": "TagaYato_", "valor": 156271},
       {"nome": "_Jpzin001", "valor": 44529},
       {"nome": "_MitKan22", "valor": 39278},
@@ -413,14 +413,14 @@
       {"nome": "_OsiBloodMoon", "valor": 2239}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 242164},
+      {"nome": "DullLucasdeolro", "valor": 242166},
       {"nome": "TagaYato_", "valor": 105398},
       {"nome": "_Jpzin001", "valor": 38929},
       {"nome": "_MitKan22", "valor": 17622},
       {"nome": "_Kroven_1611", "valor": 2221},
       {"nome": "_Flos7304", "valor": 1868},
       {"nome": "_Foxyismyname553", "valor": 293},
-      {"nome": "_Maya06908", "valor": 254},
+      {"nome": "_Maya06908", "valor": 255},
       {"nome": "_Sayko_ax", "valor": 159},
       {"nome": "_M_na_voz", "valor": 21}
      ],
