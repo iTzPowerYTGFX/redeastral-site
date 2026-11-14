@@ -50,6 +50,12 @@ O End mudou: ilhas gigantes, biomas novos, chefes mais fortes, dois altares e de
 
 > Dica: as imagens são uma prévia do modelo, fora do jogo.
 
+## Livros mágicos
+
+- **Livro da Luz, Livro de Ventania, Livro do Azar, Conveyance, Obstruct e Return**: clique direito para lançar a magia.
+- Cada magia gasta **mana** do Skills: Ventania 20 · Conveyance 25 · Azar 30 · Obstruct 30 · Return 40 · Luz 50.
+- Sem mana a magia não sai. Livro em recarga não gasta nada.
+
 ## Armaduras e asas
 
 ![Os 4 conjuntos de armadura novos](midia/stellarity/armaduras.png)
