@@ -222,13 +222,15 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .an-seta { position: absolute; top: 50%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: rgba(11, 10, 26, .6); color: #f1eeff; font: 700 1.5rem/1 var(--f-display); cursor: pointer; display: grid; place-items: center; opacity: .85; transition: opacity .2s, background .2s; }
 .an-seta:hover, .an-seta:focus-visible { opacity: 1; background: rgba(124, 58, 237, .85); }
 .an-ant { left: .75rem; } .an-prox { right: .75rem; }
-.an-pontos { position: absolute; left: 0; right: 0; bottom: .6rem; display: flex; justify-content: center; gap: .45rem; }
-.an-ponto { width: .65rem; height: .65rem; border-radius: 999px; border: 0; padding: 0; background: rgba(255, 255, 255, .45); cursor: pointer; transition: width .3s, background .3s; }
-.an-ponto[aria-current="true"] { width: 1.6rem; background: #b99bff; }
-.anuncios.um .an-seta, .anuncios.um .an-pontos { display: none; }
+.an-pontos { display: flex; justify-content: center; gap: .5rem; margin-top: -.5rem; }
+.an-pontos[hidden] { display: none; }
+.an-ponto { width: .5rem; height: .5rem; border-radius: 50%; border: 0; padding: 0; background: rgba(255, 255, 255, .3); cursor: pointer; transition: background .3s, transform .3s; }
+.an-ponto:hover { background: rgba(255, 255, 255, .6); }
+.an-ponto[aria-current="true"] { background: #b99bff; transform: scale(1.25); }
+.anuncios.um .an-seta { display: none; }
 /* Com anúncio: o título vira subtítulo em cima e o carrossel ocupa a largura toda logo abaixo (16:5 no PC, 16:9 no celular) */
 .hero-text:has(> .anuncios:not([hidden])) { max-width: none; }
-.hero-text:has(> .anuncios:not([hidden])) > :not(.anuncios) { max-width: 46rem; }
+.hero-text:has(> .anuncios:not([hidden])) > :not(.anuncios, .an-pontos) { max-width: 46rem; }
 .hero-text:has(> .anuncios:not([hidden])) h1 { font-size: clamp(1.5rem, 2.6vw, 2.25rem); max-width: none; }
 .hero .wrap:has(.anuncios:not([hidden])) { padding-block-start: clamp(1.25rem, 3vw, 2rem); }
 .anuncios { aspect-ratio: 16 / 5; }
@@ -348,8 +350,8 @@ footer h3 { font-size: 1rem; color: var(--ink); }
           <div class="an-trilho"></div>
           <button class="an-seta an-ant" type="button" aria-label="Anúncio anterior">‹</button>
           <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
-          <div class="an-pontos"></div>
         </div>
+        <div class="an-pontos" id="anuncios-pontos" hidden></div>
 
         <h2 class="st-title" id="status">Status do Servidor</h2>
         <div class="ips">
@@ -765,7 +767,7 @@ ajustaMenu();
 (() => {
   const box = document.getElementById("anuncios");
   if (!box) return;
-  const trilho = box.querySelector(".an-trilho"), pontos = box.querySelector(".an-pontos");
+  const trilho = box.querySelector(".an-trilho"), pontos = document.getElementById("anuncios-pontos");
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   const parado = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada";
   let n = 0, i = 0, timer = null, seg = 7, pausa = false;
@@ -798,10 +800,15 @@ ajustaMenu();
     [...pontos.children].forEach((p, j) => p.addEventListener("click", () => { ir(j); auto(); }));
     box.classList.toggle("um", n === 1);
     box.hidden = false;
+    pontos.hidden = n < 2;
     ir(0); auto();
   }).catch(() => {});
   box.querySelector(".an-ant").addEventListener("click", () => { ir(i - 1); auto(); });
   box.querySelector(".an-prox").addEventListener("click", () => { ir(i + 1); auto(); });
+  pontos.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { ir(i + 1, true); auto(); }
+    else if (e.key === "ArrowLeft") { ir(i - 1, true); auto(); }
+  });
   box.addEventListener("keydown", e => {
     if (e.key === "ArrowRight") { ir(i + 1, e.target.classList.contains("an-ponto")); auto(); }
     else if (e.key === "ArrowLeft") { ir(i - 1, e.target.classList.contains("an-ponto")); auto(); }
