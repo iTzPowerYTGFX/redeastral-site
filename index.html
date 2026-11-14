@@ -217,6 +217,7 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .anuncios { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--sky-2); box-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
 .an-trilho { display: flex; height: 100%; transition: transform .55s cubic-bezier(.2, .7, .2, 1); touch-action: pan-y; }
 .an-slide { flex: 0 0 100%; height: 100%; display: block; }
+.an-slide picture { display: contents; }
 .an-slide img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
 .an-seta { position: absolute; top: 50%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: rgba(11, 10, 26, .6); color: #f1eeff; font: 700 1.5rem/1 var(--f-display); cursor: pointer; display: grid; place-items: center; opacity: .85; transition: opacity .2s, background .2s; }
 .an-seta:hover, .an-seta:focus-visible { opacity: 1; background: rgba(124, 58, 237, .85); }
@@ -225,12 +226,13 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .an-ponto { width: .65rem; height: .65rem; border-radius: 999px; border: 0; padding: 0; background: rgba(255, 255, 255, .45); cursor: pointer; transition: width .3s, background .3s; }
 .an-ponto[aria-current="true"] { width: 1.6rem; background: #b99bff; }
 .anuncios.um .an-seta, .anuncios.um .an-pontos { display: none; }
-/* No PC o carrossel fica no canto de cima, à direita do texto; no celular fica em cima de tudo */
-@media (min-width: 64rem) {
-  .hero .wrap:has(> .anuncios:not([hidden])) { grid-template-columns: minmax(0, 1fr) minmax(0, 36rem); align-items: start; }
-  .hero .wrap > .anuncios { grid-column: 2; grid-row: 1; }
-  .hero .wrap > .hero-text { grid-column: 1; grid-row: 1; }
-}
+/* Com anúncio: o título vira subtítulo em cima e o carrossel ocupa a largura toda logo abaixo (16:5 no PC, 16:9 no celular) */
+.hero-text:has(> .anuncios:not([hidden])) { max-width: none; }
+.hero-text:has(> .anuncios:not([hidden])) > :not(.anuncios) { max-width: 46rem; }
+.hero-text:has(> .anuncios:not([hidden])) h1 { font-size: clamp(1.5rem, 2.6vw, 2.25rem); max-width: none; }
+.hero .wrap:has(.anuncios:not([hidden])) { padding-block-start: clamp(1.25rem, 3vw, 2rem); }
+.anuncios { aspect-ratio: 16 / 5; }
+@media (max-width: 47.99rem) { .anuncios { aspect-ratio: 16 / 9; } }
 
 :root[data-animacao="desligada"] .an-trilho { transition: none; }
 @media (prefers-reduced-motion: reduce) { .an-trilho { transition: none; } }
@@ -338,15 +340,15 @@ footer h3 { font-size: 1rem; color: var(--ink); }
   <section class="hero">
     <canvas id="stars" aria-hidden="true"></canvas>
     <div class="wrap">
-      <div class="anuncios" id="anuncios" role="region" aria-roledescription="carrossel" aria-label="Anúncios" hidden>
-        <div class="an-trilho"></div>
-        <button class="an-seta an-ant" type="button" aria-label="Anúncio anterior">‹</button>
-        <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
-        <div class="an-pontos"></div>
-      </div>
       <div class="hero-text">
         <p class="eyebrow">| sobrevivencia | captura | rpg | skills | pvp |</p>
         <h1>Bem vindo a Rede Astral</h1>
+        <div class="anuncios" id="anuncios" role="region" aria-roledescription="carrossel" aria-label="Anúncios" hidden>
+          <div class="an-trilho"></div>
+          <button class="an-seta an-ant" type="button" aria-label="Anúncio anterior">‹</button>
+          <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
+          <div class="an-pontos"></div>
+        </div>
         <p class="lead">Servidor focado em Survival com bastante mecanica e sistemas pros jogadores se divertirem, O Servidor está disponivel para Java e Bedrock!</p>
 
         <h2 class="st-title" id="status">Status do Servidor</h2>
@@ -787,7 +789,8 @@ ajustaMenu();
     seg = Math.max(3, Number(d.segundos) || 7);
     n = lista.length;
     trilho.innerHTML = lista.map((s, j) => {
-      const img = `<img src="${esc(s.imagem)}" alt="${esc(s.titulo || "Anúncio")}" ${j ? 'loading="lazy"' : ""} draggable="false">`;
+      const cel = s.imagem_celular ? `<source media="(max-width: 47.99rem)" srcset="${esc(s.imagem_celular)}">` : "";
+      const img = `<picture>${cel}<img src="${esc(s.imagem)}" alt="${esc(s.titulo || "Anúncio")}" ${j ? 'loading="lazy"' : ""} draggable="false"></picture>`;
       return s.link ? `<a class="an-slide" href="${esc(s.link)}" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</a>`
                     : `<div class="an-slide" role="group" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</div>`;
     }).join("");

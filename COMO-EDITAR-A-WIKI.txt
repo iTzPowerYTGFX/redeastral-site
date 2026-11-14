@@ -388,9 +388,11 @@ SE ALGO DER ERRADO
 ANÚNCIOS (carrossel no Início)
 ==============================
 As imagens que passam no Início ficam no arquivo anuncios.json (na raiz do site).
-  - Imagem nova: envie para a pasta midia/anuncios/ (de preferência 1600x900, formato 16:9).
+  - Imagem nova: envie para a pasta midia/anuncios/. São 2 tamanhos:
+      PC: larga, 1920x600 (16:5).  Celular: 1600x900 (16:9) - opcional, sem ela o celular usa a do PC.
   - Abra anuncios.json e copie um bloco { ... } dentro de "slides", trocando:
-      "imagem": "midia/anuncios/NOME.webp"
+      "imagem": "midia/anuncios/NOME-largo.webp"          (a do PC)
+      "imagem_celular": "midia/anuncios/NOME.webp"        (a do celular)
       "titulo": "texto que descreve a imagem"
       "link":   "wiki.html#pagina"   (opcional: para onde vai ao clicar; pode ser o Discord também)
       "ativo":  true                 (false esconde sem apagar)
