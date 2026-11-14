@@ -1,0 +1,12 @@
+{
+  "_como_usar": "Cada item de 'slides' é um anúncio no carrossel da página Início. imagem: caminho da imagem (16:9, ex. 1600x900). titulo: texto para leitores de tela. link: para onde vai ao clicar (opcional). ativo: false esconde sem apagar. ate: data AAAA-MM-DD em que o anúncio some sozinho (opcional).",
+  "segundos": 7,
+  "slides": [
+    {
+      "imagem": "midia/anuncios/protecao.webp",
+      "titulo": "Nova Proteção de Terreno: Núcleo de Proteção 3D no Java e Bedrock",
+      "link": "wiki.html#protecao",
+      "ativo": true
+    }
+  ]
+}
