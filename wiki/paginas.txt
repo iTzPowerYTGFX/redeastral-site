@@ -18,6 +18,7 @@ abismo.md
 o-ceu.md
 o-nether.md
 o-the-end.md
+stellarity.md
 
 Sobre o mundo
 saque.md
