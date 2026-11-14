@@ -9,7 +9,7 @@ O End mudou: ilhas gigantes, biomas novos, chefes mais fortes, dois altares e de
 
 ## O que mudou no End
 
-![O End mudou](midia/stellarity/anuncio-end.webp)
+![A chegada do End](midia/stellarity/anuncio-end-v2.webp)
 
 - O terreno é novo: ilhas gigantes, biomas e estruturas que não existiam antes.
 - Os itens novos saem dos **chefes**, dos **baús das estruturas**, da **pesca no Vazio** e do **Altar of The Accursed**.
