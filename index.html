@@ -213,6 +213,22 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .status[data-state="maint"] .dot { background: var(--amber); box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 25%, transparent); }
 .status[data-state="maint"] { color: var(--ink); }
 .hero-cta { display: flex; gap: .75rem; flex-wrap: wrap; }
+/* Anúncios (carrossel no Início): os slides vêm do arquivo anuncios.json */
+.anuncios { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--sky-2); box-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
+.an-trilho { display: flex; height: 100%; transition: transform .55s cubic-bezier(.2, .7, .2, 1); touch-action: pan-y; }
+.an-slide { flex: 0 0 100%; height: 100%; display: block; }
+.an-slide img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
+.an-seta { position: absolute; top: 50%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: rgba(11, 10, 26, .6); color: #f1eeff; font: 700 1.5rem/1 var(--f-display); cursor: pointer; display: grid; place-items: center; opacity: .85; transition: opacity .2s, background .2s; }
+.an-seta:hover, .an-seta:focus-visible { opacity: 1; background: rgba(124, 58, 237, .85); }
+.an-ant { left: .75rem; } .an-prox { right: .75rem; }
+.an-pontos { position: absolute; left: 0; right: 0; bottom: .6rem; display: flex; justify-content: center; gap: .45rem; }
+.an-ponto { width: .65rem; height: .65rem; border-radius: 999px; border: 0; padding: 0; background: rgba(255, 255, 255, .45); cursor: pointer; transition: width .3s, background .3s; }
+.an-ponto[aria-current="true"] { width: 1.6rem; background: #b99bff; }
+.anuncios.um .an-seta, .anuncios.um .an-pontos { display: none; }
+:root[data-animacao="desligada"] .an-trilho { transition: none; }
+@media (prefers-reduced-motion: reduce) { .an-trilho { transition: none; } }
+@media (max-width: 30rem) { .an-seta { width: 2.25rem; height: 2.25rem; font-size: 1.2rem; } }
+
 
 /* Seções */
 section.block { padding-block: clamp(3rem, 7vw, 5rem); border-bottom: 1px solid var(--line); }
@@ -319,6 +335,13 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <p class="eyebrow">| sobrevivencia | captura | rpg | skills | pvp |</p>
         <h1>Bem vindo a Rede Astral</h1>
         <p class="lead">Servidor focado em Survival com bastante mecanica e sistemas pros jogadores se divertirem, O Servidor está disponivel para Java e Bedrock!</p>
+
+        <div class="anuncios" id="anuncios" role="region" aria-roledescription="carrossel" aria-label="Anúncios" hidden>
+          <div class="an-trilho"></div>
+          <button class="an-seta an-ant" type="button" aria-label="Anúncio anterior">‹</button>
+          <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
+          <div class="an-pontos"></div>
+        </div>
 
         <h2 class="st-title" id="status">Status do Servidor</h2>
         <div class="ips">
@@ -729,6 +752,66 @@ window.astralAjustaMenu = ajustaMenu;
 addEventListener("resize", ajustaMenu); addEventListener("load", ajustaMenu); setTimeout(ajustaMenu, 400);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustaMenu);
 ajustaMenu();
+
+/* Anúncios: carrossel no Início com as imagens do arquivo anuncios.json (veja as instruções dentro dele) */
+(() => {
+  const box = document.getElementById("anuncios");
+  if (!box) return;
+  const trilho = box.querySelector(".an-trilho"), pontos = box.querySelector(".an-pontos");
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const parado = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada";
+  let n = 0, i = 0, timer = null, seg = 7, pausa = false;
+  function ir(k, foco) {
+    if (!n) return;
+    i = (k + n) % n;
+    trilho.style.transform = `translateX(${-100 * i}%)`;
+    [...pontos.children].forEach((p, j) => p.setAttribute("aria-current", j === i ? "true" : "false"));
+    [...trilho.children].forEach((s, j) => { s.setAttribute("aria-hidden", j === i ? "false" : "true"); s.tabIndex = j === i ? 0 : -1; });
+    if (foco) pontos.children[i].focus();
+  }
+  function auto() {
+    clearInterval(timer); timer = null;
+    if (n > 1 && !pausa && !parado() && !document.hidden) timer = setInterval(() => ir(i + 1), seg * 1000);
+  }
+  fetch("anuncios.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
+    if (!d || !Array.isArray(d.slides)) return;
+    const hoje = new Date().toISOString().slice(0, 10);
+    const lista = d.slides.filter(s => s && s.imagem && s.ativo !== false && !(s.ate && String(s.ate) < hoje));
+    if (!lista.length) return;
+    seg = Math.max(3, Number(d.segundos) || 7);
+    n = lista.length;
+    trilho.innerHTML = lista.map((s, j) => {
+      const img = `<img src="${esc(s.imagem)}" alt="${esc(s.titulo || "Anúncio")}" ${j ? 'loading="lazy"' : ""} draggable="false">`;
+      return s.link ? `<a class="an-slide" href="${esc(s.link)}" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</a>`
+                    : `<div class="an-slide" role="group" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</div>`;
+    }).join("");
+    pontos.innerHTML = lista.map((s, j) => `<button class="an-ponto" type="button" aria-label="Anúncio ${j + 1}"></button>`).join("");
+    [...pontos.children].forEach((p, j) => p.addEventListener("click", () => { ir(j); auto(); }));
+    box.classList.toggle("um", n === 1);
+    box.hidden = false;
+    ir(0); auto();
+  }).catch(() => {});
+  box.querySelector(".an-ant").addEventListener("click", () => { ir(i - 1); auto(); });
+  box.querySelector(".an-prox").addEventListener("click", () => { ir(i + 1); auto(); });
+  box.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { ir(i + 1, e.target.classList.contains("an-ponto")); auto(); }
+    else if (e.key === "ArrowLeft") { ir(i - 1, e.target.classList.contains("an-ponto")); auto(); }
+  });
+  box.addEventListener("mouseenter", () => { pausa = true; auto(); });
+  box.addEventListener("mouseleave", () => { pausa = false; auto(); });
+  box.addEventListener("focusin", () => { pausa = true; auto(); });
+  box.addEventListener("focusout", () => { pausa = false; auto(); });
+  document.addEventListener("visibilitychange", auto);
+  // arrastar com o dedo (ou mouse) para trocar
+  let x0 = null, arrastou = false;
+  trilho.addEventListener("pointerdown", e => { x0 = e.clientX; arrastou = false; });
+  trilho.addEventListener("pointerup", e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40 && n > 1) { arrastou = true; ir(i + (dx < 0 ? 1 : -1)); auto(); }
+  });
+  trilho.addEventListener("click", e => { if (arrastou) { e.preventDefault(); arrastou = false; } }, true);
+})();
 
 /* Rankings: o servidor manda o arquivo rankings.json (veja o formato no fim deste bloco) */
 (() => {

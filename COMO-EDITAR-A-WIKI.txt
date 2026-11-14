@@ -383,3 +383,17 @@ SE ALGO DER ERRADO
   Vídeo do YouTube não aparece     -> o link precisa estar SOZINHO na linha.
   Salvei mas não mudou             -> espere 2 minutos e aperte Ctrl+F5.
   Errou feio?                      -> no GitHub, abra o arquivo -> History -> volte uma versão.
+
+
+ANÚNCIOS (carrossel no Início)
+==============================
+As imagens que passam no Início ficam no arquivo anuncios.json (na raiz do site).
+  - Imagem nova: envie para a pasta midia/anuncios/ (de preferência 1600x900, formato 16:9).
+  - Abra anuncios.json e copie um bloco { ... } dentro de "slides", trocando:
+      "imagem": "midia/anuncios/NOME.webp"
+      "titulo": "texto que descreve a imagem"
+      "link":   "wiki.html#pagina"   (opcional: para onde vai ao clicar; pode ser o Discord também)
+      "ativo":  true                 (false esconde sem apagar)
+      "ate":    "2026-12-31"         (opcional: some sozinho depois dessa data)
+  - A ordem dos blocos é a ordem dos slides. "segundos" = tempo de cada slide.
+  - Sem nenhum slide ativo, o carrossel não aparece.
