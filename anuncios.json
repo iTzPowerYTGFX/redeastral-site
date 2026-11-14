@@ -3,18 +3,22 @@
   "segundos": 7,
   "slides": [
     {
-      "imagem": "midia/anuncios/stellarity-largo.webp",
-      "imagem_celular": "midia/anuncios/stellarity.webp",
+      "imagem": "midia/anuncios/stellarity-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/stellarity-anim-capa.webp",
       "titulo": "Stellarity: Imperatriz da Luz, livros mágicos e mais de 100 itens novos no End",
       "link": "wiki.html#stellarity",
-      "ativo": true
+      "ativo": true,
+      "video": "midia/anuncios/stellarity-largo-anim.mp4",
+      "video_celular": "midia/anuncios/stellarity-anim.mp4"
     },
     {
-      "imagem": "midia/anuncios/end-largo-v2.webp",
-      "imagem_celular": "midia/anuncios/end-v2.webp",
+      "imagem": "midia/anuncios/end-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/end-anim-capa.webp",
       "titulo": "A chegada do End: ilhas, biomas e estruturas novos com Stellarity e Nullscape",
       "link": "wiki.html#stellarity",
-      "ativo": true
+      "ativo": true,
+      "video": "midia/anuncios/end-largo-anim.mp4",
+      "video_celular": "midia/anuncios/end-anim.mp4"
     },
     {
       "imagem": "midia/anuncios/protecao-largo-capa-v2.webp",
