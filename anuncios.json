@@ -3,10 +3,10 @@
   "segundos": 7,
   "slides": [
     {
-      "imagem": "midia/anuncios/protecao-largo-capa.webp",
-      "imagem_celular": "midia/anuncios/protecao-capa.webp",
-      "video": "midia/anuncios/protecao-largo.mp4",
-      "video_celular": "midia/anuncios/protecao.mp4",
+      "imagem": "midia/anuncios/protecao-largo-capa-v2.webp",
+      "imagem_celular": "midia/anuncios/protecao-capa-v2.webp",
+      "video": "midia/anuncios/protecao-largo-v2.mp4",
+      "video_celular": "midia/anuncios/protecao-v2.mp4",
       "titulo": "Nova Proteção de Terreno: Núcleo de Proteção 3D no Java e Bedrock",
       "link": "wiki.html#protecao",
       "ativo": true
