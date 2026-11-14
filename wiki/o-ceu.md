@@ -1,4 +1,4 @@
-# o céu
+# O Céu
 
 Escreva aqui uma frase explicando o sistema. Ela aparece no cartão da página.
 
