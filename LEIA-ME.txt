@@ -1,0 +1,2 @@
+Pack de recursos (Java) da Rede Astral.
+Link: https://raw.githubusercontent.com/iTzPowerYTGFX/redeastral-site/pack/RedeAstral-ResourcePack-Java.zip
