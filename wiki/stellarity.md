@@ -66,6 +66,8 @@ O End mudou: ilhas gigantes, biomas novos, chefes mais fortes, dois altares e de
 
 ## Acessórios
 
+![Acessórios do Stellarity](midia/stellarity/acessorios.webp)
+
 Funcionam na mão ou no inventário.
 
 - **Pingente do Vazio (Void Pendant)**: recebe uma gema no Altar of The Accursed (precisa de 1 Fragmento de Enderita). Cada gema dá um bônus:
@@ -96,6 +98,8 @@ Funcionam na mão ou no inventário.
 
 ## Comidas
 
+![Comidas e peixes do Stellarity](midia/stellarity/comidas.webp)
+
 - **Peixe-coração de Cristal**: +1 de vida máxima para sempre (até +5 corações).
 - **Pho** e **Torta de Pastor**: enchem quase toda a fome e dão efeitos.
 - **Fruta do Coro Frita** e **Fruta do Coro Dourada**: teleportam você para perto, como o coro.
@@ -105,6 +109,8 @@ Funcionam na mão ou no inventário.
 - Sushis, peixes novos, carne de Enderman e tortas: comida normal, com efeitos pequenos.
 
 ## Poções
+
+![Poções do Stellarity](midia/stellarity/pocoes.webp)
 
 | Poção | Efeito |
 |---|---|
@@ -122,6 +128,8 @@ Funcionam na mão ou no inventário.
 > Cuidado com a **Red Potion**: é uma pegadinha. Escuridão, Lentidão e Cansaço no máximo, para sempre. Só leite tira.
 
 ## Materiais e chaves
+
+![Materiais e chaves do Stellarity](midia/stellarity/materiais.webp)
 
 - **Fragmento de Enderita** e **Melhoria de Enderita**: sobem equipamento de Netherite para Enderita no Altar of The Accursed.
 - **Placa do Coro**: reforça armadura de Netherite.
