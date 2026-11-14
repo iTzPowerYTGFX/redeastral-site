@@ -3,12 +3,14 @@
 Proteja sua casa com o **Núcleo de Proteção**: um escudo com cadeado que gira em cima de um pedestal. Dentro da área, só você e seus membros mexem em tudo.
 
 <!-- oculta -->
-<!-- capa: midia/protecao/nucleo.png -->
+<!-- capa: midia/protecao/nucleo-girando.png -->
 <!-- busca: protecao, proteção, terreno, claim, nucleo, núcleo, beacon, bloco de protecao, membros, confiar, bloquear, regras, flags, pvp, nivel, spawn, renascer, cp, prot -->
 
-![O Núcleo de Proteção girando](midia/protecao/nucleo.png)
+![O Núcleo de Proteção girando](midia/protecao/nucleo-girando.gif)
 
 ## Como proteger
+
+![Bloco de Proteção](midia/protecao/bloco.png)
 
 - Todo jogador ganha um **Bloco de Proteção** na primeira vez que entra no servidor.
 - Coloque no chão, no mundo principal. No lugar dele aparece o **Núcleo de Proteção**.
@@ -16,6 +18,10 @@ Proteja sua casa com o **Núcleo de Proteção**: um escudo com cadeado que gira
 - Cada jogador tem **1 proteção**, e ela não pode encostar na de outro jogador.
 - O Núcleo não quebra. Clique com o **botão direito** nele (ou use `/protecao`) para abrir o menu.
 - Para tirar: menu → **Remover proteção**. O bloco volta para você no mesmo nível.
+
+![O escudo com cadeado gira e flutua, o anel gira ao contrário e as runas ficam em volta](midia/protecao/nucleo-quadros.png)
+
+> Dica: as imagens são uma prévia do modelo, fora do jogo.
 
 ## Membros e bloqueados
 
@@ -46,6 +52,8 @@ As regras de visitante não valem para você nem para os seus membros.
 
 Menu → **Nível**. Cada nível aumenta a área:
 
+![Tamanho de cada nível](midia/protecao/niveis.png)
+
 | Nível | Área | Preço |
 |---|---|---|
 | 1 | 31x31 | grátis |
@@ -63,6 +71,8 @@ Descer de nível devolve **metade** do preço do nível em que você está.
 - Morreu? Você renasce na sua **cama**. Sem cama, no **spawn da sua proteção**.
 - Membro **não** renasce na proteção dos outros, só na própria.
 - `/protecao ver` mostra a borda: **verde** = sua, **azul** = você é membro, **vermelho** = de outro jogador.
+
+![Cores da borda](midia/protecao/borda.png)
 
 ## Comandos
 
