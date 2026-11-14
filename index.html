@@ -218,6 +218,7 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .an-trilho { display: flex; height: 100%; transition: transform .55s cubic-bezier(.2, .7, .2, 1); touch-action: pan-y; }
 .an-slide { flex: 0 0 100%; height: 100%; display: block; }
 .an-slide picture { display: contents; }
+.an-slide video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 .an-slide img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
 .an-seta { position: absolute; top: 50%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: rgba(11, 10, 26, .6); color: #f1eeff; font: 700 1.5rem/1 var(--f-display); cursor: pointer; display: grid; place-items: center; opacity: .85; transition: opacity .2s, background .2s; }
 .an-seta:hover, .an-seta:focus-visible { opacity: 1; background: rgba(124, 58, 237, .85); }
@@ -776,7 +777,11 @@ ajustaMenu();
     i = (k + n) % n;
     trilho.style.transform = `translateX(${-100 * i}%)`;
     [...pontos.children].forEach((p, j) => p.setAttribute("aria-current", j === i ? "true" : "false"));
-    [...trilho.children].forEach((s, j) => { s.setAttribute("aria-hidden", j === i ? "false" : "true"); s.tabIndex = j === i ? 0 : -1; });
+    [...trilho.children].forEach((s, j) => {
+      s.setAttribute("aria-hidden", j === i ? "false" : "true"); s.tabIndex = j === i ? 0 : -1;
+      const v = s.querySelector("video");
+      if (v) { if (j === i && !document.hidden) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); }
+    });
     if (foco) pontos.children[i].focus();
   }
   function auto() {
@@ -791,8 +796,14 @@ ajustaMenu();
     seg = Math.max(3, Number(d.segundos) || 7);
     n = lista.length;
     trilho.innerHTML = lista.map((s, j) => {
+      const celular = matchMedia("(max-width: 47.99rem)").matches;
       const cel = s.imagem_celular ? `<source media="(max-width: 47.99rem)" srcset="${esc(s.imagem_celular)}">` : "";
-      const img = `<picture>${cel}<img src="${esc(s.imagem)}" alt="${esc(s.titulo || "Anúncio")}" ${j ? 'loading="lazy"' : ""} draggable="false"></picture>`;
+      let img = `<picture>${cel}<img src="${esc(s.imagem)}" alt="${esc(s.titulo || "Anúncio")}" ${j ? 'loading="lazy"' : ""} draggable="false"></picture>`;
+      const vid = celular && s.video_celular ? s.video_celular : s.video;
+      if (vid && !parado()) { // vídeo em loop (sem som); com animações desligadas fica só a imagem
+        const capa = celular && s.imagem_celular ? s.imagem_celular : s.imagem;
+        img = `<video src="${esc(vid)}" ${capa ? `poster="${esc(capa)}"` : ""} muted loop playsinline preload="${j ? "none" : "auto"}" aria-label="${esc(s.titulo || "Anúncio")}"></video>`;
+      }
       return s.link ? `<a class="an-slide" href="${esc(s.link)}" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</a>`
                     : `<div class="an-slide" role="group" aria-roledescription="slide" aria-label="${j + 1} de ${n}">${img}</div>`;
     }).join("");
@@ -817,7 +828,7 @@ ajustaMenu();
   box.addEventListener("mouseleave", () => { pausa = false; auto(); });
   box.addEventListener("focusin", () => { pausa = true; auto(); });
   box.addEventListener("focusout", () => { pausa = false; auto(); });
-  document.addEventListener("visibilitychange", auto);
+  document.addEventListener("visibilitychange", () => { auto(); if (n) ir(i); });
   // arrastar com o dedo (ou mouse) para trocar
   let x0 = null, arrastou = false;
   trilho.addEventListener("pointerdown", e => { x0 = e.clientX; arrastou = false; });
