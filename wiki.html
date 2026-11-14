@@ -219,7 +219,7 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .card-wrap { position: relative; display: grid; }
 .ed-pen { position: absolute; top: .5rem; right: .5rem; z-index: 2; background: var(--violet); color: var(--violet-ink, #fff); border: 0; border-radius: 999px; padding: .3rem .65rem; font: 700 .8125rem var(--f-body); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
 .ed-pen:hover { filter: brightness(1.15); }
-.card-wrap:has(> .ed-pen) .card:not(:has(.cover)) .body { padding-top: 2.6rem; }
+.card-wrap:has(> .ed-pen) .card:not(:has(.cover:not(.vazio))) .body { padding-top: 2.6rem; }
 .ed-grip { position: absolute; top: .5rem; left: .5rem; z-index: 2; background: var(--teal); color: #06221f; border: 0; border-radius: 999px; padding: .3rem .6rem; font: 700 .8125rem var(--f-body); cursor: grab; touch-action: none; user-select: none; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
 .ed-grip.inline { position: static; margin-left: .5rem; vertical-align: middle; text-transform: none; letter-spacing: 0; box-shadow: none; }
 .hm-src { opacity: .35; }
@@ -234,6 +234,18 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .card .body { padding: .875rem 1rem 1rem; display: grid; gap: .25rem; align-content: start; }
 .card strong { font-family: var(--f-display); font-size: 1.125rem; }
 .card span { color: var(--ink-dim); font-size: .9375rem; line-height: 1.45; }
+.card .cover.vazio { display: none; }
+/* celular: imagem pequena do lado, cartão baixo (rola mais rápido) */
+@media (max-width: 600px) {
+  .cards { gap: .5rem; }
+  .card { grid-template-rows: auto; grid-template-columns: 5.25rem minmax(0, 1fr); align-items: stretch; }
+  .card .cover { aspect-ratio: auto; min-height: 5.25rem; border-bottom: 0; border-right: 1px solid var(--line); }
+  .card .cover.vazio { display: block; background: var(--sky-3) url('img/marca-clara.png') center / 2.4rem no-repeat; opacity: .9; }
+  .card .body { padding: .625rem .75rem; align-content: center; gap: .15rem; }
+  .card strong { font-size: 1rem; line-height: 1.25; }
+  .card span { font-size: .8125rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-wrap:has(> .ed-pen) .card .body { padding-top: 2.2rem; }
+}
 .state { color: var(--ink-dim); padding: 2rem 0; }
 .state h1 { color: var(--ink); }
 
@@ -798,7 +810,7 @@ function showHome() {
   for (const c of CATS) {
     const ps = PAGES.filter(p => p.cat === c); if (!ps.length && !EDON) continue;
     h += `<section class="cat" data-cat="${esc(c)}"><h2>${esc(c)}${grip(`data-grip="cat"`, "inline")}${pen(`data-pen="nova" data-cat="${esc(c)}"`, "Nova página aqui", "inline")}${pen('data-pen="org"', "Renomear / organizar", "inline")}</h2>${ps.length ? "" : `<p class="org-empty-drop">Categoria vazia: arraste um cartão para cá (ou apague em Organizar páginas).</p>`}<div class="cards">${ps.map(p => `
-      <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}${ocTag(p)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : ""}
+      <div class="card-wrap" data-key="${esc(keyOf(p))}" data-id="${p.id}">${grip(`data-grip="card"`)}${EDON && p.alias ? `<span class="copia-tag" title="Cópia: a página original está em ${esc(p.alias.cat)}">cópia</span>` : ""}${ocTag(p)}<a class="card" href="#${p.id}">${p.cover ? `<div class="cover" style="background-image:url('${p.cover.replace(/'/g, "%27")}')"></div>` : `<div class="cover vazio" aria-hidden="true"></div>`}
         <div class="body"><strong>${esc(p.title)}</strong><span>${esc(p.summaryText || "")}</span></div></a>${pen(`data-pen="card" data-id="${p.id}"`, "Editar")}</div>`).join("")}</div></section>`;
   }
   view.innerHTML = h;
