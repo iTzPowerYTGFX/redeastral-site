@@ -1,14 +1,14 @@
 {
-  "atualizado": "2026-11-14T15:18:17Z",
+  "atualizado": "2026-11-14T15:48:17Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 17530},
-      {"nome": "TagaYato_", "valor": 16280},
-      {"nome": "_MitKan22", "valor": 14757},
+      {"nome": "DullLucasdeolro", "valor": 17560},
+      {"nome": "TagaYato_", "valor": 16310},
+      {"nome": "_MitKan22", "valor": 14787},
       {"nome": "_Heisenberg22194", "valor": 7786},
-      {"nome": "_Flos7304", "valor": 6438},
+      {"nome": "_Flos7304", "valor": 6468},
       {"nome": "_M_na_voz", "valor": 6427},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3672},
@@ -16,10 +16,10 @@
       {"nome": "_Jpzin001", "valor": 2670}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 5053},
-      {"nome": "DullLucasdeolro", "valor": 4523},
-      {"nome": "TagaYato_", "valor": 4351},
-      {"nome": "_MitKan22", "valor": 3693},
+      {"nome": "_Flos7304", "valor": 5083},
+      {"nome": "DullLucasdeolro", "valor": 4553},
+      {"nome": "TagaYato_", "valor": 4381},
+      {"nome": "_MitKan22", "valor": 3723},
       {"nome": "_Jpzin001", "valor": 1427},
       {"nome": "_Maya06908", "valor": 892},
       {"nome": "_M_na_voz", "valor": 880},
@@ -37,7 +37,7 @@
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
       {"nome": "_Kroven_1611", "valor": 528153.22},
-      {"nome": "TagaYato_", "valor": 496879.09},
+      {"nome": "TagaYato_", "valor": 503683.25},
       {"nome": "_Sayko_ax", "valor": 332406.33},
       {"nome": "_MitKan22", "valor": 297912.29}
      ],
@@ -45,8 +45,8 @@
       {"nome": "DullLucasdeolro", "valor": 27738408.33},
       {"nome": "_Kroven_1611", "valor": 242814.35},
       {"nome": "_Foxyismyname553", "valor": 153780.28},
+      {"nome": "_Flos7304", "valor": 81001.33},
       {"nome": "_Jpzin001", "valor": 74791.85},
-      {"nome": "_Flos7304", "valor": 67072.11},
       {"nome": "_Sayko_ax", "valor": 46357},
       {"nome": "_Dxvi779974", "valor": 41950},
       {"nome": "_TioDoPave9665", "valor": 37496.59},
@@ -88,7 +88,7 @@
       {"nome": "_Kroven_1611", "valor": 85},
       {"nome": "_MitKan22", "valor": 41},
       {"nome": "_Heisenberg22194", "valor": 13},
-      {"nome": "_Flos7304", "valor": 10},
+      {"nome": "_Flos7304", "valor": 11},
       {"nome": "_Corvus8910", "valor": 6},
       {"nome": "_Sayko_ax", "valor": 3},
       {"nome": "_M_na_voz", "valor": 1}
@@ -99,7 +99,7 @@
       {"nome": "_Kroven_1611", "valor": 47},
       {"nome": "TagaYato_", "valor": 40},
       {"nome": "_MitKan22", "valor": 22},
-      {"nome": "_Flos7304", "valor": 6},
+      {"nome": "_Flos7304", "valor": 7},
       {"nome": "_M_na_voz", "valor": 1},
       {"nome": "Vandoskii", "valor": 1}
      ],
@@ -275,7 +275,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-defesa", "titulo": "Defesa", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 290},
+      {"nome": "DullLucasdeolro", "valor": 299},
       {"nome": "_Jpzin001", "valor": 200},
       {"nome": "_Flos7304", "valor": 100},
       {"nome": "_MitKan22", "valor": 85},
@@ -288,7 +288,7 @@
      ],
      "mes": [
       {"nome": "_Jpzin001", "valor": 194},
-      {"nome": "DullLucasdeolro", "valor": 156},
+      {"nome": "DullLucasdeolro", "valor": 165},
       {"nome": "_Flos7304", "valor": 95},
       {"nome": "_MitKan22", "valor": 35},
       {"nome": "_Maya06908", "valor": 25},
@@ -402,8 +402,8 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 413188},
-      {"nome": "TagaYato_", "valor": 177605},
+      {"nome": "DullLucasdeolro", "valor": 413768},
+      {"nome": "TagaYato_", "valor": 180149},
       {"nome": "_Jpzin001", "valor": 48983},
       {"nome": "_MitKan22", "valor": 40186},
       {"nome": "_Heisenberg22194", "valor": 33167},
@@ -414,12 +414,12 @@
       {"nome": "_OsiBloodMoon", "valor": 2239}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 253454},
-      {"nome": "TagaYato_", "valor": 126732},
+      {"nome": "DullLucasdeolro", "valor": 254034},
+      {"nome": "TagaYato_", "valor": 129276},
       {"nome": "_Jpzin001", "valor": 43383},
       {"nome": "_MitKan22", "valor": 18530},
       {"nome": "_Kroven_1611", "valor": 2285},
-      {"nome": "_Flos7304", "valor": 1916},
+      {"nome": "_Flos7304", "valor": 1929},
       {"nome": "_Foxyismyname553", "valor": 293},
       {"nome": "_Maya06908", "valor": 261},
       {"nome": "_Sayko_ax", "valor": 169},
@@ -452,7 +452,7 @@
       {"nome": "TagaYato_", "valor": 118},
       {"nome": "_MitKan22", "valor": 113},
       {"nome": "_Heisenberg22194", "valor": 105},
-      {"nome": "_Flos7304", "valor": 83},
+      {"nome": "_Flos7304", "valor": 84},
       {"nome": "_Jpzin001", "valor": 72},
       {"nome": "_Corvus8910", "valor": 66},
       {"nome": "_Kroven_1611", "valor": 66},
@@ -461,7 +461,7 @@
      ],
      "mes": [
       {"nome": "_Jpzin001", "valor": 36},
-      {"nome": "_Flos7304", "valor": 31},
+      {"nome": "_Flos7304", "valor": 32},
       {"nome": "_MitKan22", "valor": 18},
       {"nome": "_Dxvi779974", "valor": 14},
       {"nome": "_Kroven_1611", "valor": 14},
@@ -474,8 +474,8 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
-      {"nome": "_Alcateia_", "valor": 103.05, "texto": "Nv. 103 · 7 membros"},
-      {"nome": "cyber_doom", "valor": 66.06, "texto": "Nv. 66 · 6 membros"},
+      {"nome": "_Alcateia_", "valor": 103.06, "texto": "Nv. 103 · 7 membros"},
+      {"nome": "cyber_doom", "valor": 67.02, "texto": "Nv. 67 · 6 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.00, "texto": "Nv. 6 · 1 membro"},
       {"nome": "VVs", "valor": 2.00, "texto": "Nv. 2 · 1 membro"},
@@ -483,7 +483,7 @@
      ],
      "mes": [
       {"nome": "_Alcateia_", "valor": 31},
-      {"nome": "cyber_doom", "valor": 30},
+      {"nome": "cyber_doom", "valor": 31},
       {"nome": "astrals", "valor": 1}
      ],
      "premios": ["$ 200.000", "$ 100.000", "$ 50.000"]}
