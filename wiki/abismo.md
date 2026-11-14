@@ -44,7 +44,7 @@ Cada região tem bioma próprio: cor da névoa, partículas no ar e sons. Nada l
 É o lugar **mais perigoso** do servidor:
 
 - **PvP ligado**.
-- **Morreu, perdeu os itens.**
+- **Morreu, perdeu os itens.** Você renasce na sua cama, âncora ou no spawn do beacon de proteção; sem nenhum deles, no lobby.
 - **Não dá para marcar casa** (`/sethome`) nem usar cama. Para sair, use o portal de volta ou `/home`.
 - Só se entra **pelo portal**: `/tpa`, `/warp` e `/back` não levam para dentro.
 
