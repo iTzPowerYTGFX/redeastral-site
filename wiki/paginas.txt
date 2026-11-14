@@ -23,6 +23,7 @@ spawners.md
 
 Sistemas do servidor
 primeiros-passos.md
+protecao.md
 viajar.md
 captura.md
 waifus.md
