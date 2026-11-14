@@ -394,6 +394,9 @@ As imagens que passam no Início ficam no arquivo anuncios.json (na raiz do site
       "imagem": "midia/anuncios/NOME-largo.webp"          (a do PC)
       "imagem_celular": "midia/anuncios/NOME.webp"        (a do celular)
       "titulo": "texto que descreve a imagem"
+      "video": "midia/anuncios/NOME-largo.mp4"            (opcional: vídeo em loop, sem som, no lugar da imagem)
+      "video_celular": "midia/anuncios/NOME.mp4"          (opcional: o vídeo do celular)
+        Com vídeo, a "imagem" vira a capa (aparece enquanto carrega e para quem desligou as animações).
       "link":   "wiki.html#pagina"   (opcional: para onde vai ao clicar; pode ser o Discord também)
       "ativo":  true                 (false esconde sem apagar)
       "ate":    "2026-12-31"         (opcional: some sozinho depois dessa data)

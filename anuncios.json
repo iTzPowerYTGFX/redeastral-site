@@ -1,11 +1,13 @@
 {
-  "_como_usar": "Cada item de 'slides' é um anúncio no carrossel da página Início. imagem: imagem do PC, larga (16:5, ex. 1920x600). imagem_celular: imagem do celular (16:9, ex. 1600x900; opcional, sem ela usa a do PC cortada). titulo: texto para leitores de tela. link: para onde vai ao clicar (opcional). ativo: false esconde sem apagar. ate: data AAAA-MM-DD em que o anúncio some sozinho (opcional).",
+  "_como_usar": "Cada item de 'slides' é um anúncio no carrossel da página Início. imagem: imagem do PC, larga (16:5, ex. 1920x600). imagem_celular: imagem do celular (16:9, ex. 1600x900; opcional, sem ela usa a do PC cortada). titulo: texto para leitores de tela. link: para onde vai ao clicar (opcional). ativo: false esconde sem apagar. ate: data AAAA-MM-DD em que o anúncio some sozinho (opcional). video / video_celular: vídeo .mp4 em loop no lugar da imagem (opcional; a imagem vira a capa enquanto carrega e aparece para quem desligou as animações).",
   "segundos": 7,
   "slides": [
     {
-      "imagem": "midia/anuncios/protecao-largo.webp",
-      "imagem_celular": "midia/anuncios/protecao.webp",
-      "titulo": "Nova Proteção de Terreno: Núcleo de Proteção 3D no Java e Bedrock",
+      "imagem": "midia/anuncios/protecao-largo-capa.webp",
+      "imagem_celular": "midia/anuncios/protecao-capa.webp",
+      "video": "midia/anuncios/protecao-largo.mp4",
+      "video_celular": "midia/anuncios/protecao.mp4",
+      "titulo": "Nova Proteção de Terreno: o Núcleo de Proteção girando",
       "link": "wiki.html#protecao",
       "ativo": true
     }
