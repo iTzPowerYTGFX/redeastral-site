@@ -16,6 +16,7 @@ desencantar.md
 dimensões
 abismo.md
 o-ceu.md
+o-nether.md
 
 Sobre o mundo
 saque.md
@@ -44,4 +45,5 @@ mimicos.md
 correio.md
 arena-astral.md
 aura.md
+
 
