@@ -17,6 +17,7 @@ dimensões
 abismo.md
 o-ceu.md
 o-nether.md
+o-the-end.md
 
 Sobre o mundo
 saque.md
@@ -45,5 +46,6 @@ mimicos.md
 correio.md
 arena-astral.md
 aura.md
+
 
 
