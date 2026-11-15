@@ -228,7 +228,9 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Gasta **40 de mana** (a mesma da Varinha Mágica) e recarrega em **12 segundos**.
 - Receita na bancada (ou na /forjaabismo): **Liga Abissal** no cabo, **Núcleo Espectral** na ponta e **2 Essências do Cavaleiro Sombrio**.
 - Onde o PvP está desligado, ela não machuca jogadores.
-- Encantamento **lendário Laser I-III**: os lasers dão **+25% de dano** por nível.
+- Encantamento **lendário Laser I-III**: os lasers dão **+25% de dano** por nível. **Divinos:** Laser IV e V (precisa do Laser III) e **Laser Mortal I-III**.
+- **Laser Mortal**: +20% de dano e lasers mais rápidos por nível; quando os lasers do chão acabam, **6, 8 ou 10 lasers** vêm de todos os lados no alvo. Segurando a varinha, almas giram em volta e machucam um pouco quem chega perto (sua guilda e seus pets não).
+- **Defesa**: segurando a Varinha Abissal, os lasers da Varinha Abissal de outro jogador te dão **25% a 35% menos dano** (50% com o Traje Mágico completo).
 
 ## Varinha Radioativa
 
@@ -240,9 +242,10 @@ Uma varinha feita com o que há de mais raro no Abismo. **Clique direito mirando
 - Receita na bancada (ou na /forjaabismo): **2 Essências do Carrasco** e o **Núcleo Espectral** em cima, **Liga Abissal** no cabo.
 - Onde o PvP está desligado, ela não machuca jogadores.
 - **Na mão (principal ou secundária) ela te deixa imune à radiação**: a radiação não sobe e os efeitos dela não pegam.
-- Encantamento **lendário Alvo na Mira I-V**: **+1 mira** e **+15% de dano** por nível (no V são 10 miras).
+- Encantamento **lendário Alvo na Mira I-V**: **+1 mira** e **+15% de dano** por nível (no V são 10 miras). **Divino:** **Alvo Mortal I-III**.
+- **Alvo Mortal**: +20% de dano nas miras e **+1 mira vermelha** por nível (bate mais que a verde). Só com ele as miras têm **15%, 20% ou 25%** de chance de **irradiar** o alvo (jogador ganha radiação; mob ganha Murchar e Fraqueza).
 
-Os livros de **Laser** e **Alvo na Mira** só servem na varinha certa: arraste o livro em cima dela. Como todo lendário, o livro pode falhar (e, se falhar, só o livro pode quebrar).
+Os livros das varinhas só servem na varinha certa: arraste o livro em cima dela. O livro pode falhar (e, se falhar, só o livro pode quebrar). Os **divinos** só saem em caixas e eventos.
 
 ## Escuridão e Visão Abissal
 
@@ -263,6 +266,9 @@ No Abismo você fica com **Escuridão o tempo todo**: a mesma do Warden, com a v
 | **Maldição da Loucura** | Capacete | Maldição | A sanidade cai 1,5x mais rápido. |
 | **Laser** I-III | Varinha Abissal | Lendário | Os lasers dão +25% de dano por nível. |
 | **Alvo na Mira** I-V | Varinha Radioativa | Lendário | +1 mira e +15% de dano por nível (no V são 10 miras). |
+| **Laser** IV-V | Varinha Abissal | Divino | Continua o Laser (+25% por nível). Precisa do Laser III. |
+| **Laser Mortal** I-III | Varinha Abissal | Divino | Mais dano, lasers mais rápidos, cerco de lasers no fim e aura de almas. |
+| **Alvo Mortal** I-III | Varinha Radioativa | Divino | Mais dano, miras vermelhas extras e chance de irradiar o alvo. |
 
 ## Sanidade
 
