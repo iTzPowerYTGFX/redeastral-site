@@ -28,6 +28,8 @@ spawners.md
 Sistemas do servidor
 primeiros-passos.md
 protecao.md
+elevador.md
+armas.md
 viajar.md
 captura.md
 waifus.md
