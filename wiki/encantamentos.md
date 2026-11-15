@@ -22,7 +22,7 @@ Espada, machado, maça e lança.
 
 ### Comum
 
-*3 níveis de XP por nível · chance de dar certo: sempre 100%*
+*3 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -43,7 +43,7 @@ Espada, machado, maça e lança.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -63,7 +63,7 @@ Espada, machado, maça e lança.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -95,7 +95,7 @@ Espada, machado, maça e lança.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -125,7 +125,7 @@ Espada, machado, maça e lança.
 
 ### Lendário
 
-*16 níveis de XP por nível · chance de dar certo: 15% a 60%*
+*16 níveis de XP por nível · chance de dar certo: 15% a 60% · sai em: só caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -138,7 +138,7 @@ Espada, machado, maça e lança.
 
 ### Divino
 
-*22 níveis de XP por nível · chance de dar certo: 10% a 45%*
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -152,7 +152,7 @@ Espada, machado, maça e lança.
 
 ### Comum
 
-*3 níveis de XP por nível · chance de dar certo: sempre 100%*
+*3 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -162,7 +162,7 @@ Espada, machado, maça e lança.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -176,7 +176,7 @@ Espada, machado, maça e lança.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -192,7 +192,7 @@ Espada, machado, maça e lança.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -205,7 +205,7 @@ Espada, machado, maça e lança.
 
 ### Lendário
 
-*16 níveis de XP por nível · chance de dar certo: 15% a 60%*
+*16 níveis de XP por nível · chance de dar certo: 15% a 60% · sai em: só caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -215,7 +215,7 @@ Espada, machado, maça e lança.
 
 ### Divino
 
-*22 níveis de XP por nível · chance de dar certo: 10% a 45%*
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -228,7 +228,7 @@ Espada, machado, maça e lança.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -237,7 +237,7 @@ Espada, machado, maça e lança.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -247,7 +247,7 @@ Espada, machado, maça e lança.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -259,7 +259,7 @@ Espada, machado, maça e lança.
 
 ### Comum
 
-*3 níveis de XP por nível · chance de dar certo: sempre 100%*
+*3 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -272,7 +272,7 @@ Espada, machado, maça e lança.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -303,7 +303,7 @@ Espada, machado, maça e lança.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -334,7 +334,7 @@ Espada, machado, maça e lança.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -362,7 +362,7 @@ Espada, machado, maça e lança.
 
 ### Lendário
 
-*16 níveis de XP por nível · chance de dar certo: 15% a 60%*
+*16 níveis de XP por nível · chance de dar certo: 15% a 60% · sai em: só caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -376,7 +376,7 @@ Espada, machado, maça e lança.
 
 ### Divino
 
-*22 níveis de XP por nível · chance de dar certo: 10% a 45%*
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -391,7 +391,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Comum
 
-*3 níveis de XP por nível · chance de dar certo: sempre 100%*
+*3 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -404,7 +404,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -419,7 +419,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -434,7 +434,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -448,7 +448,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Divino
 
-*22 níveis de XP por nível · chance de dar certo: 10% a 45%*
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -461,7 +461,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Comum
 
-*3 níveis de XP por nível · chance de dar certo: sempre 100%*
+*3 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -470,7 +470,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Incomum
 
-*5 níveis de XP por nível · chance de dar certo: sempre 100%*
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -480,7 +480,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -489,7 +489,7 @@ Picareta, machado, pá, enxada, tesoura e itens com durabilidade.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -502,7 +502,7 @@ Vão na **Varinha Mágica**. Clique direito solta a magia; clique esquerdo troca
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -514,7 +514,7 @@ Vão na **Varinha Mágica**. Clique direito solta a magia; clique esquerdo troca
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -528,7 +528,7 @@ Vão na **Varinha Mágica**. Clique direito solta a magia; clique esquerdo troca
 
 ### Lendário
 
-*16 níveis de XP por nível · chance de dar certo: 15% a 60%*
+*16 níveis de XP por nível · chance de dar certo: 15% a 60% · sai em: só caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -536,7 +536,7 @@ Vão na **Varinha Mágica**. Clique direito solta a magia; clique esquerdo troca
 
 ### Divino
 
-*22 níveis de XP por nível · chance de dar certo: 10% a 45%*
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -551,7 +551,7 @@ Encantamentos ligados aos sistemas da Rede Astral.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -559,7 +559,7 @@ Encantamentos ligados aos sistemas da Rede Astral.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -576,7 +576,7 @@ Encantamentos do Abismo Sombrio. O efeito funciona junto com o Abismo.
 
 ### Raro
 
-*8 níveis de XP por nível · chance de dar certo: 40% a 90%*
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -585,7 +585,7 @@ Encantamentos do Abismo Sombrio. O efeito funciona junto com o Abismo.
 
 ### Épico
 
-*12 níveis de XP por nível · chance de dar certo: 25% a 75%*
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -599,7 +599,7 @@ Só servem na **Varinha Abissal** e na **Varinha Radioativa**.
 
 ### Lendário
 
-*16 níveis de XP por nível · chance de dar certo: 15% a 60%*
+*16 níveis de XP por nível · chance de dar certo: 15% a 60% · sai em: só caixas e missões*
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
@@ -628,7 +628,7 @@ Maldições vêm **junto** em livros de baús e da pesca. Cuidado: elas atrapalh
 
 O servidor tem **286 encantamentos novos** (276 + 10 maldições) além dos normais do Minecraft. A lista completa está no começo da página.
 
-Os livros saem na **mesa de encantamento**, no **bibliotecário**, em **baús**, na **pesca** e em caixas e missões.
+Os livros saem na **mesa de encantamento**, no **bibliotecário**, em **baús**, na **pesca**, em **caixas**, **missões** e **eventos**.
 
 Para colocar no item, **arraste o livro em cima dele** (não é mais na bigorna). Livros **Raro** ou mais têm **chance de falhar**.
 
@@ -642,7 +642,9 @@ Para ler o que um encantamento faz: `/encantamentos info <nome>` ou `/guiaencant
 
 - **Comum** e **Incomum**: mesa de encantamento, bibliotecário, baús e loja
 - **Raro**: baús e pesca (só alguns vendem na loja)
-- **Épico**, **Lendário** e **Divino**: só em caixas e missões (não vendem na loja)
+- **Épico**: baús, caixas e missões (não vende na loja)
+- **Lendário**: só em caixas e missões (não vende na loja)
+- **Divino**: só em caixas e eventos (não vende na loja)
 - **Maldição**: aparece junto em baús e pesca (cuidado!)
 
 ## Como encantar (arrastando)
