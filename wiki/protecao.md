@@ -4,7 +4,7 @@ Proteja sua casa com o **Núcleo de Proteção**: um escudo com cadeado que gira
 
 <!-- oculta -->
 <!-- capa: midia/protecao/nucleo-girando.png -->
-<!-- busca: protecao, proteção, terreno, claim, nucleo, núcleo, beacon, bloco de protecao, membros, confiar, bloquear, regras, flags, pvp, nivel, spawn, renascer, cp, prot -->
+<!-- busca: protecao, proteção, terreno, claim, nucleo, núcleo, beacon, bloco de protecao, membros, confiar, bloquear, regras, flags, pvp, nivel, spawn, renascer, cp, prot, qg, efeitos, voo, xp, expansao, expansão, beaconplus, matança, spawner -->
 
 ![O Núcleo de Proteção girando](midia/protecao/nucleo-girando.gif)
 
@@ -48,22 +48,52 @@ No menu → **Regras**, você liga ou desliga:
 
 As regras de visitante não valem para você nem para os seus membros.
 
-## Níveis
+## QG do Núcleo
 
-Menu → **Nível**. Cada nível aumenta a área:
+O Núcleo tem um **nível de QG** (do 1 ao 50). É o nível principal: ele libera os tamanhos da expansão e os níveis dos efeitos.
+
+- O Núcleo junta **XP** de tudo que você e seus membros fazem dentro da área: minerar, construir, colher, matar mobs (até os de spawner), encantar, craftar, tirar itens da fornalha, cruzar animais e pescar.
+- Menu → **QG**: gaste a XP para **subir o QG** ou **saque** como XP de verdade para você (2 pontos do Núcleo = 1 de XP).
+- Bloco que você mesmo colocou há pouco não dá XP de novo ao quebrar.
+
+## Expansão
+
+Menu → **Expansão**. Não custa dinheiro: cada tamanho pede um nível de QG.
 
 ![Tamanho de cada nível](midia/protecao/niveis.png)
 
-| Nível | Área | Preço |
+| Nível | Área | Precisa do |
 |---|---|---|
-| 1 | 31x31 | grátis |
-| 2 | 61x61 | $100.000 |
-| 3 | 91x91 | $250.000 |
-| 4 | 121x121 | $600.000 |
-| 5 | 131x131 | $1.500.000 |
-| 6 | 161x161 | $3.500.000 |
+| 1 | 31x31 | — |
+| 2 | 61x61 | QG 5 |
+| 3 | 91x91 | QG 12 |
+| 4 | 121x121 | QG 20 |
+| 5 | 131x131 | QG 30 |
+| 6 | 161x161 | QG 40 |
 
-Descer de nível devolve **metade** do preço do nível em que você está.
+Diminuir a área não devolve nada; para crescer de novo é só ter o QG.
+
+## Efeitos do Núcleo
+
+Menu → **Efeitos**. O dono compra cada nível com dinheiro, e cada nível pede um QG mínimo. Todo efeito liga e desliga sem perder o nível, e ao tirar o Núcleo o bloco guarda o QG, a XP e os efeitos.
+
+**Para você e os membros, dentro da área:**
+
+| Efeito | Níveis |
+|---|---|
+| Velocidade, Super Pulo, Força, Resistência, Mineração Rápida, Sorte | I a III |
+| Regeneração, Invisibilidade | I e II |
+| Voo (até 10/20/30/40 blocos acima do Núcleo) | I a IV |
+| Visão Noturna, Respiração na Água, Extintor (apaga o fogo) | I |
+| Cura (tira efeitos ruins), Saturação (enche a fome), Auto Reparo | I a III |
+| Redução de Recarga (pérola, escudo, maçã...) | I a III (até -75%) |
+| XP Extra | I a V (até x1,9) |
+
+**Contra monstros:** Veneno (menos nos mortos-vivos), Lentidão, Queimar Mortos-vivos e Brilho (contorno nos monstros e em quem não é membro).
+
+**Na área:** Gravidade (puxa monstros, itens ou animais para o Núcleo), Área Pacífica (monstros não atacam; no II nem nascem) e Alcance Extra (os efeitos vão até 20 blocos além da borda).
+
+**Produção:** Plantações Rápidas (I a VI), Fornalha Rápida (até 75%), Spawner Rápido (até 50%) e **Modo Matança**: mob que sai de spawner na área toma dano até morrer e dá XP para o Núcleo.
 
 ## Spawn e renascer
 
@@ -81,7 +111,9 @@ Descer de nível devolve **metade** do preço do nível em que você está.
 | `/protecao` | Abre o menu (o mesmo do clique no Núcleo) |
 | `/protecao confiar <nick>` / `desconfiar <nick>` | Adiciona / tira membro |
 | `/protecao bloquear <nick>` / `desbloquear <nick>` | Bloqueia / desbloqueia |
-| `/protecao melhorar` / `rebaixar` | Sobe / desce de nível |
+| `/protecao melhorar` / `rebaixar` | Aumenta / diminui a área (precisa do QG) |
+| `/protecao efeitos` | Efeitos do Núcleo |
+| `/protecao qg` | Nível do QG e XP do Núcleo |
 | `/protecao spawn` | Vai para o spawn da proteção |
 | `/protecao definirspawn` | Marca o spawn onde você está |
 | `/protecao ver` | Mostra / esconde a borda |
