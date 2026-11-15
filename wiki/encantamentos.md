@@ -1,7 +1,7 @@
 # Encantamentos
 <!-- capa: midia/img-4271.gif -->
 
-Todos os **286 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
+Todos os **289 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
 
 <!-- busca: astralencantamentos, encantos, enchants, encantar, lista de encantamentos, todos os encantamentos, custo de xp, maldição, maldicoes -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
@@ -603,8 +603,22 @@ Só servem na **Varinha Abissal** e na **Varinha Radioativa**.
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
-| **Alvo na Mira** | I a V | Varinha Mágica | Só na Varinha Radioativa: +1 a +5 mira(s) e +15 a +75% de dano nas miras. | 16 a 80 |
-| **Laser** | I a III | Varinha Mágica | Só na Varinha Abissal: os lasers dão +25 a +75% de dano. | 16 a 48 |
+| **Alvo na Mira** | I a V | Varinha Radioativa | +1 a +5 mira(s) e +15 a +75% de dano nas miras. | 16 a 80 |
+| **Laser** | I a III | Varinha Abissal | Os lasers dão +25 a +75% de dano. Continua no Laser IV e V (divinos). | 16 a 48 |
+
+### Divino
+
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
+
+| Encantamento | Níveis | Item | O que faz | XP |
+|---|---|---|---|---|
+| **Alvo Mortal** | I a III | Varinha Radioativa | +20 a +60% de dano nas miras e +1 a +3 miras **vermelhas** (batem 1,6x a 1,8x a verde). Cada mira tem 15 a 25% de chance de **irradiar** o alvo: jogador ganha radiação, mob ganha Murchar e Fraqueza. | 22 a 66 |
+| **Laser** | IV e V | Varinha Abissal | Continua o Laser: +100% e +125% de dano nos lasers. Só entra numa varinha com **Laser III** (III + IV = IV, IV + IV = V). | 88 a 110 |
+| **Laser Mortal** | I a III | Varinha Abissal | +20 a +60% de dano e lasers mais rápidos. Quando os lasers do chão acabam, **6 a 10 lasers** vêm de todos os lados no alvo. Segurando a varinha, almas giram em volta e dão 1 a 2 de dano por segundo em quem chega perto (sua guilda e seus pets não). | 22 a 66 |
+
+**Defesa da Varinha Abissal:** segurando a Varinha Abissal, os lasers da Varinha Abissal de outro jogador te dão **25% a 35% menos dano** (50% com o Traje Mágico completo).
+
+**Varinha Radioativa na mão:** você fica **imune à radiação**, inclusive à do Alvo Mortal.
 
 <!-- recolher -->
 ## Maldições
@@ -626,7 +640,7 @@ Maldições vêm **junto** em livros de baús e da pesca. Cuidado: elas atrapalh
 
 ## Como funciona
 
-O servidor tem **286 encantamentos novos** (276 + 10 maldições) além dos normais do Minecraft. A lista completa está no começo da página.
+O servidor tem **289 encantamentos novos** (279 + 10 maldições) além dos normais do Minecraft. A lista completa está no começo da página.
 
 Os livros saem na **mesa de encantamento**, no **bibliotecário**, em **baús**, na **pesca**, em **caixas**, **missões** e **eventos**.
 
