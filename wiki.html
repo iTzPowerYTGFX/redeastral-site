@@ -161,6 +161,16 @@ details.recolhe[open] .rb-m, details.recolhe:not([open]) .rb-e { display: none; 
 .prose details.recolhe[open] > summary { border-bottom: 1px solid var(--line); border-radius: 12px 12px 0 0; }
 .recolhe-corpo { padding: .25rem 1rem 1rem; }
 .recolhe-corpo > h3:first-child { margin-top: 1rem; }
+.prose .abas { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 .25rem; }
+.prose .aba { font: 700 .9375rem var(--f-body); padding: .5rem 1rem; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; }
+.prose .aba:hover { color: var(--ink); border-color: var(--violet-soft); }
+.prose .aba:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 2px; }
+.prose .aba small { font: 700 .75rem var(--f-body); padding: .05rem .4rem; border-radius: 999px; background: var(--sky-3); color: var(--ink-dim); }
+.prose .aba[aria-selected="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-ink); }
+.prose .aba[aria-selected="true"] small { background: rgba(0,0,0,.25); color: var(--violet-ink); }
+.prose .aba-painel > h3.aba-tit { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+.prose .aba-painel > h3.aba-tit + p { margin-top: .75rem; }
+@media (max-width: 600px) { .prose .abas { gap: .4rem; } .prose .aba { font-size: .875rem; padding: .45rem .7rem; } }
 /* tabelas de 4 colunas ou mais viram cartões no celular */
 @media (max-width: 600px) {
   .prose .t-pilha { border: 0; overflow: visible; }
@@ -896,7 +906,33 @@ function recolher(art, src) {
     const b = document.createElement("span"); b.className = "recolhe-bt"; b.setAttribute("aria-hidden", "true");
     b.innerHTML = `${qtd ? `<small>${qtd}</small>` : ""}<span class="rb-m">Mostrar</span><span class="rb-e">Esconder</span>`;
     sm.appendChild(b); d.append(sm, corpo);
+    abas(corpo);
   });
+}
+/* dentro de uma seção que abre e fecha: um botão por subtítulo ### (ex.: raridade), igual às abas de Como entrar */
+function abas(corpo) {
+  const hs = [...corpo.querySelectorAll(":scope > h3")];
+  if (hs.length < 2) return;
+  const bar = document.createElement("div"); bar.className = "abas"; bar.setAttribute("role", "tablist"); bar.setAttribute("aria-label", "Escolha");
+  const itens = hs.map((h, k) => {
+    const pn = document.createElement("div"); pn.className = "aba-painel"; pn.setAttribute("role", "tabpanel");
+    let n = h.nextElementSibling;
+    while (n && n.tagName !== "H3") { const prox = n.nextElementSibling; pn.appendChild(n); n = prox; }
+    const bt = document.createElement("button"); bt.type = "button"; bt.className = "aba"; bt.setAttribute("role", "tab");
+    const qtd = pn.querySelectorAll("tbody tr, :scope > ul > li").length;
+    bt.innerHTML = `${h.innerHTML}${qtd ? ` <small>${qtd}</small>` : ""}`;
+    h.replaceWith(pn); pn.prepend(h); h.classList.add("aba-tit");
+    return { bt, pn };
+  });
+  const sel = (it, foco) => { itens.forEach(x => { const on = x === it; x.bt.setAttribute("aria-selected", on); x.bt.tabIndex = on ? 0 : -1; x.pn.hidden = !on; }); if (foco) it.bt.focus(); };
+  itens.forEach((it, k) => {
+    bar.appendChild(it.bt);
+    it.bt.addEventListener("click", () => sel(it));
+    it.bt.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); sel(itens[(k + (e.key === "ArrowRight" ? 1 : -1) + itens.length) % itens.length], true); }
+    });
+  });
+  itens[0].pn.before(bar); sel(itens[0]);
 }
 function crumbHtml(p, extra = "", cls = "") {
   return `<nav class="crumb${cls}" aria-label="Você está em" data-parte="trilha"><a href="#"><span${rotAttr("trilha")}>${esc(rot("trilha"))}</span></a><span>›</span><span>${esc(p.cat)}</span>${extra}</nav>`;
