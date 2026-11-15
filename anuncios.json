@@ -28,6 +28,42 @@
       "titulo": "Nova Proteção de Terreno: Núcleo de Proteção 3D no Java e Bedrock",
       "link": "wiki.html#protecao",
       "ativo": true
+    },
+    {
+      "imagem": "midia/anuncios/empregos-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/empregos-anim-capa.webp",
+      "titulo": "Empregos (CLT): 12 empregos, salário em dinheiro, Moedas WH e Pet Coins, e tokens grátis",
+      "link": "wiki.html",
+      "ativo": true,
+      "video": "midia/anuncios/empregos-largo-anim.mp4",
+      "video_celular": "midia/anuncios/empregos-anim.mp4"
+    },
+    {
+      "imagem": "midia/anuncios/waifus-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/waifus-anim-capa.webp",
+      "titulo": "AstralWaifus: conquiste companheiras raríssimas com a Rosa Especial",
+      "link": "wiki.html#waifus",
+      "ativo": true,
+      "video": "midia/anuncios/waifus-largo-anim.mp4",
+      "video_celular": "midia/anuncios/waifus-anim.mp4"
+    },
+    {
+      "imagem": "midia/anuncios/captura-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/captura-anim-capa.webp",
+      "titulo": "AstralCapture: 6 orbes, raridades de Comum a Deus e até 3 pets ao seu lado",
+      "link": "wiki.html#captura",
+      "ativo": true,
+      "video": "midia/anuncios/captura-largo-anim.mp4",
+      "video_celular": "midia/anuncios/captura-anim.mp4"
+    },
+    {
+      "imagem": "midia/anuncios/fornalhas-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/fornalhas-anim-capa.webp",
+      "titulo": "AstralFornalhas: 7 níveis de Cobre a Netherite, até 40x mais rápida, com sockets",
+      "link": "wiki.html#fornalhas",
+      "ativo": true,
+      "video": "midia/anuncios/fornalhas-largo-anim.mp4",
+      "video_celular": "midia/anuncios/fornalhas-anim.mp4"
     }
   ]
 }
