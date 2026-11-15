@@ -144,7 +144,38 @@ mark { background: color-mix(in srgb, var(--violet) 45%, transparent); color: va
 .prose table { border-collapse: collapse; width: 100%; font-size: .9375rem; font-variant-numeric: tabular-nums; }
 .prose th, .prose td { text-align: left; padding: .625rem .875rem; border-bottom: 1px solid var(--line); vertical-align: top; }
 .prose tr:last-child td { border-bottom: 0; }
+.prose .t-pilha td.curta { white-space: nowrap; }
 .prose th { background: var(--sky-2); font-size: .8125rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-dim); }
+/* seções que abrem e fecham (<!-- recolher -->) */
+.prose details.recolhe { margin: 1rem 0 0; border: 1px solid var(--line); border-radius: 12px; background: var(--sky-2); }
+.prose details.recolhe + details.recolhe { margin-top: .625rem; }
+.prose details.recolhe > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: .75rem; padding: .875rem 1rem; border-radius: 12px; }
+.prose details.recolhe > summary::-webkit-details-marker { display: none; }
+.prose details.recolhe > summary:hover { background: var(--sky-3); }
+.prose details.recolhe > summary:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 2px; }
+.prose details.recolhe > summary > h2 { flex: 1; min-width: 0; margin: 0; padding: 0; border: 0; font-size: 1.25rem; }
+.recolhe-bt { flex: none; display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .75rem; border-radius: 999px; background: var(--violet); color: var(--violet-ink); font: 700 .8125rem var(--f-body); }
+.recolhe-bt small { font: 700 .75rem var(--f-body); padding: .05rem .45rem; border-radius: 999px; background: rgba(0,0,0,.25); }
+.recolhe-bt .rb-m::after { content: " ▾"; } .recolhe-bt .rb-e::after { content: " ▴"; }
+details.recolhe[open] .rb-m, details.recolhe:not([open]) .rb-e { display: none; }
+.prose details.recolhe[open] > summary { border-bottom: 1px solid var(--line); border-radius: 12px 12px 0 0; }
+.recolhe-corpo { padding: .25rem 1rem 1rem; }
+.recolhe-corpo > h3:first-child { margin-top: 1rem; }
+/* tabelas de 4 colunas ou mais viram cartões no celular */
+@media (max-width: 600px) {
+  .prose .t-pilha { border: 0; overflow: visible; }
+  .prose .t-pilha table, .prose .t-pilha tbody, .prose .t-pilha tr, .prose .t-pilha td { display: block; width: 100%; box-sizing: border-box; }
+  .prose .t-pilha thead { display: none; }
+  .prose .t-pilha tr { display: flex; flex-wrap: wrap; column-gap: 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: var(--sky); margin-bottom: .625rem; padding: .5rem .875rem; }
+  .prose .t-pilha td { flex: 1 1 100%; border: 0; padding: .2rem 0; }
+  .prose .t-pilha td { order: 2; }
+  .prose .t-pilha td:first-child { order: 0; }
+  .prose .t-pilha td.curta { flex: 0 1 auto; width: auto; order: 1; }
+  .prose .t-pilha td::before { content: attr(data-label); display: block; font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-dim); }
+  .prose .t-pilha td:first-child { font-size: 1.0625rem; }
+  .prose .t-pilha td:first-child::before { display: none; }
+  .prose .t-pilha td:empty { display: none; }
+}
 .callout { margin: 0 0 1.25rem; padding: .875rem 1rem; border-radius: 8px; background: var(--sky-2); border: 1px solid var(--line); border-left: 4px solid var(--violet); }
 .callout.tip { border-left-color: var(--teal); }
 .callout.warn { border-left-color: var(--amber); }
@@ -704,7 +735,8 @@ function md(src, nested, base = 0) {
       const row = r => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
       const head = row(l), t0 = i, tsz = size; i += 2; const rows = [];
       while (i < lines.length && lines[i].includes("|") && lines[i].trim()) { rows.push(row(lines[i])); i++; }
-      html += `<div class="table"${at(t0, "text", tsz, t0, i)}${zoom(tsz)}><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      const lab = head.map(c => esc(plain(c)).replace(/"/g, "&quot;"));
+      html += `<div class="table${head.length >= 4 ? " t-pilha" : ""}"${at(t0, "text", tsz, t0, i)}${zoom(tsz)}><table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${head.map((_, k) => `<td data-label="${lab[k]}"${k && plain(r[k] || "").length <= 12 ? ' class="curta"' : ""}>${inline(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       continue;
     }
     const buf = [raw], p0 = i; let last = i; i++;
@@ -836,6 +868,7 @@ function showPage(p) {
     ${aviso}<article class="prose">${body}</article>
     ${pagerHtml(p)}`;
   $("#wiki-ajuda").hidden = false;
+  recolher(view.querySelector(".prose"), p.md || "");
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada")
     view.querySelectorAll("video[loop]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
@@ -846,6 +879,23 @@ function showPage(p) {
       f.textContent = "Imagem não encontrada: " + img.getAttribute("src") + ". Confira o nome do arquivo na pasta wiki/midia.";
       (img.closest("figure") || img).replaceWith(f);
     }, { once: true });
+  });
+}
+/* <!-- recolher --> logo acima de um "## Título": a seção vira um bloco com botão Mostrar/Esconder (só na página pública) */
+function recolher(art, src) {
+  if (!art || !/<!--\s*recolher\s*-->/i.test(src)) return;
+  const L = src.replace(/\r/g, "").split("\n"), marca = new Set();
+  L.forEach((l, k) => { if (/^\s*<!--\s*recolher\s*-->\s*$/i.test(l)) { let j = k + 1; while (j < L.length && !L[j].trim()) j++; marca.add(j); } });
+  [...art.querySelectorAll(":scope > h2[data-line]")].filter(h => marca.has(+h.dataset.line)).forEach(h => {
+    const d = document.createElement("details"), sm = document.createElement("summary"), corpo = document.createElement("div");
+    d.className = "recolhe"; corpo.className = "recolhe-corpo";
+    let n = h.nextElementSibling;
+    while (n && !/^H[12]$/.test(n.tagName) && !n.classList.contains("divisor")) { const prox = n.nextElementSibling; corpo.appendChild(n); n = prox; }
+    const qtd = corpo.querySelectorAll("tbody tr, :scope > ul > li").length;
+    h.replaceWith(d); sm.appendChild(h);
+    const b = document.createElement("span"); b.className = "recolhe-bt"; b.setAttribute("aria-hidden", "true");
+    b.innerHTML = `${qtd ? `<small>${qtd}</small>` : ""}<span class="rb-m">Mostrar</span><span class="rb-e">Esconder</span>`;
+    sm.appendChild(b); d.append(sm, corpo);
   });
 }
 function crumbHtml(p, extra = "", cls = "") {
