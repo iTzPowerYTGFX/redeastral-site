@@ -60,6 +60,8 @@ Capacete, colete, calça e botas com camuflagem, no nível do **Netherite Vermel
 
 A arma também **recarrega sozinha** quando o pente acaba. A barra em cima da hotbar mostra as balas no pente, o máximo e a reserva que você tem no inventário.
 
+> **Armas desativadas:** em eventos ou manutenção, a staff pode desativar as armas. Aí, ao tentar atirar, aparece **"As armas estão desativadas pelo administrador"**, e a Bancada de Armeiro também pode ficar bloqueada, com o aviso **"A montagem de armas está desativada pelo administrador"**. É só esperar a staff ativar de novo.
+
 ## Munição
 
 ![Os 6 tipos de munição](midia/armas/municao.png)
