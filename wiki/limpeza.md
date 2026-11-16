@@ -34,4 +34,8 @@ Cada chunk tem um limite de mobs (as pilhas, pets, waifus, NPCs e mobs com nome 
 
 ## Itens no chão
 
-Itens iguais no chão se juntam numa pilha só, com o nome e a quantidade em cima (ex.: **Diamante x64**).
+Itens iguais no chão se juntam numa pilha só, com o nome e a quantidade em cima, e **passam de 64** (ex.: **Diamante x350**, até 5.000 num item só).
+
+- Ao pegar, você recebe o que cabe no inventário. O resto continua no chão.
+- Funil puxa uma pilha de cada vez.
+- Na limpeza, a pilha **inteira** vai para a `/lixeira`.
