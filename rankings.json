@@ -1,12 +1,12 @@
 {
-  "atualizado": "2026-11-16T09:23:40Z",
+  "atualizado": "2026-11-16T09:53:40Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 19470},
       {"nome": "TagaYato_", "valor": 17274},
-      {"nome": "_MitKan22", "valor": 15848},
+      {"nome": "_MitKan22", "valor": 15858},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_Flos7304", "valor": 7690},
       {"nome": "_M_na_voz", "valor": 6963},
@@ -19,7 +19,7 @@
       {"nome": "DullLucasdeolro", "valor": 6463},
       {"nome": "_Flos7304", "valor": 6305},
       {"nome": "TagaYato_", "valor": 5345},
-      {"nome": "_MitKan22", "valor": 4784},
+      {"nome": "_MitKan22", "valor": 4794},
       {"nome": "_Jpzin001", "valor": 2042},
       {"nome": "_M_na_voz", "valor": 1416},
       {"nome": "_Maya06908", "valor": 892},
