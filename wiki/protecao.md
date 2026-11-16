@@ -17,7 +17,8 @@ Proteja sua casa com o **Núcleo de Proteção**: um escudo com cadeado que gira
 - A área é um quadrado em volta do Núcleo, **do fundo do mundo até o céu**.
 - Cada jogador tem **1 proteção**, e ela não pode encostar na de outro jogador.
 - O Núcleo não quebra. Clique com o **botão direito** nele (ou use `/protecao`) para abrir o menu.
-- Para tirar: menu → **Remover proteção**. O bloco volta para você no mesmo nível.
+- Para tirar: menu → **Remover proteção**. O bloco volta para você no mesmo nível. Precisa ter **um espaço livre no inventário**; com o inventário cheio, não deixa recolher.
+- O Bloco de Proteção **fica sempre com você**: não pode ser largado, não cai ao morrer e não entra em baú, shulker, cofre, mochila, pacote nem moldura.
 
 ![O escudo com cadeado gira e flutua, o anel gira ao contrário e as runas ficam em volta](midia/protecao/nucleo-quadros.png)
 
@@ -55,6 +56,7 @@ O Núcleo tem um **nível de QG** (do 1 ao 50). É o nível principal: ele liber
 - O Núcleo junta **XP** de tudo que você e seus membros fazem dentro da área: minerar, construir, colher, matar mobs (até os de spawner), encantar, craftar, tirar itens da fornalha, cruzar animais e pescar.
 - Menu → **QG**: gaste a XP para **subir o QG** ou **saque** como XP de verdade para você (2 pontos do Núcleo = 1 de XP).
 - Bloco que você mesmo colocou há pouco não dá XP de novo ao quebrar.
+- O QG também decide **quantos spawners** você junta numa pilha (veja a página **Spawners**).
 
 ## Expansão
 
@@ -75,7 +77,7 @@ Diminuir a área não devolve nada; para crescer de novo é só ter o QG.
 
 ## Efeitos do Núcleo
 
-Menu → **Efeitos**. O dono compra cada nível com dinheiro, e cada nível pede um QG mínimo. Todo efeito liga e desliga sem perder o nível, e ao tirar o Núcleo o bloco guarda o QG, a XP e os efeitos.
+Menu → **Efeitos**. O menu tem abas: **Jogador**, **Monstros**, **Área** e **Produção**. Cada efeito mostra uma barra de nível, e os que estão ligados brilham. O dono compra cada nível com dinheiro, e cada nível pede um QG mínimo. Todo efeito liga e desliga sem perder o nível, e ao tirar o Núcleo o bloco guarda o QG, a XP e os efeitos.
 
 **Para você e os membros, dentro da área:**
 
