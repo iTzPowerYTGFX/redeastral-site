@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-11-16T18:54:07Z",
+  "atualizado": "2026-11-16T19:24:07Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 19470},
-      {"nome": "TagaYato_", "valor": 17303},
-      {"nome": "_MitKan22", "valor": 16049},
-      {"nome": "_Flos7304", "valor": 8003},
+      {"nome": "TagaYato_", "valor": 17333},
+      {"nome": "_MitKan22", "valor": 16074},
+      {"nome": "_Flos7304", "valor": 8033},
       {"nome": "_Heisenberg22194", "valor": 7786},
       {"nome": "_M_na_voz", "valor": 6963},
       {"nome": "Shen_Kaizhang", "valor": 3974},
@@ -16,10 +16,10 @@
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 6618},
+      {"nome": "_Flos7304", "valor": 6648},
       {"nome": "DullLucasdeolro", "valor": 6463},
-      {"nome": "TagaYato_", "valor": 5374},
-      {"nome": "_MitKan22", "valor": 4985},
+      {"nome": "TagaYato_", "valor": 5404},
+      {"nome": "_MitKan22", "valor": 5010},
       {"nome": "_Jpzin001", "valor": 2094},
       {"nome": "_M_na_voz", "valor": 1416},
       {"nome": "_Maya06908", "valor": 892},
@@ -37,9 +37,9 @@
       {"nome": "_Kroven_1611", "valor": 1155519.10},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
-      {"nome": "TagaYato_", "valor": 783510.12},
+      {"nome": "TagaYato_", "valor": 789703.87},
       {"nome": "_Jpzin001", "valor": 601301.66},
-      {"nome": "_MitKan22", "valor": 492794.16}
+      {"nome": "_MitKan22", "valor": 494945.11}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 15002822.46},
@@ -190,7 +190,7 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 400},
       {"nome": "_Jpzin001", "valor": 300},
-      {"nome": "TagaYato_", "valor": 228},
+      {"nome": "TagaYato_", "valor": 229},
       {"nome": "_MitKan22", "valor": 200},
       {"nome": "_Flos7304", "valor": 100},
       {"nome": "_Heisenberg22194", "valor": 100},
@@ -204,7 +204,7 @@
       {"nome": "_Flos7304", "valor": 100},
       {"nome": "DullLucasdeolro", "valor": 100},
       {"nome": "_Kroven_1611", "valor": 79},
-      {"nome": "TagaYato_", "valor": 28},
+      {"nome": "TagaYato_", "valor": 29},
       {"nome": "_Sayko_ax", "valor": 19},
       {"nome": "_Foxyismyname553", "valor": 12},
       {"nome": "_Maya06908", "valor": 10},
@@ -409,7 +409,7 @@
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 519090},
-      {"nome": "TagaYato_", "valor": 198106},
+      {"nome": "TagaYato_", "valor": 198242},
       {"nome": "_Jpzin001", "valor": 72061},
       {"nome": "_MitKan22", "valor": 41417},
       {"nome": "_Heisenberg22194", "valor": 33167},
@@ -421,7 +421,7 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 359356},
-      {"nome": "TagaYato_", "valor": 147233},
+      {"nome": "TagaYato_", "valor": 147369},
       {"nome": "_Jpzin001", "valor": 66461},
       {"nome": "_MitKan22", "valor": 19761},
       {"nome": "_Kroven_1611", "valor": 10221},
