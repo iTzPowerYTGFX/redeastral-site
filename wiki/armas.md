@@ -23,7 +23,7 @@ Craft na mesa de trabalho: **ferro** em volta, **bigorna** em cima e **mesa de f
 | Ferro | Mesa de ferraria | Ferro |
 | Ferro | Ferro | Ferro |
 
-Coloque no chão e clique com o direito. Para montar uma arma você precisa da **Planta Azul** daquela arma (ela é gasta) e das peças:
+Coloque no chão. Para montar uma arma, clique na bancada **segurando a Planta Azul**: ela fica em cima da mesa. Depois clique de novo na bancada e escolha a arma (a planta é gasta). Para tirar a planta da mesa: **agachado + clique com a mão vazia**. Peças de cada tipo de arma:
 
 | Tipo | Peças |
 |---|---|
