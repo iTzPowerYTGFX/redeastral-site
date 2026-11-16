@@ -3,16 +3,58 @@
 28 armas com **modelo 3D** (no Java e no Bedrock): pistolas, submetralhadoras, fuzis, metralhadoras, escopetas e snipers. Cada uma usa um tipo de munição e pode ganhar encantamentos próprios.
 
 <!-- capa: midia/armas/capa.png -->
-<!-- busca: armas, arma, guns, tiro, atirar, munição, municao, bala, pistola, fuzil, sniper, escopeta, metralhadora, minigun, railgun, ak, awp, municao maxima, tiro preciso, recarregar, mira -->
+<!-- busca: armas, arma, supply drop, drop, paraquedas, bancada de armeiro, armeiro, planta azul, peças, pecas, traje militar, kevlar, guns, tiro, atirar, munição, municao, bala, pistola, fuzil, sniper, escopeta, metralhadora, minigun, railgun, ak, awp, municao maxima, tiro preciso, recarregar, mira -->
 
-> Por enquanto as armas só vêm de **eventos e prêmios da staff**. Em breve: **Bancada de Armeiro**.
+> Para ter uma arma: monte na **Bancada de Armeiro** com a **Planta Azul** e as peças, ou tenha muita sorte num **Supply Drop**.
+
+## Supply Drop
+
+De tempo em tempo (30 a 60 min) uma caixa militar **cai do céu de paraquedas** perto de um jogador, e o chat avisa as coordenadas. A caixa solta fumaça para ser achada e **quem abrir primeiro leva**.
+
+Dentro vem munição, comida, materiais, **peças de arma**, às vezes **Plantas Azuis** e partes do **Traje Militar**. Muito raramente vem uma **arma pronta**. A caixa some depois de 10 minutos ou quando esvazia.
+
+## Bancada de Armeiro
+
+Craft na mesa de trabalho: **ferro** em volta, **bigorna** em cima e **mesa de ferraria** no meio.
+
+| | | |
+|---|---|---|
+| Ferro | Bigorna | Ferro |
+| Ferro | Mesa de ferraria | Ferro |
+| Ferro | Ferro | Ferro |
+
+Coloque no chão e clique com o direito. Para montar uma arma você precisa da **Planta Azul** daquela arma (ela é gasta) e das peças:
+
+| Tipo | Peças |
+|---|---|
+| Pistola | Cano Curto, Mecanismo, Gatilho, Mola |
+| Submetralhadora | Cano Curto, Mecanismo, Gatilho, Mola, Carregador |
+| Fuzil | Cano Longo, 2 Mecanismos, Gatilho, Coronha, Carregador |
+| Metralhadora | 2 Canos Longos, 3 Mecanismos, Gatilho, Coronha, 2 Carregadores |
+| Escopeta | Cano Longo, Mecanismo, Gatilho, Coronha, 2 Molas |
+| Sniper | Cano de Precisão, 2 Mecanismos, Gatilho, Coronha, Luneta |
+
+Algumas armas fortes (Desert Eagle, SCAR, Minigun, M107, Railgun, AA-12) pedem peças a mais. A bancada mostra o que falta em cada uma.
+
+Peças e plantas vêm do **Supply Drop** e dos **baús de estrutura**.
+
+## Traje Militar
+
+Capacete, colete, calça e botas com camuflagem, no nível do **Netherite Vermelho**. Monte na Bancada de Armeiro com **Placas de Kevlar** e **Tecido Militar**, ou ache pronto no Supply Drop (raro).
+
+| Parte | Kevlar | Tecido |
+|---|---|---|
+| Capacete | 5 | 3 |
+| Colete | 8 | 5 |
+| Calça | 7 | 4 |
+| Botas | 4 | 2 |
 
 ## Como atirar
 
 | | Java | Bedrock |
 |---|---|---|
 | Atirar | Clique **direito** (segure nas automáticas) | **Toque** / clique (nas automáticas cada toque solta uma rajada) |
-| Mirar | **Agachar** (mais precisão; snipers dão zoom) | **Agachar** |
+| Mirar | **Agachar** (mais precisão; snipers dão zoom) | **Agachar** (a arma vai para o centro da tela) |
 | Recarregar | **Q** ou **F** | **Agachar 2x rápido** |
 | Largar a arma | Agachado + **Q** | Normal |
 

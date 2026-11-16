@@ -3,6 +3,15 @@
   "segundos": 7,
   "slides": [
     {
+      "imagem": "midia/anuncios/armas-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/armas-anim-capa.webp",
+      "titulo": "Armas de Fogo: supply drops do céu, Planta Azul, peças e Bancada de Armeiro",
+      "link": "wiki.html#armas",
+      "ativo": true,
+      "video": "midia/anuncios/armas-largo-anim.mp4",
+      "video_celular": "midia/anuncios/armas-anim.mp4"
+    },
+    {
       "imagem": "midia/anuncios/stellarity-largo-anim-capa.webp",
       "imagem_celular": "midia/anuncios/stellarity-anim-capa.webp",
       "titulo": "Stellarity: Imperatriz da Luz, livros mágicos e mais de 100 itens novos no End",
