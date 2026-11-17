@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-11-17T19:21:23Z",
+  "atualizado": "2026-11-17T19:51:23Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 20030},
       {"nome": "TagaYato_", "valor": 18055},
-      {"nome": "_MitKan22", "valor": 16588},
-      {"nome": "_Flos7304", "valor": 8865},
+      {"nome": "_MitKan22", "valor": 16618},
+      {"nome": "_Flos7304", "valor": 8895},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7069},
       {"nome": "_Jpzin001", "valor": 3983},
@@ -16,10 +16,10 @@
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 7480},
+      {"nome": "_Flos7304", "valor": 7510},
       {"nome": "DullLucasdeolro", "valor": 7023},
       {"nome": "TagaYato_", "valor": 6126},
-      {"nome": "_MitKan22", "valor": 5524},
+      {"nome": "_MitKan22", "valor": 5554},
       {"nome": "_Jpzin001", "valor": 2740},
       {"nome": "_M_na_voz", "valor": 1522},
       {"nome": "_Maya06908", "valor": 892},
@@ -36,7 +36,7 @@
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
       {"nome": "TagaYato_", "valor": 1977423.05},
-      {"nome": "_MitKan22", "valor": 1241322.98},
+      {"nome": "_MitKan22", "valor": 1324192.98},
       {"nome": "_Kroven_1611", "valor": 1155519.10},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68}
@@ -149,7 +149,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-agricultura", "titulo": "Agricultura", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "_MitKan22", "valor": 130},
+      {"nome": "_MitKan22", "valor": 132},
       {"nome": "DullLucasdeolro", "valor": 74},
       {"nome": "TagaYato_", "valor": 41},
       {"nome": "_Kroven_1611", "valor": 20},
@@ -161,7 +161,7 @@
       {"nome": "_Sayko_ax", "valor": 1}
      ],
      "mes": [
-      {"nome": "_MitKan22", "valor": 125},
+      {"nome": "_MitKan22", "valor": 127},
       {"nome": "DullLucasdeolro", "valor": 26},
       {"nome": "_Kroven_1611", "valor": 12},
       {"nome": "TagaYato_", "valor": 12},
