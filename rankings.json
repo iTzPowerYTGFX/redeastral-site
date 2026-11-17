@@ -1,12 +1,12 @@
 {
-  "atualizado": "2026-11-17T10:39:27Z",
+  "atualizado": "2026-11-17T11:09:42Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 20030},
       {"nome": "TagaYato_", "valor": 17999},
-      {"nome": "_MitKan22", "valor": 16498},
+      {"nome": "_MitKan22", "valor": 16527},
       {"nome": "_Flos7304", "valor": 8431},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7069},
@@ -19,7 +19,7 @@
       {"nome": "_Flos7304", "valor": 7046},
       {"nome": "DullLucasdeolro", "valor": 7023},
       {"nome": "TagaYato_", "valor": 6070},
-      {"nome": "_MitKan22", "valor": 5434},
+      {"nome": "_MitKan22", "valor": 5463},
       {"nome": "_Jpzin001", "valor": 2555},
       {"nome": "_M_na_voz", "valor": 1522},
       {"nome": "_Maya06908", "valor": 892},
@@ -149,7 +149,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-agricultura", "titulo": "Agricultura", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "_MitKan22", "valor": 114},
+      {"nome": "_MitKan22", "valor": 117},
       {"nome": "DullLucasdeolro", "valor": 74},
       {"nome": "TagaYato_", "valor": 39},
       {"nome": "_Kroven_1611", "valor": 20},
@@ -161,7 +161,7 @@
       {"nome": "_Sayko_ax", "valor": 1}
      ],
      "mes": [
-      {"nome": "_MitKan22", "valor": 109},
+      {"nome": "_MitKan22", "valor": 112},
       {"nome": "DullLucasdeolro", "valor": 26},
       {"nome": "_Kroven_1611", "valor": 12},
       {"nome": "TagaYato_", "valor": 10},
