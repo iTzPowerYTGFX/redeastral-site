@@ -3,6 +3,15 @@
   "segundos": 7,
   "slides": [
     {
+      "imagem": "midia/anuncios/lucky-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/lucky-anim-capa.webp",
+      "titulo": "Lucky Blocks: 11 tipos, prêmios de todo o servidor, varinhas e Míticos falsos",
+      "link": "wiki.html",
+      "ativo": true,
+      "video": "midia/anuncios/lucky-largo-anim.mp4",
+      "video_celular": "midia/anuncios/lucky-anim.mp4"
+    },
+    {
       "imagem": "midia/anuncios/armas-largo-anim-capa.webp",
       "imagem_celular": "midia/anuncios/armas-anim-capa.webp",
       "titulo": "Armas de Fogo: supply drops do céu, Planta Azul, peças e Bancada de Armeiro",
