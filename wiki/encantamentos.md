@@ -299,7 +299,6 @@ Espada, machado, maça e lança.
 | **Ricochete** | I | Botas | Quica no chão como se fosse um bloco de slime. | 5 |
 | **Saciedade** | I a II | Capacete | Recupera 1 a 2 de fome a cada 15s. | 5 a 10 |
 | **Velocidade** | I a II | Botas | Velocidade 1 a 2 enquanto vestido. | 5 a 10 |
-| **Âncora** | I | Escudo | Bloqueando com o escudo você não é empurrado. | 5 |
 
 ### Raro
 
@@ -319,7 +318,6 @@ Espada, machado, maça e lança.
 | **Fôlego Arcano** | I a III | Calça | Correndo, recupera 1 a 3 de mana (AstralSkills) a cada 2s. | 8 a 24 |
 | **Fúria** | I a III | Peitoral | Com menos de 35% de vida, ganha Força 1 a 3 por 6 a 10s (recarga 30s). | 8 a 24 |
 | **Horda** | I a III | Calça | 5 a 9% de chance de invocar 1 a 3 lobo(s) que atacam quem te bateu (recarga 45s). | 8 a 24 |
-| **Juramento do Baluarte** | I a II | Escudo | Bloquear com o escudo dá Resistência a você e à sua guilda a 6 a 8 blocos por 4s. Recarga 6s. | 8 a 16 |
 | **Kamikaze** | I a III | Peitoral, Élitro | 3 a 9% de chance de explodir quando você morrer. | 8 a 24 |
 | **Metafísico** | I | Botas | Imune a Lentidão. | 8 |
 | **Pesado** | I a III | Peitoral, Calça | +0,1 a +0,3 de resistência a repulsão, mas -3 a -9% de velocidade. **Não junta com:** Leve. | 8 a 24 |
@@ -327,7 +325,6 @@ Espada, machado, maça e lança.
 | **Pressentimento** | I a IV | Capacete | -5 a -20% de dano de flechas e projéteis. | 8 a 32 |
 | **Rebrotar** | I a IV | Peitoral, Élitro | Cura 0,25 a 1❤ a cada 10s. | 8 a 32 |
 | **Repulsão** | I a III | Peitoral, Calça | 10 a 18% de chance de jogar longe quem te bater (recarga 6s). | 8 a 24 |
-| **Retaliação** | I a III | Escudo | 25 a 45% de chance de devolver 15 a 45% do golpe bloqueado e empurrar o atacante. **Não junta com:** Reflexo Divino. | 8 a 24 |
 | **Serpe** | I a III | Élitro | +10 a +30% de dano corpo a corpo enquanto voa de elytra. | 8 a 24 |
 | **Sobretudo** | I a IV | Peitoral | -15 a -60% de dano bobo: queda, afogar, sufocar, congelar, cacto, esmagar, bater na parede e fome. | 8 a 32 |
 | **Sumir** | I a III | Capacete | 6 a 10% de chance de ficar invisível por 3 a 5s ao apanhar (recarga 30s). | 8 a 24 |
@@ -355,7 +352,6 @@ Espada, machado, maça e lança.
 | **Pacto de Morte** | I a III | Armadura (todas as peças) | -1 a -3% de dano recebido para cada 10% de vida que falta (por peça), mas você bate 1 a 3% mais fraco. | 12 a 36 |
 | **Portador da Morte** | I a III | Peitoral | 3 a 5% de chance de dar o dobro de dano ao bater. | 12 a 36 |
 | **Pulo Duplo** | I a III | Botas | Aperte pular de novo no ar para dar um segundo pulo (recarga 3 a 1s). **Não junta com:** Jetpack. | 12 a 36 |
-| **Robusto** | I | Escudo | Com o escudo na mão: Resistência I. | 12 |
 | **Tecelagem Arcana** | I a IV | Armadura (todas as peças) | -3 a -12% de dano das magias de Varinha (soma entre as peças). | 12 a 48 |
 | **Trapaceiro** | I a III | Calça | 5 a 9% de chance de aparecer nas costas de quem te bateu (recarga 15s). | 12 a 36 |
 | **Valor** | I a V | Armadura (todas as peças) | Segurando espada, machado, maça ou lança: -1 a -5% de dano por peça. | 12 a 60 |
@@ -383,6 +379,44 @@ Espada, machado, maça e lança.
 | **Fênix** | I a III | Peitoral | Um golpe que ia te matar é anulado e você volta com 4 a 8❤ (recarga 480 a 240s). | 22 a 66 |
 | **Indestrutível** | I | Qualquer item com durabilidade, Varinha Mágica | O item nunca perde durabilidade (ferramentas, armas, armaduras e Varinha Mágica). Não vai em item com Inquebrável ou Remendo. **Não junta com:** Autorreparo, Inquebrável, Remendo. | 22 |
 | **Jetpack** | I a III | Peitoral | Agache no ar para voar para cima por até 2 a 4s (recarrega no chão). **Não junta com:** Pulo Duplo. | 22 a 66 |
+
+<!-- recolher -->
+## Escudo
+
+Encantamentos que vão no escudo. Os de bloqueio funcionam com o escudo levantado. Os que servem em qualquer item com durabilidade (Indestrutível, Autorreparo, Inquebrável e Remendo) também vão no escudo.
+
+### Incomum
+
+*5 níveis de XP por nível · chance de dar certo: sempre 100% · sai em: mesa de encantamento, bibliotecário, baús e loja*
+
+| Encantamento | Níveis | Item | O que faz | XP |
+|---|---|---|---|---|
+| **Âncora** | I | Escudo | Bloqueando com o escudo você não é empurrado. | 5 |
+
+### Raro
+
+*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
+
+| Encantamento | Níveis | Item | O que faz | XP |
+|---|---|---|---|---|
+| **Espelho** | I a III | Escudo | Flechas e projéteis bloqueados devolvem 30 a 90% do dano para quem atirou. | 8 a 24 |
+| **Juramento do Baluarte** | I a II | Escudo | Bloquear com o escudo dá Resistência a você e à sua guilda a 6 a 8 blocos por 4s. Recarga 6s. | 8 a 16 |
+| **Retaliação** | I a III | Escudo | 25 a 45% de chance de devolver 15 a 45% do golpe bloqueado e empurrar o atacante. **Não junta com:** Reflexo Divino. | 8 a 24 |
+
+### Épico
+
+*12 níveis de XP por nível · chance de dar certo: 25% a 75% · sai em: baús, caixas e missões*
+
+| Encantamento | Níveis | Item | O que faz | XP |
+|---|---|---|---|---|
+| **Robusto** | I | Escudo | Com o escudo na mão: Resistência I. | 12 |
+
+### Divino
+
+*22 níveis de XP por nível · chance de dar certo: 10% a 45% · sai em: só caixas e eventos*
+
+| Encantamento | Níveis | Item | O que faz | XP |
+|---|---|---|---|---|
 | **Reflexo Divino** | I | Escudo | Com o escudo levantado, todo o dano do golpe volta para quem bateu. O escudo gasta 3 de durabilidade a mais (com Indestrutível não gasta). Juntar com Indestrutível no mesmo escudo custa de 150 a 260 níveis de XP no total. **Não junta com:** Retaliação. | 22 |
 
 <!-- recolher -->
@@ -546,17 +580,9 @@ Vão na **Varinha Mágica**. Clique direito solta a magia; clique esquerdo troca
 | **Supernova** | I a III | Varinha Mágica | Explode energia em volta de você: 5 a 9❤ e empurra todos a 5 a 7 blocos. Mana 45 a 55, recarga 25 a 15s. | 22 a 66 |
 
 <!-- recolher -->
-## Pets, guildas, saque, escudo e maça
+## Pets, guildas, saque e maça
 
 Encantamentos ligados aos sistemas da Rede Astral.
-
-### Raro
-
-*8 níveis de XP por nível · chance de dar certo: 40% a 90% · sai em: baús e pesca*
-
-| Encantamento | Níveis | Item | O que faz | XP |
-|---|---|---|---|---|
-| **Espelho** | I a III | Escudo | Flechas e projéteis bloqueados devolvem 30 a 90% do dano para quem atirou. | 8 a 24 |
 
 ### Épico
 
