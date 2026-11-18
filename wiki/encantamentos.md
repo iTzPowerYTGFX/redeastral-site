@@ -1,7 +1,7 @@
 # Encantamentos
 <!-- capa: midia/img-4271.gif -->
 
-Todos os **289 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
+Todos os **290 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
 
 <!-- busca: astralencantamentos, encantos, enchants, encantar, lista de encantamentos, todos os encantamentos, custo de xp, maldição, maldicoes -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
@@ -327,7 +327,7 @@ Espada, machado, maça e lança.
 | **Pressentimento** | I a IV | Capacete | -5 a -20% de dano de flechas e projéteis. | 8 a 32 |
 | **Rebrotar** | I a IV | Peitoral, Élitro | Cura 0,25 a 1❤ a cada 10s. | 8 a 32 |
 | **Repulsão** | I a III | Peitoral, Calça | 10 a 18% de chance de jogar longe quem te bater (recarga 6s). | 8 a 24 |
-| **Retaliação** | I a III | Escudo | 25 a 45% de chance de devolver 15 a 45% do golpe bloqueado e empurrar o atacante. | 8 a 24 |
+| **Retaliação** | I a III | Escudo | 25 a 45% de chance de devolver 15 a 45% do golpe bloqueado e empurrar o atacante. **Não junta com:** Reflexo Divino. | 8 a 24 |
 | **Serpe** | I a III | Élitro | +10 a +30% de dano corpo a corpo enquanto voa de elytra. | 8 a 24 |
 | **Sobretudo** | I a IV | Peitoral | -15 a -60% de dano bobo: queda, afogar, sufocar, congelar, cacto, esmagar, bater na parede e fome. | 8 a 32 |
 | **Sumir** | I a III | Capacete | 6 a 10% de chance de ficar invisível por 3 a 5s ao apanhar (recarga 30s). | 8 a 24 |
@@ -383,6 +383,7 @@ Espada, machado, maça e lança.
 | **Fênix** | I a III | Peitoral | Um golpe que ia te matar é anulado e você volta com 4 a 8❤ (recarga 480 a 240s). | 22 a 66 |
 | **Indestrutível** | I | Qualquer item com durabilidade, Varinha Mágica | O item nunca perde durabilidade (ferramentas, armas, armaduras e Varinha Mágica). Não vai em item com Inquebrável ou Remendo. **Não junta com:** Autorreparo, Inquebrável, Remendo. | 22 |
 | **Jetpack** | I a III | Peitoral | Agache no ar para voar para cima por até 2 a 4s (recarrega no chão). **Não junta com:** Pulo Duplo. | 22 a 66 |
+| **Reflexo Divino** | I | Escudo | Com o escudo levantado, todo o dano do golpe volta para quem bateu. O escudo gasta 3 de durabilidade a mais (com Indestrutível não gasta). Juntar com Indestrutível no mesmo escudo custa de 150 a 260 níveis de XP no total. **Não junta com:** Retaliação. | 22 |
 
 <!-- recolher -->
 ## Ferramentas

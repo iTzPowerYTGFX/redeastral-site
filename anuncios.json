@@ -3,6 +3,15 @@
   "segundos": 7,
   "slides": [
     {
+      "imagem": "midia/anuncios/reflexo-largo-anim-capa.webp",
+      "imagem_celular": "midia/anuncios/reflexo-anim-capa.webp",
+      "titulo": "Reflexo Divino: novo encantamento de escudo que devolve todo o golpe para quem bateu",
+      "link": "wiki.html#encantamentos",
+      "ativo": true,
+      "video": "midia/anuncios/reflexo-largo-anim.mp4",
+      "video_celular": "midia/anuncios/reflexo-anim.mp4"
+    },
+    {
       "imagem": "midia/anuncios/lucky-largo-anim-capa.webp",
       "imagem_celular": "midia/anuncios/lucky-anim-capa.webp",
       "titulo": "Lucky Blocks: 11 tipos, prêmios de todo o servidor, varinhas e Míticos falsos",
