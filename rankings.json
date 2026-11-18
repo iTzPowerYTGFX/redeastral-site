@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-18T14:38:49Z",
+  "atualizado": "2026-11-18T15:08:49Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,20 +7,20 @@
       {"nome": "DullLucasdeolro", "valor": 20689},
       {"nome": "TagaYato_", "valor": 18411},
       {"nome": "_MitKan22", "valor": 16888},
-      {"nome": "_Flos7304", "valor": 9373},
+      {"nome": "_Flos7304", "valor": 9403},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7075},
-      {"nome": "_Jpzin001", "valor": 4381},
+      {"nome": "_Jpzin001", "valor": 4400},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3907},
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 7988},
+      {"nome": "_Flos7304", "valor": 8018},
       {"nome": "DullLucasdeolro", "valor": 7682},
       {"nome": "TagaYato_", "valor": 6482},
       {"nome": "_MitKan22", "valor": 5824},
-      {"nome": "_Jpzin001", "valor": 3138},
+      {"nome": "_Jpzin001", "valor": 3157},
       {"nome": "_M_na_voz", "valor": 1528},
       {"nome": "_Maya06908", "valor": 892},
       {"nome": "_Sayko_ax", "valor": 707},
@@ -31,7 +31,7 @@
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 35072154.55},
-      {"nome": "_Jpzin001", "valor": 11042267.83},
+      {"nome": "_Jpzin001", "valor": 11472120.51},
       {"nome": "_Afton2460", "valor": 4586998.82},
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
@@ -43,7 +43,7 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 26738020.92},
-      {"nome": "_Jpzin001", "valor": 10938245.46},
+      {"nome": "_Jpzin001", "valor": 11368098.14},
       {"nome": "_Kroven_1611", "valor": 882180.23},
       {"nome": "_Flos7304", "valor": 253589.75},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
@@ -57,7 +57,7 @@
     {"id": "rank", "titulo": "Rank", "formato": "nivel", "descricao": "Rank do /rank (AstralSkills).",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 578.02, "texto": "Rank 578"},
-      {"nome": "_Jpzin001", "valor": 469.01, "texto": "Rank 469"},
+      {"nome": "_Jpzin001", "valor": 472.02, "texto": "Rank 472"},
       {"nome": "TagaYato_", "valor": 236.00, "texto": "Rank 236"},
       {"nome": "_MitKan22", "valor": 230.00, "texto": "Rank 230"},
       {"nome": "_Flos7304", "valor": 100, "texto": "Rank 100"},
@@ -68,7 +68,7 @@
       {"nome": "_Sayko_ax", "valor": 34.00, "texto": "Rank 34"}
      ],
      "mes": [
-      {"nome": "_Jpzin001", "valor": 369},
+      {"nome": "_Jpzin001", "valor": 372},
       {"nome": "DullLucasdeolro", "valor": 278},
       {"nome": "_Kroven_1611", "valor": 89},
       {"nome": "_Flos7304", "valor": 86},
@@ -411,22 +411,22 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 609640},
       {"nome": "TagaYato_", "valor": 210946},
-      {"nome": "_Jpzin001", "valor": 157730},
+      {"nome": "_Jpzin001", "valor": 160485},
       {"nome": "_MitKan22", "valor": 46562},
       {"nome": "_Heisenberg22194", "valor": 33174},
       {"nome": "_Kroven_1611", "valor": 10998},
       {"nome": "Shen_Kaizhang", "valor": 4402},
       {"nome": "_Afton2460", "valor": 3807},
       {"nome": "_Corvus8910", "valor": 3047},
-      {"nome": "_Flos7304", "valor": 2939}
+      {"nome": "_Flos7304", "valor": 2988}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 449906},
       {"nome": "TagaYato_", "valor": 160073},
-      {"nome": "_Jpzin001", "valor": 152130},
+      {"nome": "_Jpzin001", "valor": 154885},
       {"nome": "_MitKan22", "valor": 24906},
       {"nome": "_Kroven_1611", "valor": 10221},
-      {"nome": "_Flos7304", "valor": 2929},
+      {"nome": "_Flos7304", "valor": 2978},
       {"nome": "_Sayko_ax", "valor": 808},
       {"nome": "_Foxyismyname553", "valor": 293},
       {"nome": "_Maya06908", "valor": 261},
