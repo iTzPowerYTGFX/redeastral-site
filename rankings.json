@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-11-18T11:14:25Z",
+  "atualizado": "2026-11-18T12:16:21Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 20689},
       {"nome": "TagaYato_", "valor": 18411},
-      {"nome": "_MitKan22", "valor": 16861},
-      {"nome": "_Flos7304", "valor": 9275},
+      {"nome": "_MitKan22", "valor": 16866},
+      {"nome": "_Flos7304", "valor": 9286},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7075},
       {"nome": "_Jpzin001", "valor": 4358},
@@ -16,10 +16,10 @@
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 7890},
+      {"nome": "_Flos7304", "valor": 7901},
       {"nome": "DullLucasdeolro", "valor": 7682},
       {"nome": "TagaYato_", "valor": 6482},
-      {"nome": "_MitKan22", "valor": 5797},
+      {"nome": "_MitKan22", "valor": 5802},
       {"nome": "_Jpzin001", "valor": 3115},
       {"nome": "_M_na_voz", "valor": 1528},
       {"nome": "_Maya06908", "valor": 892},
@@ -36,7 +36,7 @@
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
       {"nome": "TagaYato_", "valor": 2476067.03},
-      {"nome": "_MitKan22", "valor": 1475912.61},
+      {"nome": "_MitKan22", "valor": 1479894.90},
       {"nome": "_Kroven_1611", "valor": 1167519.10},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68}
@@ -412,7 +412,7 @@
       {"nome": "DullLucasdeolro", "valor": 609640},
       {"nome": "TagaYato_", "valor": 210946},
       {"nome": "_Jpzin001", "valor": 154735},
-      {"nome": "_MitKan22", "valor": 46338},
+      {"nome": "_MitKan22", "valor": 46459},
       {"nome": "_Heisenberg22194", "valor": 33174},
       {"nome": "_Kroven_1611", "valor": 10998},
       {"nome": "Shen_Kaizhang", "valor": 4402},
@@ -424,7 +424,7 @@
       {"nome": "DullLucasdeolro", "valor": 449906},
       {"nome": "TagaYato_", "valor": 160073},
       {"nome": "_Jpzin001", "valor": 149135},
-      {"nome": "_MitKan22", "valor": 24682},
+      {"nome": "_MitKan22", "valor": 24803},
       {"nome": "_Kroven_1611", "valor": 10221},
       {"nome": "_Flos7304", "valor": 2883},
       {"nome": "_Sayko_ax", "valor": 759},
