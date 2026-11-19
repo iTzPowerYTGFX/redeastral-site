@@ -236,6 +236,30 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .ult-update span { min-width: 0; }
 .ult-update .ult-mais { color: #b99bff; font-weight: 700; }
 .ult-update:hover, .ult-update:focus-visible { border-color: #5fd8cb; background: rgba(31, 26, 59, .8); }
+/* Painel das atualizações (abre ao clicar no selo; rola para ver todas) */
+.upd-dlg { width: min(56rem, calc(100vw - 2rem)); height: min(52rem, calc(100dvh - 2rem)); max-width: none; max-height: none; padding: 0; border: 1px solid var(--line); border-radius: 1rem; background: var(--sky); color: var(--ink); display: none; flex-direction: column; overflow: hidden; }
+.upd-dlg[open] { display: flex; }
+.upd-dlg::backdrop { background: rgba(5, 4, 14, .72); backdrop-filter: blur(3px); }
+.upd-top { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); background: var(--sky-2); }
+.upd-top h2 { margin: 0; font: 700 1.35rem/1.2 var(--f-display); flex: 1 1 auto; }
+.upd-top input { flex: 1 1 14rem; min-width: 0; padding: .55rem .8rem; border-radius: .6rem; border: 1px solid var(--line); background: var(--sky); color: var(--ink); font: inherit; }
+.upd-wiki { color: var(--violet-soft); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.upd-x { width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid var(--line); background: var(--sky); color: var(--ink); font: 700 1rem/1 var(--f-display); cursor: pointer; }
+.upd-x:hover, .upd-x:focus-visible { background: var(--violet); color: var(--violet-ink); }
+.upd-lista { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 1rem 1.25rem 1.5rem; display: grid; gap: .9rem; align-content: start; }
+.upd-item { border: 1px solid var(--line); border-radius: .8rem; background: var(--sky-2); padding: .9rem 1.1rem; min-width: 0; }
+.upd-item h3 { margin: 0; font: 700 1.1rem/1.3 var(--f-display); text-wrap: balance; }
+.upd-item h3 .ver { color: var(--teal); }
+.upd-data { margin: .2rem 0 .5rem; color: var(--ink-dim); font-size: .85rem; }
+.upd-item h4 { margin: .8rem 0 .3rem; font: 700 1rem/1.3 var(--f-display); }
+.upd-item p { margin: .45rem 0; line-height: 1.55; overflow-wrap: anywhere; }
+.upd-item ul, .upd-item ol { margin: .4rem 0; padding-left: 1.3rem; line-height: 1.55; }
+.upd-item li { margin: .15rem 0; overflow-wrap: anywhere; }
+.upd-item blockquote { margin: .5rem 0; padding: .5rem .8rem; border-left: 3px solid var(--violet-soft); background: var(--sky-3); border-radius: .4rem; }
+.upd-item code { font-family: var(--f-mono); font-size: .9em; }
+.upd-item:first-child { border-color: var(--teal); }
+.upd-vazio { color: var(--ink-dim); }
+@media (max-width: 600px) { .upd-dlg { width: 100vw; height: 100dvh; border-radius: 0; border: 0; } .upd-top { padding-top: max(1rem, env(safe-area-inset-top, 0px)); } .upd-x { order: 1; } .upd-top input { order: 2; } .upd-wiki { order: 3; } }
 /* Com anúncio: o título vira subtítulo em cima e o carrossel ocupa a largura toda logo abaixo (16:5 no PC, 16:9 no celular) */
 .hero-text:has(> .anuncios:not([hidden])) { max-width: none; }
 .hero-text:has(> .anuncios:not([hidden])) > :not(.anuncios, .an-pontos) { max-width: 46rem; }
@@ -361,6 +385,15 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         </div>
         <div class="an-pontos" id="anuncios-pontos" hidden></div>
         <a class="ult-update" id="ult-update" href="wiki.html#atualizacoes" hidden><b>ÚLTIMA ATUALIZAÇÃO</b><span id="ult-update-txt"></span><span class="ult-mais">ver todas →</span></a>
+        <dialog class="upd-dlg" id="upd-dlg" aria-labelledby="upd-dlg-tit">
+          <div class="upd-top">
+            <h2 id="upd-dlg-tit">Atualizações</h2>
+            <input id="upd-busca" type="search" placeholder="Procurar (ex.: pets, v1.12)" autocomplete="off" aria-label="Procurar nas atualizações">
+            <a class="upd-wiki" href="wiki.html#atualizacoes">Abrir na Wiki</a>
+            <button class="upd-x" type="button" id="upd-fechar" aria-label="Fechar" autofocus>✕</button>
+          </div>
+          <div class="upd-lista" id="upd-lista"><p class="upd-vazio">Carregando…</p></div>
+        </dialog>
 
         <h2 class="st-title" id="status">Status do Servidor</h2>
         <div class="ips">
@@ -796,13 +829,58 @@ ajustaMenu();
     clearInterval(timer); timer = null;
     if (n > 1 && !pausa && !parado() && !document.hidden) timer = setInterval(() => ir(i + 1), seg * 1000);
   }
-  // Última atualização: primeiro "## " da página wiki/atualizacoes.md (edita pela Wiki e muda aqui sozinho)
-  fetch("wiki/atualizacoes.md?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.text() : "").then(md => {
-    const m = /^##\s+(.+)$/m.exec(md || ""), el = document.getElementById("ult-update");
-    if (!m || !el) return;
-    document.getElementById("ult-update-txt").textContent = m[1].replace(/[*_`]/g, "").trim();
-    el.hidden = false;
-  }).catch(() => {});
+  // Atualizações: tudo vem de wiki/atualizacoes.md (edita pela Wiki e o site muda sozinho).
+  // O selo mostra o primeiro "## " (a mais nova); clicar abre o painel grande com todas, rolando.
+  (() => {
+    const selo = document.getElementById("ult-update"), dlg = document.getElementById("upd-dlg"), lista = document.getElementById("upd-lista"), busca = document.getElementById("upd-busca");
+    if (!selo) return;
+    const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const inl = t => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\s][^*]*?)\*(?!\*)/g, "$1<em>$2</em>")
+      .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    function bloco(md) { // markdown simples: ###, listas, citação e parágrafos
+      let h = "", lst = null;
+      const fecha = () => { if (lst) { h += `</${lst}>`; lst = null; } };
+      for (const raw of md.split("\n")) {
+        const l = raw.trimEnd(); let m;
+        if (!l.trim()) { fecha(); continue; }
+        if ((m = /^#{3,6}\s+(.*)$/.exec(l))) { fecha(); h += `<h4>${inl(m[1])}</h4>`; continue; }
+        if ((m = /^\s*[-•]\s+(.*)$/.exec(l))) { if (lst !== "ul") { fecha(); h += "<ul>"; lst = "ul"; } h += `<li>${inl(m[1])}</li>`; continue; }
+        if ((m = /^\s*\d+[.)]\s+(.*)$/.exec(l))) { if (lst !== "ol") { fecha(); h += "<ol>"; lst = "ol"; } h += `<li>${inl(m[1])}</li>`; continue; }
+        if ((m = /^>\s?(.*)$/.exec(l))) { fecha(); h += `<blockquote>${inl(m[1])}</blockquote>`; continue; }
+        fecha(); h += `<p>${inl(l)}</p>`;
+      }
+      fecha(); return h;
+    }
+    let itens = [];
+    function mostrar(q) {
+      q = (q || "").trim().toLowerCase();
+      const vis = q ? itens.filter(x => x.txt.includes(q)) : itens;
+      lista.innerHTML = vis.length ? vis.map(x => x.html).join("") : '<p class="upd-vazio">Nada encontrado.</p>';
+      lista.scrollTop = 0;
+    }
+    fetch("wiki/atualizacoes.md?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.text() : "").then(md => {
+      md = (md || "").replace(/<!--[\s\S]*?-->/g, "");
+      const partes = md.split(/^## /m).slice(1);
+      if (!partes.length) return;
+      itens = partes.map(p => {
+        const nl = p.indexOf("\n"), tit = (nl < 0 ? p : p.slice(0, nl)).trim(), resto = nl < 0 ? "" : p.slice(nl + 1);
+        const dm = /^\s*\*(\d{2}\/\d{2}\/\d{4})\*\s*$/m.exec(resto), corpo = dm ? resto.replace(dm[0], "") : resto;
+        const [ver, ...nome] = tit.split(" — "), t2 = nome.length ? `<span class="ver">${inl(ver)}</span> — ${inl(nome.join(" — "))}` : inl(tit);
+        return { html: `<article class="upd-item"><h3>${t2}</h3>${dm ? `<p class="upd-data">${dm[1]}</p>` : ""}${bloco(corpo)}</article>`, txt: (tit + " " + corpo).toLowerCase() };
+      });
+      document.getElementById("ult-update-txt").textContent = partes[0].split("\n")[0].replace(/[*_`]/g, "").trim();
+      selo.hidden = false;
+    }).catch(() => {});
+    selo.addEventListener("click", e => {
+      if (!itens.length || !dlg || typeof dlg.showModal !== "function") return; // sem painel: segue o link para a Wiki
+      e.preventDefault(); busca.value = ""; mostrar(""); dlg.showModal();
+    });
+    if (dlg) {
+      document.getElementById("upd-fechar").addEventListener("click", () => dlg.close());
+      dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+      busca.addEventListener("input", () => mostrar(busca.value));
+    }
+  })();
   fetch("anuncios.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
     if (!d || !Array.isArray(d.slides)) return;
     const hoje = new Date().toISOString().slice(0, 10);
