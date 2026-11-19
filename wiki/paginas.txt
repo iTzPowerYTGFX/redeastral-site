@@ -4,6 +4,9 @@
 # Linha COM ".md" no fim = uma página (o arquivo fica nesta mesma pasta "wiki").
 # A ordem aqui é a ordem em que aparece no site.
 
+Novidades
+atualizacoes.md
+
 Comandos
 sethome-home-criar-homes.md
 essenciais.md
