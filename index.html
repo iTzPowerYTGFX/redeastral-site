@@ -229,6 +229,13 @@ a[data-link][aria-disabled="true"]::after { content: " (em breve)"; }
 .an-ponto:hover { background: rgba(255, 255, 255, .6); }
 .an-ponto[aria-current="true"] { background: #b99bff; transform: scale(1.25); }
 .anuncios.um .an-seta { display: none; }
+/* Última atualização (lida da página Atualizações da Wiki: o primeiro título "## ") */
+.ult-update { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; width: fit-content; max-width: 100%; margin-top: .25rem; padding: .5rem 1rem; border-radius: 1rem; border: 1px solid rgba(95, 216, 203, .35); background: rgba(11, 10, 26, .55); color: #f1eeff; text-decoration: none; font-size: .95rem; transition: border-color .2s, background .2s; }
+.ult-update[hidden] { display: none; }
+.ult-update b { font: 700 .8rem/1 var(--f-display); letter-spacing: .12em; color: #5fd8cb; }
+.ult-update span { min-width: 0; }
+.ult-update .ult-mais { color: #b99bff; font-weight: 700; }
+.ult-update:hover, .ult-update:focus-visible { border-color: #5fd8cb; background: rgba(31, 26, 59, .8); }
 /* Com anúncio: o título vira subtítulo em cima e o carrossel ocupa a largura toda logo abaixo (16:5 no PC, 16:9 no celular) */
 .hero-text:has(> .anuncios:not([hidden])) { max-width: none; }
 .hero-text:has(> .anuncios:not([hidden])) > :not(.anuncios, .an-pontos) { max-width: 46rem; }
@@ -327,12 +334,12 @@ footer h3 { font-size: 1rem; color: var(--ink); }
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Rede Astral, início"><img src="img/marca-clara.png" alt="" data-logo="">Rede Astral</a>
     <nav class="nav" aria-label="Seções">
-      <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
+      <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a href="wiki.html#atualizacoes">Atualizações</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
     <a href="#regras" data-tab="regras">Regras</a></nav>
     <details class="menu">
       <summary>Menu</summary>
       <nav class="nav" aria-label="Seções (menu)">
-        <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
+        <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a href="wiki.html#atualizacoes">Atualizações</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
       </nav>
     </details>
     <a class="btn accent" data-link="discord" href="#">Discord</a>
@@ -353,6 +360,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
           <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
         </div>
         <div class="an-pontos" id="anuncios-pontos" hidden></div>
+        <a class="ult-update" id="ult-update" href="wiki.html#atualizacoes" hidden><b>ÚLTIMA ATUALIZAÇÃO</b><span id="ult-update-txt"></span><span class="ult-mais">ver todas →</span></a>
 
         <h2 class="st-title" id="status">Status do Servidor</h2>
         <div class="ips">
@@ -788,6 +796,13 @@ ajustaMenu();
     clearInterval(timer); timer = null;
     if (n > 1 && !pausa && !parado() && !document.hidden) timer = setInterval(() => ir(i + 1), seg * 1000);
   }
+  // Última atualização: primeiro "## " da página wiki/atualizacoes.md (edita pela Wiki e muda aqui sozinho)
+  fetch("wiki/atualizacoes.md?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.text() : "").then(md => {
+    const m = /^##\s+(.+)$/m.exec(md || ""), el = document.getElementById("ult-update");
+    if (!m || !el) return;
+    document.getElementById("ult-update-txt").textContent = m[1].replace(/[*_`]/g, "").trim();
+    el.hidden = false;
+  }).catch(() => {});
   fetch("anuncios.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
     if (!d || !Array.isArray(d.slides)) return;
     const hoje = new Date().toISOString().slice(0, 10);
