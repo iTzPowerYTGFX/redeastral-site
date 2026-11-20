@@ -653,8 +653,24 @@ function cardBlock(kind, name, f) {
 
 /* Tamanho: "{150%}" no fim da linha. Texto = zoom (50% a 300%); imagem/vídeo = largura (10% a 100%). */
 const SIZE_RX = /\s*\{\s*(\d{1,3})\s*%\s*\}\s*$/;
-const stripSize = l => l.replace(SIZE_RX, "");
-const sizeOf = l => { const m = l.match(SIZE_RX); return m ? Math.max(10, Math.min(300, +m[1])) : 0; };
+/* Posição livre (Shift + ✥ Mover): "{@x,y}" no fim da linha, em pixels, depois do tamanho. */
+const POS_RX = /\s*\{@\s*(-?\d{1,4})\s*,\s*(-?\d{1,4})\s*\}\s*$/;
+const TAIL_RX = /(\s*\{\s*\d{1,3}\s*%\s*\})?(\s*\{@\s*-?\d{1,4}\s*,\s*-?\d{1,4}\s*\})?\s*$/;
+const stripSize = l => l.replace(POS_RX, "").replace(SIZE_RX, "");
+const sizeOf = l => { const m = l.replace(POS_RX, "").match(SIZE_RX); return m ? Math.max(10, Math.min(300, +m[1])) : 0; };
+const posOf = l => { const m = (l || "").match(POS_RX); return m && (+m[1] || +m[2]) ? { x: +m[1], y: +m[2] } : null; };
+const posSuf = l => { const p = posOf(l); return p ? ` {@${p.x},${p.y}}` : ""; };
+const cauda = l => ((l || "").match(TAIL_RX) || [""])[0];
+/* aplica as posições livres depois de desenhar a página (cada bloco tem data-line = a linha do tamanho/posição) */
+function aplicarPos(root, src) {
+  if (!root || !src || src.indexOf("{@") < 0) return;
+  const L = src.replace(/\r/g, "").split("\n");
+  root.querySelectorAll("[data-line]").forEach(el => {
+    const p = posOf(L[+el.dataset.line]); if (!p) return;
+    if (getComputedStyle(el).display === "inline") el.style.display = "inline-block";
+    el.style.translate = `${p.x}px ${p.y}px`;
+  });
+}
 /* fim de um bloco "::: lado" (conta os ":::" de cartões dentro dele) */
 function ladoEnd(lines, i) {
   let d = 0;
@@ -878,6 +894,7 @@ function showPage(p) {
     ${aviso}<article class="prose">${body}</article>
     ${pagerHtml(p)}`;
   $("#wiki-ajuda").hidden = false;
+  aplicarPos(view.querySelector(".prose"), p.md || "");
   recolher(view.querySelector(".prose"), p.md || "");
   const eb = $("#edit-this"); if (eb) eb.addEventListener("click", () => openEditor(p));
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.getAttribute("data-animacao") === "desligada")
@@ -1365,7 +1382,7 @@ async function openEditor(p) {
   const ta = $("#ed-text"), prev = $("#ed-prev"), st = $("#ed-status");
   ta.value = useDraft ? draft : original;
   let jaDesenhado = null;
-  const renderPrev = () => { commit(); prev.innerHTML = md(ta.value); jaDesenhado = ta.value; afterRender(); };
+  const renderPrev = () => { commit(); prev.innerHTML = md(ta.value); aplicarPos(prev, ta.value); jaDesenhado = ta.value; afterRender(); };
 
   /* ----- bolinha: arraste para os lados para aumentar/diminuir texto, imagem e vídeo ----- */
   const rz = document.createElement("div"); rz.className = "rz"; rz.hidden = true;
@@ -1388,9 +1405,10 @@ async function openEditor(p) {
   }
   function setSize(line, pct) {
     const lines = ta.value.split("\n"); if (line >= lines.length) return;
+    const ps0 = posSuf(lines[line]);
     let l = stripSize(lines[line]).replace(/\s+$/, "");
     if (pct !== 100) l += ` {${pct}%}`;
-    lines[line] = l; ta.value = lines.join("\n");
+    lines[line] = l + ps0; ta.value = lines.join("\n");
     ta.dispatchEvent(new Event("input")); renderPrev();
     setStatus(st, pct === 100 ? "Tamanho normal." : `Tamanho ${pct}%. Clique em Salvar para gravar.`, "ok");
   }
@@ -1422,7 +1440,7 @@ async function openEditor(p) {
 
   /* ----- mover: arraste o botão "✥ Mover" para cima, para baixo ou para o lado de outra coisa ----- */
   const mv = document.createElement("button"); mv.type = "button"; mv.className = "mv"; mv.hidden = true; mv.textContent = "✥ Mover";
-  mv.title = "Arraste para cima ou para baixo de outra coisa, ou para o lado dela (fica lado a lado)";
+  mv.title = "Arraste para cima ou para baixo de outra coisa, ou para o lado dela (fica lado a lado). Segurando Shift: move livre, para qualquer lugar. Duplo clique: volta para a posição original.";
   const ind = document.createElement("div"); ind.className = "drop-ind"; ind.hidden = true;
   const tip = document.createElement("div"); tip.className = "drop-tip"; tip.hidden = true;
   const del = document.createElement("button"); del.type = "button"; del.className = "mv mv-del"; del.hidden = true; del.textContent = "✕ Apagar";
@@ -1486,7 +1504,10 @@ async function openEditor(p) {
   }
   mv.addEventListener("pointerdown", e => {
     if (!mvEl) return; e.preventDefault(); commit(); try { mv.setPointerCapture(e.pointerId); } catch (err) {}
-    mvDrag = { s: +mvEl.dataset.s, e: +mvEl.dataset.e, drop: null }; mvEl.classList.add("mv-src"); rz.hidden = true; del.hidden = true;
+    const linhaPos = mvEl.dataset.line !== undefined ? +mvEl.dataset.line : null, p0 = linhaPos === null ? null : posOf(ta.value.split("\n")[linhaPos]);
+    mvDrag = { s: +mvEl.dataset.s, e: +mvEl.dataset.e, drop: null, livre: null, linhaPos, tx0: p0 ? p0.x : 0, ty0: p0 ? p0.y : 0,
+      x0: e.clientX + scrollX, y0: e.clientY + scrollY, st0: prev.scrollTop, tr0: mvEl.style.translate, dp0: mvEl.style.display };
+    mvEl.classList.add("mv-src"); rz.hidden = true; del.hidden = true;
   });
   mv.addEventListener("pointermove", e => {
     if (!mvDrag) return;
@@ -1494,11 +1515,22 @@ async function openEditor(p) {
     if (e.clientY < pr.top + 40) prev.scrollTop -= 14; else if (e.clientY > pr.bottom - 40) prev.scrollTop += 14;
     if (e.clientY < 50) scrollBy(0, -14); else if (e.clientY > innerHeight - 50) scrollBy(0, 14);
     mv.style.left = (e.clientX - pr.left + prev.scrollLeft - 30) + "px"; mv.style.top = (e.clientY - pr.top + prev.scrollTop - 12) + "px";
+    if (e.shiftKey && mvDrag.linhaPos !== null) {
+      // livre: segue o mouse; grava "{@x,y}" na linha do bloco ao soltar
+      const x = Math.round(mvDrag.tx0 + e.clientX + scrollX - mvDrag.x0), y = Math.round(mvDrag.ty0 + e.clientY + scrollY - mvDrag.y0 + prev.scrollTop - mvDrag.st0);
+      if (!mvDrag.livre && getComputedStyle(mvEl).display === "inline") mvEl.style.display = "inline-block";
+      mvDrag.livre = { x, y }; mvEl.style.translate = (x || y) ? `${x}px ${y}px` : "";
+      mvDrag.drop = null; ind.hidden = true;
+      tip.textContent = `Livre (Shift): ${x}, ${y}`; tip.style.left = (e.clientX - pr.left + prev.scrollLeft + 14) + "px"; tip.style.top = (e.clientY - pr.top + prev.scrollTop + 14) + "px"; tip.hidden = false;
+      return;
+    }
+    if (mvDrag.livre) { mvDrag.livre = null; mvEl.style.translate = mvDrag.tr0; mvEl.style.display = mvDrag.dp0; }
     mvDrag.drop = dropAt(e.clientX, e.clientY); showInd(mvDrag.drop);
   });
   const endMove = () => {
     if (!mvDrag) return; const d = mvDrag; mvDrag = null; showInd(null);
     if (mvEl) mvEl.classList.remove("mv-src");
+    if (d.livre) { setPos(d.linhaPos, d.livre.x, d.livre.y); return; }
     if (!d.drop) { placeMv(); return; }
     const t = d.drop.t, colEl = t.dataset.blk === "col" ? t : t.parentElement && t.parentElement.dataset.blk === "col" ? t.parentElement : null;
     const groupEl = t.dataset.blk === "cols" ? t : null;
@@ -1510,6 +1542,21 @@ async function openEditor(p) {
   };
   mv.addEventListener("pointerup", endMove);
   mv.addEventListener("pointercancel", endMove);
+  /* posição livre: "{@x,y}" no fim da linha do bloco (0,0 tira a marca) */
+  function setPos(line, x, y) {
+    const lines = ta.value.split("\n"); if (line === null || line >= lines.length) return;
+    let l = lines[line].replace(POS_RX, "").replace(/\s+$/, "");
+    if (x || y) l += ` {@${x},${y}}`;
+    if (l === lines[line]) { placeMv(); return; }
+    lines[line] = l; ta.value = lines.join("\n"); mvEl = null; mv.hidden = del.hidden = true;
+    ta.dispatchEvent(new Event("input")); renderPrev();
+    setStatus(st, x || y ? "Movido livre. Clique em Salvar para gravar (duplo clique no ✥ Mover volta para a posição original)." : "Voltou para a posição original. Clique em Salvar para gravar.", "ok");
+  }
+  mv.addEventListener("dblclick", () => {
+    if (!mvEl || mvEl.dataset.line === undefined) return;
+    if (!posOf(ta.value.split("\n")[+mvEl.dataset.line])) return setStatus(st, "Isto já está na posição original.", "ok");
+    commit(); setPos(+mvEl.dataset.line, 0, 0);
+  });
   const afterRender0 = afterRender;
   afterRender = function () { afterRender0(); prev.append(mv, del, ind, tip); if (mvEl && !mvEl.isConnected) mvEl = null; placeMv(); marcarEditaveis(); };
 
@@ -1562,25 +1609,25 @@ async function openEditor(p) {
   const mdInline = el => andar(el).replace(/[\s ]+/g, " ").trim();
   function blocoMd(blk, old) {
     const tag = blk.tagName;
-    if (/^H[1-4]$/.test(tag)) { const t = mdInline(blk); return t ? ["#".repeat(+tag[1]) + " " + t + sufixo(sizeOf(old[0]))] : []; }
-    if (tag === "P") { const t = mdInline(blk); return t ? [t + sufixo(sizeOf(old[old.length - 1]))] : []; }
+    if (/^H[1-4]$/.test(tag)) { const t = mdInline(blk); return t ? ["#".repeat(+tag[1]) + " " + t + (sufixo(sizeOf(old[0])) + posSuf(old[0]))] : []; }
+    if (tag === "P") { const t = mdInline(blk); return t ? [t + (sufixo(sizeOf(old[old.length - 1])) + posSuf(old[old.length - 1]))] : []; }
     if (tag === "UL" || tag === "OL") {
       const start = tag === "OL" ? (+blk.getAttribute("start") || 1) : 0, mk = (stripSize(old[0]).match(/^\s*([-*+])/) || [, "-"])[1];
       const its = [...blk.children].filter(li => li.tagName === "LI").map(mdInline).filter(Boolean);
-      return its.map((t, k) => (tag === "UL" ? mk + " " : (start + k) + ". ") + t + (k === 0 ? sufixo(sizeOf(old[0])) : ""));
+      return its.map((t, k) => (tag === "UL" ? mk + " " : (start + k) + ". ") + t + (k === 0 ? (sufixo(sizeOf(old[0])) + posSuf(old[0])) : ""));
     }
     if (blk.classList.contains("table")) {
       const rows = [...blk.querySelectorAll("tr")].map(tr => [...tr.children].map(c => mdInline(c).replace(/\|/g, "/")));
       if (!rows.length) return old;
       const line = r => "| " + r.join(" | ") + " |";
-      return [line(rows[0]) + sufixo(sizeOf(old[0])), old[1] || "| " + rows[0].map(() => "---").join(" | ") + " |", ...rows.slice(1).map(line)];
+      return [line(rows[0]) + (sufixo(sizeOf(old[0])) + posSuf(old[0])), old[1] || "| " + rows[0].map(() => "---").join(" | ") + " |", ...rows.slice(1).map(line)];
     }
     if (tag === "ASIDE") {
       const ps = [...blk.children].map(mdInline).filter(Boolean);
       if (!ps.length) return [];
       ps[0] = ps[0].replace(/^\*\*(Dica|Atenção|Atencao|Importante|Aviso|Cuidado)\s*:\s*\*\*\s*/i, "$1: ");
       const out = []; ps.forEach((t, k) => { if (k) out.push(">"); out.push("> " + t); });
-      out[0] += sufixo(sizeOf(old[0])); return out;
+      out[0] += (sufixo(sizeOf(old[0])) + posSuf(old[0])); return out;
     }
     if (blk.classList.contains("divisor")) { const t = mdInline(blk.querySelector(".divisor-t") || blk); return [t ? "--- " + t : "---"]; }
     if (tag === "FIGURE") {
@@ -2220,11 +2267,11 @@ $("#ce-form").addEventListener("submit", async e => {
   let lines = CE.text.replace(/\r/g, "").split("\n");
   // título: troca a linha "# ..." mantendo o tamanho {N%}
   const ti = lines.findIndex(l => /^#\s+\S/.test(l));
-  if (ti >= 0) { const m = lines[ti].match(SIZE_RX); lines[ti] = "# " + title + (m ? m[0] : ""); }
+  if (ti >= 0) { lines[ti] = "# " + title + cauda(lines[ti]); }
   else { lines.unshift("# " + title, ""); }
   // resumo: troca o primeiro parágrafo (ou cria logo depois do título)
   const si = summaryLine(lines);
-  if (si >= 0) { if (sum) { const m = lines[si].match(SIZE_RX); lines[si] = sum + (m ? m[0] : ""); } else lines.splice(si, 1); }
+  if (si >= 0) { if (sum) { lines[si] = sum + cauda(lines[si]); } else lines.splice(si, 1); }
   else if (sum) { const at = lines.findIndex(l => /^#\s+\S/.test(l)) + 1; lines.splice(at, 0, "", sum); }
   // capa
   let text = lines.join("\n").replace(/\n?<!--\s*capa:\s*\S+?\s*-->[ \t]*/i, "");
