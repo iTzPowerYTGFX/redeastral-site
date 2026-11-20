@@ -171,6 +171,16 @@ MOVER E COLOCAR LADO A LADO (botão verde "✥ Mover")
   Depois clique em SALVAR. Errou? Ctrl+Z no "Texto (avançado)" desfaz.
   No celular as colunas ficam uma embaixo da outra quando não cabem na tela.
 
+MOVER LIVRE (segurando SHIFT) — vale na Wiki e na página inicial
+  Segure a tecla SHIFT enquanto arrasta o "✥ Mover": a coisa segue o mouse e fica
+  exatamente onde você soltar (sem linha verde, sem encaixar em lugar nenhum).
+  Soltou o Shift no meio do arraste? Volta a encaixar nos lugares (linha verde).
+  Duplo clique no "✥ Mover" volta a coisa para a posição original.
+  Na página inicial vale para tudo, inclusive os botões do menu do topo.
+  Na Wiki, fica gravado no fim da linha do texto assim: {@40,-12} (40 px para a direita,
+  12 px para cima). Dá para ajustar o número à mão no "Texto (avançado)".
+  Cuidado: a posição livre é em pixels; no celular a tela é menor, então confira lá também.
+
   No texto, o lado a lado fica assim (o botão "Lado a lado" escreve isto pronto):
       ::: lado
       ![Primeira imagem](midia/foto1.png)

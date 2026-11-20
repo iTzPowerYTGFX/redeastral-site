@@ -274,7 +274,7 @@
       if (el.getAttribute("style") === "") el.removeAttribute("style");
       el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck");
       el.classList.remove("ed-item", "ed-sel"); if (el.getAttribute("class") === "") el.removeAttribute("class");
-      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved"); el.removeAttribute("data-ed-cls"); el.removeAttribute("data-ed-op");
+      el.removeAttribute("data-ed-zoom"); el.removeAttribute("data-ed-href"); el.removeAttribute("data-ed-id"); el.removeAttribute("data-ed-moved"); el.removeAttribute("data-ed-cls"); el.removeAttribute("data-ed-op"); el.removeAttribute("data-ed-pos");
       if (el.hasAttribute("data-ed-src")) { el.setAttribute("src", el.getAttribute("data-ed-src")); el.removeAttribute("data-ed-src"); }
       el.removeAttribute("data-ed-new"); el.classList.remove("ed-mv-src");
       el.removeAttribute("aria-current");
@@ -495,7 +495,7 @@
 
   /* ---------- mover: arraste "✥ Mover" para cima/baixo ou para o lado de outra coisa ---------- */
   const mvH = document.createElement("button"); mvH.type = "button"; mvH.className = "ed-mv ed-ui"; mvH.hidden = true; mvH.textContent = "✥ Mover";
-  mvH.title = "Segure e arraste para colocar antes ou depois de outra coisa";
+  mvH.title = "Arraste para colocar antes ou depois de outra coisa. Segurando Shift: move livre, para qualquer lugar. Duplo clique: volta para a posição original.";
   const mvInd = document.createElement("div"); mvInd.className = "ed-mv-ind ed-ui"; mvInd.hidden = true;
   const mvTip = document.createElement("div"); mvTip.className = "ed-mv-tip ed-ui"; mvTip.hidden = true;
   document.body.append(mvH, mvInd, mvTip);
@@ -526,17 +526,36 @@
   }
   mvH.addEventListener("pointerdown", e => {
     if (!hzEl) return; e.preventDefault(); try { mvH.setPointerCapture(e.pointerId); } catch (err) {}
-    mvDrag = { el: hzEl, d: null }; hzEl.classList.add("ed-mv-src"); hz.hidden = true;
+    const t0 = livrePos(hzEl);
+    mvDrag = { el: hzEl, d: null, livre: false, x0: e.clientX + scrollX, y0: e.clientY + scrollY, tx0: t0.x, ty0: t0.y, attrs: fotoAttrs(hzEl) };
+    hzEl.classList.add("ed-mv-src"); hz.hidden = true;
   });
   mvH.addEventListener("pointermove", e => {
     if (!mvDrag) return;
     if (e.clientY < 50) scrollBy(0, -14); else if (e.clientY > innerHeight - 120) scrollBy(0, 14);
     mvH.style.left = (e.clientX - 30) + "px"; mvH.style.top = (e.clientY - 12) + "px";
+    if (e.shiftKey) {
+      // livre: segue o mouse (o deslocamento fica salvo no elemento)
+      const M = mvDrag.el;
+      if (!mvDrag.livre) { mvDrag.livre = true; if (getComputedStyle(M).display === "inline") M.style.display = "inline-block"; }
+      const x = Math.round(mvDrag.tx0 + e.clientX + scrollX - mvDrag.x0), y = Math.round(mvDrag.ty0 + e.clientY + scrollY - mvDrag.y0);
+      M.style.translate = (x || y) ? `${x}px ${y}px` : "";
+      mvDrag.d = null; mvInd.hidden = true;
+      mvTip.textContent = `Livre (Shift): ${x}, ${y}`; mvTip.style.left = (e.clientX + 14) + "px"; mvTip.style.top = (e.clientY + 14) + "px"; mvTip.hidden = false;
+      return;
+    }
+    if (mvDrag.livre) { mvDrag.livre = false; porAttrs(mvDrag.el, mvDrag.attrs); } // soltou o Shift: volta para os lugares certos
     mvDrag.d = mvTarget(e.clientX, e.clientY); mvShow(mvDrag.d);
   });
   const mvEnd = () => {
-    if (!mvDrag) return; const { el, d } = mvDrag; mvDrag = null; mvShow(null); el.classList.remove("ed-mv-src");
-    if (d) {
+    if (!mvDrag) return; const { el, d, livre, attrs } = mvDrag; mvDrag = null; mvShow(null); el.classList.remove("ed-mv-src");
+    if (livre) {
+      const depois = fotoAttrs(el);
+      if (JSON.stringify(depois) !== JSON.stringify(attrs))
+        histPush({ nome: "mover livre", desfazer() { porAttrs(el, attrs); }, refazer() { porAttrs(el, depois); } });
+      el.setAttribute("data-ed-pos", "1"); dirty = true;
+      msg("Movido livre. Clique em Salvar para gravar. (Duplo clique no ✥ Mover volta para a posição original.)", "ok");
+    } else if (d) {
       const nos = el.matches(".top .nav a") ? [...new Set([el, ...document.querySelectorAll(".top nav.nav > a")])] : [el];
       const antesMv = histPosicoes(nos), flags = nos.map(n => n.hasAttribute("data-ed-moved"));
       d.t.parentElement.insertBefore(el, d.after ? d.t.nextSibling : d.t);
@@ -549,6 +568,16 @@
     selectEl(el);
   };
   mvH.addEventListener("pointerup", mvEnd); mvH.addEventListener("pointercancel", mvEnd);
+  mvH.addEventListener("dblclick", () => {
+    if (!hzEl || !hzEl.style.translate) return msg("Isto já está na posição original.", "ok");
+    histAbrir("pos0", [hzEl]); hzEl.style.removeProperty("translate"); histFechar("pos0", "posição original");
+    hzEl.setAttribute("data-ed-pos", "1"); dirty = true; placeHz(); msg("Voltou para a posição original. Clique em Salvar para gravar.", "ok");
+  });
+  /* deslocamento livre atual (style translate: "Xpx Ypx") */
+  function livrePos(el) {
+    const m = (el.style.translate || "").match(/(-?[\d.]+)px(?:\s+(-?[\d.]+)px)?/);
+    return m ? { x: +m[1], y: +(m[2] || 0) } : { x: 0, y: 0 };
+  }
   const outer = el => !el || el === document.body || el === document.documentElement || el.matches("main, header, footer, .ed-ui");
   let linkTarget = null;
   function showLinkBox(a) {
@@ -939,13 +968,21 @@
         if (z && z !== "1") target.style.zoom = z;
         else { target.style.removeProperty("zoom"); if (!target.getAttribute("style")) target.removeAttribute("style"); }
       }
+      // posição livre (Shift + Mover): copia o deslocamento (e o inline-block, quando foi preciso)
+      for (const el of document.querySelectorAll("[data-ed-pos]")) {
+        if (listOf(el) || el.closest("[data-ed-new]")) continue;
+        const t = docOf(el); if (!same(t, el)) continue;
+        if (el.style.translate) t.style.translate = el.style.translate; else t.style.removeProperty("translate");
+        if (el.style.display) t.style.display = el.style.display; else t.style.removeProperty("display");
+        if (!t.getAttribute("style")) t.removeAttribute("style");
+      }
       const html = "<!doctype html>\n" + doc.documentElement.outerHTML + "\n";
       if (!/<main[\s>]/i.test(html) || !/<script/i.test(html) || /blob:/i.test(html)) throw new Error("Algo saiu errado ao montar a página. Nada foi salvo.");
       await gh(filePath("index.html"), { method: "PUT", body: JSON.stringify({ message: "Site: editar página inicial", content: encText(html), sha: d.sha, branch: GH.branch }) });
       dirty = false;
       // a página no GitHub agora é igual a esta: zera as marcas e renumera, para poder salvar de novo sem recarregar
-      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom], [data-ed-cls], [data-ed-op]").forEach(el => {
-        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls", "data-ed-op"].forEach(k => el.removeAttribute(k));
+      document.querySelectorAll("[data-ed-moved], [data-ed-new], [data-ed-changed], [data-ed-href], [data-ed-zoom], [data-ed-cls], [data-ed-op], [data-ed-pos]").forEach(el => {
+        ["data-ed-moved", "data-ed-new", "data-ed-changed", "data-ed-href", "data-ed-zoom", "data-ed-cls", "data-ed-op", "data-ed-pos"].forEach(k => el.removeAttribute(k));
       });
       apagados.length = 0;
       tagIds(); histLimpar();
