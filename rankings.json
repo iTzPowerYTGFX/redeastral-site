@@ -1,26 +1,26 @@
 {
-  "atualizado": "2026-11-20T13:13:03Z",
+  "atualizado": "2026-11-20T13:43:03Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 22136},
+      {"nome": "DullLucasdeolro", "valor": 22166},
       {"nome": "TagaYato_", "valor": 19248},
       {"nome": "_MitKan22", "valor": 17439},
       {"nome": "_Flos7304", "valor": 10278},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7160},
-      {"nome": "_Jpzin001", "valor": 4889},
+      {"nome": "_Jpzin001", "valor": 4891},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Sayko_ax", "valor": 3908},
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 9129},
+      {"nome": "DullLucasdeolro", "valor": 9159},
       {"nome": "_Flos7304", "valor": 8893},
       {"nome": "TagaYato_", "valor": 7319},
       {"nome": "_MitKan22", "valor": 6375},
-      {"nome": "_Jpzin001", "valor": 3646},
+      {"nome": "_Jpzin001", "valor": 3648},
       {"nome": "_M_na_voz", "valor": 1613},
       {"nome": "_Maya06908", "valor": 892},
       {"nome": "_Kroven_1611", "valor": 721},
@@ -409,7 +409,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 846546},
+      {"nome": "DullLucasdeolro", "valor": 846548},
       {"nome": "TagaYato_", "valor": 221555},
       {"nome": "_Jpzin001", "valor": 216208},
       {"nome": "_MitKan22", "valor": 48668},
@@ -421,7 +421,7 @@
       {"nome": "_Corvus8910", "valor": 3047}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 686812},
+      {"nome": "DullLucasdeolro", "valor": 686814},
       {"nome": "_Jpzin001", "valor": 210608},
       {"nome": "TagaYato_", "valor": 170682},
       {"nome": "_MitKan22", "valor": 27012},
