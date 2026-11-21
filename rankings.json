@@ -1,10 +1,10 @@
 {
-  "atualizado": "2026-11-21T05:42:19Z",
+  "atualizado": "2026-11-21T06:12:19Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 22857},
+      {"nome": "DullLucasdeolro", "valor": 22866},
       {"nome": "TagaYato_", "valor": 19779},
       {"nome": "_MitKan22", "valor": 17747},
       {"nome": "_Flos7304", "valor": 11025},
@@ -16,7 +16,7 @@
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 9850},
+      {"nome": "DullLucasdeolro", "valor": 9859},
       {"nome": "_Flos7304", "valor": 9640},
       {"nome": "TagaYato_", "valor": 7850},
       {"nome": "_MitKan22", "valor": 6683},
@@ -30,7 +30,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 59436400.08},
+      {"nome": "DullLucasdeolro", "valor": 59432627.28},
       {"nome": "_Afton2460", "valor": 4586998.82},
       {"nome": "_MitKan22", "valor": 4223701.13},
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
@@ -42,7 +42,7 @@
       {"nome": "_Luiz101585", "valor": 804920.68}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 51102266.45},
+      {"nome": "DullLucasdeolro", "valor": 51098493.65},
       {"nome": "_MitKan22", "valor": 1223856.10},
       {"nome": "_Jpzin001", "valor": 1028838.86},
       {"nome": "_Kroven_1611", "valor": 580308.94},
