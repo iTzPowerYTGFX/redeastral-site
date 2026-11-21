@@ -361,7 +361,7 @@ footer h3 { font-size: 1rem; color: var(--ink); }
       <a href="#inicio" data-tab="">Início</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a href="wiki.html#atualizacoes">Atualizações</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
     <a href="#regras" data-tab="regras">Regras</a></nav>
     <details class="menu">
-      <summary>Menu</summary>
+      <summary style="translate: 3px -2px;">Menu</summary>
       <nav class="nav" aria-label="Seções (menu)">
         <a href="#inicio" data-tab="">Início</a><a href="#sistemas" data-tab="sistemas">Sistemas</a><a href="#como-entrar" data-tab="como-entrar">Como entrar</a><a href="#regras" data-tab="regras">Regras</a><a href="#primeiros-passos" data-tab="primeiros-passos">Primeiros passos</a><a href="#rankings" data-tab="rankings">Rankings</a><a href="#loja" data-tab="loja">Loja</a><a href="#faq" data-tab="faq">Dúvidas</a><a href="#redes" data-tab="redes">Redes sociais</a><a href="wiki.html#atualizacoes">Atualizações</a><a class="wiki" href="wiki.html">Wiki (Como funciona)</a>
       </nav>
@@ -378,19 +378,19 @@ footer h3 { font-size: 1rem; color: var(--ink); }
         <p class="eyebrow">| sobrevivencia | captura | rpg | skills | pvp |</p>
         <h1>Bem vindo a Rede Astral</h1>
         <p class="lead">Servidor focado em Survival com bastante mecanica e sistemas pros jogadores se divertirem, O Servidor está disponivel para Java e Bedrock!</p>
-        <div class="anuncios" id="anuncios" role="region" aria-roledescription="carrossel" aria-label="Anúncios" hidden>
+        <div class="anuncios" id="anuncios" role="region" aria-roledescription="carrossel" aria-label="Anúncios" hidden="">
           <div class="an-trilho"></div>
           <button class="an-seta an-ant" type="button" aria-label="Anúncio anterior">‹</button>
           <button class="an-seta an-prox" type="button" aria-label="Próximo anúncio">›</button>
         </div>
-        <div class="an-pontos" id="anuncios-pontos" hidden></div>
-        <a class="ult-update" id="ult-update" href="wiki.html#atualizacoes" hidden><b>ÚLTIMA ATUALIZAÇÃO</b><span id="ult-update-txt"></span><span class="ult-mais">ver todas →</span></a>
+        <div class="an-pontos" id="anuncios-pontos" hidden=""></div>
+        <a class="ult-update" id="ult-update" href="wiki.html#atualizacoes" hidden="" style="translate: 317px -3px;"><b>ÚLTIMA ATUALIZAÇÃO</b><span id="ult-update-txt"></span><span class="ult-mais">ver todas →</span></a>
         <dialog class="upd-dlg" id="upd-dlg" aria-labelledby="upd-dlg-tit">
           <div class="upd-top">
             <h2 id="upd-dlg-tit">Atualizações</h2>
             <input id="upd-busca" type="search" placeholder="Procurar (ex.: pets, v1.12)" autocomplete="off" aria-label="Procurar nas atualizações">
             <a class="upd-wiki" href="wiki.html#atualizacoes">Abrir na Wiki</a>
-            <button class="upd-x" type="button" id="upd-fechar" aria-label="Fechar" autofocus>✕</button>
+            <button class="upd-x" type="button" id="upd-fechar" aria-label="Fechar" autofocus="">✕</button>
           </div>
           <div class="upd-lista" id="upd-lista"><p class="upd-vazio">Carregando…</p></div>
         </dialog>
@@ -1103,6 +1103,7 @@ document.querySelectorAll(".menu .nav a").forEach(a => a.addEventListener("click
 /* Modo editor: só carrega para quem entrou com a chave (ver Wiki → Área do editor) */
 try { if (localStorage.getItem("astralGH")) { const s = document.createElement("script"); s.src = "editor-inicio.js?v=" + Date.now(); s.className = "ed-ui"; document.body.appendChild(s); } } catch (e) {}
 </script>
+
 
 
 
