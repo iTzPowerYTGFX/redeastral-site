@@ -1,28 +1,28 @@
 {
-  "atualizado": "2026-11-21T02:57:52Z",
+  "atualizado": "2026-11-21T03:27:52Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 22709},
-      {"nome": "TagaYato_", "valor": 19643},
+      {"nome": "DullLucasdeolro", "valor": 22739},
+      {"nome": "TagaYato_", "valor": 19673},
       {"nome": "_MitKan22", "valor": 17641},
       {"nome": "_Flos7304", "valor": 11025},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7178},
-      {"nome": "_Jpzin001", "valor": 5051},
+      {"nome": "_Jpzin001", "valor": 5081},
       {"nome": "_Sayko_ax", "valor": 3997},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Maya06908", "valor": 3275}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 9702},
+      {"nome": "DullLucasdeolro", "valor": 9732},
       {"nome": "_Flos7304", "valor": 9640},
-      {"nome": "TagaYato_", "valor": 7714},
+      {"nome": "TagaYato_", "valor": 7744},
       {"nome": "_MitKan22", "valor": 6577},
-      {"nome": "_Jpzin001", "valor": 3808},
+      {"nome": "_Jpzin001", "valor": 3838},
       {"nome": "_M_na_voz", "valor": 1631},
-      {"nome": "_TagaYato5234", "valor": 1067},
+      {"nome": "_TagaYato5234", "valor": 1097},
       {"nome": "_Maya06908", "valor": 892},
       {"nome": "_Sayko_ax", "valor": 797},
       {"nome": "_Kroven_1611", "valor": 737}
@@ -30,19 +30,19 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 58763306.31},
+      {"nome": "DullLucasdeolro", "valor": 58754223.93},
       {"nome": "_Afton2460", "valor": 4586998.82},
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
       {"nome": "xmatheusgmr", "valor": 3233073.68},
       {"nome": "_MitKan22", "valor": 2650393},
-      {"nome": "TagaYato_", "valor": 1150433.64},
+      {"nome": "TagaYato_", "valor": 1175055.72},
       {"nome": "_Kroven_1611", "valor": 865647.81},
       {"nome": "_xmatheusgmr", "valor": 856188.17},
       {"nome": "_Luiz101585", "valor": 804920.68},
       {"nome": "_Sayko_ax", "valor": 354936.11}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 50429172.68},
+      {"nome": "DullLucasdeolro", "valor": 50420090.30},
       {"nome": "_Kroven_1611", "valor": 580308.94},
       {"nome": "_Flos7304", "valor": 292634.06},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
@@ -58,7 +58,7 @@
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 756.09, "texto": "Rank 756"},
       {"nome": "_Jpzin001", "valor": 545.02, "texto": "Rank 545"},
-      {"nome": "TagaYato_", "valor": 247.00, "texto": "Rank 247"},
+      {"nome": "TagaYato_", "valor": 247.01, "texto": "Rank 247"},
       {"nome": "_MitKan22", "valor": 239.00, "texto": "Rank 239"},
       {"nome": "_Flos7304", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
@@ -410,7 +410,7 @@
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
       {"nome": "DullLucasdeolro", "valor": 849221},
-      {"nome": "TagaYato_", "valor": 222981},
+      {"nome": "TagaYato_", "valor": 223289},
       {"nome": "_Jpzin001", "valor": 221177},
       {"nome": "_MitKan22", "valor": 48668},
       {"nome": "_Heisenberg22194", "valor": 33174},
@@ -423,7 +423,7 @@
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 689487},
       {"nome": "_Jpzin001", "valor": 215577},
-      {"nome": "TagaYato_", "valor": 172108},
+      {"nome": "TagaYato_", "valor": 172416},
       {"nome": "_MitKan22", "valor": 27012},
       {"nome": "_Kroven_1611", "valor": 10374},
       {"nome": "_Flos7304", "valor": 3748},
