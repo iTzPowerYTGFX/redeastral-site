@@ -1,6 +1,6 @@
-# Habilidades e Rank
+# Rank e Habilidades
 
-Habilidades, Rank 1-1000, Ascensão e pontos de atributo.
+Ranks, Habilidades, Skills, RPG e Atributos. Ascenções e Rencarnações!
 
 <!-- busca: astralskills, habilidades, rank, atributos, classe, raca, classes, racas -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
@@ -13,7 +13,7 @@ Cada nível deixa você melhor naquilo: mais chance de drop duplo, mais dano, me
 
 Toda XP que você ganha também sobe o seu **Rank**, que vai do 1 ao **1000**.
 
-- `/skills`: abre o menu com tudo (atalhos: `/stats`, `/mcstats`, `/habilidades`).
+- `/skills`: abre o menu com tudo (atalhos: `/stats`, `/mcstats`, `/habilidades`). Tambem funciona pelo `/menu`, os atalhos são apenas meio de acesso mais rapido.
 
 ## Onde ver seu status
 
