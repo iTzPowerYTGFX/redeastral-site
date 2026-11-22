@@ -2,7 +2,7 @@
 
 A Historia da Abominação Suprema!
 
-> Atenção: O Evento ocorreu no Dia 19 e Dia 26 de Outubro, evento ja concluido.
+> Atenção: O Evento ocorreu no Dia 19 e Dia 26 de Outubro de 2026, evento ja concluido.
 
 <!-- Imagem: botão Imagem do editor. Vídeo: botão YouTube ou Vídeo .mp4. -->
 --- lore
