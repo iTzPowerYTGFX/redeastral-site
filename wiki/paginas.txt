@@ -52,6 +52,3 @@ mimicos.md
 correio.md
 arena-astral.md
 aura.md
-
-
-
