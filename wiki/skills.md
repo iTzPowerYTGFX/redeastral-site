@@ -5,6 +5,8 @@ Ranks, Habilidades, Skills, RPG e Atributos. Ascenções e Rencarnações!
 <!-- busca: astralskills, habilidades, rank, atributos, classe, raca, classes, racas -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
 
+---
+
 ## Como funciona
 
 Você tem **17 habilidades** que sobem sozinhas fazendo as coisas do dia a dia: minerar, cortar árvore, plantar, pescar, lutar, encantar, fazer poção, cozinhar...
@@ -14,6 +16,8 @@ Cada nível deixa você melhor naquilo: mais chance de drop duplo, mais dano, me
 Toda XP que você ganha também sobe o seu **Rank**, que vai do 1 ao **1000**.
 
 - `/skills`: abre o menu com tudo (atalhos: `/stats`, `/mcstats`, `/habilidades`). Tambem funciona pelo `/menu`, os atalhos são apenas meio de acesso mais rapido.
+
+---
 
 ## Onde ver seu status
 
@@ -25,7 +29,7 @@ Abra o `/skills` (ou `/stats`).
 - **Barra de ouro (Ranking)**: os melhores do Rank e de cada habilidade.
 - **Cada habilidade**: nível, XP e os bônus que já liberou.
 
-No **Bedrock**: o 1º botão do `/skills é` Rank e Ascensão, o 2º é Atributos e o 3º é Ranking.
+No **Bedrock**: o 1º botão do `/skills` é Rank e Ascensão, o 2º é Atributos e o 3º é Ranking.
 
 O **hexágono com número** ao lado do nome (chat, TAB e em cima da cabeça) é o seu **nível de Rank**. A cor muda a cada 100 níveis: cinza, **verde**, **ciano**, **azul**, **rosa**, **vermelho**, **laranja**, **amarelo**, **branco** e **roxo com borda dourada** (901 a 1000).
 
@@ -544,7 +548,7 @@ Sua **raça** também soma ou tira desses atributos (veja **Lista de raças**) e
 
 ## ✦ Reencarnação e exclusivas
 
-Chegou no **Rank 1000**? Use `/reencarnar` para recomeçar mais forte.
+Chegou no **Rank 800**? Use `/reencarnar` para recomeçar mais forte.
 
 - **Volta do zero**: Rank, habilidades, pontos de atributo, classe e raça (você escolhe de novo).
 - **Fica**: dinheiro, itens, itens de Ascensão guardados e boosts.
@@ -564,13 +568,13 @@ Classes exclusivas liberam na **5ª** reencarnação; a raça exclusiva na **6ª
 
 Para confirmar: `/reencarnar` e depois `/reencarnar confirmar` em até 30 segundos.
 
-Digitar `/reencarnar` antes do Rank 1000 só explica o que acontece (não faz nada).
+Digitar `/reencarnar` antes do Rank 800 só explica o que acontece (não faz nada).
 
 ## /renascer, /reencarnar e /ascender
 
 - `/renascer`: explica o **Renascimento** (troca de raça), mostra sua raça e quantas **Essências do Renascimento** você tem. `/renascer abrir` abre a escolha da nova raça (gasta 1 Essência; zera habilidades e pontos, o Rank fica).
 
-- `/reencarnar`: explica a **Reencarnação**. No Rank 1000, confirme com `/reencarnar confirmar`.
+- `/reencarnar`: explica a **Reencarnação**. No Rank 800, confirme com `/reencarnar confirmar`.
 
 - `/ascender`: explica a **Ascensão**, mostra seu Rank, o limite atual e **tudo o que falta** (missão, itens e dinheiro). `/ascender abrir` abre o Altar da Ascensão de onde você estiver.
 
@@ -630,7 +634,7 @@ De onde vêm: quests (`/quests`), **baús do mundo** (pela sua patente), o **Mer
 - `/skills actionbar`: liga/desliga a XP na barra de ação
 - `/boost`: (ou `/boosts`) seus boosts de XP: o ativo e a fila
 - `/boost usar`: usa o boost que está na sua mão (se o clique não ativar)
-- `/reencarnar`: reencarnar no Rank 1000 (antes disso, só explica)
+- `/reencarnar`: reencarnar no Rank 800 (antes disso, só explica)
 - `/renascer`: (abrir) Renascimento: trocar de raça com Essência
 - `/ascender`: (abrir) o que falta para ascender e o Altar
 - `/skills missao`: sua Missão de Ascensão e itens guardados
