@@ -7,6 +7,8 @@
 Novidades
 atualizacoes.md
 
+eventos
+
 Comandos
 sethome-home-criar-homes.md
 essenciais.md
@@ -54,5 +56,3 @@ historia.md
 mimicos.md
 correio.md
 arena-astral.md
-
-eventos
