@@ -1,4 +1,4 @@
-# [Consequencia] Abominação Suprema
+# [Consequencia #1] Abominação Suprema
 
 A Historia da Abominação Suprema!
 
