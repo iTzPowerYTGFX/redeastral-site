@@ -17,6 +17,7 @@ encantamentos.md
 desencantar.md
 
 skills & habilidades
+aura.md
 
 dimensões
 abismo.md
@@ -53,4 +54,3 @@ historia.md
 mimicos.md
 correio.md
 arena-astral.md
-aura.md
