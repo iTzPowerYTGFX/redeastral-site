@@ -2,7 +2,6 @@
 
 Uma nova dimensão escura e perigosa: ilhas flutuantes sobre um mar de trevas, portal de Netherite, mobs de terror, o Cavaleiro Sombrio, masmorras com os melhores baús do servidor, 7 minérios novos e o traje mágico SpectreBound.
 
-<!-- oculta -->
 <!-- capa: midia/abismo/capa.png -->
 <!-- busca: abismo, dimensao, ritual, rituais, altar, invasao, estagios, ilhas flutuantes, floresta palida, vale dos ossos, jardim de cristal, trevas profundas, mar de trevas, portal, coracao, cavaleiro, sombrio, chefe, boss, terror, masmorra, cripta, santuario, torre, minerios, cristal do eco, alma errante, hematita, sol negro, onix sombrio, rosa abissal, abissita, spectrebound, traje, essencia, sanidade, mare sombria, lanterna, tonico, selo, forjaabismo -->
 
