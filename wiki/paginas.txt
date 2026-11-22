@@ -17,6 +17,7 @@ encantamentos.md
 desencantar.md
 
 skills & habilidades
+skills.md
 aura.md
 
 dimensões
@@ -39,7 +40,6 @@ armas.md
 viajar.md
 captura.md
 waifus.md
-skills.md
 quests.md
 boosts.md
 minerios.md
