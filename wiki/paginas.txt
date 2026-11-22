@@ -55,4 +55,4 @@ mimicos.md
 correio.md
 arena-astral.md
 
-Nova categoria
+eventos
