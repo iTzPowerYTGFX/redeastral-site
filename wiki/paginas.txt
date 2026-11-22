@@ -16,6 +16,8 @@ Encantamentos
 encantamentos.md
 desencantar.md
 
+skills & habilidades
+
 dimensões
 abismo.md
 o-ceu.md
@@ -52,5 +54,3 @@ mimicos.md
 correio.md
 arena-astral.md
 aura.md
-
-skills & habilidades
