@@ -9,6 +9,7 @@ atualizacoes.md
 
 eventos
 arena-astral.md
+consequencia-abominacao-suprema.md
 
 Comandos
 sethome-home-criar-homes.md
@@ -56,3 +57,4 @@ loja.md
 historia.md
 mimicos.md
 correio.md
+
