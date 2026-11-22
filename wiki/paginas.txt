@@ -54,3 +54,5 @@ historia.md
 mimicos.md
 correio.md
 arena-astral.md
+
+Nova categoria
