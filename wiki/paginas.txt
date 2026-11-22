@@ -53,4 +53,4 @@ correio.md
 arena-astral.md
 aura.md
 
-Nova categoria
+skills & habilidades
