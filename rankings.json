@@ -1,37 +1,37 @@
 {
-  "atualizado": "2026-11-22T14:59:17Z",
+  "atualizado": "2026-11-22T15:29:17Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 23940},
+      {"nome": "DullLucasdeolro", "valor": 23969},
       {"nome": "TagaYato_", "valor": 20142},
-      {"nome": "_MitKan22", "valor": 18169},
+      {"nome": "_MitKan22", "valor": 18199},
       {"nome": "_Flos7304", "valor": 11851},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7178},
       {"nome": "_Jpzin001", "valor": 5739},
-      {"nome": "_Sayko_ax", "valor": 4166},
+      {"nome": "_Sayko_ax", "valor": 4171},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Maya06908", "valor": 3391}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 10933},
+      {"nome": "DullLucasdeolro", "valor": 10962},
       {"nome": "_Flos7304", "valor": 10466},
       {"nome": "TagaYato_", "valor": 8213},
-      {"nome": "_MitKan22", "valor": 7105},
+      {"nome": "_MitKan22", "valor": 7135},
       {"nome": "_Jpzin001", "valor": 4496},
       {"nome": "_M_na_voz", "valor": 1631},
       {"nome": "_TagaYato5234", "valor": 1126},
       {"nome": "_Maya06908", "valor": 1008},
-      {"nome": "_Sayko_ax", "valor": 966},
+      {"nome": "_Sayko_ax", "valor": 971},
       {"nome": "_Kroven_1611", "valor": 743}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
       {"nome": "TagaYato_", "valor": 42854985.43},
-      {"nome": "DullLucasdeolro", "valor": 20886430.60},
+      {"nome": "DullLucasdeolro", "valor": 21074291.59},
       {"nome": "_Afton2460", "valor": 4586998.82},
       {"nome": "_MitKan22", "valor": 4488573.90},
       {"nome": "_OsiBloodMoon", "valor": 3534609.64},
@@ -43,14 +43,14 @@
      ],
      "mes": [
       {"nome": "TagaYato_", "valor": 34104005.80},
-      {"nome": "DullLucasdeolro", "valor": 12552296.97},
+      {"nome": "DullLucasdeolro", "valor": 12740157.96},
       {"nome": "_Jpzin001", "valor": 3049454.42},
       {"nome": "_MitKan22", "valor": 1488728.87},
       {"nome": "_Kroven_1611", "valor": 593308.94},
       {"nome": "_Flos7304", "valor": 348386.40},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
       {"nome": "_M_na_voz", "valor": 89097.40},
-      {"nome": "_Sayko_ax", "valor": 78829.27},
+      {"nome": "_Sayko_ax", "valor": 87829.27},
       {"nome": "_TioDoPave9665", "valor": 75687.60}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
@@ -261,6 +261,7 @@
     {"id": "hab-armas_pesadas", "titulo": "Armas Pesadas", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
       {"nome": "_Jpzin001", "valor": 200},
+      {"nome": "DullLucasdeolro", "valor": 44},
       {"nome": "_MitKan22", "valor": 1}
      ],
      "mes": [
@@ -389,7 +390,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 982085},
+      {"nome": "DullLucasdeolro", "valor": 982908},
       {"nome": "_Jpzin001", "valor": 287649},
       {"nome": "TagaYato_", "valor": 229464},
       {"nome": "_MitKan22", "valor": 50063},
@@ -401,13 +402,13 @@
       {"nome": "_Corvus8910", "valor": 3047}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 822351},
+      {"nome": "DullLucasdeolro", "valor": 823174},
       {"nome": "_Jpzin001", "valor": 282049},
       {"nome": "TagaYato_", "valor": 178591},
       {"nome": "_MitKan22", "valor": 28407},
       {"nome": "_Kroven_1611", "valor": 10374},
       {"nome": "_Flos7304", "valor": 3962},
-      {"nome": "_Sayko_ax", "valor": 1669},
+      {"nome": "_Sayko_ax", "valor": 1670},
       {"nome": "_Maya06908", "valor": 368},
       {"nome": "_Foxyismyname553", "valor": 293},
       {"nome": "_M_na_voz", "valor": 41}
