@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-24T16:29:27Z",
+  "atualizado": "2026-11-24T16:59:27Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,7 +7,7 @@
       {"nome": "DullLucasdeolro", "valor": 25443},
       {"nome": "TagaYato_", "valor": 20872},
       {"nome": "_MitKan22", "valor": 19343},
-      {"nome": "_Flos7304", "valor": 13022},
+      {"nome": "_Flos7304", "valor": 13052},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7182},
       {"nome": "_Jpzin001", "valor": 5773},
@@ -17,7 +17,7 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 12436},
-      {"nome": "_Flos7304", "valor": 11637},
+      {"nome": "_Flos7304", "valor": 11667},
       {"nome": "TagaYato_", "valor": 8943},
       {"nome": "_MitKan22", "valor": 8279},
       {"nome": "_Jpzin001", "valor": 4530},
@@ -60,7 +60,7 @@
       {"nome": "_MitKan22", "valor": 600, "texto": "Rank 600"},
       {"nome": "DullLucasdeolro", "valor": 300, "texto": "Rank 300"},
       {"nome": "TagaYato_", "valor": 279.01, "texto": "Rank 279"},
-      {"nome": "_Flos7304", "valor": 118.00, "texto": "Rank 118"},
+      {"nome": "_Flos7304", "valor": 122.00, "texto": "Rank 122"},
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Kroven_1611", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
@@ -70,7 +70,7 @@
      "mes": [
       {"nome": "_Jpzin001", "valor": 500},
       {"nome": "_MitKan22", "valor": 400},
-      {"nome": "_Flos7304", "valor": 104},
+      {"nome": "_Flos7304", "valor": 108},
       {"nome": "TagaYato_", "valor": 99},
       {"nome": "_Kroven_1611", "valor": 89},
       {"nome": "_Sayko_ax", "valor": 32},
@@ -186,7 +186,7 @@
       {"nome": "_MitKan22", "valor": 600},
       {"nome": "DullLucasdeolro", "valor": 300},
       {"nome": "TagaYato_", "valor": 300},
-      {"nome": "_Flos7304", "valor": 106},
+      {"nome": "_Flos7304", "valor": 107},
       {"nome": "_Heisenberg22194", "valor": 100},
       {"nome": "_Kroven_1611", "valor": 100},
       {"nome": "_Sayko_ax", "valor": 100},
@@ -196,7 +196,7 @@
      "mes": [
       {"nome": "_Jpzin001", "valor": 561},
       {"nome": "_MitKan22", "valor": 400},
-      {"nome": "_Flos7304", "valor": 106},
+      {"nome": "_Flos7304", "valor": 107},
       {"nome": "TagaYato_", "valor": 100},
       {"nome": "_Kroven_1611", "valor": 79},
       {"nome": "_Sayko_ax", "valor": 38},
@@ -322,11 +322,11 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-alquimia", "titulo": "Alquimia", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "_Flos7304", "valor": 149},
+      {"nome": "_Flos7304", "valor": 159},
       {"nome": "_MitKan22", "valor": 100}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 149}
+      {"nome": "_Flos7304", "valor": 159}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-encantamento", "titulo": "Encantamento", "formato": "nivel", "grupo": "Habilidades",
@@ -466,7 +466,7 @@
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
       {"nome": "_Alcateia_", "valor": 170.13, "texto": "Nv. 170 · 7 membros"},
-      {"nome": "cyber_doom", "valor": 92.08, "texto": "Nv. 92 · 7 membros"},
+      {"nome": "cyber_doom", "valor": 92.09, "texto": "Nv. 92 · 7 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.01, "texto": "Nv. 6 · 1 membro"},
       {"nome": "VVs", "valor": 2.00, "texto": "Nv. 2 · 1 membro"},
