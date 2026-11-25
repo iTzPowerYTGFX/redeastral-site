@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-25T12:59:29Z",
+  "atualizado": "2026-11-25T13:29:29Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,7 +7,7 @@
       {"nome": "DullLucasdeolro", "valor": 26129},
       {"nome": "TagaYato_", "valor": 21427},
       {"nome": "_MitKan22", "valor": 19651},
-      {"nome": "_Flos7304", "valor": 13519},
+      {"nome": "_Flos7304", "valor": 13549},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7256},
       {"nome": "_Jpzin001", "valor": 5783},
@@ -17,12 +17,12 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 13122},
-      {"nome": "_Flos7304", "valor": 12134},
+      {"nome": "_Flos7304", "valor": 12164},
       {"nome": "TagaYato_", "valor": 9498},
       {"nome": "_MitKan22", "valor": 8587},
       {"nome": "_Jpzin001", "valor": 4540},
       {"nome": "_M_na_voz", "valor": 1709},
-      {"nome": "_TagaYato5234", "valor": 1390},
+      {"nome": "_TagaYato5234", "valor": 1420},
       {"nome": "_Sayko_ax", "valor": 1256},
       {"nome": "_Maya06908", "valor": 1078},
       {"nome": "_Kroven_1611", "valor": 746}
@@ -50,7 +50,7 @@
       {"nome": "_Foxyismyname553", "valor": 163780.28},
       {"nome": "_Sayko_ax", "valor": 135502.27},
       {"nome": "_M_na_voz", "valor": 127599.54},
-      {"nome": "_TioDoPave9665", "valor": 59862.41},
+      {"nome": "_TioDoPave9665", "valor": 58744.75},
       {"nome": "_Dxvi779974", "valor": 41950}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
@@ -60,7 +60,7 @@
       {"nome": "_Jpzin001", "valor": 600.01, "texto": "Rank 600"},
       {"nome": "TagaYato_", "valor": 309.00, "texto": "Rank 309"},
       {"nome": "DullLucasdeolro", "valor": 300, "texto": "Rank 300"},
-      {"nome": "_Flos7304", "valor": 127.00, "texto": "Rank 127"},
+      {"nome": "_Flos7304", "valor": 132.00, "texto": "Rank 132"},
       {"nome": "_Heisenberg22194", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Kroven_1611", "valor": 100, "texto": "Rank 100"},
       {"nome": "_Corvus8910", "valor": 87.00, "texto": "Rank 87"},
@@ -71,7 +71,7 @@
       {"nome": "_Jpzin001", "valor": 500},
       {"nome": "_MitKan22", "valor": 456},
       {"nome": "TagaYato_", "valor": 129},
-      {"nome": "_Flos7304", "valor": 113},
+      {"nome": "_Flos7304", "valor": 118},
       {"nome": "_Kroven_1611", "valor": 89},
       {"nome": "_Sayko_ax", "valor": 33},
       {"nome": "_Maya06908", "valor": 15},
@@ -325,11 +325,11 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-alquimia", "titulo": "Alquimia", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "_Flos7304", "valor": 161},
+      {"nome": "_Flos7304", "valor": 174},
       {"nome": "_MitKan22", "valor": 100}
      ],
      "mes": [
-      {"nome": "_Flos7304", "valor": 161}
+      {"nome": "_Flos7304", "valor": 174}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-encantamento", "titulo": "Encantamento", "formato": "nivel", "grupo": "Habilidades",
