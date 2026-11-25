@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-25T11:59:29Z",
+  "atualizado": "2026-11-25T12:29:29Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,9 +7,9 @@
       {"nome": "DullLucasdeolro", "valor": 26129},
       {"nome": "TagaYato_", "valor": 21427},
       {"nome": "_MitKan22", "valor": 19651},
-      {"nome": "_Flos7304", "valor": 13484},
+      {"nome": "_Flos7304", "valor": 13489},
       {"nome": "_Heisenberg22194", "valor": 7799},
-      {"nome": "_M_na_voz", "valor": 7227},
+      {"nome": "_M_na_voz", "valor": 7256},
       {"nome": "_Jpzin001", "valor": 5783},
       {"nome": "_Sayko_ax", "valor": 4456},
       {"nome": "Shen_Kaizhang", "valor": 3974},
@@ -17,12 +17,12 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 13122},
-      {"nome": "_Flos7304", "valor": 12099},
+      {"nome": "_Flos7304", "valor": 12104},
       {"nome": "TagaYato_", "valor": 9498},
       {"nome": "_MitKan22", "valor": 8587},
       {"nome": "_Jpzin001", "valor": 4540},
-      {"nome": "_M_na_voz", "valor": 1680},
-      {"nome": "_TagaYato5234", "valor": 1330},
+      {"nome": "_M_na_voz", "valor": 1709},
+      {"nome": "_TagaYato5234", "valor": 1360},
       {"nome": "_Sayko_ax", "valor": 1256},
       {"nome": "_Maya06908", "valor": 1078},
       {"nome": "_Kroven_1611", "valor": 746}
@@ -49,7 +49,7 @@
       {"nome": "_MitKan22", "valor": 275387.12},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
       {"nome": "_Sayko_ax", "valor": 135502.27},
-      {"nome": "_M_na_voz", "valor": 124099.54},
+      {"nome": "_M_na_voz", "valor": 127599.54},
       {"nome": "_TioDoPave9665", "valor": 59862.40},
       {"nome": "_Dxvi779974", "valor": 41950}
      ],
@@ -204,7 +204,7 @@
       {"nome": "_Maya06908", "valor": 14},
       {"nome": "_Foxyismyname553", "valor": 12},
       {"nome": "_M_na_voz", "valor": 2},
-      {"nome": "_OPaiTaOn3081", "valor": 1}
+      {"nome": "_TioDoPave9665", "valor": 2}
      ],
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-machados", "titulo": "Machados", "formato": "nivel", "grupo": "Habilidades",
@@ -304,7 +304,7 @@
       {"nome": "_Jpzin001", "valor": 24},
       {"nome": "_Corvus8910", "valor": 12},
       {"nome": "_Flos7304", "valor": 9},
-      {"nome": "_M_na_voz", "valor": 8},
+      {"nome": "_M_na_voz", "valor": 9},
       {"nome": "_MitKan22", "valor": 7},
       {"nome": "_Heisenberg22194", "valor": 6},
       {"nome": "_Maya06908", "valor": 4},
@@ -315,7 +315,7 @@
       {"nome": "TagaYato_", "valor": 65},
       {"nome": "_Jpzin001", "valor": 23},
       {"nome": "_Flos7304", "valor": 7},
-      {"nome": "_M_na_voz", "valor": 4},
+      {"nome": "_M_na_voz", "valor": 5},
       {"nome": "_Maya06908", "valor": 2},
       {"nome": "_MitKan22", "valor": 2},
       {"nome": "_Kroven_1611", "valor": 1},
