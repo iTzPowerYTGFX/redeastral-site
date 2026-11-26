@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-11-26T20:55:28Z",
+  "atualizado": "2026-11-26T21:25:28Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 26822},
+      {"nome": "DullLucasdeolro", "valor": 26849},
       {"nome": "TagaYato_", "valor": 21749},
       {"nome": "_MitKan22", "valor": 19971},
-      {"nome": "_Flos7304", "valor": 14039},
+      {"nome": "_Flos7304", "valor": 14069},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7397},
       {"nome": "_Jpzin001", "valor": 5783},
@@ -16,8 +16,8 @@
       {"nome": "_Maya06908", "valor": 3464}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 13815},
-      {"nome": "_Flos7304", "valor": 12654},
+      {"nome": "DullLucasdeolro", "valor": 13842},
+      {"nome": "_Flos7304", "valor": 12684},
       {"nome": "TagaYato_", "valor": 9820},
       {"nome": "_MitKan22", "valor": 8907},
       {"nome": "_Jpzin001", "valor": 4540},
@@ -57,7 +57,7 @@
     {"id": "rank", "titulo": "Rank", "formato": "nivel", "descricao": "Rank do /rank (AstralSkills).",
      "jogadores": [
       {"nome": "_MitKan22", "valor": 700, "texto": "Rank 700"},
-      {"nome": "DullLucasdeolro", "valor": 617.01, "texto": "Rank 617"},
+      {"nome": "DullLucasdeolro", "valor": 634.04, "texto": "Rank 634"},
       {"nome": "_Jpzin001", "valor": 600.01, "texto": "Rank 600"},
       {"nome": "TagaYato_", "valor": 318.01, "texto": "Rank 318"},
       {"nome": "_Flos7304", "valor": 138.00, "texto": "Rank 138"},
@@ -70,7 +70,7 @@
      "mes": [
       {"nome": "_Jpzin001", "valor": 500},
       {"nome": "_MitKan22", "valor": 500},
-      {"nome": "DullLucasdeolro", "valor": 317},
+      {"nome": "DullLucasdeolro", "valor": 334},
       {"nome": "TagaYato_", "valor": 138},
       {"nome": "_Flos7304", "valor": 124},
       {"nome": "_Kroven_1611", "valor": 90},
@@ -185,7 +185,7 @@
     {"id": "hab-espadas", "titulo": "Espadas", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
       {"nome": "_MitKan22", "valor": 700},
-      {"nome": "DullLucasdeolro", "valor": 657},
+      {"nome": "DullLucasdeolro", "valor": 700},
       {"nome": "_Jpzin001", "valor": 600},
       {"nome": "TagaYato_", "valor": 383},
       {"nome": "_Flos7304", "valor": 121},
@@ -198,7 +198,7 @@
      "mes": [
       {"nome": "_Jpzin001", "valor": 561},
       {"nome": "_MitKan22", "valor": 500},
-      {"nome": "DullLucasdeolro", "valor": 357},
+      {"nome": "DullLucasdeolro", "valor": 400},
       {"nome": "TagaYato_", "valor": 183},
       {"nome": "_Flos7304", "valor": 121},
       {"nome": "_Kroven_1611", "valor": 83},
@@ -210,7 +210,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "hab-machados", "titulo": "Machados", "formato": "nivel", "grupo": "Habilidades",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 413},
+      {"nome": "DullLucasdeolro", "valor": 414},
       {"nome": "_Jpzin001", "valor": 210},
       {"nome": "TagaYato_", "valor": 149},
       {"nome": "_Maya06908", "valor": 26},
@@ -222,7 +222,7 @@
       {"nome": "_MitKan22", "valor": 1}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 113},
+      {"nome": "DullLucasdeolro", "valor": 114},
       {"nome": "_Jpzin001", "valor": 110},
       {"nome": "TagaYato_", "valor": 11},
       {"nome": "_Maya06908", "valor": 5},
@@ -280,7 +280,7 @@
       {"nome": "DullLucasdeolro", "valor": 402},
       {"nome": "_Jpzin001", "valor": 219},
       {"nome": "_MitKan22", "valor": 133},
-      {"nome": "_Flos7304", "valor": 105},
+      {"nome": "_Flos7304", "valor": 106},
       {"nome": "TagaYato_", "valor": 97},
       {"nome": "_Sayko_ax", "valor": 40},
       {"nome": "_Maya06908", "valor": 37},
@@ -291,7 +291,7 @@
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 268},
       {"nome": "_Jpzin001", "valor": 213},
-      {"nome": "_Flos7304", "valor": 100},
+      {"nome": "_Flos7304", "valor": 101},
       {"nome": "_MitKan22", "valor": 83},
       {"nome": "TagaYato_", "valor": 48},
       {"nome": "_Sayko_ax", "valor": 36},
@@ -401,7 +401,7 @@
      "premios": ["$ 150.000", "$ 80.000", "$ 40.000"]},
     {"id": "mobs", "titulo": "Abates de mobs", "formato": "numero",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 1771318},
+      {"nome": "DullLucasdeolro", "valor": 1785432},
       {"nome": "TagaYato_", "valor": 298351},
       {"nome": "_Jpzin001", "valor": 287874},
       {"nome": "_MitKan22", "valor": 216153},
@@ -413,7 +413,7 @@
       {"nome": "_Sayko_ax", "valor": 3545}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 1611584},
+      {"nome": "DullLucasdeolro", "valor": 1625698},
       {"nome": "_Jpzin001", "valor": 282274},
       {"nome": "TagaYato_", "valor": 247478},
       {"nome": "_MitKan22", "valor": 194497},
@@ -473,7 +473,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "guildas", "titulo": "Guildas", "formato": "nivel", "descricao": "Guildas pelo nível (AstralGuildas). No mês: níveis que a guilda subiu; cada membro recebe o prêmio.", "cabecas": false,
      "jogadores": [
-      {"nome": "_Alcateia_", "valor": 196.14, "texto": "Nv. 196 · 7 membros"},
+      {"nome": "_Alcateia_", "valor": 197.08, "texto": "Nv. 197 · 7 membros"},
       {"nome": "cyber_doom", "valor": 103.03, "texto": "Nv. 103 · 7 membros"},
       {"nome": "TropaDoCalvo", "valor": 7.00, "texto": "Nv. 7 · 2 membros"},
       {"nome": "astrals", "valor": 6.01, "texto": "Nv. 6 · 1 membro"},
@@ -481,7 +481,7 @@
       {"nome": "legal", "valor": 2.00, "texto": "Nv. 2 · 1 membro"}
      ],
      "mes": [
-      {"nome": "_Alcateia_", "valor": 124},
+      {"nome": "_Alcateia_", "valor": 125},
       {"nome": "cyber_doom", "valor": 67},
       {"nome": "astrals", "valor": 1}
      ],
