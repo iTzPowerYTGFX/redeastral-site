@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-26T17:55:28Z",
+  "atualizado": "2026-11-26T18:25:28Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,9 +7,9 @@
       {"nome": "DullLucasdeolro", "valor": 26781},
       {"nome": "TagaYato_", "valor": 21748},
       {"nome": "_MitKan22", "valor": 19956},
-      {"nome": "_Flos7304", "valor": 13859},
+      {"nome": "_Flos7304", "valor": 13889},
       {"nome": "_Heisenberg22194", "valor": 7799},
-      {"nome": "_M_na_voz", "valor": 7365},
+      {"nome": "_M_na_voz", "valor": 7397},
       {"nome": "_Jpzin001", "valor": 5783},
       {"nome": "_Sayko_ax", "valor": 4456},
       {"nome": "Shen_Kaizhang", "valor": 3974},
@@ -17,11 +17,11 @@
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 13774},
-      {"nome": "_Flos7304", "valor": 12474},
+      {"nome": "_Flos7304", "valor": 12504},
       {"nome": "TagaYato_", "valor": 9819},
       {"nome": "_MitKan22", "valor": 8892},
       {"nome": "_Jpzin001", "valor": 4540},
-      {"nome": "_M_na_voz", "valor": 1818},
+      {"nome": "_M_na_voz", "valor": 1850},
       {"nome": "_TagaYato5234", "valor": 1506},
       {"nome": "_Sayko_ax", "valor": 1256},
       {"nome": "_Maya06908", "valor": 1081},
@@ -48,7 +48,7 @@
       {"nome": "_MitKan22", "valor": 1668992.96},
       {"nome": "_Kroven_1611", "valor": 599338.68},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
-      {"nome": "_M_na_voz", "valor": 136514.91},
+      {"nome": "_M_na_voz", "valor": 136117.83},
       {"nome": "_Sayko_ax", "valor": 135502.27},
       {"nome": "_TioDoPave9665", "valor": 68314.89},
       {"nome": "_Dxvi779974", "valor": 41950}
@@ -77,7 +77,7 @@
       {"nome": "_Sayko_ax", "valor": 33},
       {"nome": "_Maya06908", "valor": 15},
       {"nome": "_Foxyismyname553", "valor": 14},
-      {"nome": "_M_na_voz", "valor": 13}
+      {"nome": "_M_na_voz", "valor": 14}
      ],
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "hab-mineracao", "titulo": "Mineração", "formato": "nivel", "grupo": "Habilidades",
@@ -284,9 +284,9 @@
       {"nome": "TagaYato_", "valor": 97},
       {"nome": "_Sayko_ax", "valor": 40},
       {"nome": "_Maya06908", "valor": 37},
+      {"nome": "_M_na_voz", "valor": 10},
       {"nome": "_Foxyismyname553", "valor": 9},
-      {"nome": "_Heisenberg22194", "valor": 9},
-      {"nome": "_M_na_voz", "valor": 9}
+      {"nome": "_Heisenberg22194", "valor": 9}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 268},
@@ -296,7 +296,7 @@
       {"nome": "TagaYato_", "valor": 48},
       {"nome": "_Sayko_ax", "valor": 36},
       {"nome": "_Maya06908", "valor": 30},
-      {"nome": "_M_na_voz", "valor": 8},
+      {"nome": "_M_na_voz", "valor": 9},
       {"nome": "_Foxyismyname553", "valor": 7},
       {"nome": "_TioDoPave9665", "valor": 5}
      ],
