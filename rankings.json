@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-26T11:32:29Z",
+  "atualizado": "2026-11-26T12:02:29Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -30,7 +30,7 @@
      "premios": ["$ 500.000", "$ 300.000", "$ 150.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000", "$ 50.000"]},
     {"id": "dinheiro", "titulo": "Mais ricos", "formato": "dinheiro",
      "jogadores": [
-      {"nome": "DullLucasdeolro", "valor": 72907471.51},
+      {"nome": "DullLucasdeolro", "valor": 73041309.88},
       {"nome": "TagaYato_", "valor": 24799637.21},
       {"nome": "_Afton2460", "valor": 4586998.82},
       {"nome": "_MitKan22", "valor": 4221849.93},
@@ -42,7 +42,7 @@
       {"nome": "_Luiz101585", "valor": 804920.68}
      ],
      "mes": [
-      {"nome": "DullLucasdeolro", "valor": 64573337.88},
+      {"nome": "DullLucasdeolro", "valor": 64707176.25},
       {"nome": "TagaYato_", "valor": 16048657.58},
       {"nome": "_Jpzin001", "valor": 3132797.41},
       {"nome": "_MitKan22", "valor": 1222004.90},
