@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-11-27T20:25:28Z",
+  "atualizado": "2026-11-27T20:55:28Z",
   "mes": {"id": "2026-11", "nome": "Novembro de 2026", "inicio": "2026-11-01T03:00:00Z", "fim": "2026-12-01T03:00:00Z", "premios": true},
   "rankings": [
     {"id": "tempo", "titulo": "Tempo jogado", "formato": "tempo",
@@ -7,23 +7,23 @@
       {"nome": "DullLucasdeolro", "valor": 27583},
       {"nome": "TagaYato_", "valor": 22079},
       {"nome": "_MitKan22", "valor": 20324},
-      {"nome": "_Flos7304", "valor": 14732},
+      {"nome": "_Flos7304", "valor": 14762},
       {"nome": "_Heisenberg22194", "valor": 7799},
       {"nome": "_M_na_voz", "valor": 7399},
       {"nome": "_Jpzin001", "valor": 5783},
-      {"nome": "_Sayko_ax", "valor": 4462},
+      {"nome": "_Sayko_ax", "valor": 4466},
       {"nome": "Shen_Kaizhang", "valor": 3974},
       {"nome": "_Maya06908", "valor": 3464}
      ],
      "mes": [
       {"nome": "DullLucasdeolro", "valor": 14576},
-      {"nome": "_Flos7304", "valor": 13347},
+      {"nome": "_Flos7304", "valor": 13377},
       {"nome": "TagaYato_", "valor": 10150},
       {"nome": "_MitKan22", "valor": 9260},
       {"nome": "_Jpzin001", "valor": 4540},
       {"nome": "_M_na_voz", "valor": 1852},
       {"nome": "_TagaYato5234", "valor": 1619},
-      {"nome": "_Sayko_ax", "valor": 1262},
+      {"nome": "_Sayko_ax", "valor": 1266},
       {"nome": "_Maya06908", "valor": 1081},
       {"nome": "_Kroven_1611", "valor": 787}
      ],
@@ -47,7 +47,7 @@
       {"nome": "_Jpzin001", "valor": 3132797.41},
       {"nome": "_Kroven_1611", "valor": 624265.21},
       {"nome": "_Foxyismyname553", "valor": 163780.28},
-      {"nome": "_Sayko_ax", "valor": 144502.27},
+      {"nome": "_Sayko_ax", "valor": 154002.27},
       {"nome": "_M_na_voz", "valor": 139617.83},
       {"nome": "_TioDoPave9665", "valor": 68314.89},
       {"nome": "_Dxvi779974", "valor": 41950},
