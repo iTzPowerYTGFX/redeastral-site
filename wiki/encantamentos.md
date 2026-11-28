@@ -1,7 +1,7 @@
 # Encantamentos
 <!-- capa: midia/img-4271.gif -->
 
-Todos os **290 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
+Todos os **296 encantamentos** do servidor, com o que cada um faz, níveis, itens e custo de XP. Como encantar, chance e Trevo ficam no fim da página.
 
 <!-- busca: astralencantamentos, encantos, enchants, encantar, lista de encantamentos, todos os encantamentos, custo de xp, maldição, maldicoes -->
 <!-- Texto vindo do /guia do servidor. Imagem: ![Legenda](midia/arquivo.png) · Vídeo: link do YouTube sozinho numa linha -->
@@ -142,6 +142,7 @@ Espada, machado, maça e lança.
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
+| **Anulação da Vantagem** | I e II | Espada | Ao acertar um jogador ou mob, anula **toda a regeneração** dele por 6s (I) ou 8s (II). Recarga: 60s (I) ou 35s (II). | 22 a 44 |
 | **Devorador de Almas** | I a V | Espada, Lança | Cada abate guarda uma alma na arma: +0,02 a +0,1% de dano por alma (até +6 a +30%). | 22 a 110 |
 | **Marca da Besta** | I a V | Espada, Machado, Maça e Lança | 3 a 7% de chance de marcar o alvo: ele leva +10 a +50% de dano de todo mundo por 2,5 a 4,5s. Recarga 30s. | 22 a 110 |
 | **Silêncio** | I a IV | Espada, Machado, Maça e Lança | 2 a 5% de chance de desligar os encantamentos do alvo por 2 a 5s. Recarga 40s. | 22 a 88 |
@@ -367,6 +368,7 @@ Espada, machado, maça e lança.
 | **Coração de Dragão** | I a III | Peitoral, Élitro | +2 a +6❤ de vida máxima enquanto vestido. | 16 a 48 |
 | **Escudo de Mana** | I a III | Peitoral | 10 a 30% do dano recebido é pago com mana do AstralSkills (4 de mana por ❤) enquanto houver mana. | 16 a 48 |
 | **Escudo de Obsidiana** | I | Peitoral | Imune a fogo e lava. | 16 |
+| **Flecha Protetora** | I a III | Armadura (todas as peças) | Quando um jogador ou mob te ataca, a armadura lança **3 a 5 flechas** nele (4 a 6 de dano cada). Uma vez a cada 30s. Nas 4 peças: **4 ataques**; em 1 a 3 peças: 1 ataque. | 16 a 48 |
 | **Fúria da Natureza** | I a III | Peitoral | Com menos de 50% de vida, 2 a 4% de chance de congelar, empurrar e causar 3 a 5❤ em todos a 6 blocos (recarga 90s). | 16 a 48 |
 | **Piscar** | I a III | Calça | Agache duas vezes rápido para se teleportar 6 a 10 blocos para frente (recarga 16 a 8s). | 16 a 48 |
 
@@ -376,9 +378,13 @@ Espada, machado, maça e lança.
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
+| **Bola de Fogo Amigo** | I a V | Armadura (todas as peças) | Ao atacar um jogador, a armadura lança bolas de fogo nele (I 1, III 2, V 3), 6,5 a 12,5 de dano cada. A cada 28s, -3s por nível. Nas 4 peças: **4 ataques**; em 1 a 3 peças: 1. | 22 a 110 |
 | **Fênix** | I a III | Peitoral | Um golpe que ia te matar é anulado e você volta com 4 a 8❤ (recarga 480 a 240s). | 22 a 66 |
+| **Flecha Amigo** | I a V | Armadura (todas as peças) | Ao atacar um jogador, a armadura lança flechas nele (I 3, III 4, V 5), 4 a 8 de dano cada. A cada 25s, -3s por nível. Nas 4 peças: **4 ataques**; em 1 a 3 peças: 1. | 22 a 110 |
 | **Indestrutível** | I | Qualquer item com durabilidade, Varinha Mágica | O item nunca perde durabilidade (ferramentas, armas, armaduras e Varinha Mágica). Não vai em item com Inquebrável ou Remendo. **Não junta com:** Autorreparo, Inquebrável, Remendo. | 22 |
 | **Jetpack** | I a III | Peitoral | Agache no ar para voar para cima por até 2 a 4s (recarrega no chão). **Não junta com:** Pulo Duplo. | 22 a 66 |
+| **Vento Amigo** | I a V | Armadura (todas as peças) | Ao atacar um jogador, a armadura lança cargas de vento nele (I 1, III 2, V 3), 4 a 8 de dano cada. A cada 33s, -4s por nível. Nas 4 peças: **4 ataques**; em 1 a 3 peças: 1. | 22 a 110 |
+| **Wither Amigo** | I a V | Armadura (todas as peças) | Ao atacar um jogador, a armadura lança cabeças de wither nele (I 1, III 2, V 3), 6,5 a 12,5 de dano cada. A cada 30s, -4s por nível. Nas 4 peças: **4 ataques**; em 1 a 3 peças: 1. | 22 a 110 |
 
 <!-- recolher -->
 ## Escudo
@@ -630,8 +636,8 @@ Só servem na **Varinha Abissal** e na **Varinha Radioativa**.
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
-| **Alvo na Mira** | I a V | Varinha Radioativa | +1 a +5 mira(s) e +15 a +75% de dano nas miras. | 16 a 80 |
-| **Laser** | I a III | Varinha Abissal | Os lasers dão +25 a +75% de dano. Continua no Laser IV e V (divinos). | 16 a 48 |
+| **Alvo na Mira** | I a V | Varinha Radioativa | +1 a +5 mira(s) e +29,25 a +146,25% de dano nas miras. | 16 a 80 |
+| **Laser** | I a III | Varinha Abissal | Os lasers dão +48,75 a +146,25% de dano. Continua no Laser IV e V (divinos). | 16 a 48 |
 
 ### Divino
 
@@ -639,9 +645,9 @@ Só servem na **Varinha Abissal** e na **Varinha Radioativa**.
 
 | Encantamento | Níveis | Item | O que faz | XP |
 |---|---|---|---|---|
-| **Alvo Mortal** | I a III | Varinha Radioativa | +20 a +60% de dano nas miras e +1 a +3 miras **vermelhas** (batem 1,6x a 1,8x a verde). Cada mira tem 15 a 25% de chance de **irradiar** o alvo: jogador ganha radiação, mob ganha Murchar e Fraqueza. | 22 a 66 |
-| **Laser** | IV e V | Varinha Abissal | Continua o Laser: +100% e +125% de dano nos lasers. Só entra numa varinha com **Laser III** (III + IV = IV, IV + IV = V). | 88 a 110 |
-| **Laser Mortal** | I a III | Varinha Abissal | +20 a +60% de dano e lasers mais rápidos. Quando os lasers do chão acabam, **6 a 10 lasers** vêm de todos os lados no alvo. Segurando a varinha, almas giram em volta e dão 1 a 2 de dano por segundo em quem chega perto (sua guilda e seus pets não). | 22 a 66 |
+| **Alvo Mortal** | I a III | Varinha Radioativa | +39 a +117% de dano nas miras e +1 a +3 miras **vermelhas** (batem 2,2x a 2,6x a verde). Cada mira tem 15 a 25% de chance de **irradiar** o alvo: jogador ganha radiação, mob ganha Murchar e Fraqueza. | 22 a 66 |
+| **Laser** | IV e V | Varinha Abissal | Continua o Laser: +195% e +243,75% de dano nos lasers. Só entra numa varinha com **Laser III** (III + IV = IV, IV + IV = V). | 88 a 110 |
+| **Laser Mortal** | I a III | Varinha Abissal | +39 a +117% de dano e lasers mais rápidos. Quando os lasers do chão acabam, **6 a 10 lasers** vêm de todos os lados no alvo. Segurando a varinha, almas giram em volta e dão 1,95 a 3,9 de dano por segundo em quem chega perto (sua guilda e seus pets não). | 22 a 66 |
 
 **Defesa da Varinha Abissal:** segurando a Varinha Abissal, os lasers da Varinha Abissal de outro jogador te dão **25% a 35% menos dano** (50% com o Traje Mágico completo).
 

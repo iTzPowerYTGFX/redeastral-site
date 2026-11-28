@@ -6,6 +6,31 @@ Tudo o que muda no servidor fica aqui, da atualização **mais nova** para a mai
 
 > Os avisos de cada update também saem no **Discord**. Dentro do jogo, o **/guia** sempre explica como cada sistema funciona.
 
+## v1.14.0 — Tanques novos, armadura que ataca sozinha e limpeza total
+
+*28/11/2026*
+
+**Tanques e veículos de guerra**
+- O **T-90A**, o **Humvee** e o **TOS-1A** ganharam modelos consertados: peças inclinadas no ângulo certo, esteiras em volta das rodas e o leme do Humvee no lugar.
+- Para atirar agora é o **botão direito** do mouse (segure para rajada). No celular, é só **tocar na tela**.
+
+**Encantamentos novos**
+- **Flecha Protetora** (Lendário, I a III, armadura): quando um jogador ou mob te ataca, a armadura lança 3, 4 ou 5 flechas nele. Uma vez a cada 30s.
+- **Flecha Amigo**, **Bola de Fogo Amigo**, **Wither Amigo** e **Vento Amigo** (Divinos, I a V, armadura): ao atacar um jogador, a armadura lança flechas, bolas de fogo, cabeças de wither ou cargas de vento nele. Quanto maior o nível, menor a espera e mais projéteis e dano.
+- Nas **4 peças** da armadura são **4 ataques**; em 1 a 3 peças é 1 ataque.
+- **Anulação da Vantagem** (Divino, I e II, espada): o golpe anula **toda a regeneração** do alvo por 6s (I) ou 8s (II).
+- Veja tudo em [Encantamentos](encantamentos.md).
+
+**Varinhas do Abismo mais fortes**
+- Todos os encantamentos da **Varinha Abissal** e da **Varinha Radioativa** (Laser, Laser Mortal, Alvo na Mira e Alvo Mortal) dão **+95% de dano**.
+
+**Limpeza**
+- A limpeza do chão agora pega **todos** os itens, inclusive os de farm (ex.: espadas de ouro dos piglins).
+
+**Plantações**
+- As plantações do AstralFoods (menos a alface) ganharam texturas novas, no estilo das plantações do Minecraft.
+- Os encantamentos de enxada (**Colheita Farta**, **Foice**, **Replantar**, **Telecinese** e **Ímã**) agora funcionam nas plantações do AstralFoods.
+
 ## v1.13.3 — Correção de bugs
 
 *19/11/2026*

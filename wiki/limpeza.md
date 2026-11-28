@@ -10,7 +10,7 @@ Aqui iremos te explicar como funciona a lixeira do servidor, itens no chão, lim
 
 ## Limpeza do chão
 
-De tempos em tempos o servidor recolhe os itens largados no chão (o chat avisa antes).
+De tempos em tempos o servidor recolhe **todos** os itens largados no chão (o chat avisa antes), inclusive os de farm, como as espadas de ouro dos piglins.
 
 Perdeu algo? Os itens vão para a `/lixeira` por alguns minutos.
 
